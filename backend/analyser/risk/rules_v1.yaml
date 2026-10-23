@@ -1,0 +1,421 @@
+# Risk rules R1-R18 (feature F12), written from the CONTRACTOR's side.
+# Source: Tender_Analyser_Build_Spec_v1.md section 7 and Appendix A.
+#
+# Thresholds are starting points, not law. Edit them here, not in code.
+# Status tags: [SEEN] = read in a real document; [ASSUMPTION] = our design choice, calibrate.
+#
+# Not used on purpose (spec section 7, "Not verified, do not hard-code"):
+#   - GFR 2017 Rule 171 "performance security plus security deposit 3 to 10%" [UNVERIFIED]
+#   - MSME Act "payment within 45 days" [UNVERIFIED]
+#   - "Delay damages need proof of loss": contested (SC 2015 vs 2025). Context only, never a rule.
+#
+# Each rule:
+#   id, title, category (risk | unclear), question_ids, rule (the plain rule text),
+#   thresholds (numbers the code compares against), threshold_status (tag per threshold),
+#   patterns (regexes the code looks for in answers), reference_value, reference_source,
+#   triggers: one entry per way the rule can fire, each with severity and an explanation
+#   template. Placeholders: {detail} (what was found), any threshold name, {pointer}.
+#   unclear: severity and explanations used when the answer is NOT_STATED or POINTS_ELSEWHERE.
+
+version: 1
+
+rules:
+  - id: R1
+    title: Retention or security deposit high or uncapped
+    category: risk
+    question_ids: ["2.1", "2.2", "2.3", "2.5"]
+    rule: "Raise when the total retention cap is above 5% of contract value, or there is no cap, or all retention is held to the end of the defects period with no stage release."
+    thresholds:
+      max_cap_pct: 5.0
+    threshold_status:
+      max_cap_pct: "[SEEN]"
+    patterns:
+      no_cap: ['\bno (separate )?(cap|maximum|ceiling|limit)\b', '\buncapped\b', '\bwithout (any )?(cap|limit)\b', '\bnot capped\b']
+      # Rate base that is already the whole contract (so the rate is itself the total)
+      whole_value_base: ['tendered (amount|value)', 'contract (price|value|amount)', 'bid price', 'accepted (tender|bid)']
+      per_bill_base: ['\bbill', 'payment', 'statement', 'certificate']
+      late_release: ['defects? liability', 'maintenance period', '\d+\s*months? after (the )?completion', 'warranty period']
+      stage_release: ['\bhalf\b', 'in parts', 'year[- ]?wise', 'year by year', '\bpartly\b', 'instalments?', '\d+\s*%\s*(of [a-z ]+)?(is |are |shall be )?(released|refunded|returned)']
+    reference_value: "Security deposit usually 5% of each running bill, replaceable by a bank guarantee; half released at taking-over."
+    reference_source: "Manual for Procurement of Works 2022, Dept. of Expenditure [SEEN]"
+    triggers:
+      cap_high:
+        severity: Medium
+        explanation: "The employer can hold back up to {detail} of the contract value, more than the usual {max_cap_pct}%. That money is your profit sitting with the employer until release; you fund the work from your own overdraft meanwhile."
+      no_cap:
+        severity: Medium
+        explanation: "Retention is deducted from every bill ({detail}) and no overall cap was found, so deductions keep running for the whole contract. Ask for a cap of {max_cap_pct}% of contract value."
+      late_release:
+        severity: Medium
+        explanation: "All retention is held to the end of the defects period ('{detail}'), with none released at completion. The reference practice releases half at taking-over. Plan to finance this money for the full defects period, or offer a bank guarantee instead."
+    unclear:
+      severity: Needs review
+
+  - id: R2
+    title: Deduction rate above the cap
+    category: risk
+    question_ids: ["2.2", "2.3"]
+    rule: "Raise when the retention deduction rate per bill is higher than the stated total cap."
+    thresholds: {}
+    threshold_status: {}
+    reference_value: "Not a fault in itself: the higher rate front-loads the deductions until the cap is reached."
+    reference_source: "Seen in the NHAI test agreement (rate 6%, cap 5%) [SEEN]"
+    triggers:
+      rate_above_cap:
+        severity: Info
+        explanation: "Deductions are {detail}. Early bills are cut harder than the cap suggests: use the rate for early-month cash and the cap for the total locked up."
+    unclear:
+      severity: Needs review
+
+  - id: R3
+    title: Performance security high
+    category: risk
+    question_ids: ["6.2", "6.8"]
+    rule: "Raise when performance security is above 5% of value, or an additional security for low bids applies."
+    thresholds:
+      max_pct: 5.0
+    threshold_status:
+      max_pct: "[SEEN]"
+    patterns:
+      performance: ['performance (security|guarantee)', '\bPG\b', '\bPS\b']
+      additional: ['additional']
+      no_additional: ['^\s*no\b', '\bno additional (performance )?security\b', '\bnot (required|applicable)\b', '^\s*none\b']
+    reference_value: "Usually 5% of contract value; Dept. of Expenditure order of 12 Nov 2020 cut it to 3%."
+    reference_source: "Manual for Procurement of Works 2022 [SEEN]; DoE OM 12 Nov 2020 [SEEN, via a circular that quotes it]"
+    triggers:
+      pct_high:
+        severity: Medium
+        explanation: "The performance guarantee is {detail}, above the usual {max_pct}% (the 2020 government order cut it to 3%). A bigger guarantee uses more of your bank limit and costs more commission every year it is held."
+      additional:
+        severity: Medium
+        explanation: "An extra security applies on top of the normal guarantee: {detail}. If your bid is well below the estimate you must lock up more bank limit; price this into an aggressive bid."
+    unclear:
+      severity: Needs review
+
+  - id: R4
+    title: Delay damages uncapped or high
+    category: risk
+    question_ids: ["4.1", "4.2", "4.3"]
+    rule: "Raise when delay damages have no cap (High), or the cap is above 10% of value, or the daily rate is above 0.05% of value (Medium)."
+    thresholds:
+      max_cap_pct: 10.0
+      max_daily_rate_pct: 0.05
+      days_per_month: 30
+    threshold_status:
+      max_cap_pct: "[SEEN]"
+      max_daily_rate_pct: "[ASSUMPTION]"
+      days_per_month: "[ASSUMPTION]"
+    patterns:
+      no_cap: ['\bno (cap|maximum|ceiling|limit)\b', '\buncapped\b', '\bwithout (any )?(cap|limit)\b', '\bnot capped\b', '\bunlimited\b']
+      no_damages: ['^\s*no\b', '\bno (liquidated )?damages\b']
+    reference_value: "Total damages not above 10% of contract price; NHAI 0.05% a day, cap 10%; CPWD up to 1% a month, cap 10%."
+    reference_source: "Manual for Procurement of Works 2022 [SEEN]; CPWD GCC 2023 cl. 2 [SEEN]; NHAI EPC agreement cl. 10.3 [SEEN]; 0.05%/day line [ASSUMPTION, calibrate]"
+    triggers:
+      no_cap:
+        severity: High
+        explanation: "Delay damages run at {detail} and no cap was found. A long delay could wipe out the whole margin and more. Do not bid until a cap (usually {max_cap_pct}% of value) is confirmed."
+      cap_high:
+        severity: Medium
+        explanation: "Delay damages can reach {detail} of the contract value, above the usual {max_cap_pct}%. Your worst-case loss from delay is larger than on a standard contract."
+      daily_rate_high:
+        severity: Medium
+        explanation: "Delay damages run at {detail}, faster than the {max_daily_rate_pct}% a day reference, so the cap is reached sooner. A short slip costs more than usual."
+    unclear:
+      severity: Needs review
+
+  - id: R5
+    title: No extension-of-time route
+    category: risk
+    question_ids: ["4.1", "4.5"]
+    rule: "Raise when delay damages apply but no grounds for extension of time are found."
+    thresholds: {}
+    threshold_status: {}
+    patterns:
+      no_eot: ['^\s*no\b', '\bno (extension|provision for extension)\b']
+    reference_value: "Standard forms give extension for employer delay, force majeure and change of scope."
+    reference_source: "Check each contract's extension clause (CPWD GCC 2023 cl. 5; NHAI EPC cl. 10.5) [SEEN]"
+    triggers:
+      no_eot:
+        severity: High
+        explanation: "Damages apply for delay but the contract gives no route to ask for more time. Even delays caused by the employer could lead to damages. Get the extension clause before bidding."
+    unclear:
+      severity: Needs review
+
+  - id: R6
+    title: No interest on late payment
+    category: risk
+    question_ids: ["1.4"]
+    rule: "Raise when the contract says no interest is payable on late payment (High), or is silent (unclear)."
+    thresholds: {}
+    threshold_status: {}
+    patterns:
+      no_interest: ['\bno interest\b', 'interest (is |shall )?not (be )?payable', '\bnot entitled to (any )?interest\b', '\bwithout (any )?interest\b', '^\s*no\b']
+    reference_value: "NHAI pays Bank Rate + 3% on unpaid sums; CPWD pays 5% simple interest after 45 days."
+    reference_source: "NHAI EPC agreement cl. 19.9 [SEEN]; CPWD GCC 2023 cl. 7 [SEEN]; 'no interest' seen in the MP tender [SEEN]"
+    triggers:
+      no_interest:
+        severity: High
+        explanation: "The contract says {detail}. If the employer pays late you carry the cost on your overdraft and cannot claim interest. Every month of late payment is a straight loss."
+    unclear:
+      severity: High
+      not_stated: "The contract is SILENT on interest for late payment (it does not say 'no interest' either). You may not be able to claim interest if bills are paid late. Ask the employer to confirm before bidding."
+      points_elsewhere: "Interest on late payment is not in this package; it is in {pointer}. Read that document before relying on any interest."
+
+  - id: R7
+    title: Slow or unclear payment
+    category: risk
+    question_ids: ["1.3", "1.2"]
+    rule: "Raise when the period to pay a bill is above 30 days, or is not stated."
+    thresholds:
+      max_payment_days: 30
+      working_day_factor: 1.4
+    threshold_status:
+      max_payment_days: "[ASSUMPTION]"
+      working_day_factor: "[ASSUMPTION]"
+    patterns:
+      ignore_segment: ['interest']
+    reference_value: "NHAI pays within 30 days; CPWD part payment in 10 and the rest in 28 working days."
+    reference_source: "NHAI EPC agreement cl. 19.9 [SEEN]; CPWD GCC 2023 cl. 7 [SEEN]; 30-day line [ASSUMPTION]"
+    triggers:
+      slow:
+        severity: Medium
+        explanation: "Bills are paid within {detail}, slower than {max_payment_days} days. Each extra day is a day you fund the work yourself."
+    unclear:
+      severity: Medium
+      not_stated: "The contract does not say how many days the employer has to pay a bill. You cannot plan your cash, and late payment is hard to challenge."
+      points_elsewhere: "The payment period is not in this package; it is in {pointer}. Read that document before relying on a payment date."
+
+  - id: R8
+    title: No advance, or a costly one
+    category: risk
+    question_ids: ["3.1", "3.3", "3.5"]
+    rule: "Raise when there is no mobilisation advance, or the advance carries interest, or its guarantee is above 100% of the advance."
+    thresholds:
+      max_guarantee_pct: 100
+    threshold_status:
+      max_guarantee_pct: "[ASSUMPTION]"
+    patterns:
+      no_advance: ['^\s*no\b', '\bno (mobili[sz]ation )?advance\b', '\bnot (be )?(applicable|payable|given)\b', '\bshall not be applicable\b']
+      interest_free: ['interest[- ]free', '\bno interest\b', 'without interest']
+      interest_bearing: ['interest[- ]bearing', 'simple interest', 'bank rate', '\d\s*%\s*(a year|per annum|p\.?\s?a\.?)', 'interest (at|of|@)']
+    reference_value: "Advance should be need-based; interest-free advances are discouraged."
+    reference_source: "Manual for Procurement of Works 2022 [SEEN]; 100% guarantee line [ASSUMPTION]"
+    triggers:
+      no_advance:
+        severity: Medium
+        explanation: "No mobilisation advance is given ({detail}). You must fund mobilisation, site set-up and early materials from your own money until the first bill is paid."
+      interest_bearing:
+        severity: Medium
+        explanation: "The advance carries interest ({detail}). Compare that rate with your overdraft rate; the advance may cost about the same as borrowing."
+      guarantee_high:
+        severity: Medium
+        explanation: "The advance needs a bank guarantee of {detail}, more than the advance itself. It uses up bank limit and commission for a smaller amount of cash."
+    unclear:
+      severity: Needs review
+      not_stated: "The package does not say whether a mobilisation advance is given. Assume none until confirmed."
+      points_elsewhere: "Whether an advance is given is decided in {pointer}, which is not in this package."
+
+  - id: R9
+    title: Fast advance recovery
+    category: risk
+    question_ids: ["3.4"]
+    rule: "Raise when the advance is fully recovered before 80% of the planned work is done (needs the cash inputs)."
+    thresholds:
+      min_work_share_at_full_recovery: 0.8
+    threshold_status:
+      min_work_share_at_full_recovery: "[ASSUMPTION]"
+    reference_value: "CPWD recovers the advance pro rata so that it is fully back when 80% of the work value is done."
+    reference_source: "CPWD GCC cl. 10B(iii) pattern [SEEN]; 80% line [ASSUMPTION, calibrate]"
+    triggers:
+      fast:
+        severity: Medium
+        explanation: "The advance is fully taken back by {detail}. After that the bills are cut while the work still needs funding, so the advance helps less than its size suggests."
+    unclear:
+      severity: Needs review
+
+  - id: R10
+    title: Fixed price on a long contract
+    category: risk
+    question_ids: ["5.1", "0.4"]
+    rule: "Raise when there is no price variation and the planned duration is above 18 months."
+    thresholds:
+      max_fixed_price_months: 18
+    threshold_status:
+      max_fixed_price_months: "[SEEN]"
+    patterns:
+      fixed: ['fixed price', '\bfirm (price|rates?)\b', 'rates (are |shall be )?firm', '\bno\b[^.;]{0,30}\b(escalation|price variation|price adjustment)', '\bnot (be )?eligible for (any )?(escalation|price)']
+      active: ['\bappl(y|ies|icable)\b', 'price variation', 'price adjustment', 'escalation']
+      # Gates (trap T13): "only above Rs 10 crore", "only for periods over 12 months"
+      gate_months: ['(?:over|exceeding|more than|above|beyond)\s+(\d+)\s*months']
+      gate_value: ['(?:over|exceeding|more than|above)\s+(?:Rs\.?|INR)\s*([\d,.]+)\s*(crores?|lakhs?|lacs?)?']
+    reference_value: "Price variation is not applicable to contracts of up to 18 months."
+    reference_source: "Manual for Procurement of Works 2022 [SEEN]"
+    triggers:
+      long_fixed:
+        severity: High
+        explanation: "The contract is fixed price ({detail}). Over this length, rises in cement, steel, fuel and wages come out of your margin. Price in a contingency for inflation."
+    unclear:
+      severity: Needs review
+      not_stated: "The package does not say whether prices are fixed or adjusted. Assume fixed price until confirmed."
+      points_elsewhere: "Whether prices are adjusted is decided in {pointer}, which is not in this package."
+      no_duration: "The contract is fixed price ({detail}) but the duration is unknown, so we cannot tell whether it is long. Enter the planned duration."
+      gate_unknown: "Price variation only applies past a size or duration gate ({detail}), and the contract value or duration needed to test the gate is blank. Enter them to know whether prices are adjusted."
+
+  - id: R11
+    title: Price variation with holes
+    category: risk
+    question_ids: ["5.1", "5.3", "5.4", "5.7"]
+    rule: "Raise when price variation leaves out labour, uses a long index lag, cuts off late-billed work, or applies only above a size or duration this contract does not reach."
+    thresholds:
+      max_index_lag_months: 3
+    threshold_status:
+      max_index_lag_months: "[ASSUMPTION]"
+    patterns:
+      labour: ['labou?r']
+      lag: ['(\d+|one|two|three|four|five|six)\s*months?\s*(before|prior|preceding|earlier)']
+      billing_cutoff: ['billed within', 'bill(s|ed)? (is |are )?(submitted|presented) within', 'stages? billed', 'within \d+ days of the (applicable )?milestone']
+    reference_value: "A full price variation covers labour and the main materials, uses recent indices and pays on all work done in the stipulated or extended period."
+    reference_source: "Read from the contract's own clause (C5); lag line [ASSUMPTION]"
+    triggers:
+      gate_not_met:
+        severity: Medium
+        explanation: "Price variation is printed but does not apply to this contract: {detail}. Treat the contract as fixed price."
+      no_labour:
+        severity: Medium
+        explanation: "The price variation formula has no labour component ({detail}). Wage rises during the contract are not paid back."
+      long_lag:
+        severity: Medium
+        explanation: "Indices are taken {detail}, longer than {max_index_lag_months} months. Recovery trails the real price rise."
+      billing_cutoff:
+        severity: Medium
+        explanation: "Escalation is lost on work not billed in time: {detail}. A late bill means no price adjustment on that work."
+    unclear:
+      severity: Needs review
+      gate_unknown: "Price variation only applies past a size or duration gate ({detail}), and the contract value or duration needed to test the gate is blank (trap T13). Enter them to know whether prices are adjusted."
+
+  - id: R12
+    title: Progress-linked termination or heavy withholding
+    category: risk
+    question_ids: ["0.6", "4.2", "4.3", "4.4", "4.8"]
+    rule: "Raise when the employer may terminate on slow progress or once damages hit the cap, or withholds large percentages for missed milestones."
+    thresholds:
+      withholding_pct: 1.0
+    threshold_status:
+      withholding_pct: "[ASSUMPTION]"
+    patterns:
+      termination: ['\bterminat', '\brescind', '\bdetermin(e|ation of) the contract', 'termination penalty']
+      withholding: ['withh[oe]ld', '\bretain', 'slippage', 'missed milestone']
+    reference_value: "Milestone withholding refunded when progress is made good; termination only for real default."
+    reference_source: "Seen in the MP tender (Annexure P) and the MoEF tender (Schedule F) [SEEN]; 1% line [ASSUMPTION]"
+    triggers:
+      termination:
+        severity: Medium
+        explanation: "The employer can end the contract when progress or damages pass a limit ({detail}). On termination you also risk losing your securities, so a bad patch can become a total loss."
+      withholding:
+        severity: Medium
+        explanation: "Missed milestones lead to money being held back ({detail}). Cash you expected can stop mid-contract; it is usually refunded only if you catch up."
+    unclear:
+      severity: Needs review
+
+  - id: R13
+    title: High minimum bill
+    category: risk
+    question_ids: ["1.6"]
+    rule: "Raise when the value of work needed before an interim bill is payable is more than one planned month of billing."
+    thresholds:
+      max_months_of_billing: 1.0
+    threshold_status:
+      max_months_of_billing: "[ASSUMPTION]"
+    patterns:
+      none: ['^\s*no\b[^.;]*minimum', '\bno (general )?minimum\b', '^\s*none\b']
+    reference_value: "Minimum bill no larger than one month of planned work."
+    reference_source: "Seen in the IIT Bombay schedule [SEEN]; one-month line [ASSUMPTION]"
+    triggers:
+      high:
+        severity: Medium
+        explanation: "No interim bill is paid until {detail}. In slow months you wait for the next bill and fund the gap yourself."
+    unclear:
+      severity: Needs review
+      no_value: "A minimum bill value applies ({detail}) but the contract value or duration is unknown, so we cannot tell whether it is high. Enter them in the cash inputs."
+
+  - id: R14
+    title: Guarantee validity tied to extensions
+    category: risk
+    question_ids: ["6.5"]
+    rule: "Raise when guarantees must be extended whenever the time for completion is extended."
+    thresholds: {}
+    threshold_status: {}
+    patterns:
+      tied: ['extended (if|when|whenever) (the )?(time|completion|contract)', 'extended with (the )?time', 'extended .{0,40}extension of time', 'extended .{0,30}time (for completion )?is extended', 'extension .{0,30}(time|completion).{0,40}(guarantee|security)']
+    reference_value: "CPWD GCC 2023: performance guarantee valid to completion plus at least 6 months, extended with time."
+    reference_source: "CPWD GCC 2023 [SEEN]"
+    triggers:
+      tied:
+        severity: Low
+        explanation: "Guarantees must be renewed every time the completion date moves ({detail}). Each month of extension adds bank commission and keeps your bank limit tied up."
+    unclear:
+      severity: Needs review
+
+  - id: R15
+    title: Payment conditions
+    category: risk
+    question_ids: ["1.8", "1.1", "1.5", "1.7"]
+    rule: "Raise when bills are not paid until labour registrations or other papers are submitted, or payment depends on third-party funds."
+    thresholds: {}
+    threshold_status: {}
+    patterns:
+      none: ['^\s*no\b', '^\s*none\b', 'not stated', 'no pay[- ]when[- ]paid']
+      condition: ['pay[- ]when[- ]paid', 'labou?r licen[cs]e', 'labou?r registration', '(no|not) (running )?bill (shall|will) be (paid|released) (until|unless)', 'subject to (receipt|availability) of funds', 'funds? (are |is )?released by']
+    reference_value: "Payment should depend only on certified work."
+    reference_source: "Seen in a CPWD-style Schedule F clause 7A [SEEN]"
+    triggers:
+      condition:
+        severity: Low
+        explanation: "Payment has an extra condition: {detail}. Missing paperwork can hold up an otherwise approved bill."
+    unclear:
+      severity: Needs review
+
+  - id: R16
+    title: Conflict in the document
+    category: unclear
+    question_ids: []
+    rule: "Raise when two places in the package give different values for the same term."
+    thresholds: {}
+    threshold_status: {}
+    reference_value: "n/a"
+    reference_source: "n/a (conflict detector, F9)"
+    triggers:
+      conflict:
+        severity: Needs review
+        explanation: "The package gives more than one value here: {detail}. Ask the employer which one governs before you price it."
+
+  - id: R17
+    title: Unresolved reference
+    category: unclear
+    question_ids: []
+    rule: "Raise when an answer points to another document or blank schedule that is not in the package."
+    thresholds: {}
+    threshold_status: {}
+    reference_value: "n/a"
+    reference_source: "n/a (cross-reference follower, F7)"
+    triggers:
+      missing_target:
+        severity: Needs review
+        explanation: "{count} answer(s) depend on {pointer}, which is not in the package ({detail}). Get that document, or confirm the terms with the employer."
+      target_in_package:
+        severity: Needs review
+        explanation: "{count} answer(s) point to {pointer}, which seems to be in the package but was not followed ({detail}). Re-run the cross-reference step or check by hand."
+
+  - id: R18
+    title: Missing document
+    category: unclear
+    question_ids: []
+    rule: "Raise when schedules or conditions are referred to but not supplied."
+    thresholds: {}
+    threshold_status: {}
+    reference_value: "n/a"
+    reference_source: "n/a (package completeness check, F1)"
+    triggers:
+      missing:
+        severity: Needs review
+        explanation: "The package refers to {detail} but does not include it. Terms in it bind you even though you have not read them; ask for a copy."

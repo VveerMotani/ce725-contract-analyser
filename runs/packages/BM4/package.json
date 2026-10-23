@@ -1,0 +1,25 @@
+{
+ "package_id": "BM4",
+ "contract_id": "BM4",
+ "title": "MoEF Zoological Park NIT",
+ "files": [
+  {
+   "doc_id": "d1",
+   "filename": "BM4_MoEF_Zoological_Park_NIT.pdf",
+   "path": "D:\\IITB\\SEM 5\\Econ\\CE 725 Course Project\\Benchmark Contracts\\BM4_MoEF_Zoological_Park_NIT.pdf",
+   "tag": "notice",
+   "sha256": "b65ac5b896e79a24c1d88d993b20cf90a758e13f9455461ea5c9ba625e5a012b",
+   "page_count": 38
+  }
+ ],
+ "missing_references": [
+  {
+   "label": "General Conditions of Contract for CPWD 2023",
+   "doc_id": "d1",
+   "page": 9,
+   "quote": "6, CPWD-7 including schedule A to F for major and minor component of the work, Standard General Conditions of Contract for CPWD 2023 (Construction work) as amended/ modified upto last date of submission of bid.  Part"
+  }
+ ],
+ "created_at": "2026-10-23T14:02:59+00:00",
+ "pages": []
+}

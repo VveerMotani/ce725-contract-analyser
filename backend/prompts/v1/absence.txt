@@ -1,0 +1,16 @@
+Contract id: {contract_id}
+Clause type: {clause_id} {clause_name}
+The questions below were answered NOT_STATED. Search the whole package text again using these words: {term_list}
+and these alternative wordings: {synonyms}. Also check schedules, contract data, annexures, footnotes and portal pages.
+Pages that contain some of these words: {hint_pages}
+Page images supplied for: {image_page_list}
+Return either the passage you found, or CONFIRMED_ABSENT with the list of sections you searched.
+
+Return a JSON object {"answers": [...]} with one record per question below, using the schema:
+- If you found a passage: absence_result "FOUND_PASSAGE" and a full record with status, quote, clause and page.
+- If not: absence_result "CONFIRMED_ABSENT", status NOT_STATED, pdf_page 0, empty quote, and the sections
+  you searched in searched_sections.
+Set contract_id to "{contract_id}", clause_id to "{clause_id}" and doc_id to the d of the page marker of the quote.
+Questions:
+{question_list}
+{page_text}

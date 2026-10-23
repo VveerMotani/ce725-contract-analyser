@@ -1,0 +1,18 @@
+{
+ "package_id": "BM3",
+ "contract_id": "BM3",
+ "title": "MP Agro Gwalior Tender",
+ "files": [
+  {
+   "doc_id": "d1",
+   "filename": "BM3_MP_Agro_Gwalior_Tender.pdf",
+   "path": "D:\\IITB\\SEM 5\\Econ\\CE 725 Course Project\\Benchmark Contracts\\BM3_MP_Agro_Gwalior_Tender.pdf",
+   "tag": "notice",
+   "sha256": "cbe070fa7bfeeab2677993c77015cea5e9cdd8279fe06ccf9d560421f9ffc76b",
+   "page_count": 93
+  }
+ ],
+ "missing_references": [],
+ "created_at": "2026-10-23T14:02:58+00:00",
+ "pages": []
+}

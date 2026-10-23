@@ -1,0 +1,4 @@
+{
+  "_help": "Set a label by hand when the automatic scorer is wrong. Each entry: test_id (e.g. BM1-1.3), label (Correct, Partial, Incorrect, Missed, Correct absent, Wrongly present), reason (required, why), run_id (optional; empty or * = every run), cause_code (optional), by (optional, your name). Overrides are applied last and marked 'MANUAL OVERRIDE' in the reason.",
+  "overrides": []
+}

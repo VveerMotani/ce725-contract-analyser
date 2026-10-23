@@ -1,0 +1,25 @@
+{
+ "package_id": "DEV_CPWD_EPC_GCC_2024",
+ "contract_id": "DEV_CPWD_EPC_GCC_2024",
+ "title": "DEV_CPWD_EPC_GCC_2024",
+ "files": [
+  {
+   "doc_id": "d1",
+   "filename": "DEV_CPWD_EPC_GCC_2024.pdf",
+   "path": "D:\\IITB\\SEM 5\\Econ\\CE 725 Course Project\\Dev Documents\\DEV_CPWD_EPC_GCC_2024.pdf",
+   "tag": "other",
+   "sha256": "ba30a49244ecc4fe554a8820cd57d5041d78fc04e940d94948b04ca3037551a2",
+   "page_count": 224
+  }
+ ],
+ "missing_references": [
+  {
+   "label": "General Conditions of Contract 2024",
+   "doc_id": "d1",
+   "page": 1,
+   "quote": "website under CPWD publications. The OMs published earlier are not to be read along with General Conditions of Contract 2024 EPC Projects', as relevant circulars have been incorporated in the latest edition of GCC."
+  }
+ ],
+ "created_at": "2026-10-23T13:52:21+00:00",
+ "pages": []
+}

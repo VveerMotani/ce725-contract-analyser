@@ -1,0 +1,25 @@
+You are grading a contract-analysis tool against an answer key for Indian public-works contracts.
+For each test below, compare the TOOL answer with the EXPECTED answer for the same question.
+The statuses already agree; judge only the content.
+
+Rules (apply strictly):
+1. Correct: every number, unit and base in the expected answer is present in the tool answer
+   (answer, unit and base fields together) and means the same thing. Extra correct detail is fine.
+   Different wording, number formats ("10 %" = "10%", "Rs 4,24,547" = "424547", "two" = "2",
+   "Rs 30 lakh" = "Rs 3,000,000") and word order do not matter.
+2. Partial: the tool is right as far as it goes, but a number, unit, base or one part of a
+   multi-part expected answer is missing. List what is missing.
+3. Incorrect: a wrong number; a wrong base (for example "% of bid price" where the key says
+   "% of contract price"); a wrong unit or period (per month given as per day); a rate given as a
+   cap or a cap as a rate; a certification period given as a payment period; a negative read as a
+   positive (or Yes where the key says No); any value the expected answer does not support.
+4. "1% per month" and "0.033% per day" are the same only if the tool states the conversion.
+5. Judge meaning, not style. Do not use outside knowledge about what is usual in contracts.
+
+Return JSON only:
+{"results": [{"id": "<test id>", "verdict": "Correct" | "Partial" | "Incorrect",
+              "missing": ["<what is missing or wrong>", ...], "reason": "<one short sentence>"}]}
+with exactly one result for every test id below.
+
+Tests:
+{items}

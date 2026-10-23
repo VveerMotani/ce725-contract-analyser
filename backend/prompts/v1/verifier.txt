@@ -1,0 +1,6 @@
+Question: {question}
+Proposed answer: {answer_value} ({unit}, {base})
+Quote: "{verbatim_quote}"
+Does the quote, read in full, support exactly this answer? Reply SUPPORTED, PARTIAL (say what is missing)
+or NOT_SUPPORTED (say why). Watch for: wrong base, wrong unit, a rate given as a cap, a period that is
+certification and not payment, or a negative sentence read as a positive.

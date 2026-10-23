@@ -1,0 +1,18 @@
+{
+ "package_id": "BM2",
+ "contract_id": "BM2",
+ "title": "IIT Bombay Chemistry Lab Tender",
+ "files": [
+  {
+   "doc_id": "d1",
+   "filename": "BM2_IIT_Bombay_Chemistry_Lab_Tender.pdf",
+   "path": "D:\\IITB\\SEM 5\\Econ\\CE 725 Course Project\\Benchmark Contracts\\BM2_IIT_Bombay_Chemistry_Lab_Tender.pdf",
+   "tag": "notice",
+   "sha256": "38ad2465c261d41764469ccfeee3c7be10d6577a96a85882b6226b24cad89d1a",
+   "page_count": 114
+  }
+ ],
+ "missing_references": [],
+ "created_at": "2026-10-23T14:02:57+00:00",
+ "pages": []
+}

@@ -1,0 +1,8 @@
+This is a page image from a tender schedule. Fields may offer a choice (for example "Yes / No" or
+"Applicable / Not Applicable") where one option is struck through or circled, or a blank may be filled by hand.
+For each financial item on this page (security deposit, performance guarantee, advance, delay compensation,
+price variation, interim payment limit, milestones) report: the label as printed, the value printed,
+which option is selected (the one NOT struck through), and anything unreadable.
+If a formula is shown, write it out exactly as printed.
+When you use what an image shows, set visual_check to "done" and say in visual_evidence what the image showed.
+If the image and the extracted text of the same page disagree, trust the image and say so in notes.

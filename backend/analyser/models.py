@@ -145,6 +145,7 @@ class CheckResult(BaseModel):
     name: str
     passed: Optional[bool]           # None = not applicable
     detail: str = ""
+    severity: Literal["fail", "warn", "info"] = "info"
 
 
 class Verification(BaseModel):
@@ -237,6 +238,11 @@ class CashInputs(BaseModel):
     # C6 guarantees
     perf_security_pct: float = 0.0               # share of contract value
     perf_security_validity_months_after_completion: float = 0.0
+    # optional refinements
+    index_lag_months: int = 0
+    advance_interest_rate_encashed_pa: Optional[float] = None
+    part_payment_share: Optional[float] = None   # e.g. 0.75 paid at part_payment_days, rest at pay_lag_days
+    part_payment_days: Optional[float] = None
 
 
 class ParamProvenance(BaseModel):
@@ -245,6 +251,7 @@ class ParamProvenance(BaseModel):
     question_id: str = ""
     quote: str = ""
     confirmed: bool = False
+    note: str = ""                   # e.g. why an extracted number was rejected and the default used
 
 
 class CashParams(BaseModel):
@@ -265,6 +272,7 @@ class MonthRow(BaseModel):
     gap: float                       # cumulative out - cumulative in (positive = contractor funding it)
     retention_held: float
     advance_outstanding: float
+    billed: float = 0.0              # gross value certified this month (differs from gross when a minimum bill applies)
 
 
 class Sensitivity(BaseModel):
@@ -291,6 +299,11 @@ class CashResult(BaseModel):
     total_cost_of_terms: float
     sensitivities: list[Sensitivity] = []
     notes: list[str] = []
+    retention_cap_month: Optional[int] = None
+    advance_repaid_month: Optional[int] = None
+    receivable_max: float = 0.0
+    late_interest_income: float = 0.0
+    escalation_net_burden: float = 0.0
 
 
 # ---------------------------------------------------------------------------
@@ -375,3 +388,4 @@ class RunMeta(BaseModel):
     cache_hits: int = 0
     input_tokens: int = 0
     output_tokens: int = 0
+    frozen: bool = False             # read-only demo run under runs/frozen/

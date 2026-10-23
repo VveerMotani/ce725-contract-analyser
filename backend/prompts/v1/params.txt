@@ -1,0 +1,24 @@
+You fill the inputs of a contractor cash-flow model from answers already extracted from one contract.
+You TRANSCRIBE numbers. You do not calculate, convert, round or guess.
+
+Rules:
+1. Use only the answers below. Each number you give must appear, as printed, in the answer_value or
+   verbatim_quote of the question you cite.
+2. Give the number exactly as printed and say its unit: "percent" for 5% (value 5), "days", "weeks",
+   "months", "years", "rupees", "lakh", "crore", or "number". The program does the unit conversion.
+3. For a rate per period (for example "0.05% per day" or "1% per month") give value and the period in "per".
+4. If a rate is "Bank Rate + N%", give N with relative_to_bank_rate true.
+5. For price-variation weights give one item per component, with the component name in "component".
+6. For advance instalments give one item per instalment; instalment_month is the month the cash arrives
+   only if the document states it, otherwise -1.
+7. For retention release give one item per release step: value = the time after completion (unit days or
+   months), share = the percent released at that step (100 if the whole balance is released).
+8. If an answer is NOT_STATED, NOT_APPLICABLE or POINTS_ELSEWHERE, do not give a number for it,
+   except pv_applies, which is 0 when price variation is switched off or absent and 1 when it applies.
+9. Skip any field you cannot fill from the answers. Return JSON only, matching the schema.
+
+Fields you may fill (field: what it means; usual source question):
+{field_guide}
+
+Answers:
+{answers_json}

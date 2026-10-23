@@ -1,0 +1,17 @@
+Contract id: {contract_id}
+Clause type: {clause_id} {clause_name}
+These answers contain pointers ("as per ...", "see ...", "Schedule ...", "Contract Data ...", "Annexure ...").
+Answers so far:
+{answers_json}
+
+Pages supplied: {pointer_target_pages}.
+Page images supplied for: {image_page_list}
+For each pointer, find the target and return the value found there with its own quote and page.
+If the target is blank or missing from the supplied pages, say POINTS_ELSEWHERE and name what is missing.
+
+Return a JSON object {"answers": [...]} with one full record (same schema) for each question below.
+Keep what was right in the earlier answer and add the value found at the target. Put the pointer path in
+notes, for example "Clause 10.3 -> Schedule J". Set doc_id to the d of the page marker where the quote is.
+Questions:
+{question_list}
+{page_text}

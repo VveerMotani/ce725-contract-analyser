@@ -1,0 +1,22 @@
+Contract id: {contract_id}
+Clause type: {clause_id} {clause_name}
+Pages supplied: {pages_description}
+Every page starts with a marker [[DOC d PAGE n]]: d is the doc_id of the file and n is the PDF page number.
+Pages most likely relevant (from a keyword search; the answer may still be on another page): {hint_pages}
+Page images supplied for: {image_page_list}
+Search terms that matter for this clause type: {term_list}
+{visual_note}
+Answer each question below. Return a JSON object {"answers": [...]} with one record per question, using the schema.
+Set contract_id to "{contract_id}" and clause_id to "{clause_id}" in every record.
+Set doc_id to the d of the page marker where the quote is ("" for NOT_STATED).
+Questions:
+{question_list}
+
+Reminders: quote exactly; page number from the marker; base and unit for every percentage and period;
+all numbers in the clause; follow references; NOT_STATED only if nothing is said anywhere in the pages supplied.
+For NOT_STATED use pdf_page 0, an empty verbatim_quote and an empty section_ref.
+For POINTS_ELSEWHERE always fill points_to with the name of the document or schedule that holds the detail
+(for example "General Conditions of Contract" or "Schedule F").
+Use "" for any text field that does not apply. Fill visual_evidence only when visual_check is "done".
+Keep notes under 60 words.
+{page_text}
