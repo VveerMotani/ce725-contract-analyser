@@ -394,3 +394,14 @@ def test_checks_classifies_rule_outcomes():
     assert _NOT_CHECKED.search("minimum bill answer is MISSING")
     assert not _NOT_CHECKED.search("no POINTS_ELSEWHERE answers")
     assert not _NOT_CHECKED.search("damages capped at or below the reference")
+
+
+def test_read_only_demo_blocks_new_analysis(monkeypatch):
+    """ANALYSER_READ_ONLY=1 (hosted copy): no uploads and no new runs."""
+    monkeypatch.setattr(config, "READ_ONLY", True)
+    from fastapi.testclient import TestClient
+    from analyser.api.app import app as real_app
+    c = TestClient(real_app)
+    assert c.post("/api/runs", json={"package_id": "BM1", "user_inputs": {}}).status_code == 403
+    r = c.post("/api/packages", data={"contract_id": "X"})
+    assert r.status_code == 403 and "saved results only" in r.json()["detail"]

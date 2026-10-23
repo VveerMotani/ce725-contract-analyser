@@ -150,9 +150,17 @@ def list_benchmarks() -> list[dict]:
             for cid, b in config.BENCHMARKS.items()]
 
 
+def _no_new_analysis() -> None:
+    """The hosted demo copy only shows saved results."""
+    if config.READ_ONLY:
+        raise HTTPException(403, "This online copy shows saved results only. To analyse a new "
+                                 "contract, run the tool on your own computer (see the README).")
+
+
 @api.post("/packages")
 async def upload_package(request: Request) -> dict:
     """Multipart: files[] (PDFs), tags[] (one DocTag per file), contract_id, title."""
+    _no_new_analysis()
     form = await request.form()
     uploads = form.getlist("files[]") + form.getlist("files")
     tags = [str(t) for t in form.getlist("tags[]") + form.getlist("tags")]
@@ -218,6 +226,7 @@ def page_png(package_id: str, doc_id: str, page: int, highlight: Optional[str] =
 
 @api.post("/runs")
 def start_run(body: RunRequest) -> dict:
+    _no_new_analysis()
     if not store.safe_id(body.package_id):
         raise HTTPException(404, "Unknown package")
     contract_id = _package_contract_id(body.package_id)

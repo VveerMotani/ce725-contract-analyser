@@ -23,6 +23,8 @@ UPLOADS_DIR = PROJECT_DIR / "runs" / "_uploads"
 PROMPT_VERSION = os.getenv("PROMPT_VERSION", "v1")
 MODEL = os.getenv("ANALYSER_MODEL", "claude-opus-5-5")
 EFFORT = os.getenv("ANALYSER_EFFORT", "high")
+# Hosted demo copy: show saved results only; no uploads and no new AI runs.
+READ_ONLY = os.getenv("ANALYSER_READ_ONLY", "0") == "1"
 
 # Benchmark packages preloaded in the app. Test contracts must never be used for prompt tuning.
 BENCHMARKS: dict[str, dict] = {

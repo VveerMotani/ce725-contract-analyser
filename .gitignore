@@ -15,3 +15,6 @@ runs/*
 runs/packages/
 # office lock files
 ~$*
+
+# Hugging Face Space build output
+deploy/hf-space/
