@@ -15,6 +15,7 @@ import { ErrorNote, Figure, InfoTip, Section, Spinner } from "../components/ui";
 import { CashEffect, CashLoading } from "./CashEffect";
 import { TermCards } from "./TermCards";
 import { FlagBoard } from "./Flags";
+import { KeyFacts } from "./KeyFacts";
 
 function useTitle(): string {
   const { meta } = useRun();
@@ -74,6 +75,10 @@ function Inner() {
 
       <Section title="Money terms">
         {!ready ? <Spinner /> : <TermCards answers={envs} params={params.data} cash={w} sc={sc} />}
+      </Section>
+
+      <Section id="key-facts" className="mt-10" title="Key facts">
+        {!ready ? <Spinner /> : <KeyFacts answers={envs} params={params.data} cash={w} flags={flags.data ?? []} checks={checks.data} />}
       </Section>
 
       <Section id="flags" className="mt-10" title="Flags">

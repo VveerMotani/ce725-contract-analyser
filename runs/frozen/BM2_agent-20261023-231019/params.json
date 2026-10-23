@@ -19,7 +19,7 @@
     "retention_release": [
       {
         "share": 1.0,
-        "months_after_completion": 3.0
+        "months_after_completion": 12.0
       }
     ],
     "dlp_months": 12.0,
@@ -37,7 +37,10 @@
     "ld_grace_days": 0,
     "pv_applies": false,
     "pv_factor": 0.85,
-    "pv_weights": {},
+    "pv_weights": {
+      "materials": 0.4,
+      "labour": 0.25
+    },
     "perf_security_pct": 0.05,
     "perf_security_validity_months_after_completion": 0.0,
     "index_lag_months": 0,
@@ -138,9 +141,9 @@
       "field": "retention_release",
       "source": "extracted",
       "question_id": "2.5",
-      "quote": "3 months after completion",
+      "quote": "12 months from certificate (final or otherwise) of completion",
       "confirmed": false,
-      "note": "100% released 3 months after completion = 3 months"
+      "note": "100% released 12 months after completion = 12 months"
     },
     {
       "field": "advance_instalments",
@@ -216,11 +219,11 @@
     },
     {
       "field": "pv_weights",
-      "source": "default",
-      "question_id": "",
-      "quote": "",
+      "source": "extracted",
+      "question_id": "5.3",
+      "quote": "materials) 40%",
       "confirmed": false,
-      "note": ""
+      "note": "40% = 0.4 (fraction); 25% = 0.25 (fraction)"
     },
     {
       "field": "perf_security_pct",

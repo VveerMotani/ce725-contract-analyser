@@ -251,3 +251,26 @@ def test_payment_days_read_clause_by_clause():
                        "than 30 days from submission; final payment within 30 days")
     assert got == {"cert_lag_days": 15, "part_payment_share": 90, "part_payment_days": 10,
                    "pay_lag_days": 30}
+
+
+def test_weight_table_codes_and_words():
+    """'L20 C5 S0 …' tables and worded weights both become pv_weights (first work type only)."""
+    from analyser.params.mapping import _weight_items
+    got = {}
+    _weight_items(lambda f, q, v, u, component="", **k: got.__setitem__(component, float(v)),
+                  "Earthwork: L20 C5 S0 B0 F10 M50 A15; Bituminous work: L20 C0 S0 B15 F10 M40 A15")
+    assert got == {"labour": 20, "cement": 5, "fuel": 10, "materials": 50, "plant": 15}
+    got.clear()
+    _weight_items(lambda f, q, v, u, component="", **k: got.__setitem__(component, float(v)),
+                  "Xm (materials) 40%; Y labour 25% of total value of work")
+    assert got == {"materials": 40, "labour": 25}
+
+
+def test_release_takes_first_period_tied_to_completion():
+    """BM2-style answer: 12 months from the completion certificate, not the later 3-month side rule."""
+    from analyser.params.mapping import _release_items
+    got = []
+    _release_items(lambda f, q, v, u, **k: got.append((float(v), u)),
+                   "After 12 months from certificate (final or otherwise) of completion; also only after "
+                   "labour clearance (deemed if no complaint 3 months after completion)", None)
+    assert got == [(12.0, "months")]

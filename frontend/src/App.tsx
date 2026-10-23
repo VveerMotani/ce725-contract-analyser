@@ -7,6 +7,7 @@ import AllAnswers from "./pages/AllAnswers";
 import Accuracy from "./pages/Accuracy";
 import Technical from "./pages/Technical";
 import About from "./pages/About";
+import TermDetail from "./pages/TermDetail";
 
 /** Old addresses (overview, clauses, review, flags, cash, progress, package, export) still land somewhere sensible. */
 function OldRun({ to }: { to: "" | "answers" | "answers?filter=check" | "technical" }) {
@@ -28,6 +29,7 @@ export default function App() {
         <Route index element={<Report />} />
         <Route path="answers" element={<AllAnswers />} />
         <Route path="technical" element={<Technical />} />
+        <Route path="terms/:term" element={<TermDetail />} />
         <Route path="overview" element={<OldRun to="" />} />
         <Route path="flags" element={<OldRun to="" />} />
         <Route path="cash" element={<OldRun to="" />} />

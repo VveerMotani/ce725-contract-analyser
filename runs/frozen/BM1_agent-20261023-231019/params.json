@@ -39,9 +39,15 @@
     "ld_rate_per_day": 0.0005,
     "ld_cap": 0.1,
     "ld_grace_days": 30,
-    "pv_applies": false,
+    "pv_applies": true,
     "pv_factor": 0.85,
-    "pv_weights": {},
+    "pv_weights": {
+      "labour": 0.2,
+      "cement": 0.05,
+      "fuel": 0.1,
+      "materials": 0.5,
+      "plant": 0.15
+    },
     "perf_security_pct": 0.03,
     "perf_security_validity_months_after_completion": 0.0,
     "index_lag_months": 0,
@@ -204,11 +210,11 @@
     },
     {
       "field": "pv_applies",
-      "source": "default",
-      "question_id": "",
-      "quote": "",
+      "source": "extracted",
+      "question_id": "5.1",
+      "quote": "adjusted for",
       "confirmed": false,
-      "note": ""
+      "note": "as printed: 1 number"
     },
     {
       "field": "pv_factor",
@@ -220,11 +226,11 @@
     },
     {
       "field": "pv_weights",
-      "source": "default",
-      "question_id": "",
-      "quote": "",
+      "source": "extracted",
+      "question_id": "5.3",
+      "quote": "L20",
       "confirmed": false,
-      "note": ""
+      "note": "20% = 0.2 (fraction); first work type in the table; 5% = 0.05 (fraction); first work type in the table; 10% = 0.1 (fraction); first work type in the table; 50% = 0.5 (fraction); first work type in the table; 15% = 0.15 (fraction); first work type in the table"
     },
     {
       "field": "perf_security_pct",

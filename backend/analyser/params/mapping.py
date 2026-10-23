@@ -314,7 +314,7 @@ NOT_GIVEN = re.compile(r"^\s*no\b|\bnot\s+stated\b|\bno\s+(?:separate\s+)?cap\b"
 RUPEES = re.compile(r"(?:Rs\.?|INR|₹)\s*₹?\s*(\d[\d,]*(?:\.\d+)?)\s*(lakhs?|lacs?|crores?)?", re.I)
 PV_OFF = re.compile(r"fixed\s+price|rates?\s+(?:are\s+|shall\s+be\s+)?firm|no\s+(?:general\s+)?"
                     r"(?:index-based\s+)?(?:price\s+variation|price\s+adjustment|escalation)", re.I)
-PV_ON = re.compile(r"\b(?:applies|is\s+applicable|shall\s+be\s+adjusted)\b", re.I)
+PV_ON = re.compile(r"\b(?:applies|is\s+applicable|shall\s+be\s+adjusted|adjusted\s+(?:for|by|with))\b", re.I)
 PV_GATE = re.compile(r"\bonly\s+(?:if|for|in\s+case|where|when)\b|\bprobably\b|\bnot\s+applicable\b", re.I)
 
 
@@ -412,6 +412,8 @@ def regex_items(by_q: dict[str, AnswerEnvelope]) -> list[dict]:
         add("pv_applies", "5.1", 1, "number", quote=PV_ON.search(pv).group(0))
     if (m := re.search(r"\b(0\.\d+)\s*[x×*]", answer("5.2"))):
         add("pv_factor", "5.2", m.group(1), "number", quote=m.group(0))
+    if status("5.3") == "FOUND" and not (status("5.1") == "NOT_APPLICABLE" or (pv and PV_OFF.search(pv))):
+        _weight_items(add, answer("5.3"))
 
     # C6 guarantees
     if (m := re.search(r"performance\s+(?:security|guarantee)[^;%]*?" + _PCT, answer("6.2"), re.I)):
@@ -420,6 +422,32 @@ def regex_items(by_q: dict[str, AnswerEnvelope]) -> list[dict]:
 
 
 _DAYS = r"(\d+)\s*(?:working\s+|calendar\s+|clear\s+)?days"
+
+# Weight-table letters used in MoRTH/NHAI price adjustment ("L20 C5 S0 B0 F10 M50 A15").
+_WEIGHT_CODES = {"L": "labour", "C": "cement", "S": "steel", "B": "bitumen", "F": "fuel",
+                 "M": "materials", "A": "plant"}
+_WEIGHT_WORDS = [(r"labou?r|\bY\b", "labour"), (r"cement", "cement"), (r"steel", "steel"),
+                 (r"bitumen", "bitumen"), (r"\bPOL\b|fuel", "fuel"), (r"\bXm\b|materials?", "materials"),
+                 (r"plant|machinery", "plant")]
+
+
+def _weight_items(add, text: str) -> None:
+    """Price-variation weights from answer 5.3, for the first work type when there are several."""
+    first = text.split(";")[0]
+    codes = re.findall(r"\b([LCSBFMA])\s*(\d+(?:\.\d+)?)\b", first)
+    if len(codes) >= 3:                         # a coded weight table
+        several = ";" in text and len(re.findall(r"\bL\s*\d", text)) > 1
+        for letter, value in codes:
+            if float(value) > 0:
+                add("pv_weights", "5.3", value, "percent", quote=f"{letter}{value}",
+                    component=_WEIGHT_CODES[letter],
+                    note="first work type in the table" if several else "")
+        return
+    for seg in text.split(";"):
+        for pattern, name in _WEIGHT_WORDS:
+            if (m := re.search(rf"(?:{pattern})[^;%\d]{{0,60}}?(\d+(?:\.\d+)?)\s*%", seg, re.I)):
+                add("pv_weights", "5.3", m.group(1), "percent", quote=m.group(0).strip(), component=name)
+                break
 
 
 def _payment_day_items(add, certify: str, pay: str) -> None:
@@ -487,9 +515,13 @@ def _release_items(add, text: str, dlp_period: tuple[float, str] | None) -> None
                 check_question_id="0.5", quote="balance after the defect liability period",
                 note="months taken from the defects liability period (0.5)")
         return
-    if (m := re.search(r"within\s+(\d+)\s*(?:\(\w+\)\s*)?(days|months)\s+of\s+(?:the\s+)?completion", text, re.I)):
-        add("retention_release", "2.5", m.group(1), m.group(2).lower(), quote=m.group(0))
-    elif (m := re.search(_NUM + r"\s*(days|months)\s+after\s+(?:the\s+)?completion", text, re.I)):
+    # The first period tied to completion states the main rule; later ones are usually side
+    # conditions ("12 months from certificate of completion …; deemed 3 months after completion").
+    candidates = [m for pat in (r"within\s+(\d+)\s*(?:\(\w+\)\s*)?(days|months)\s+of\s+(?:the\s+)?completion",
+                                _NUM + r"\s*(days|months)\s+(?:after|from)\s+(?:\S+\s+){0,5}?completion")
+                  for m in re.finditer(pat, text, re.I)]
+    if candidates:
+        m = min(candidates, key=lambda c: c.start())
         add("retention_release", "2.5", _num(m.group(1)), m.group(2).lower(), quote=m.group(0))
     elif dlp_period and (m := re.search(r"(?:on\s+completion\s+of|after|end\s+of)\s+(?:the\s+)?"
                                         r"(?:defects?\s+liability\s+period|DLP)", text, re.I)):

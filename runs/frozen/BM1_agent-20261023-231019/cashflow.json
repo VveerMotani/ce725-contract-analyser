@@ -417,7 +417,7 @@
     "ld_amount": 0.0,
     "ld_days_to_cap": 230.0,
     "escalation_amount": 0.0,
-    "escalation_is_recovery": false,
+    "escalation_is_recovery": true,
     "total_cost_of_terms": 9500000.0,
     "sensitivities": [
       {

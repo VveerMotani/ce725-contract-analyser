@@ -5,7 +5,8 @@ import { api } from "../api";
 import { useRun } from "../context";
 import type { CashInputs, CashParams, CashResult, CashflowResponse, ParamProvenance } from "../types";
 import { money, moneyAxis, num, pct } from "../lib/format";
-import { Button, Disclosure, ErrorNote, Figure, Spinner, cx, inputCls } from "../components/ui";
+import { Button, Choice, Disclosure, ErrorNote, Figure, Spinner, cx, inputCls } from "../components/ui";
+import { CashArrowDiagram } from "../components/CashArrowDiagram";
 
 function useDebounced<T>(value: T, ms: number): T {
   const [v, setV] = useState(value);
@@ -37,17 +38,20 @@ export function CashEffect({ params, base, onParams }: { params: CashParams; bas
   const [delay, setDelay] = useState(inp.delay_days);
   const dDelay = useDebounced(delay, 300);
   const [res, setRes] = useState<CashflowResponse>(base);
+  /** the delay that produced `res` (the slider moves before the new result arrives) */
+  const [resDelay, setResDelay] = useState(inp.delay_days);
+  const [view, setView] = useState<"line" | "arrows">("line");
   const [err, setErr] = useState<unknown>(null);
   const [loading, setLoading] = useState(false);
   const seq = useRef(0);
 
-  useEffect(() => { setRes(base); }, [base]);
+  useEffect(() => { setRes(base); setResDelay(inp.delay_days); }, [base, inp.delay_days]);
   useEffect(() => {
-    if (dDelay === inp.delay_days) { setRes(base); setErr(null); return; }
+    if (dDelay === inp.delay_days) { setRes(base); setResDelay(inp.delay_days); setErr(null); return; }
     const my = ++seq.current;
     setLoading(true);
     api.cashflow(runId, { delay_days: dDelay }).then(
-      (r) => { if (my === seq.current) { setRes(r); setErr(null); setLoading(false); } },
+      (r) => { if (my === seq.current) { setRes(r); setResDelay(dDelay); setErr(null); setLoading(false); } },
       (e) => { if (my === seq.current) { setErr(e); setLoading(false); } },
     );
   }, [dDelay, runId, inp.delay_days, base]);
@@ -68,7 +72,15 @@ export function CashEffect({ params, base, onParams }: { params: CashParams; bas
           note={w.ld_days_to_cap != null ? `cap reached at day ${num(w.ld_days_to_cap)}` : delay === 0 ? "use the slider" : "no cap found"} />
       </div>
 
-      <div className="mt-6 flex flex-wrap gap-x-5 gap-y-1 text-[12.5px] text-ink-2">
+      <div className="mt-6">
+        <Choice value={view} onChange={setView} label="Cash view" options={[{ value: "line", label: "Line" }, { value: "arrows", label: "Cash flow diagram" }]} />
+      </div>
+      {view === "arrows" ? (
+        <div className="mt-4">
+          <CashArrowDiagram w={w} inputs={params.inputs} delay={resDelay} peak={w.peak_funding} peakMonth={w.peak_month} dim={loading} />
+        </div>
+      ) : (<>
+      <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-[12.5px] text-ink-2">
         <span className="inline-flex items-center gap-2"><span className="inline-block h-0.5 w-6 bg-accent" />As written</span>
         <span className="inline-flex items-center gap-2"><span className="inline-block w-6 border-t-2 border-dashed" style={{ borderColor: "var(--fair)" }} />Fair terms</span>
         <span className="text-muted">Below 0 = your own money</span>
@@ -87,6 +99,7 @@ export function CashEffect({ params, base, onParams }: { params: CashParams; bas
           </LineChart>
         </ResponsiveContainer>
       </div>
+      </>)}
 
       <label className="mt-5 block max-w-[520px]">
         <span className="text-[14px] font-medium text-ink">Delay: <span className="tnum">{delay}</span> days</span>

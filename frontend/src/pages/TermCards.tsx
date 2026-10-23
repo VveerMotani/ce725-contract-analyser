@@ -1,13 +1,15 @@
 // The six money terms as factsheet cards: label, one big number, a small inline-SVG graphic, a status dot, a page link.
 // Graphics use cash parameters only when their provenance is "extracted" or "user", plus the cash model result.
 // Anything else shows a quiet "—" state; nothing is invented.
-import type { ReactNode } from "react";
+import { createContext, useContext, type ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
 import { Lock } from "lucide-react";
 import { useRun } from "../context";
 import { effective, type Answer, type AnswerEnvelope, type CashParams, type CashResult, type ClauseId } from "../types";
 import { money, pct } from "../lib/format";
 import { TERM_SHORT } from "../lib/plain";
 import { cardTone, type Scorecard } from "../lib/scorecard";
+import { TERM_SLUG } from "../lib/termDetail";
 import { brief, days, elsewhereTarget, firstPct, rate, usable, type Tone } from "../lib/terms";
 import { StatusDot, cx } from "../components/ui";
 
@@ -15,7 +17,7 @@ import { StatusDot, cx } from "../components/ui";
 // Pieces
 // ---------------------------------------------------------------------------
 
-function Chip({ children, tone }: { children: ReactNode; tone?: "bad" | "good" }) {
+export function Chip({ children, tone }: { children: ReactNode; tone?: "bad" | "good" }) {
   return (
     <span className={cx("inline-flex max-w-full items-center truncate rounded border px-1.5 py-px text-[12px]",
       tone === "bad" ? "border-bad/40 text-bad" : tone === "good" ? "border-good/40 text-good" : "border-line-strong text-ink-2")}>
@@ -24,19 +26,37 @@ function Chip({ children, tone }: { children: ReactNode; tone?: "bad" | "good" }
   );
 }
 
-function Empty({ children }: { children: ReactNode }) {
+export function Empty({ children }: { children: ReactNode }) {
   return <div className="flex h-full items-center text-[13px] text-muted">{children}</div>;
 }
 
-function Card({ label, tone, big, unit, visual, chips, env }: {
-  label: string; tone: Tone; big: ReactNode; unit?: ReactNode; visual: ReactNode; chips?: ReactNode; env: AnswerEnvelope | null;
+const VariantCtx = createContext<"card" | "header">("card");
+
+function Card({ clause, label, tone, big, unit, visual, chips, env }: {
+  clause: ClauseId; label: string; tone: Tone; big: ReactNode; unit?: ReactNode; visual: ReactNode; chips?: ReactNode; env: AnswerEnvelope | null;
 }) {
-  const { openAnswer } = useRun();
+  const { openAnswer, runId } = useRun();
+  const nav = useNavigate();
+  const variant = useContext(VariantCtx);
   const a = env ? effective(env) : null;
+  const href = `/runs/${runId}/terms/${TERM_SLUG[clause as Exclude<ClauseId, "C0">]}`;
+  if (variant === "header") {
+    return (
+      <div className="min-w-0">
+        <div className="flex items-baseline gap-2">
+          <span className="font-serif text-[40px] font-semibold leading-none text-ink tnum sm:text-[48px]">{big}</span>
+          {unit && <span className="text-[14px] text-muted">{unit}</span>}
+        </div>
+        {chips && <div className="mt-3 flex flex-wrap gap-1.5">{chips}</div>}
+      </div>
+    );
+  }
   return (
-    <li className="flex min-w-0 flex-col rounded-lg border border-line bg-surface p-4">
+    <li role="link" tabIndex={0} aria-label={`${label}: details`} onClick={() => nav(href)}
+      onKeyDown={(e) => { if (e.key === "Enter") nav(href); }}
+      className="group flex min-w-0 cursor-pointer flex-col rounded-lg border border-line bg-surface p-4 transition hover:border-accent focus:outline-none focus-visible:border-accent">
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[13px] font-medium text-muted">{label}</span>
+        <span className="text-[13px] font-medium text-muted group-hover:text-accent-ink">{label} <span aria-hidden className="opacity-0 transition group-hover:opacity-100">→</span></span>
         <StatusDot tone={tone} />
       </div>
       <div className="mt-1.5 flex items-baseline gap-1.5">
@@ -47,7 +67,7 @@ function Card({ label, tone, big, unit, visual, chips, env }: {
       <div className="mt-auto flex items-end justify-between gap-2 pt-3">
         <span className="flex min-w-0 flex-wrap gap-1">{chips}</span>
         {env && a && a.pdf_page > 0 && (
-          <button className="shrink-0 text-[12.5px] text-accent-ink hover:underline" onClick={() => openAnswer(env, label)}>p. {a.pdf_page}</button>
+          <button className="shrink-0 text-[12.5px] text-accent-ink hover:underline" onClick={(e) => { e.stopPropagation(); openAnswer(env, label); }}>p. {a.pdf_page}</button>
         )}
       </div>
     </li>
@@ -233,7 +253,9 @@ export function payDaysText(a: Answer): number | null {
 // The grid
 // ---------------------------------------------------------------------------
 
-export function TermCards({ answers, params, cash, sc }: { answers: AnswerEnvelope[]; params: CashParams | undefined; cash: CashResult | undefined; sc: Scorecard }) {
+export function TermCards({ answers, params, cash, sc, only, variant = "card" }: {
+  answers: AnswerEnvelope[]; params: CashParams | undefined; cash: CashResult | undefined; sc: Scorecard; only?: ClauseId; variant?: "card" | "header";
+}) {
   const env = (q: string) => answers.find((e) => e.answer.question_id === q) ?? null;
   const ans = (q: string) => { const e = env(q); return e ? effective(e) : null; };
   const inp = params?.inputs;
@@ -260,7 +282,7 @@ export function TermCards({ answers, params, cash, sc }: { answers: AnswerEnvelo
     } else if (li?.status === "NOT_STATED") chip = <Chip tone="bad">Late interest not stated</Chip>;
     else if (li?.status === "POINTS_ELSEWHERE") chip = <Chip>Late interest elsewhere</Chip>;
     cards.push(
-      <Card key="C1" label={TERM_SHORT.C1} tone={tone("C1", "1.3")} env={pick("1.3", "1.4")}
+      <Card key="C1" clause="C1" label={TERM_SHORT.C1} tone={tone("C1", "1.3")} env={pick("1.3", "1.4")}
         big={d ?? "—"} unit={d ? "days to pay" : undefined}
         visual={d ? <PayTimeline cert={cert} pay={d} /> : notHere(a)} chips={chip} />,
     );
@@ -282,7 +304,7 @@ export function TermCards({ answers, params, cash, sc }: { answers: AnswerEnvelo
       : r && inp && cash ? <RetentionBar months={inp.duration_months} capMonth={cash.retention_cap_month ?? null} releaseAfter={rel} />
       : r ? <Empty>See contract</Empty> : notHere(a);
     cards.push(
-      <Card key="C2" label={TERM_SHORT.C2} tone={tone("C2", "2.2")} env={pick("2.2", "2.3", "2.5")}
+      <Card key="C2" clause="C2" label={TERM_SHORT.C2} tone={tone("C2", "2.2")} env={pick("2.2", "2.3", "2.5")}
         big={none ? "None" : r || "—"} unit={!none && r ? (c && c !== r ? `per bill · cap ${c}` : "per bill") : undefined}
         visual={visual} chips={cash && r && cash.retention_locked_max > 0 ? <Chip>Up to {money(cash.retention_locked_max)} held</Chip> : null} />,
     );
@@ -307,7 +329,7 @@ export function TermCards({ answers, params, cash, sc }: { answers: AnswerEnvelo
     }
     const amt = !none && !tot ? firstPct(ans("3.2")?.status === "FOUND" ? ans("3.2")!.answer_value : "") : "";
     cards.push(
-      <Card key="C3" label={TERM_SHORT.C3} tone={tone("C3", "3.1")} env={pick("3.2", "3.1", "3.3")}
+      <Card key="C3" clause="C3" label={TERM_SHORT.C3} tone={tone("C3", "3.1")} env={pick("3.2", "3.1", "3.3")}
         big={none ? "None" : tot ? pct(tot) : amt || "—"} unit={!none && (tot || amt) ? `of value${inst.length > 1 ? ` · ${inst.length} parts` : ""}` : undefined}
         visual={visual} chips={chip} />,
     );
@@ -329,7 +351,7 @@ export function TermCards({ answers, params, cash, sc }: { answers: AnswerEnvelo
     const capOk = ok("ld_cap");
     const cap = capOk ? inp!.ld_cap : null;
     cards.push(
-      <Card key="C4" label={TERM_SHORT.C4} tone={tone("C4", "4.2")} env={pick("4.2", "4.3")} big={big} unit={unit}
+      <Card key="C4" clause="C4" label={TERM_SHORT.C4} tone={tone("C4", "4.2")} env={pick("4.2", "4.3")} big={big} unit={unit}
         visual={none ? <Empty>No penalty</Empty> : r && capOk ? <PenaltyLine ratePerDay={r} cap={cap} grace={ok("ld_grace_days") ? inp!.ld_grace_days : 0} capDays={cash?.ld_days_to_cap ?? null} /> : r ? <Empty>Limit: see contract</Empty> : notHere(a)}
         chips={r && capOk ? <Chip tone={cap == null ? "bad" : undefined}>{cap == null ? "No upper limit" : `Limit ${pct(cap)} of value`}</Chip> : null} />,
     );
@@ -359,7 +381,7 @@ export function TermCards({ answers, params, cash, sc }: { answers: AnswerEnvelo
         chip = <Chip tone="bad">Price rise is yours</Chip>;
       }
     }
-    cards.push(<Card key="C5" label={TERM_SHORT.C5} tone={tone("C5", "5.1")} env={pick("5.1", "5.3")} big={big} visual={visual} chips={chip} />);
+    cards.push(<Card key="C5" clause="C5" label={TERM_SHORT.C5} tone={tone("C5", "5.1")} env={pick("5.1", "5.3")} big={big} visual={visual} chips={chip} />);
   }
 
   // Guarantees -------------------------------------------------------------
@@ -377,12 +399,14 @@ export function TermCards({ answers, params, cash, sc }: { answers: AnswerEnvelo
     if (rc) parts.push(["Retention", rc, "var(--fair)"]);
     const total = parts.reduce((x, [, v]) => x + v, 0);
     cards.push(
-      <Card key="C6" label={TERM_SHORT.C6} tone={tone("C6", "6.2")} env={pick("6.2", "6.5", "6.8")}
+      <Card key="C6" clause="C6" label={TERM_SHORT.C6} tone={tone("C6", "6.2")} env={pick("6.2", "6.5", "6.8")}
         big={ps ? pct(ps) : "—"} unit={ps ? "performance" : undefined}
         visual={parts.length ? <SecurityBar parts={parts} scale={Math.max(total * 1.05, 0.1)} /> : notHere(a)}
         chips={total > 0 && value ? <Chip>Up to {money(total * value)} locked</Chip> : total > 0 ? <Chip>Up to {pct(total)} locked</Chip> : null} />,
     );
   }
 
-  return <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{cards}</ul>;
+  const list = only ? cards.filter((c) => (c as { key?: string }).key === only) : cards;
+  if (variant === "header") return <VariantCtx.Provider value="header">{list}</VariantCtx.Provider>;
+  return <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{list}</ul>;
 }
