@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AlertOctagon, ArrowRight, Check, Cpu, Database, Loader2, Terminal, Zap } from "lucide-react";
 import { useRun } from "../context";
 import { fmtDate, tokens } from "../lib/format";
+import { ReplayChip } from "../components/Replay";
 import { Card, Chip, Collapsible, ErrorBox, KpiTile, PageHeader, Spinner, cx } from "../components/ui";
 
 const STAGES: { id: string; label: string; hint: string }[] = [
@@ -89,6 +90,7 @@ export default function RunProgress() {
           <Chip>effort: {meta.effort || "–"}</Chip>
           <Chip>package: {meta.package_id}</Chip>
           {meta.frozen && <Chip>frozen demo run</Chip>}
+          {meta.replay && <ReplayChip size="sm" />}
         </div>
       </Card>
 

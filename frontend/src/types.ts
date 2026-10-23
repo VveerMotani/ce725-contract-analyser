@@ -339,6 +339,15 @@ export interface ScoreSummary {
 export interface EvaluationSummary extends ScoreSummary {
   runs_used?: Record<string, string>;
   missing_benchmarks?: string[];
+  replay?: boolean;
+  replay_contracts?: string[];
+}
+
+/** Only the six label keys of a counts record (drops "total" and anything else). */
+export function labelCounts(rec: Record<string, number> | undefined): Record<Label, number> {
+  const out = {} as Record<Label, number>;
+  for (const l of LABELS) out[l] = rec?.[l] ?? 0;
+  return out;
 }
 
 // ---------------------------------------------------------------------------
@@ -368,6 +377,8 @@ export interface RunMeta {
   output_tokens: number;
   /** Read-only demo run: PATCH review and PUT params return 403. */
   frozen?: boolean;
+  /** Answer-key replay run: golden answers stand in for the AI (tests the pipeline, not the AI). */
+  replay?: boolean;
 }
 
 export interface Benchmark {

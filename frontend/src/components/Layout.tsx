@@ -10,6 +10,7 @@ import type { RunMeta } from "../types";
 import { fmtDate } from "../lib/format";
 import { Chip, Segmented, cx } from "./ui";
 import { SourceDrawer } from "./SourceDrawer";
+import { ReplayChip } from "./Replay";
 
 const LAST_RUN_KEY = "ta-last-run";
 
@@ -50,10 +51,11 @@ function RunPicker({ current }: { current: string | null }) {
         <option value="">{runs.length ? "Select a run…" : "No runs yet"}</option>
         {runs.map((r) => (
           <option key={r.run_id} value={r.run_id}>
-            {r.contract_id} · {r.stage === "done" ? fmtDate(r.finished_at || r.started_at) : r.stage}{r.frozen ? " · demo" : ""}
+            {r.contract_id}{r.replay ? " · Answer-key replay (not AI output)" : ""} · {r.stage === "done" ? fmtDate(r.finished_at || r.started_at) : r.stage}{r.frozen ? " · demo" : ""}
           </option>
         ))}
       </select>
+      {runs.find((r) => r.run_id === current)?.replay && <div className="mt-1.5"><ReplayChip /></div>}
     </div>
   );
 }
@@ -131,6 +133,7 @@ function Header({ onMenu }: { onMenu: () => void }) {
           <div className="flex min-w-0 flex-wrap items-center gap-2">
             <Chip tone="accent" size="xs">{meta.contract_id}</Chip>
             <span className="truncate text-[14px] font-semibold text-ink">{title || meta.package_id}</span>
+            {meta.replay && <ReplayChip />}
             {meta.frozen && <Chip size="xs" icon={<Lock className="h-3 w-3" />} title="Read-only demo run: review and parameter edits are disabled">Frozen demo run</Chip>}
             {meta.stage === "error" && <Chip tone="bad" size="xs">run failed</Chip>}
             {meta.stage !== "done" && meta.stage !== "error" && <Chip tone="accent" size="xs">running · {Math.round(meta.progress * 100)}%</Chip>}

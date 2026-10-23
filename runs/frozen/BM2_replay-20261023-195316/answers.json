@@ -1,0 +1,6340 @@
+[
+  {
+    "question": "What type and version of contract is this (CPWD GCC 2023, MoRTH EPC, HAM, institute NIT, other)?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C0",
+      "question_id": "0.1",
+      "status": "FOUND",
+      "answer_value": "CPWD-7/8 percentage-rate tender and contract for works, IIT Bombay; standard CPWD contract form GCC 2020 as modified and corrected",
+      "unit": "text",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Schedule F, clause 9(ii)",
+      "pdf_page": 106,
+      "verbatim_quote": "9(ii) Standard CPWD contract Form GCC 2020, CPWD Form 7/ 8 as modified & corrected upto AS INCORPORATED",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Schedule F names GCC 2020, but the pack carries IITB-specific edits (Dean (IPS), IITB). The cover is only titled General Conditions of Contract. A model may wrongly say GCC 2023."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "0.1",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 106,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 106",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "CPWD-7/8 percentage-rate tender and contract for works, IIT Bombay; standard CPWD contract form GCC 2020 as modified and corrected",
+        "unit": "text",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Who are the employer and contractor?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C0",
+      "question_id": "0.2",
+      "status": "FOUND",
+      "answer_value": "Employer: Indian Institute of Technology Bombay (Director, acting through Dean (IPS)); Contractor: not named (blank form)",
+      "unit": "text",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Tender form CPWD-7/8",
+      "pdf_page": 4,
+      "verbatim_quote": "execution of the work specified for the Director of Indian Institute of Technology , Bombay",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Contractor name and acceptance amount are blank, so contractor = NOT_STATED. A model might invent a contractor name."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "0.2",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 4,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 4",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Employer: Indian Institute of Technology Bombay (Director, acting through Dean (IPS)); Contractor: not named (blank form)",
+        "unit": "text",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What is the contract value / estimated cost / tendered amount?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C0",
+      "question_id": "0.3",
+      "status": "FOUND",
+      "answer_value": "Estimated cost Rs 2,12,27,336; earnest money Rs 4,24,547; tendered value = estimate adjusted by the quoted percentage (not fixed here)",
+      "unit": "INR",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Schedule E",
+      "pdf_page": 105,
+      "verbatim_quote": "Estimated cost of work: Rs. ₹ 2,12,27,336/-",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Percentage-rate tender: final contract value depends on the percentage quoted. Do not report the estimate as the contract price."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "0.3",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 105,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 105",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 4,24,547",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Estimated cost Rs 2,12,27,336; earnest money Rs 4,24,547; tendered value = estimate adjusted by the quoted percentage (not fixed here)",
+        "unit": "INR",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [
+          {
+            "text": "2,12,27,336",
+            "kind": "rupees",
+            "value": 21227336.0,
+            "rupees": 21227336.0
+          },
+          {
+            "text": "4,24,547",
+            "kind": "rupees",
+            "value": 424547.0,
+            "rupees": 424547.0
+          }
+        ],
+        "other_numbers": [],
+        "amount_rs": 21227336.0
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 4,24,547"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What is the stipulated completion period and start date basis?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C0",
+      "question_id": "0.4",
+      "status": "FOUND",
+      "answer_value": "9 months (activity table 'Time for assignment'); start reckoned 15 days from date of issue of letter of acceptance",
+      "unit": "months",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Schedule F, clause 5 (pp.106-108)",
+      "pdf_page": 107,
+      "verbatim_quote": "TIME FOR ASSIGNMENT 09 (Nine) Months (From 0 to 9) – (in months)",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Schedule F line Time allowed for execution of work is left blank (p.108). The only number is in an activity table headed Consultancy/Assignment, which looks pasted from a consultancy document. Start: p.106 says 15day after letter of acceptance. Clause 5: start = Schedule F period or site handover, w"
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "0.4",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 107,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 107",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 15",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given (working/calendar not said for 15 days)",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "9 months (activity table 'Time for assignment'); start reckoned 15 days from date of issue of letter of acceptance",
+        "unit": "months",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "9",
+            "kind": "months",
+            "value": 9.0,
+            "unit": "months",
+            "day_type": "",
+            "days": 270.0,
+            "conversion": "9 months ~ 270 days (30 days per month)"
+          },
+          {
+            "text": "15",
+            "kind": "days",
+            "value": 15.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 15.0
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "months": 9.0,
+        "days": 15.0,
+        "days_kind": "unspecified"
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 15"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What is the defect liability / maintenance period?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C0",
+      "question_id": "0.5",
+      "status": "FOUND",
+      "answer_value": "12 months after completion certificate (6 months if work costs Rs 10 lacs or less, except road work)",
+      "unit": "months",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 17",
+      "pdf_page": 41,
+      "verbatim_quote": "if any defect, shrinkage or other faults appear in the work within twelve months (six months in the case of work costing Rs. Ten lacs and below except road work)",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Printed Rs. Ten lacs here; the deposit refund line says Ten lakhs. At the Rs 2.12 crore estimate the 12-month limb applies."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "0.5",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 41,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 41",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "3 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "12 months after completion certificate (6 months if work costs Rs 10 lacs or less, except road work)",
+        "unit": "months",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "12",
+            "kind": "months",
+            "value": 12.0,
+            "unit": "months",
+            "day_type": "",
+            "days": 360.0,
+            "conversion": "12 months ~ 360 days (30 days per month)"
+          },
+          {
+            "text": "6",
+            "kind": "months",
+            "value": 6.0,
+            "unit": "months",
+            "day_type": "",
+            "days": 180.0,
+            "conversion": "6 months ~ 180 days (30 days per month)"
+          }
+        ],
+        "amounts_rs": [
+          {
+            "text": "10",
+            "kind": "rupees",
+            "value": 10.0,
+            "rupees": 1000000.0,
+            "conversion": "10 -> Rs 1,000,000"
+          }
+        ],
+        "other_numbers": [],
+        "months": 12.0,
+        "amount_rs": 1000000.0,
+        "conversion_note": "10 -> Rs 1,000,000"
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Does the contract state milestones with dates or percentages?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C0",
+      "question_id": "0.6",
+      "status": "FOUND",
+      "answer_value": "Activity periods only: shop drawings 1 month; execution drawings 15 days; planning, procurement and execution 7 months; post-construction 15 days; total 9 months. No work-percentage or withholding amounts stated",
+      "unit": "months",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Schedule F, clause 5 (pp.106-108)",
+      "pdf_page": 107,
+      "verbatim_quote": "C Project Planning: Preparation/Submission of CPM/PERT Chart for Procurement, Material delivery, Installation, testing & Commissioning activities 07 (Seven) months",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Clause 2 says the amount shown against that milestone is withheld, but no amounts appear anywhere in Schedule F. The table is not a financial milestone table. A model may fabricate percentages."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "0.6",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 107,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (raw text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 107",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 1, 15, 15, 9",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given (working/calendar not said for 15, 15 days)",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Activity periods only: shop drawings 1 month; execution drawings 15 days; planning, procurement and execution 7 months; post-construction 15 days; total 9 months. No work-percentage or withholding amounts stated",
+        "unit": "months",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "1",
+            "kind": "months",
+            "value": 1.0,
+            "unit": "months",
+            "day_type": "",
+            "days": 30.0,
+            "conversion": "1 months ~ 30 days (30 days per month)"
+          },
+          {
+            "text": "15",
+            "kind": "days",
+            "value": 15.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 15.0
+          },
+          {
+            "text": "7",
+            "kind": "months",
+            "value": 7.0,
+            "unit": "months",
+            "day_type": "",
+            "days": 210.0,
+            "conversion": "7 months ~ 210 days (30 days per month)"
+          },
+          {
+            "text": "15",
+            "kind": "days",
+            "value": 15.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 15.0
+          },
+          {
+            "text": "9",
+            "kind": "months",
+            "value": 9.0,
+            "unit": "months",
+            "day_type": "",
+            "days": 270.0,
+            "conversion": "9 months ~ 270 days (30 days per month)"
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "months": 1.0,
+        "days": 15.0,
+        "days_kind": "unspecified"
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 1, 15, 15, 9"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "How often can the contractor bill (monthly running bill, milestones, stage payments)?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C1",
+      "question_id": "1.1",
+      "status": "FOUND",
+      "answer_value": "Monthly running account bills on measured work for works estimated above Rs 20 lac; no payment before completion for works of Rs 20 lac or less",
+      "unit": "text",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 7",
+      "pdf_page": 24,
+      "verbatim_quote": "For works estimated to cost over Rs, Twenty lac the interim or running account bills shall be submitted by the contractor",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Estimate is Rs 2.12 crore, so monthly running bills apply, on a date fixed each month by the Engineer-in-Charge."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "1.1",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 24,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (raw text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 24",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "2 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Monthly running account bills on measured work for works estimated above Rs 20 lac; no payment before completion for works of Rs 20 lac or less",
+        "unit": "text",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [
+          {
+            "text": "20",
+            "kind": "rupees",
+            "value": 20.0,
+            "rupees": 2000000.0,
+            "conversion": "20 -> Rs 2,000,000"
+          },
+          {
+            "text": "20",
+            "kind": "rupees",
+            "value": 20.0,
+            "rupees": 2000000.0,
+            "conversion": "20 -> Rs 2,000,000"
+          }
+        ],
+        "other_numbers": [],
+        "amount_rs": 2000000.0,
+        "conversion_note": "20 -> Rs 2,000,000"
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Within how many days must the employer certify or measure a bill after submission?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C1",
+      "question_id": "1.2",
+      "status": "NOT_STATED",
+      "answer_value": "No separate certification period stated",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 7",
+      "pdf_page": 0,
+      "verbatim_quote": "",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Searched clauses 6, 7 and 7A. The only deadline is the combined payment deadline (see 1.3). A model may split it into certification and payment periods."
+    },
+    "doc_id": "",
+    "verification": {
+      "question_id": "1.2",
+      "quote_found": null,
+      "found_doc_id": "",
+      "found_page": 0,
+      "page_matches": null,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": null,
+          "detail": "no quote to check",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": null,
+          "detail": "no quote to check",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": true,
+          "detail": "not a key number; queued for review like every NOT_STATED",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "No separate certification period stated",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "NOT_STATED: confirm nothing is said anywhere in the package"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Within how many days must the certified amount be paid?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C1",
+      "question_id": "1.3",
+      "status": "FOUND",
+      "answer_value": "10 working days after presentation of the bill (15 working days for works outside the Engineer-in-Charge's headquarters)",
+      "unit": "working days",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 7",
+      "pdf_page": 25,
+      "verbatim_quote": "The amount admissible shall be paid by 10th working day after the day of presentation of the bill by the Contractor to the Engineer-in-Charge or his Authorized Engineer",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "The 15-working-day extension is in the following sentence. Do not confuse with the 45-day interest trigger in 1.4."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "1.3",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 25,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 25",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 15",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "10 working days after presentation of the bill (15 working days for works outside the Engineer-in-Charge's headquarters)",
+        "unit": "working days",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "10",
+            "kind": "days",
+            "value": 10.0,
+            "unit": "days",
+            "day_type": "working",
+            "days": 10.0
+          },
+          {
+            "text": "15",
+            "kind": "days",
+            "value": 15.0,
+            "unit": "days",
+            "day_type": "working",
+            "days": 15.0
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "days": 10.0,
+        "days_kind": "working"
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 15"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is interest payable on delayed payment? At what rate?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C1",
+      "question_id": "1.4",
+      "status": "FOUND",
+      "answer_value": "Simple interest 5% a year on interim bills unpaid 45 days after submission (if bill in order); final bill delay also 5% simple. Delay by contractor in submitting a bill after an advance on materials: 10% a year payable to IITB",
+      "unit": "% a year",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 7 and clause 9",
+      "pdf_page": 25,
+      "verbatim_quote": "after 45 days of submission of bill by the contractor pr ovided the bill submitted by the contractor found to be in order, a simple interest @ 5% (five percent) per annum",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Text says simple interest compounded on yearly basis, which contradicts itself. The 45-day trigger is later than the 10-working-day payment date. Final bill interest 5% is on p.26."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "1.4",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 25,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 25",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 10",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": false,
+          "detail": "no base for 5% (working/calendar not said for 45 days)",
+          "severity": "warn"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Simple interest 5% a year on interim bills unpaid 45 days after submission (if bill in order); final bill delay also 5% simple. Delay by contractor in submitting a bill after an advance on materials: 10% a year payable to IITB",
+        "unit": "% a year",
+        "base": "",
+        "percentages": [
+          {
+            "text": "5",
+            "kind": "percent",
+            "value": 5.0,
+            "base": "",
+            "per": "year",
+            "per_day_pct": 0.013699,
+            "conversion": "5% per year = 5/365 = 0.0137% per day (365-day year)"
+          },
+          {
+            "text": "5",
+            "kind": "percent",
+            "value": 5.0,
+            "base": ""
+          },
+          {
+            "text": "10",
+            "kind": "percent",
+            "value": 10.0,
+            "base": "",
+            "per": "year",
+            "per_day_pct": 0.027397,
+            "conversion": "10% per year = 10/365 = 0.0274% per day (365-day year)"
+          }
+        ],
+        "periods": [
+          {
+            "text": "45",
+            "kind": "days",
+            "value": 45.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 45.0
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "rate_share": 0.05,
+        "days": 45.0,
+        "days_kind": "unspecified"
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 10",
+        "V4 Unit and base present warning: no base for 5% (working/calendar not said for 45 days)"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What deductions are made from each bill (retention, taxes, recoveries)?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C1",
+      "question_id": "1.5",
+      "status": "FOUND",
+      "answer_value": "Security deposit 5% of gross running and final bill; recovery of mobilisation advance (clause 10B); recovery of secured advance when materials are used; compensation and milestone amounts withheld (clause 2)",
+      "unit": "text",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 1A and others",
+      "pdf_page": 16,
+      "verbatim_quote": "to deduct a sum at the rate of 5 % of the gross amount of each running and final bill till the sum deducted will amount to security deposit of 5% of the tendered value of the work",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "GST on inputs is the contractor's cost (General Rules 13, p.9). No TDS clause found. Only the retention quote is cited; other deductions come from clauses 2 and 10B."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "1.5",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 16,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 16",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Security deposit 5% of gross running and final bill; recovery of mobilisation advance (clause 10B); recovery of secured advance when materials are used; compensation and milestone amounts withheld (clause 2)",
+        "unit": "text",
+        "base": "",
+        "percentages": [
+          {
+            "text": "5",
+            "kind": "percent",
+            "value": 5.0,
+            "base": "gross running"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "rate_share": 0.05
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is there a minimum bill value or a cap on interim payment before work is certified?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C1",
+      "question_id": "1.6",
+      "status": "FOUND",
+      "answer_value": "Minimum gross work Rs 30 lakhs (net of advances) before an interim payment is due",
+      "unit": "INR",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Schedule F, clause 7",
+      "pdf_page": 109,
+      "verbatim_quote": "Clause 7 Gross work to be done together with net payment /adjustment of advances for material collected, if any, since the last such payment for being eligible to interim payment 30 lakhs",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Two thresholds: Rs 20 lac (clause 7 text) and Rs 30 lakhs (Schedule F minimum bill). A model may mix them up."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "1.6",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 109,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 109",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Minimum gross work Rs 30 lakhs (net of advances) before an interim payment is due",
+        "unit": "INR",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [
+          {
+            "text": "30",
+            "kind": "rupees",
+            "value": 30.0,
+            "rupees": 3000000.0,
+            "conversion": "30 -> Rs 3,000,000"
+          }
+        ],
+        "other_numbers": [],
+        "amount_rs": 3000000.0,
+        "conversion_note": "30 -> Rs 3,000,000"
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What is the timeline and condition for the final bill and final payment?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C1",
+      "question_id": "1.7",
+      "status": "FOUND",
+      "answer_value": "Final bill within 3 months of physical completion or 1 month of final completion certificate, whichever earlier; payment within 2 / 3 / 6 months of receipt by tendered value (up to Rs 1 Cr / Rs 1-10 Cr / above Rs 10 Cr); 5% simple interest if late",
+      "unit": "months",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 9",
+      "pdf_page": 26,
+      "verbatim_quote": "within three months of physical completion of the work or within one month of the date of the final certificate of completion furnished by the Engineer-in-Charge whichever is earlier",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "For a Rs 2.12 crore estimate the 3-month payment limb applies. No claims after the final bill."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "1.7",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 26,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 26",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 2, 6, 10, 10, 5",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": false,
+          "detail": "no base for 5%",
+          "severity": "warn"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Final bill within 3 months of physical completion or 1 month of final completion certificate, whichever earlier; payment within 2 / 3 / 6 months of receipt by tendered value (up to Rs 1 Cr / Rs 1-10 Cr / above Rs 10 Cr); 5% simple interest if late",
+        "unit": "months",
+        "base": "",
+        "percentages": [
+          {
+            "text": "5",
+            "kind": "percent",
+            "value": 5.0,
+            "base": ""
+          }
+        ],
+        "periods": [
+          {
+            "text": "3",
+            "kind": "months",
+            "value": 3.0,
+            "unit": "months",
+            "day_type": "",
+            "days": 90.0,
+            "conversion": "3 months ~ 90 days (30 days per month)"
+          },
+          {
+            "text": "1",
+            "kind": "months",
+            "value": 1.0,
+            "unit": "months",
+            "day_type": "",
+            "days": 30.0,
+            "conversion": "1 months ~ 30 days (30 days per month)"
+          },
+          {
+            "text": "6",
+            "kind": "months",
+            "value": 6.0,
+            "unit": "months",
+            "day_type": "",
+            "days": 180.0,
+            "conversion": "6 months ~ 180 days (30 days per month)"
+          }
+        ],
+        "amounts_rs": [
+          {
+            "text": "1",
+            "kind": "rupees",
+            "value": 1.0,
+            "rupees": 10000000.0,
+            "conversion": "1 -> Rs 10,000,000"
+          },
+          {
+            "text": "1",
+            "kind": "rupees",
+            "value": 1.0,
+            "rupees": 1.0
+          },
+          {
+            "text": "10",
+            "kind": "rupees",
+            "value": 10.0,
+            "rupees": 100000000.0,
+            "conversion": "10 -> Rs 100,000,000"
+          },
+          {
+            "text": "10",
+            "kind": "rupees",
+            "value": 10.0,
+            "rupees": 100000000.0,
+            "conversion": "10 -> Rs 100,000,000"
+          }
+        ],
+        "other_numbers": [
+          {
+            "text": "2",
+            "kind": "number",
+            "value": 2.0
+          },
+          {
+            "text": "3",
+            "kind": "number",
+            "value": 3.0
+          }
+        ],
+        "rate_share": 0.05,
+        "months": 3.0,
+        "amount_rs": 10000000.0,
+        "conversion_note": "1 -> Rs 10,000,000"
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 2, 6, 10, 10, 5",
+        "V4 Unit and base present warning: no base for 5%"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is payment conditional on third-party funds (\"pay when paid\") or similar?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C1",
+      "question_id": "1.8",
+      "status": "NOT_STATED",
+      "answer_value": "No pay-when-paid or funding condition",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clauses 7, 9, 9A",
+      "pdf_page": 0,
+      "verbatim_quote": "",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Searched pay when paid and back to back. Back to back construction on p.47 is about labour hut layout, and back to back basis on p.4 is about subletting; neither is a payment condition. The composite-contract rule (main contractor pays associates within 15 days, p.25) is not pay-when-paid."
+    },
+    "doc_id": "",
+    "verification": {
+      "question_id": "1.8",
+      "quote_found": null,
+      "found_doc_id": "",
+      "found_page": 0,
+      "page_matches": null,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": null,
+          "detail": "no quote to check",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": null,
+          "detail": "no quote to check",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": true,
+          "detail": "not a key number; queued for review like every NOT_STATED",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "No pay-when-paid or funding condition",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "NOT_STATED: confirm nothing is said anywhere in the package"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is a retention or security deposit deducted from bills?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C2",
+      "question_id": "2.1",
+      "status": "FOUND",
+      "answer_value": "Yes, security deposit deducted from running and final bills",
+      "unit": "yes/no",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 1A",
+      "pdf_page": 16,
+      "verbatim_quote": "to deduct a sum at the rate of 5 % of the gross amount of each running and final bill",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Performance guarantee (5%) is a separate item from the security deposit."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "2.1",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 16,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 16",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Yes, security deposit deducted from running and final bills",
+        "unit": "yes/no",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "At what percentage, and of what base (gross bill, net bill, contract value)?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C2",
+      "question_id": "2.2",
+      "status": "FOUND",
+      "answer_value": "5% of gross amount of each running and final bill (Schedule E: 5% of tendered value)",
+      "unit": "%",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 1A; Schedule E",
+      "pdf_page": 105,
+      "verbatim_quote": "(iii) Security Deposit : 5% of tendered value",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Other CPWD documents use 2.5%; this IITB pack says 5%. Do not import the 2.5% figure."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "2.2",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 105,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 105",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "2 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": true,
+          "detail": "cites Clause 1A; Schedule E",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "5% of gross amount of each running and final bill (Schedule E: 5% of tendered value)",
+        "unit": "%",
+        "base": "",
+        "percentages": [
+          {
+            "text": "5",
+            "kind": "percent",
+            "value": 5.0,
+            "base": "gross amount of each running"
+          },
+          {
+            "text": "5",
+            "kind": "percent",
+            "value": 5.0,
+            "base": "tendered value"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "rate_share": 0.05
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is there a cap on total retention?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C2",
+      "question_id": "2.3",
+      "status": "FOUND",
+      "answer_value": "Deductions continue until total reaches 5% of tendered value",
+      "unit": "% of tendered value",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 1A",
+      "pdf_page": 16,
+      "verbatim_quote": "till the sum deducted will amount to security deposit of 5% of the tendered value of the work",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Cap equals the rate in percent terms, but the rate applies to the bill and the cap to the tendered value."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "2.3",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 16,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 16",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Deductions continue until total reaches 5% of tendered value",
+        "unit": "% of tendered value",
+        "base": "",
+        "percentages": [
+          {
+            "text": "5",
+            "kind": "percent",
+            "value": 5.0,
+            "base": "tendered value"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "cap_share_of_value": 0.05
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is earnest money or bid security converted into or counted against it?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C2",
+      "question_id": "2.4",
+      "status": "FOUND",
+      "answer_value": "No. Earnest money is returned after the performance guarantee is received",
+      "unit": "yes/no",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Schedule E",
+      "pdf_page": 105,
+      "verbatim_quote": "(i) Earnest money: Rs. 4,24,547/- (to be returned after receiving performance guarantee)",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Some CPWD documents let earnest money count toward the deposit; this pack does not say so."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "2.4",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 105,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 105",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "No. Earnest money is returned after the performance guarantee is received",
+        "unit": "yes/no",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "When is retention released (completion, end of defect liability period, in parts)?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C2",
+      "question_id": "2.5",
+      "status": "FOUND",
+      "answer_value": "Not before 12 months after completion certificate (6 months for works of Rs 10 lakhs or less, except road work), or until the final bill is prepared and passed, whichever is later; labour clearance certificate also needed (clause 41)",
+      "unit": "months",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 17 (and clause 41)",
+      "pdf_page": 41,
+      "verbatim_quote": "shall not be refunded before the expiry of twelve months (six months in the case of work costing Rs. Ten lakhs and below except road work) after the issue of the certificate final or otherwise,",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Quote stops before whichever is later (next words). Road works have a half-and-half release; E&M maintenance works refund within one month."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "2.5",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 41,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 41",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "3 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Not before 12 months after completion certificate (6 months for works of Rs 10 lakhs or less, except road work), or until the final bill is prepared and passed, whichever is later; labour clearance certificate also needed (clause 41)",
+        "unit": "months",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "12",
+            "kind": "months",
+            "value": 12.0,
+            "unit": "months",
+            "day_type": "",
+            "days": 360.0,
+            "conversion": "12 months ~ 360 days (30 days per month)"
+          },
+          {
+            "text": "6",
+            "kind": "months",
+            "value": 6.0,
+            "unit": "months",
+            "day_type": "",
+            "days": 180.0,
+            "conversion": "6 months ~ 180 days (30 days per month)"
+          }
+        ],
+        "amounts_rs": [
+          {
+            "text": "10",
+            "kind": "rupees",
+            "value": 10.0,
+            "rupees": 1000000.0,
+            "conversion": "10 -> Rs 1,000,000"
+          }
+        ],
+        "other_numbers": [],
+        "months": 12.0,
+        "amount_rs": 1000000.0,
+        "conversion_note": "10 -> Rs 1,000,000"
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Can retention be replaced by a bank guarantee?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C2",
+      "question_id": "2.6",
+      "status": "FOUND",
+      "answer_value": "Yes, on accumulations of at least Rs 5 lac; each guarantee except the last at least Rs 5 lac; validity per clause 17 and extended with time",
+      "unit": "text",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 1A",
+      "pdf_page": 16,
+      "verbatim_quote": "The security deposit as deducted above can be released against bank guarantee issued by a scheduled bank, on its accumulations to a minimum of Rs. 5 lac",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "The Rs 5 lac floor appears twice in the sentence."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "2.6",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 16,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 16",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "2 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Yes, on accumulations of at least Rs 5 lac; each guarantee except the last at least Rs 5 lac; validity per clause 17 and extended with time",
+        "unit": "text",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [
+          {
+            "text": "5",
+            "kind": "rupees",
+            "value": 5.0,
+            "rupees": 500000.0,
+            "conversion": "5 -> Rs 500,000"
+          },
+          {
+            "text": "5",
+            "kind": "rupees",
+            "value": 5.0,
+            "rupees": 500000.0,
+            "conversion": "5 -> Rs 500,000"
+          }
+        ],
+        "other_numbers": [],
+        "amount_rs": 500000.0,
+        "conversion_note": "5 -> Rs 500,000"
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is interest paid on retention held?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C2",
+      "question_id": "2.7",
+      "status": "NOT_STATED",
+      "answer_value": "No interest on security deposit stated",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 1A, 17",
+      "pdf_page": 0,
+      "verbatim_quote": "",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Searched interest near security deposit. The only mention is interest arising from deposits held in securities; clause 29A says no interest on sums withheld under lien. A model may assume interest is payable."
+    },
+    "doc_id": "",
+    "verification": {
+      "question_id": "2.7",
+      "quote_found": null,
+      "found_doc_id": "",
+      "found_page": 0,
+      "page_matches": null,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": null,
+          "detail": "no quote to check",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": null,
+          "detail": "no quote to check",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": true,
+          "detail": "not a key number; queued for review like every NOT_STATED",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "No interest on security deposit stated",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "NOT_STATED: confirm nothing is said anywhere in the package"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is a mobilisation advance given?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C3",
+      "question_id": "3.1",
+      "status": "FOUND",
+      "answer_value": "Yes. Schedule F entry for Clause 10B(ii) reads 'Yes/No' with 'No' struck through, so the mobilisation advance clause applies (up to 10% of tendered value, 10% simple interest)",
+      "unit": "yes/no",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 10B(ii); Schedule F",
+      "pdf_page": 109,
+      "verbatim_quote": "Clause 10B(ii) Whether Clause 10 B (ii) shall be applicable Yes/No",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "done",
+      "visual_evidence": "TEXT TRAP: the strike-through is invisible in extracted text, which reads 'Yes/No'. Seen on the page image (printed page 108).",
+      "confidence": "high",
+      "notes": "TEXT TRAP: the strike-through is invisible in extracted text, which reads 'Yes/No'. Seen on the page image (printed page 108)."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "3.1",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 109,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 109",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "2 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": false,
+          "detail": "no base for 10%",
+          "severity": "warn"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": true,
+          "detail": "cites Clause 10B(ii); Schedule F",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Yes. Schedule F entry for Clause 10B(ii) reads 'Yes/No' with 'No' struck through, so the mobilisation advance clause applies (up to 10% of tendered value, 10% simple interest)",
+        "unit": "yes/no",
+        "base": "",
+        "percentages": [
+          {
+            "text": "10",
+            "kind": "percent",
+            "value": 10.0,
+            "base": "tendered value"
+          },
+          {
+            "text": "10",
+            "kind": "percent",
+            "value": 10.0,
+            "base": ""
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "cap_share_of_value": 0.1,
+        "rate_share": 0.1
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "Visual-only answer: read from a page image, confirm against the page",
+        "V4 Unit and base present warning: no base for 10%"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What percentage or amount, and in how many instalments?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C3",
+      "question_id": "3.2",
+      "status": "FOUND",
+      "answer_value": "Up to 10% of tendered value; in two or more instalments decided by the Engineer-in-Charge",
+      "unit": "% of tendered value",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 10B(ii)",
+      "pdf_page": 28,
+      "verbatim_quote": "Mobilization advance not exceeding 10% of the tendered value may be given",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Not exceeding means a maximum, not an entitlement. Instalments are in the next sentence of the same clause."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "3.2",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 28,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 28",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Up to 10% of tendered value; in two or more instalments decided by the Engineer-in-Charge",
+        "unit": "% of tendered value",
+        "base": "",
+        "percentages": [
+          {
+            "text": "10",
+            "kind": "percent",
+            "value": 10.0,
+            "base": "tendered value"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "cap_share_of_value": 0.1
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is it interest-free or interest-bearing? At what rate?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C3",
+      "question_id": "3.3",
+      "status": "FOUND",
+      "answer_value": "Simple interest 10% a year from date of payment to date of recovery, on the outstanding balance",
+      "unit": "% a year",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 10B(iii)",
+      "pdf_page": 28,
+      "verbatim_quote": "bear simple interest at the rate of 10 percent per annum and shall be calculated from the date of payment to the date of recovery",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Interest runs on the outstanding advance until each recovery. The sentence continues on p.29."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "3.3",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 28,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 28",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Simple interest 10% a year from date of payment to date of recovery, on the outstanding balance",
+        "unit": "% a year",
+        "base": "",
+        "percentages": [
+          {
+            "text": "10",
+            "kind": "percent",
+            "value": 10.0,
+            "base": "",
+            "per": "year",
+            "per_day_pct": 0.027397,
+            "conversion": "10% per year = 10/365 = 0.0274% per day (365-day year)"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "How and when is it recovered (per bill %, over a period)?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C3",
+      "question_id": "3.4",
+      "status": "FOUND",
+      "answer_value": "Deducted from bills after the first 10% of gross work is paid, pro rata on work beyond 10%, so the entire advance plus interest is recovered by the time 80% of gross contract value is executed and paid",
+      "unit": "% of work",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 10B(iii)",
+      "pdf_page": 29,
+      "verbatim_quote": "on pro-rata percentage basis to the gross value of the work billed beyond 10% in such a way that the entire advance is recovered by the time eighty percent of the gross value of the contract",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Two percentages (10% start, 80% end) in one sentence. The clause starts on p.28 and carries over to p.29."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "3.4",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 29,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 29",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 80 (elsewhere in package)",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Deducted from bills after the first 10% of gross work is paid, pro rata on work beyond 10%, so the entire advance plus interest is recovered by the time 80% of gross contract value is executed and paid",
+        "unit": "% of work",
+        "base": "",
+        "percentages": [
+          {
+            "text": "10",
+            "kind": "percent",
+            "value": 10.0,
+            "base": "gross work"
+          },
+          {
+            "text": "10",
+            "kind": "percent",
+            "value": 10.0,
+            "base": ""
+          },
+          {
+            "text": "80",
+            "kind": "percent",
+            "value": 80.0,
+            "base": "gross contract value"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "rate_share": 0.1
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 80 (elsewhere in package)"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What security is required for it?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C3",
+      "question_id": "3.5",
+      "status": "FOUND",
+      "answer_value": "Bank guarantee bonds, not more than 6, from a scheduled bank for 110% of the advance, valid until recovery and renewed to cover the balance",
+      "unit": "% of advance",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 10B(ii)",
+      "pdf_page": 28,
+      "verbatim_quote": "Before any installment of advance is released, the contractor shall execute a Bank Guarantee Bonds not more than 6 in number from Scheduled Bank for the amount equal to 110% of the amount of advance",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "110% applies to the advance and later to the balance amount."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "3.5",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 28,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 28",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "2 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Bank guarantee bonds, not more than 6, from a scheduled bank for 110% of the advance, valid until recovery and renewed to cover the balance",
+        "unit": "% of advance",
+        "base": "",
+        "percentages": [
+          {
+            "text": "110",
+            "kind": "percent",
+            "value": 110.0,
+            "base": "advance"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [
+          {
+            "text": "6",
+            "kind": "number",
+            "value": 6.0
+          }
+        ],
+        "rate_share": 1.1
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Are there advances for plant and machinery or secured advance on materials?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C3",
+      "question_id": "3.6",
+      "status": "FOUND",
+      "answer_value": "Secured advance on materials: up to 75% of assessed value or of material element cost, whichever is lower. No plant and machinery advance",
+      "unit": "% of material value",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 10B(i)",
+      "pdf_page": 28,
+      "verbatim_quote": "up to 75% of the assessed value of any materials or an amount not exceeding 75% of the material element cost in the tendered rate of the finished item of the work, whichever is lower",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Plant and machinery advance is not provided in this pack. Headings Secured Advance on Materials and Mobilization advance are merged in extraction."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "3.6",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 28,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 28",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Secured advance on materials: up to 75% of assessed value or of material element cost, whichever is lower. No plant and machinery advance",
+        "unit": "% of material value",
+        "base": "",
+        "percentages": [
+          {
+            "text": "75",
+            "kind": "percent",
+            "value": 75.0,
+            "base": "assessed value"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "cap_share_of_value": 0.75
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Conditions to receive the advance (BG submitted, work started)?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C3",
+      "question_id": "3.7",
+      "status": "FOUND",
+      "answer_value": "Written request within one month of order to commence; bank guarantee before each instalment; second and later instalments only after proof of satisfactory utilisation of the earlier one",
+      "unit": "text",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 10B(ii) and (iv)",
+      "pdf_page": 28,
+      "verbatim_quote": "if requested by the contractor in writing within one month of the order to commence the work",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "The Engineer-in-Charge may extend the one-month window (clause 10B(iv), p.29)."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "3.7",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 28,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (raw text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 28",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Written request within one month of order to commence; bank guarantee before each instalment; second and later instalments only after proof of satisfactory utilisation of the earlier one",
+        "unit": "text",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "one",
+            "kind": "months",
+            "value": 1.0,
+            "unit": "months",
+            "day_type": "",
+            "days": 30.0,
+            "conversion": "one months ~ 30 days (30 days per month)"
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "months": 1.0
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Does the contract impose LD for delay?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C4",
+      "question_id": "4.1",
+      "status": "FOUND",
+      "answer_value": "Yes, called compensation for delay",
+      "unit": "yes/no",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 2",
+      "pdf_page": 17,
+      "verbatim_quote": "pay as compensation the amount calculated at the rates stipulated below as the authority specified in schedule 'F' may decide on the amount of accepted Tendered Value of the work",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Wording is compensation, not liquidated damages. The words liquidated damages never appear in this pack."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "4.1",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 17,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 17",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "mentions 'schedule'; value source ''",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Yes, called compensation for delay",
+        "unit": "yes/no",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What is the rate, and on what base (per day/week/month, % of contract value or of the delayed portion)?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C4",
+      "question_id": "4.2",
+      "status": "FOUND",
+      "answer_value": "Maximum 1% of accepted Tendered Value per month of delay, computed per day; the actual rate is decided by the authority named in Schedule F (Deputy Director (FEA), IITB)",
+      "unit": "% per month",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 2; Schedule F",
+      "pdf_page": 17,
+      "verbatim_quote": "with maximum rate @ 1% (one percent) per month of delay to be computed on per day basis based on quantum of damage suffered due to stated delay on the part of Contractor",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Schedule F does not state an actual rate, only the authority. The text gives 1% as a maximum based on quantum of damage suffered."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "4.2",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 17,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 17",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": true,
+          "detail": "cites Clause 2; Schedule F",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Maximum 1% of accepted Tendered Value per month of delay, computed per day; the actual rate is decided by the authority named in Schedule F (Deputy Director (FEA), IITB)",
+        "unit": "% per month",
+        "base": "",
+        "percentages": [
+          {
+            "text": "1",
+            "kind": "percent",
+            "value": 1.0,
+            "base": "accepted tendered value",
+            "per": "month",
+            "per_day_pct": 0.033333,
+            "conversion": "1% per month = 1/30 = 0.0333% per day (30-day month)"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "rate_per_day_of_value": 0.00033333,
+        "rate_conversion": "1% per month = 1/30 = 0.0333% per day (30-day month)",
+        "conversion_note": "1% per month = 1/30 = 0.0333% per day (30-day month)"
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What is the maximum (cap) on LD?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C4",
+      "question_id": "4.3",
+      "status": "FOUND",
+      "answer_value": "10% of accepted Tendered Value of work (or of the sectional part if a separate period applies)",
+      "unit": "% of tendered value",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 2",
+      "pdf_page": 17,
+      "verbatim_quote": "shall not exceed 10 % (ten percent) of the accepted Tendered Value of work or of the accepted Tendered Value of the Sectional part of work",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Cap is reached after about 10 months at the 1% maximum rate."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "4.3",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 17,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 17",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "10% of accepted Tendered Value of work (or of the sectional part if a separate period applies)",
+        "unit": "% of tendered value",
+        "base": "",
+        "percentages": [
+          {
+            "text": "10",
+            "kind": "percent",
+            "value": 10.0,
+            "base": "accepted tendered value of work"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "cap_share_of_value": 0.1
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Does LD apply only to final completion, or also to milestone delays?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C4",
+      "question_id": "4.4",
+      "status": "FOUND",
+      "answer_value": "Both: delay at completion and shortfall against progress; amounts shown against missed milestones are withheld automatically and released if the contractor catches up",
+      "unit": "text",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 2, Clause 5",
+      "pdf_page": 18,
+      "verbatim_quote": "In case, the contractor does not achieve a particular milestone mentioned in schedule F, or the re-scheduled milestone(s) in terms of Clause 5.4, the amount shown against that milestone shall be withheld",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Milestone amounts are not filled in Schedule F (see 0.6), so the mechanism exists but has no numbers."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "4.4",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 18,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 18",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "mentions 'schedule'; value source ''",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Both: delay at completion and shortfall against progress; amounts shown against missed milestones are withheld automatically and released if the contractor catches up",
+        "unit": "text",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "How can the completion date be extended (extension of time conditions)?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C4",
+      "question_id": "4.5",
+      "status": "FOUND",
+      "answer_value": "Events: force majeure, abnormally bad weather, fire, strikes or civil commotion, delay by other contractors, other causes beyond control; Institute-caused hindrance; request within 14 days on the prescribed form; decision within 21 days; extra time for deviations per clause 12.1",
+      "unit": "days",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 5.2 to 5.4",
+      "pdf_page": 22,
+      "verbatim_quote": "Request for rescheduling of Mile stones or extension of time, to be eligible for consideration, shall be made by the Contractor in writing within fourteen days of the happening of the event causing delay",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Events in 5.2 give extension of time only, no money. Deviation extension is clause 12.1 (p.35)."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "4.5",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 22,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 22",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 14 (elsewhere in package), 21",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given (working/calendar not said for 14, 21 days)",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Events: force majeure, abnormally bad weather, fire, strikes or civil commotion, delay by other contractors, other causes beyond control; Institute-caused hindrance; request within 14 days on the prescribed form; decision within 21 days; extra time for deviations per clause 12.1",
+        "unit": "days",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "14",
+            "kind": "days",
+            "value": 14.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 14.0
+          },
+          {
+            "text": "21",
+            "kind": "days",
+            "value": 21.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 21.0
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "days": 14.0,
+        "days_kind": "unspecified"
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 14 (elsewhere in package), 21"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is LD stated as a pre-estimate of loss, and does it require proof of loss?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C4",
+      "question_id": "4.6",
+      "status": "FOUND",
+      "answer_value": "Not described as a pre-estimate. Clause 22 treats the compensation as reasonable compensation without reference to the actual loss or damage sustained and whether or not any damage was sustained, so proof of loss is not required. Clause 2 wording 'based on quantum of damage suffered' points the other way",
+      "unit": "text",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 22 and Clause 2",
+      "pdf_page": 49,
+      "verbatim_quote": "shall be considered as reasonable compensation to be applied to the use of IITB without reference to the actual loss or damage sustained and whether or not any damage shall have been sustained",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Relevant to the court judgments in the source register (J1, J2)."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "4.6",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 49,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 49",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Not described as a pre-estimate. Clause 22 treats the compensation as reasonable compensation without reference to the actual loss or damage sustained and whether or not any damage was sustained, so proof of loss is not required. Clause 2 wording 'based on quantum of damage suffered' points the other way",
+        "unit": "text",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is LD deductible from bills, retention or guarantee?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C4",
+      "question_id": "4.7",
+      "status": "FOUND",
+      "answer_value": "Yes: set off against any sum payable under this or any other contract with IITB; also recoverable from the security deposit",
+      "unit": "text",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 2; Clause 1A",
+      "pdf_page": 18,
+      "verbatim_quote": "The amount of compensation may be adjusted or set -off against any sum payable to the Contractor under this or any other contract with the IITB",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Cross-contract set-off is notable. Deduction from the security deposit is on p.16."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "4.7",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 18,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 18",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Yes: set off against any sum payable under this or any other contract with IITB; also recoverable from the security deposit",
+        "unit": "text",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Are there other LD or penalties (quality, performance, availability)?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C4",
+      "question_id": "4.8",
+      "status": "FOUND",
+      "answer_value": "Completion plans not submitted: 0.1% of tendered value or Schedule F limit; late performance guarantee: late fee 0.1% a day of guarantee amount (Schedule F); late progress report and late revised programme: recovery per Schedule F; penalties under clauses 19C, 19D, 19G, 19K set by Dean IPS (amounts blank); technical representative shortfall: Rs 1,00,000 a month (senior) and Rs 60,000 a month",
+      "unit": "text",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clauses 1, 5.1, 5.4, 8A, 19, 32; Schedule F",
+      "pdf_page": 26,
+      "verbatim_quote": "he shall be liable to pay a sum of 0.1 % (zero point one percent) of accepted Tendered Value or limit prescribed in Schedule F whichever is more",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Several small charges sit in different places. A model may miss the Schedule F recoveries on pp.106 and 111-112."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "4.8",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 26,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 26",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 1,00,000 (elsewhere in package), 60,000 (elsewhere in package)",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": false,
+          "detail": "no base for 0.1%",
+          "severity": "warn"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": true,
+          "detail": "cites Clauses 1, 5.1, 5.4, 8A, 19, 32; Schedule F",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Completion plans not submitted: 0.1% of tendered value or Schedule F limit; late performance guarantee: late fee 0.1% a day of guarantee amount (Schedule F); late progress report and late revised programme: recovery per Schedule F; penalties under clauses 19C, 19D, 19G, 19K set by Dean IPS (amounts blank); technical representative shortfall: Rs 1,00,000 a month (senior) and Rs 60,000 a month",
+        "unit": "text",
+        "base": "",
+        "percentages": [
+          {
+            "text": "0.1",
+            "kind": "percent",
+            "value": 0.1,
+            "base": "tendered value"
+          },
+          {
+            "text": "0.1",
+            "kind": "percent",
+            "value": 0.1,
+            "base": "",
+            "per": "day",
+            "per_day_pct": 0.1
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [
+          {
+            "text": "1,00,000",
+            "kind": "rupees",
+            "value": 100000.0,
+            "rupees": 100000.0
+          },
+          {
+            "text": "60,000",
+            "kind": "rupees",
+            "value": 60000.0,
+            "rupees": 60000.0
+          }
+        ],
+        "other_numbers": [],
+        "rate_per_day_of_value": 0.001,
+        "rate_share": 0.001,
+        "amount_rs": 100000.0
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 1,00,000 (elsewhere in package), 60,000 (elsewhere in package)",
+        "V4 Unit and base present warning: no base for 0.1%"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is the contract fixed price, or does it have a price variation clause?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C5",
+      "question_id": "5.1",
+      "status": "FOUND",
+      "answer_value": "Price variation clauses are present. Schedule F: clause 10CA (materials) is NOT applicable ('Applicable' struck through). Clause 10CC (general escalation) IS applicable ('Not Applicable' struck through) but only for stipulated periods over 12 months. Clause 10C (statutory changes) is part of the general conditions. The time allowed is blank in Schedule F and the only period stated is 9 months in an activity table, so 10CC probably does not trigger",
+      "unit": "text",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clauses 10C, 10CA, 10CC; Schedule F",
+      "pdf_page": 110,
+      "verbatim_quote": "Clause 10CC Applicable/ Not Applicable Clause 10 CC to be applicable in contracts with stipulated period of completion exceeding the period shown in next column 12 (Twelve) months",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "done",
+      "visual_evidence": "TEXT TRAP: strike-throughs are invisible in extracted text. Seen on the page image (printed page 109).",
+      "confidence": "high",
+      "notes": "TEXT TRAP: strike-throughs are invisible in extracted text. Seen on the page image (printed page 109)."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "5.1",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 110,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 110",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 9 (elsewhere in package)",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": true,
+          "detail": "cites Clauses 10C, 10CA, 10CC; Schedule F",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Price variation clauses are present. Schedule F: clause 10CA (materials) is NOT applicable ('Applicable' struck through). Clause 10CC (general escalation) IS applicable ('Not Applicable' struck through) but only for stipulated periods over 12 months. Clause 10C (statutory changes) is part of the general conditions. The time allowed is blank in Schedule F and the only period stated is 9 months in an activity table, so 10CC probably does not trigger",
+        "unit": "text",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "12",
+            "kind": "months",
+            "value": 12.0,
+            "unit": "months",
+            "day_type": "",
+            "days": 360.0,
+            "conversion": "12 months ~ 360 days (30 days per month)"
+          },
+          {
+            "text": "9",
+            "kind": "months",
+            "value": 9.0,
+            "unit": "months",
+            "day_type": "",
+            "days": 270.0,
+            "conversion": "9 months ~ 270 days (30 days per month)"
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "months": 12.0
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "Visual-only answer: read from a page image, confirm against the page",
+        "V3 Numbers in quote warning: not in quote, only on the page: 9 (elsewhere in package)"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "If PVC: what formula is given? Copy it exactly.",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C5",
+      "question_id": "5.2",
+      "status": "FOUND",
+      "answer_value": "10CA: V = P x Q x (CI - CIo)/CIo per material. 10CC materials: Vm = W x Xm x (MI - MIo)/MIo. 10CC labour: VL = W x Y x (LI - LIo)/LIo. W = 0.85 x cost of work done (M = C + F + I - J)",
+      "unit": "formula",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clauses 10CA and 10CC",
+      "pdf_page": 30,
+      "verbatim_quote": "V= P X Q X CI – CIO CIO V = Variation in material cost i.e. increase or decrease in the amount of rupees to be paid or recovered",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "done",
+      "visual_evidence": "Formulas are garbled in text extraction; the 10CC ones are on pp.32-33. Check the layout on the PDF page before copying. Formulas read on page images 32 and 33: Vm = W x (Xm/100) x (MI - MIo)/MIo; VL = W x (Y/100) x (LI - LIo)/LIo; W = N = 0.85 M. 10CA is not applicable in Schedule F.",
+      "confidence": "high",
+      "notes": "Formulas are garbled in text extraction; the 10CC ones are on pp.32-33. Check the layout on the PDF page before copying. Formulas read on page images 32 and 33: Vm = W x (Xm/100) x (MI - MIo)/MIo; VL = W x (Y/100) x (LI - LIo)/LIo; W = N = 0.85 M. 10CA is not applicable in Schedule F."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "5.2",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 30,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (raw text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 30",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 0.85 (elsewhere in package)",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "10CA: V = P x Q x (CI - CIo)/CIo per material. 10CC materials: Vm = W x Xm x (MI - MIo)/MIo. 10CC labour: VL = W x Y x (LI - LIo)/LIo. W = 0.85 x cost of work done (M = C + F + I - J)",
+        "unit": "formula",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [
+          {
+            "text": "0.85",
+            "kind": "number",
+            "value": 0.85
+          }
+        ]
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "Visual-only answer: read from a page image, confirm against the page",
+        "V3 Numbers in quote warning: not in quote, only on the page: 0.85 (elsewhere in package)"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Which components and weights (labour, cement, steel, fuel, bitumen, other)?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C5",
+      "question_id": "5.3",
+      "status": "FOUND",
+      "answer_value": "10CA base prices: cement Rs 6295, steel Rs 61045, structural steel Rs 67970 (units not stated); 10CC: materials Xm 40% and labour Y 25% of value of work (balance 35% implied for 10CA materials)",
+      "unit": "% / INR",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Schedule F, clauses 10CA, 10CC",
+      "pdf_page": 110,
+      "verbatim_quote": "Component of civil (except materials covered under clause 10CA) /Electrical construction Xm 40 % value of work. - Component of Labour - expressed as percent of total value of work. Y 25 %",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "done",
+      "visual_evidence": "Schedule F clause 10C labour component on p.109 is blank (separate from Y = 25%). The 35% balance is derived, not printed. POL has no base price listed. Base prices exist but clause 10CA is NOT applicable (page image 110), so they are unused.",
+      "confidence": "high",
+      "notes": "Schedule F clause 10C labour component on p.109 is blank (separate from Y = 25%). The 35% balance is derived, not printed. POL has no base price listed. Base prices exist but clause 10CA is NOT applicable (page image 110), so they are unused."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "5.3",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 110,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 110",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 6295, 61045, 67970, 35 (elsewhere in package)",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": false,
+          "detail": "no base for 40%, 35%",
+          "severity": "warn"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "10CA base prices: cement Rs 6295, steel Rs 61045, structural steel Rs 67970 (units not stated); 10CC: materials Xm 40% and labour Y 25% of value of work (balance 35% implied for 10CA materials)",
+        "unit": "% / INR",
+        "base": "",
+        "percentages": [
+          {
+            "text": "40",
+            "kind": "percent",
+            "value": 40.0,
+            "base": ""
+          },
+          {
+            "text": "25",
+            "kind": "percent",
+            "value": 25.0,
+            "base": "value of work"
+          },
+          {
+            "text": "35",
+            "kind": "percent",
+            "value": 35.0,
+            "base": ""
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [
+          {
+            "text": "6295",
+            "kind": "rupees",
+            "value": 6295.0,
+            "rupees": 6295.0
+          },
+          {
+            "text": "61045",
+            "kind": "rupees",
+            "value": 61045.0,
+            "rupees": 61045.0
+          },
+          {
+            "text": "67970",
+            "kind": "rupees",
+            "value": 67970.0,
+            "rupees": 67970.0
+          }
+        ],
+        "other_numbers": [],
+        "rate_share": 0.4,
+        "amount_rs": 6295.0
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "Visual-only answer: read from a page image, confirm against the page",
+        "V3 Numbers in quote warning: not in quote, only on the page: 6295, 61045, 67970, 35 (elsewhere in package)",
+        "V4 Unit and base present warning: no base for 40%, 35%"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Which index and source for each (WPI, CPI-IW, Labour Bureau, notified rates)?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C5",
+      "question_id": "5.4",
+      "status": "FOUND",
+      "answer_value": "Cement, steel reinforcement, structural steel and POL: price indices issued by Director General, CPWD. Other materials: All India Wholesale Price Index (Economic Adviser, Ministry of Commerce and Industry). Labour: minimum daily wage of an unskilled mazdoor under law",
+      "unit": "text",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 10CA, 10CC",
+      "pdf_page": 30,
+      "verbatim_quote": "The increase/decrease in prices of cement, steel reinforcement, structural steel and POL shall be determined by the Price indices issued by the Director General, CPWD.",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "done",
+      "visual_evidence": "Two index sources, plus a wage notification for labour. A model may name only WPI. The CPWD index route belongs to 10CA, which is not applicable here.",
+      "confidence": "high",
+      "notes": "Two index sources, plus a wage notification for labour. A model may name only WPI. The CPWD index route belongs to 10CA, which is not applicable here."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "5.4",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 30,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 30",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Cement, steel reinforcement, structural steel and POL: price indices issued by Director General, CPWD. Other materials: All India Wholesale Price Index (Economic Adviser, Ministry of Commerce and Industry). Labour: minimum daily wage of an unskilled mazdoor under law",
+        "unit": "text",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "Visual-only answer: read from a page image, confirm against the page"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What is the base date (bid due date, month before)?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C5",
+      "question_id": "5.5",
+      "status": "FOUND",
+      "answer_value": "10CC: last stipulated date of receipt of tenders including extensions. 10CA: base price and its period as indicated in Schedule F (periods not stated)",
+      "unit": "date",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 10CC(i)",
+      "pdf_page": 31,
+      "verbatim_quote": "(i) The base date for working out such escalation shall be the last stipulated date of receipt of tenders including extension, if any.",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Tender due date is 27.04.2023 (p.4). Extensions are unknown. Schedule F base-price periods are blank."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "5.5",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 31,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 31",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "mentions 'Schedule'; value source ''",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "10CC: last stipulated date of receipt of tenders including extensions. 10CA: base price and its period as indicated in Schedule F (periods not stated)",
+        "unit": "date",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is there a threshold below which no escalation is paid, or a cap?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C5",
+      "question_id": "5.6",
+      "status": "FOUND",
+      "answer_value": "No payment (and no downward adjustment) if stipulated period is equal to or less than the Schedule F time (12 months); escalation computed on 85% of work value; no percentage absorbed and no cap stated",
+      "unit": "months",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 10CC",
+      "pdf_page": 31,
+      "verbatim_quote": "No such compensation shall be payable for a work for which the stipulated period of completion is equal to or less t han the time as specified in Schedule F.",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "The extracted text has less t han. Escalation is quarterly. The 0.85 factor comes from N = 0.85 M on p.32."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "5.6",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 31,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 31",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 12 (elsewhere in package), 85 (elsewhere in package)",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "mentions 'Schedule'; value source ''",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "No payment (and no downward adjustment) if stipulated period is equal to or less than the Schedule F time (12 months); escalation computed on 85% of work value; no percentage absorbed and no cap stated",
+        "unit": "months",
+        "base": "",
+        "percentages": [
+          {
+            "text": "85",
+            "kind": "percent",
+            "value": 85.0,
+            "base": "work value"
+          }
+        ],
+        "periods": [
+          {
+            "text": "12",
+            "kind": "months",
+            "value": 12.0,
+            "unit": "months",
+            "day_type": "",
+            "days": 360.0,
+            "conversion": "12 months ~ 360 days (30 days per month)"
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "rate_share": 0.85,
+        "months": 12.0
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 12 (elsewhere in package), 85 (elsewhere in package)"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Does escalation stop after the original completion date?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C5",
+      "question_id": "5.7",
+      "status": "FOUND",
+      "answer_value": "Escalation is paid only for work done during the stipulated period including justified extensions granted without action under clause 2",
+      "unit": "text",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 10CC",
+      "pdf_page": 31,
+      "verbatim_quote": "shall be available only for the work done during the stipulated period of the contract including the justified period extended under the provisions of clause 5 of the contract without any action under clause 2",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "If compensation for delay is levied, the extension is not justified and escalation stops."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "5.7",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 31,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (raw text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 31",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Escalation is paid only for work done during the stipulated period including justified extensions granted without action under clause 2",
+        "unit": "text",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is escalation payable on materials supplied by the employer?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C5",
+      "question_id": "5.8",
+      "status": "FOUND",
+      "answer_value": "No: materials supplied by the department at fixed prices are excluded",
+      "unit": "yes/no",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 10CC",
+      "pdf_page": 31,
+      "verbatim_quote": "(not being materials supplied or services rendered at fixed prices by the department in accordance with clause 10 & 34 thereof)",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Clause 10C and 10CA wording on employer materials was not checked in detail."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "5.8",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 31,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (raw text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 31",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "No: materials supplied by the department at fixed prices are excluded",
+        "unit": "yes/no",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Which securities are required (bid security/EMD, performance security, advance payment guarantee, retention substitution)?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C6",
+      "question_id": "6.1",
+      "status": "FOUND",
+      "answer_value": "Earnest money Rs 4,24,547 (returned after performance guarantee); performance guarantee 5% of tendered value; security deposit 5%; bank guarantees for mobilisation advance (110%) and for replacing the deposit; Schedule F late fee on late performance guarantee",
+      "unit": "text",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Schedule E; Clauses 1, 1A, 10B",
+      "pdf_page": 105,
+      "verbatim_quote": "(i) Earnest money: Rs. 4,24,547/- (to be returned after receiving performance guarantee) (ii) Performance Guarantee : 5% of tendered value.",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "No separate bid security besides earnest money. No additional performance security for low bids."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "6.1",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 105,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 105",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 110 (elsewhere in package)",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": false,
+          "detail": "no base for 5%, 110%",
+          "severity": "warn"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": true,
+          "detail": "cites Schedule E; Clauses 1, 1A, 10B",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Earnest money Rs 4,24,547 (returned after performance guarantee); performance guarantee 5% of tendered value; security deposit 5%; bank guarantees for mobilisation advance (110%) and for replacing the deposit; Schedule F late fee on late performance guarantee",
+        "unit": "text",
+        "base": "",
+        "percentages": [
+          {
+            "text": "5",
+            "kind": "percent",
+            "value": 5.0,
+            "base": "tendered value"
+          },
+          {
+            "text": "5",
+            "kind": "percent",
+            "value": 5.0,
+            "base": ""
+          },
+          {
+            "text": "110",
+            "kind": "percent",
+            "value": 110.0,
+            "base": ""
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [
+          {
+            "text": "4,24,547",
+            "kind": "rupees",
+            "value": 424547.0,
+            "rupees": 424547.0
+          }
+        ],
+        "other_numbers": [],
+        "rate_share": 0.05,
+        "amount_rs": 424547.0
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 110 (elsewhere in package)",
+        "V4 Unit and base present warning: no base for 5%, 110%"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "For each: amount or percentage, and of what base?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C6",
+      "question_id": "6.2",
+      "status": "FOUND",
+      "answer_value": "Performance guarantee 5% of tendered amount; security deposit 5% of tendered value; earnest money Rs 4,24,547; advance guarantee 110% of the advance",
+      "unit": "% / INR",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 1",
+      "pdf_page": 15,
+      "verbatim_quote": "The contractor shall submit an irrevocable Performance Guarantee of 5% (Five percent) of the tendered amount",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Earnest money equals 2% of the estimate (Rs 4,24,547 against Rs 2,12,27,336), but the 2% rate is not stated."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "6.2",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 15,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (raw text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 15",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 4,24,547 (elsewhere in package), 110 (elsewhere in package)",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Performance guarantee 5% of tendered amount; security deposit 5% of tendered value; earnest money Rs 4,24,547; advance guarantee 110% of the advance",
+        "unit": "% / INR",
+        "base": "",
+        "percentages": [
+          {
+            "text": "5",
+            "kind": "percent",
+            "value": 5.0,
+            "base": "tendered amount"
+          },
+          {
+            "text": "5",
+            "kind": "percent",
+            "value": 5.0,
+            "base": "tendered value"
+          },
+          {
+            "text": "110",
+            "kind": "percent",
+            "value": 110.0,
+            "base": "advance"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [
+          {
+            "text": "4,24,547",
+            "kind": "rupees",
+            "value": 424547.0,
+            "rupees": 424547.0
+          }
+        ],
+        "other_numbers": [],
+        "rate_share": 0.05,
+        "amount_rs": 424547.0
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 4,24,547 (elsewhere in package), 110 (elsewhere in package)"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What forms are accepted (BG, e-BG, surety bond, FDR, DD)?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C6",
+      "question_id": "6.3",
+      "status": "FOUND",
+      "answer_value": "Cash (under Rs 10,000), deposit at call receipt, banker's cheque, demand draft or pay order (under Rs 1,00,000), government securities, fixed deposit receipt, guarantee bonds of a scheduled bank or SBI",
+      "unit": "text",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 1",
+      "pdf_page": 15,
+      "verbatim_quote": "This guarantee shall be in the form of Cash (in case guarantee amount is less than Rs. 10,000/-) or Deposit at Call receipt of any scheduled bank/Banker's Cheque of any scheduled bank/Demand Draft of any scheduled bank",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "No mention of e-bank guarantees or insurance surety bonds, which newer CPWD documents allow. A model may add them from general knowledge."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "6.3",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 15,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 15",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 1,00,000",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Cash (under Rs 10,000), deposit at call receipt, banker's cheque, demand draft or pay order (under Rs 1,00,000), government securities, fixed deposit receipt, guarantee bonds of a scheduled bank or SBI",
+        "unit": "text",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [
+          {
+            "text": "10,000",
+            "kind": "rupees",
+            "value": 10000.0,
+            "rupees": 10000.0
+          },
+          {
+            "text": "1,00,000",
+            "kind": "rupees",
+            "value": 100000.0,
+            "rupees": 100000.0
+          }
+        ],
+        "other_numbers": [],
+        "amount_rs": 10000.0
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 1,00,000"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Which issuers are acceptable (scheduled/nationalised bank)?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C6",
+      "question_id": "6.4",
+      "status": "FOUND",
+      "answer_value": "Any scheduled bank or the State Bank of India",
+      "unit": "text",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 1",
+      "pdf_page": 15,
+      "verbatim_quote": "Guarantee Bonds of any Scheduled Bank or the State Bank of India",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "A fixed deposit receipt of any bank: loss from a failed bank falls on the contractor."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "6.4",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 15,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 15",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Any scheduled bank or the State Bank of India",
+        "unit": "text",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What is the validity period, and must it be extended if time is extended?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C6",
+      "question_id": "6.5",
+      "status": "FOUND",
+      "answer_value": "Performance guarantee valid to stipulated completion date plus 60 days (Format I) or plus 6 months (Format II), and extended if time is extended; guarantee against deposit follows clause 17 and is extended with time",
+      "unit": "days / months",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 1(ii)",
+      "pdf_page": 15,
+      "verbatim_quote": "The Performance Guarantee shall be initially valid up to the stipulated date of completion plus minimum 60 days beyond that, if the same is submitted by the agency on scheduled format I as per GCC.",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Two bond formats (pp.103-104) give two different validity periods. A model may state only one."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "6.5",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 15,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 15",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 6",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given (working/calendar not said for 60 days)",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Performance guarantee valid to stipulated completion date plus 60 days (Format I) or plus 6 months (Format II), and extended if time is extended; guarantee against deposit follows clause 17 and is extended with time",
+        "unit": "days / months",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "60",
+            "kind": "days",
+            "value": 60.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 60.0
+          },
+          {
+            "text": "6",
+            "kind": "months",
+            "value": 6.0,
+            "unit": "months",
+            "day_type": "",
+            "days": 180.0,
+            "conversion": "6 months ~ 180 days (30 days per month)"
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "days": 60.0,
+        "days_kind": "unspecified",
+        "months": 6.0
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 6"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "On what grounds can the employer encash it?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C6",
+      "question_id": "6.6",
+      "status": "FOUND",
+      "answer_value": "Failure to extend validity (full amount claimable); failure to pay amounts due within 30 days of notice; forfeited in full if contract is determined or rescinded; forfeited if contractor fails to start work",
+      "unit": "text",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 1(iii), (iv); Clause 5",
+      "pdf_page": 15,
+      "verbatim_quote": "(b) Failure by the contractor to pay Director of Indian Institute of Technology Bombay any amount due",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Guarantee is payable on demand without regard to disputes (bond format, p.103). The 30-day notice period follows in the same sentence."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "6.6",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 15,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 15",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 30",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given (working/calendar not said for 30 days)",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Failure to extend validity (full amount claimable); failure to pay amounts due within 30 days of notice; forfeited in full if contract is determined or rescinded; forfeited if contractor fails to start work",
+        "unit": "text",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "30",
+            "kind": "days",
+            "value": 30.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 30.0
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "days": 30.0,
+        "days_kind": "unspecified"
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 30"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "When is it released?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C6",
+      "question_id": "6.7",
+      "status": "FOUND",
+      "answer_value": "Returned without interest after completion certificate; 80% returned after provisional completion certificate (40% if the contract includes maintenance); in maintenance contracts 50% is retained as security deposit and returned year by year",
+      "unit": "% / text",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 1(ii), (v)",
+      "pdf_page": 16,
+      "verbatim_quote": "After recording of the provisional Completion Certificate for the work by the competent authority, the 80 % of performance guarantee shall be returned to the contractor, without any interest.",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Page 15 says the guarantee is returned after the completion certificate; p.16 adds the 80% release at provisional completion. A model may report only one."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "6.7",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 16,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 16",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 40, 50 (elsewhere in package)",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": false,
+          "detail": "no base for 80%, 40%, 50%",
+          "severity": "warn"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Returned without interest after completion certificate; 80% returned after provisional completion certificate (40% if the contract includes maintenance); in maintenance contracts 50% is retained as security deposit and returned year by year",
+        "unit": "% / text",
+        "base": "",
+        "percentages": [
+          {
+            "text": "80",
+            "kind": "percent",
+            "value": 80.0,
+            "base": ""
+          },
+          {
+            "text": "40",
+            "kind": "percent",
+            "value": 40.0,
+            "base": ""
+          },
+          {
+            "text": "50",
+            "kind": "percent",
+            "value": 50.0,
+            "base": ""
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "rate_share": 0.8
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 40, 50 (elsewhere in package)",
+        "V4 Unit and base present warning: no base for 80%, 40%, 50%"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Are there extra guarantee requirements (additional performance security for low bids)?",
+    "answer": {
+      "contract_id": "BM2",
+      "clause_id": "C6",
+      "question_id": "6.8",
+      "status": "NOT_STATED",
+      "answer_value": "No additional performance security for abnormally low bids",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Clause 1",
+      "pdf_page": 0,
+      "verbatim_quote": "",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Searched additional performance, abnormally low, below the estimated. Not found. The 0.1% a day late fee on the guarantee amount (Schedule F, p.106) is a charge, not an extra guarantee."
+    },
+    "doc_id": "",
+    "verification": {
+      "question_id": "6.8",
+      "quote_found": null,
+      "found_doc_id": "",
+      "found_page": 0,
+      "page_matches": null,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": null,
+          "detail": "no quote to check",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": null,
+          "detail": "no quote to check",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": true,
+          "detail": "not a key number; queued for review like every NOT_STATED",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "No additional performance security for abnormally low bids",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "NOT_STATED: confirm nothing is said anywhere in the package"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  }
+]

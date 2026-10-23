@@ -5,10 +5,11 @@ import { Area, AreaChart, ReferenceDot, ResponsiveContainer, Tooltip, XAxis, YAx
 import { ArrowRight, CalendarClock, ClipboardCheck, FileSearch, IndianRupee, ShieldAlert, ShieldCheck, Target, Wrench } from "lucide-react";
 import { api } from "../api";
 import { useApp, useAsync, useRun } from "../context";
-import { CLAUSE_SHORT, type ClauseId, type RiskFlag, type Severity, effective } from "../types";
-import { keyFigures, sortFlags, worstFlagByClause, findQ } from "../lib/keyFigures";
+import { CLAUSE_SHORT, type ClauseId, type RiskFlag, type Severity, effective, labelCounts } from "../types";
+import { contractFacts, keyFigures, sortFlags, worstFlagByClause, type Fact } from "../lib/keyFigures";
 import { money, moneyAxis } from "../lib/format";
 import { RunGate } from "../components/RunGate";
+import { ReplayBanner } from "../components/Replay";
 import { Card, Chip, Donut, Dot, Legend, PageHeader, PageLink, ProgressRing, SEVERITY_META, SeverityChip, StatusChip, TONE_SOFT, TONE_SOLID, type Tone, cx } from "../components/ui";
 import { LABEL_COLORS } from "./Evaluation";
 
@@ -37,19 +38,21 @@ function Inner() {
   const sevCount = (s: Severity) => (flags.data ?? []).filter((f) => f.severity === s).length;
   const total = envs.length;
   const cr = cash.data?.as_written;
-  const facts: { label: string; icon: ReactNode; qid: string; value: string; user?: boolean }[] = [
-    { label: "Contract value", icon: <IndianRupee className="h-3.5 w-3.5" />, qid: "0.3", value: params.data ? money(params.data.inputs.contract_value, fullMoney) : kf.C0.headline, user: params.data?.provenance.find((p) => p.field === "contract_value")?.source === "user" },
-    { label: "Duration", icon: <CalendarClock className="h-3.5 w-3.5" />, qid: "0.4", value: params.data ? `${params.data.inputs.duration_months} months` : "–" },
-    { label: "Defects liability", icon: <Wrench className="h-3.5 w-3.5" />, qid: "0.5", value: params.data ? `${params.data.inputs.dlp_months} months` : "–" },
+  const cf = contractFacts(envs, params.data, (n) => money(n, fullMoney));
+  const facts: { label: string; icon: ReactNode; fact: Fact }[] = [
+    { label: "Contract value", icon: <IndianRupee className="h-3.5 w-3.5" />, fact: cf.value },
+    { label: "Duration", icon: <CalendarClock className="h-3.5 w-3.5" />, fact: cf.duration },
+    { label: "Defects liability", icon: <Wrench className="h-3.5 w-3.5" />, fact: cf.dlp },
   ];
   const top = sortFlags((flags.data ?? []).filter((f) => f.category === "risk")).slice(0, 3);
 
-  const labelData = score.data ? Object.entries(score.data.counts).map(([name, value]) => ({ name, value, color: LABEL_COLORS[name] ?? "var(--neutral)" })) : [];
+  const labelData = score.data ? Object.entries(labelCounts(score.data.counts)).map(([name, value]) => ({ name, value, color: LABEL_COLORS[name] ?? "var(--neutral)" })) : [];
   const correct = score.data ? (score.data.counts["Correct"] ?? 0) + (score.data.counts["Correct absent"] ?? 0) : 0;
   const scoreTotal = labelData.reduce((a, b) => a + b.value, 0);
 
   return (
     <div className="flex flex-col gap-4">
+      {meta?.replay && <ReplayBanner />}
       {/* Row 1: scorecard + review + accuracy */}
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-[1.5fr_1fr_1fr]">
         <Card className="md:col-span-2 xl:col-span-1" title="Contract risk scorecard" icon={<ShieldAlert className="h-4 w-4 text-muted" />} actions={<Link to={`/runs/${runId}/flags`} className="text-xs font-medium text-accent-ink hover:underline">All flags</Link>}>
@@ -109,18 +112,20 @@ function Inner() {
 
       {/* Row 2: C0 facts strip */}
       <div className="grid gap-2 rounded-xl border border-line bg-surface p-2 sm:grid-cols-3">
-        {facts.map((f) => {
-          const e = findQ(envs, f.qid);
+        {facts.map(({ label, icon, fact }) => {
+          const e = fact.proof;
           const a = e ? effective(e) : null;
           return (
-            <div key={f.label} className="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-surface-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-soft text-accent-ink">{f.icon}</span>
+            <div key={label} className="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-surface-2">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-soft text-accent-ink">{icon}</span>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted">
-                  <span className="truncate">{f.label}</span>
-                  {f.user ? <Chip size="xs" tone="accent" title="Entered by you; the contract does not give it">your input</Chip> : a && a.status !== "FOUND" && <StatusChip status={a.status} size="xs" />}
+                  <span className="truncate">{label}</span>
+                  {fact.source === "user" ? <Chip size="xs" tone="accent" title="Entered by you; the contract does not give it">your input</Chip>
+                    : fact.source === "none" ? <Chip size="xs" title="Not found in the package">not found</Chip>
+                    : a && a.status !== "FOUND" ? <StatusChip status={a.status} size="xs" /> : null}
                 </div>
-                <div className="truncate text-[15px] font-semibold text-ink" title={a?.answer_value}>{f.value}</div>
+                <div className="truncate text-[15px] font-semibold text-ink" title={a?.answer_value}>{fact.text}</div>
               </div>
               {e && a?.pdf_page ? <PageLink page={a.pdf_page} onClick={() => openAnswer(e)} /> : null}
             </div>
@@ -149,7 +154,7 @@ function Inner() {
                 <div className="mt-0.5 line-clamp-1 text-[12.5px] text-ink-2" title={k.sub}>{k.sub || " "}</div>
               </button>
               <div className="mt-3 flex items-center gap-2">
-                {k.status && <StatusChip status={k.status} size="xs" />}
+                {k.status ? <StatusChip status={k.status} size="xs" /> : <Chip size="xs">not found</Chip>}
                 {wf && <span className="min-w-0 flex-1 truncate text-[11.5px] text-ink-2" title={wf.title}>{wf.title}</span>}
                 <span className="ml-auto" />
                 {k.proof && pa?.pdf_page ? (

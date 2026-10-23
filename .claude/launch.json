@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "analyser",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["backend/run_server.py"],
+      "port": 8000
+    }
+  ]
+}

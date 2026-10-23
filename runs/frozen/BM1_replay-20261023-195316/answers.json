@@ -1,0 +1,6316 @@
+[
+  {
+    "question": "What type and version of contract is this (CPWD GCC 2023, MoRTH EPC, HAM, institute NIT, other)?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C0",
+      "question_id": "0.1",
+      "status": "FOUND",
+      "answer_value": "NHAI draft EPC agreement for four-laning of Makhu Town, NH-54 Punjab; cover dated July 2024",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cover page",
+      "pdf_page": 1,
+      "verbatim_quote": "Draft Engineering Procurement and Construction (EPC) Agreement For Widening and Reconstruction of existing Two Lane Carriageway to Four Lane with Paved Shoulder in Makhu Town",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Draft, not an executed contract. Cover also names NHAI and July 2024 on the same page. Template shared with other NHAI EPC agreements."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "0.1",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 1,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 1",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "NHAI draft EPC agreement for four-laning of Makhu Town, NH-54 Punjab; cover dated July 2024",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Who are the employer and contractor?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C0",
+      "question_id": "0.2",
+      "status": "FOUND",
+      "answer_value": "Employer: President of India through MoRTH, represented by Chairman NHAI (Chandigarh regional office); Contractor: not named (placeholder)",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Parties clause",
+      "pdf_page": 14,
+      "verbatim_quote": "The President of India through the Ministry of Road Transport & Highways, Government of India represented by: The Chairman, National Highways Authority of India, Regional office, Chandigarh",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Contractor is a blank placeholder (<insert name of party>). An LLM may invent a contractor name."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "0.2",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 14,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 14",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Employer: President of India through MoRTH, represented by Chairman NHAI (Chandigarh regional office); Contractor: not named (placeholder)",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What is the contract value / estimated cost / tendered amount?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C0",
+      "question_id": "0.3",
+      "status": "POINTS_ELSEWHERE",
+      "answer_value": "Lump sum Contract Price left blank (INR ... ) to be filled with the accepted bid price",
+      "unit": "INR",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 19.1(i)",
+      "pdf_page": 102,
+      "verbatim_quote": "the lump sum price accepted by the Authority in consideration of the obligations specified in this Agreement for an amount of INR … … … … (INR … … … … … … … …) (the “Contract Price”)",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Amount is blank in this draft. Price excludes maintenance cost and GST (same clause). Do not accept any figure from the tool."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "0.3",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 102,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 102",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "status POINTS_ELSEWHERE",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "status POINTS_ELSEWHERE",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": null,
+          "detail": "status POINTS_ELSEWHERE",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status POINTS_ELSEWHERE",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Lump sum Contract Price left blank (INR ... ) to be filled with the accepted bid price",
+        "unit": "INR",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "POINTS_ELSEWHERE: detail is in another document"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What is the stipulated completion period and start date basis?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C0",
+      "question_id": "0.4",
+      "status": "FOUND",
+      "answer_value": "730 days from the Appointed Date",
+      "unit": "days",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 10.3(i)",
+      "pdf_page": 64,
+      "verbatim_quote": "The 730th (seven hundred and thirtieth) day from the Appointed Date shall be the scheduled completion date",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Appointed Date is declared by the Authority with contractor consent (Art. 3 and 8). Schedule J milestone days must agree with 730."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "0.4",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 64,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 64",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given (working/calendar not said for 730 days)",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "730 days from the Appointed Date",
+        "unit": "days",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "730",
+            "kind": "days",
+            "value": 730.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 730.0
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "days": 730.0,
+        "days_kind": "unspecified"
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What is the defect liability / maintenance period?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C0",
+      "question_id": "0.5",
+      "status": "FOUND",
+      "answer_value": "5 years (flexible pavement); 10 years (rigid pavement, perpetual-design flexible, stand-alone structures), from completion",
+      "unit": "years",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 17.1(i)",
+      "pdf_page": 95,
+      "verbatim_quote": "(a) 5 (five) years from the date of completion in case of a road being constructed with flexible pavement; (b) 10 (ten) years from the date of completion in case of road being constructed with rigid pavement;",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Which limb applies depends on the pavement type chosen in the specifications; not decided in this clause. Separate Maintenance Period exists under Art. 14."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "0.5",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 95,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 95",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "2 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "5 years (flexible pavement); 10 years (rigid pavement, perpetual-design flexible, stand-alone structures), from completion",
+        "unit": "years",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "5",
+            "kind": "years",
+            "value": 5.0,
+            "unit": "years",
+            "day_type": "",
+            "days": 1825.0,
+            "conversion": "5 years ~ 1825 days (365 days per year)"
+          },
+          {
+            "text": "10",
+            "kind": "years",
+            "value": 10.0,
+            "unit": "years",
+            "day_type": "",
+            "days": 3650.0,
+            "conversion": "10 years ~ 3650 days (365 days per year)"
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Does the contract state milestones with dates or percentages?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C0",
+      "question_id": "0.6",
+      "status": "FOUND",
+      "answer_value": "Milestone I day 145 (statements >=10% of price); II day 320 (>=35%, all bridges started); III day 520 (>=70%); Scheduled Completion day 730",
+      "unit": "days / % of Contract Price",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Sch. J paras 2-5",
+      "pdf_page": 219,
+      "verbatim_quote": "Project Milestone-I shall occur on the date falling on the 145th (one hundred and forty fifth first) day from the Appointed Date",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Trap: Cl. 10.3(ii) example mentions Milestone-I on the 180th day with 10%, but Schedule J says 145th day. Quote is the Schedule J wording."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "0.6",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 219,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 219",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 10, 320, 35, 520, 70, 730 (elsewhere in package)",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given (working/calendar not said for 145, 320, 520, 730 days)",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Milestone I day 145 (statements >=10% of price); II day 320 (>=35%, all bridges started); III day 520 (>=70%); Scheduled Completion day 730",
+        "unit": "days / % of Contract Price",
+        "base": "",
+        "percentages": [
+          {
+            "text": "10",
+            "kind": "percent",
+            "value": 10.0,
+            "base": "price"
+          },
+          {
+            "text": "35",
+            "kind": "percent",
+            "value": 35.0,
+            "base": ""
+          },
+          {
+            "text": "70",
+            "kind": "percent",
+            "value": 70.0,
+            "base": ""
+          }
+        ],
+        "periods": [
+          {
+            "text": "145",
+            "kind": "days",
+            "value": 145.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 145.0
+          },
+          {
+            "text": "320",
+            "kind": "days",
+            "value": 320.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 320.0
+          },
+          {
+            "text": "520",
+            "kind": "days",
+            "value": 520.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 520.0
+          },
+          {
+            "text": "730",
+            "kind": "days",
+            "value": 730.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 730.0
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "rate_share": 0.1,
+        "days": 145.0,
+        "days_kind": "unspecified"
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 10, 320, 35, 520, 70, 730 (elsewhere in package)"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "How often can the contractor bill (monthly running bill, milestones, stage payments)?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C1",
+      "question_id": "1.1",
+      "status": "FOUND",
+      "answer_value": "Stage payments for completed stages valued per Schedule-H; contractor submits one Stage Payment Statement a month by the 7th",
+      "unit": "monthly",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 19.3 and 19.4",
+      "pdf_page": 105,
+      "verbatim_quote": "The Contractor shall submit a statement (the “Stage Payment Statement”), in 3 (three) copies, by the 7th (seventh) day of the month",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Not item-rate measurement: no payment for incomplete stages (same clause). LLM may describe it as monthly measured running bills."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "1.1",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 105,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 105",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "mentions 'Schedule'; value source ''",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Stage payments for completed stages valued per Schedule-H; contractor submits one Stage Payment Statement a month by the 7th",
+        "unit": "monthly",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Within how many days must the employer certify or measure a bill after submission?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C1",
+      "question_id": "1.2",
+      "status": "FOUND",
+      "answer_value": "Authority's Engineer issues the Interim Payment Certificate within 15 days of receiving the statement; within 10 days he recommends a 90% part payment",
+      "unit": "days",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 19.5(i) and (ii)",
+      "pdf_page": 105,
+      "verbatim_quote": "Within 15 (fifteen) days of the receipt of the Stage Payment Statement referred to in Clause 19.4, the Authority’s Engineer shall determine and shall deliver",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Two different periods (10 and 15 days) sit in the same clause. Certification is not the same as payment."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "1.2",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 105,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 105",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 10, 90",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": false,
+          "detail": "no base for 90% (working/calendar not said for 15, 10 days)",
+          "severity": "warn"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Authority's Engineer issues the Interim Payment Certificate within 15 days of receiving the statement; within 10 days he recommends a 90% part payment",
+        "unit": "days",
+        "base": "",
+        "percentages": [
+          {
+            "text": "90",
+            "kind": "percent",
+            "value": 90.0,
+            "base": ""
+          }
+        ],
+        "periods": [
+          {
+            "text": "15",
+            "kind": "days",
+            "value": 15.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 15.0
+          },
+          {
+            "text": "10",
+            "kind": "days",
+            "value": 10.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 10.0
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "rate_share": 0.9,
+        "days": 15.0,
+        "days_kind": "unspecified"
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 10, 90",
+        "V4 Unit and base present warning: no base for 90% (working/calendar not said for 15, 10 days)"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Within how many days must the certified amount be paid?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C1",
+      "question_id": "1.3",
+      "status": "FOUND",
+      "answer_value": "Payment no later than 30 days from submission of the Stage Payment Statement; if no IPC in 30 days the Authority pays the amount claimed and adjusts later",
+      "unit": "days",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 19.9(i)(a)",
+      "pdf_page": 107,
+      "verbatim_quote": "payment shall be made no later than 30 (thirty) days from the date of submission of the Stage Payment Statement by the Contractor",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "The 30 days run from submission of the statement, not from certification. Part payment of 90% is separately due within 10 days of the Engineer's recommendation (19.5(i))."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "1.3",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 107,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 107",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "2 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given (working/calendar not said for 30, 30 days)",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Payment no later than 30 days from submission of the Stage Payment Statement; if no IPC in 30 days the Authority pays the amount claimed and adjusts later",
+        "unit": "days",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "30",
+            "kind": "days",
+            "value": 30.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 30.0
+          },
+          {
+            "text": "30",
+            "kind": "days",
+            "value": 30.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 30.0
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "days": 30.0,
+        "days_kind": "unspecified"
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is interest payable on delayed payment? At what rate?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C1",
+      "question_id": "1.4",
+      "status": "FOUND",
+      "answer_value": "Bank Rate + 3% per annum on all unpaid sums",
+      "unit": "% p.a.",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 19.9(ii)",
+      "pdf_page": 108,
+      "verbatim_quote": "the Authority shall be liable to pay to the Contractor interest @ Bank Rate + 3% per annum, on all sums remaining unpaid",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Bank Rate is the RBI rate (footnote in 19.2(i)); the current value is not in the contract. Base Rate (SBI) is a different defined term."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "1.4",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 108,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 108",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Bank Rate + 3% per annum on all unpaid sums",
+        "unit": "% p.a.",
+        "base": "",
+        "percentages": [
+          {
+            "text": "3",
+            "kind": "percent",
+            "value": 3.0,
+            "base": "",
+            "per": "year",
+            "per_day_pct": 0.008219,
+            "conversion": "3% per year = 3/365 = 0.0082% per day (365-day year)"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What deductions are made from each bill (retention, taxes, recoveries)?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C1",
+      "question_id": "1.5",
+      "status": "FOUND",
+      "answer_value": "Retention 6% of every payment (cap 5% of Contract Price); advance recovery 15% of each Stage Payment Statement; withholding for unperformed or defective work (19.5(iv))",
+      "unit": "%",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 7.5(i); 19.2(vi); 19.5(iv)",
+      "pdf_page": 50,
+      "verbatim_quote": "deduct 6% (six per cent) thereof as guarantee money for performance of the obligations of the Contractor during the Construction Period",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Deductions are spread across three clauses. Taxes at source are mentioned only in the termination valuation (23.5), not as a bill deduction."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "1.5",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 50,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 50",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 5, 15",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Retention 6% of every payment (cap 5% of Contract Price); advance recovery 15% of each Stage Payment Statement; withholding for unperformed or defective work (19.5(iv))",
+        "unit": "%",
+        "base": "",
+        "percentages": [
+          {
+            "text": "6",
+            "kind": "percent",
+            "value": 6.0,
+            "base": "payment"
+          },
+          {
+            "text": "5",
+            "kind": "percent",
+            "value": 5.0,
+            "base": "contract price"
+          },
+          {
+            "text": "15",
+            "kind": "percent",
+            "value": 15.0,
+            "base": "stage payment statement"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "rate_share": 0.06,
+        "cap_share_of_value": 0.05
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 5, 15"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is there a minimum bill value or a cap on interim payment before work is certified?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C1",
+      "question_id": "1.6",
+      "status": "FOUND",
+      "answer_value": "No minimum bill value stated; before the IPC only 90% of the amount broadly determined is released as part payment",
+      "unit": "% of determined amount",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 19.5(i)",
+      "pdf_page": 105,
+      "verbatim_quote": "recommend the release of 90 (ninety) percent of the amount so determined as part payment against the Stage Payment Statement, pending issue of the Interim Payment Certificate",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "No minimum bill amount found. The 90% interim release is the only cap before certification. Contractor cannot claim incomplete stages (19.4)."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "1.6",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 105,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 105",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "No minimum bill value stated; before the IPC only 90% of the amount broadly determined is released as part payment",
+        "unit": "% of determined amount",
+        "base": "",
+        "percentages": [
+          {
+            "text": "90",
+            "kind": "percent",
+            "value": 90.0,
+            "base": "amount broadly determined"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "rate_share": 0.9
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What is the timeline and condition for the final bill and final payment?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C1",
+      "question_id": "1.7",
+      "status": "FOUND",
+      "answer_value": "Final Payment Statement within 60 days of Completion Certificate; Final Payment Certificate within 30 days of statement and discharge; payment per 19.9",
+      "unit": "days",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 19.13(i); 19.15; 19.9",
+      "pdf_page": 111,
+      "verbatim_quote": "Within 60 (sixty) days after receiving the Completion Certificate under Clause 12.2, the Contractor shall submit",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Two further periods (30 days) come from other clauses. Maintenance has its own final statement (19.16)."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "1.7",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 111,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 111",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 30, 19.9 (elsewhere in package)",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given (working/calendar not said for 60, 30 days)",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Final Payment Statement within 60 days of Completion Certificate; Final Payment Certificate within 30 days of statement and discharge; payment per 19.9",
+        "unit": "days",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "60",
+            "kind": "days",
+            "value": 60.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 60.0
+          },
+          {
+            "text": "30",
+            "kind": "days",
+            "value": 30.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 30.0
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [
+          {
+            "text": "19.9",
+            "kind": "number",
+            "value": 19.9
+          }
+        ],
+        "days": 60.0,
+        "days_kind": "unspecified"
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 30, 19.9 (elsewhere in package)"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is payment conditional on third-party funds (\"pay when paid\") or similar?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C1",
+      "question_id": "1.8",
+      "status": "NOT_STATED",
+      "answer_value": "None found",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "",
+      "pdf_page": 0,
+      "verbatim_quote": "",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Searched Art. 19 and whole text for pay-when-paid, back-to-back, subject to receipt of funds, availability of funds: no hits. Payment is unconditional but subject to certification."
+    },
+    "doc_id": "",
+    "verification": {
+      "question_id": "1.8",
+      "quote_found": null,
+      "found_doc_id": "",
+      "found_page": 0,
+      "page_matches": null,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": null,
+          "detail": "no quote to check",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": null,
+          "detail": "no quote to check",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": true,
+          "detail": "not a key number; queued for review like every NOT_STATED",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "None found",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "NOT_STATED: confirm nothing is said anywhere in the package"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is a retention or security deposit deducted from bills?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C2",
+      "question_id": "2.1",
+      "status": "FOUND",
+      "answer_value": "Yes",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 7.5(i)",
+      "pdf_page": 50,
+      "verbatim_quote": "From every payment for Works due to the Contractor in accordance with the provisions of Clause 19.5, the Authority shall deduct 6% (six per cent) thereof",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Retention is in Art. 7 (Performance Security), not in Art. 19 where payments sit."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "2.1",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 50,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 50",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Yes",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "At what percentage, and of what base (gross bill, net bill, contract value)?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C2",
+      "question_id": "2.2",
+      "status": "FOUND",
+      "answer_value": "6% of every payment for Works (stage payments under Cl. 19.5)",
+      "unit": "% of each payment",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 7.5(i)",
+      "pdf_page": 50,
+      "verbatim_quote": "deduct 6% (six per cent) thereof as guarantee money for performance of the obligations of the Contractor during the Construction Period",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Trap: rate is 6% but total is capped at 5% of Contract Price (next row). LLMs often report only 5%."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "2.2",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 50,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 50",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "6% of every payment for Works (stage payments under Cl. 19.5)",
+        "unit": "% of each payment",
+        "base": "",
+        "percentages": [
+          {
+            "text": "6",
+            "kind": "percent",
+            "value": 6.0,
+            "base": "payment"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "rate_share": 0.06
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is there a cap on total retention?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C2",
+      "question_id": "2.3",
+      "status": "FOUND",
+      "answer_value": "5% of Contract Price",
+      "unit": "% of Contract Price",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 7.5(i)",
+      "pdf_page": 50,
+      "verbatim_quote": "subject to the condition that the maximum amount of Retention Money shall not exceed 5% (five per cent) of the Contract Price.",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Cap is lower than the deduction rate, so deductions stop once 5% of the Contract Price is held."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "2.3",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 50,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 50",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "5% of Contract Price",
+        "unit": "% of Contract Price",
+        "base": "",
+        "percentages": [
+          {
+            "text": "5",
+            "kind": "percent",
+            "value": 5.0,
+            "base": "contract price"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "cap_share_of_value": 0.05
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is earnest money or bid security converted into or counted against it?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C2",
+      "question_id": "2.4",
+      "status": "FOUND",
+      "answer_value": "No link to retention: Bid Security stays in force until substituted by the Performance Security; it is not converted into retention money",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "1.1 definition of Bid Security; 7.1(iv)",
+      "pdf_page": 17,
+      "verbatim_quote": "“Bid Security” means the bid security provided by the Contractor to the Authority in accordance with the Request for Proposal, and which is to remain in force until substituted by the Performance Security;",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Judgement call: the text defines Bid Security but never says it is converted into retention. Both readers agree there is no link."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "2.4",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 17,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 17",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "No link to retention: Bid Security stays in force until substituted by the Performance Security; it is not converted into retention money",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "When is retention released (completion, end of defect liability period, in parts)?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C2",
+      "question_id": "2.5",
+      "status": "FOUND",
+      "answer_value": "Balance refunded within 15 days of the Completion Certificate (after set-off of appropriations)",
+      "unit": "days",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 7.5(iii)",
+      "pdf_page": 50,
+      "verbatim_quote": "Within 15 (fifteen) days of the date of issue of the Completion Certificate, the Authority shall refund the balance of Retention Money remaining with the Authority",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Released at completion, not at end of the 5 or 10 year defects period. On termination it is treated like Performance Security (7.5(iv))."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "2.5",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 50,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 50",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given (working/calendar not said for 15 days)",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Balance refunded within 15 days of the Completion Certificate (after set-off of appropriations)",
+        "unit": "days",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "15",
+            "kind": "days",
+            "value": 15.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 15.0
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "days": 15.0,
+        "days_kind": "unspecified"
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Can retention be replaced by a bank guarantee?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C2",
+      "question_id": "2.6",
+      "status": "NOT_STATED",
+      "answer_value": "No substitution mechanism in this agreement",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "",
+      "pdf_page": 0,
+      "verbatim_quote": "",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Searched Cl. 7.5 and the whole text for retention with bank guarantee or substitution forms: none. A retention-withdrawal guarantee form exists in some other NHAI drafts, not here."
+    },
+    "doc_id": "",
+    "verification": {
+      "question_id": "2.6",
+      "quote_found": null,
+      "found_doc_id": "",
+      "found_page": 0,
+      "page_matches": null,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": null,
+          "detail": "no quote to check",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": null,
+          "detail": "no quote to check",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": true,
+          "detail": "not a key number; queued for review like every NOT_STATED",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "No substitution mechanism in this agreement",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "NOT_STATED: confirm nothing is said anywhere in the package"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is interest paid on retention held?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C2",
+      "question_id": "2.7",
+      "status": "NOT_STATED",
+      "answer_value": "None stated",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "",
+      "pdf_page": 0,
+      "verbatim_quote": "",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Cl. 7.5 has no interest. The 9% interest in 7.4(iii) applies only to late return of Performance Security and Additional Performance Security."
+    },
+    "doc_id": "",
+    "verification": {
+      "question_id": "2.7",
+      "quote_found": null,
+      "found_doc_id": "",
+      "found_page": 0,
+      "page_matches": null,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": null,
+          "detail": "no quote to check",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": null,
+          "detail": "no quote to check",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": true,
+          "detail": "not a key number; queued for review like every NOT_STATED",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "None stated",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "NOT_STATED: confirm nothing is said anywhere in the package"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is a mobilisation advance given?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C3",
+      "question_id": "3.1",
+      "status": "FOUND",
+      "answer_value": "Yes, interest-bearing",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 19.2(i)",
+      "pdf_page": 102,
+      "verbatim_quote": "The Authority shall make an interest-bearing advance payment (the “Advance Payment”) @ “Bank Rate3 + 3%”, equal to 10 % (ten percent) of the Contract Price,",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Advance is paid by the Authority to the Contractor, the reverse of retention. It is interest-bearing, not free."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "3.1",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 102,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 102",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Yes, interest-bearing",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What percentage or amount, and in how many instalments?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C3",
+      "question_id": "3.2",
+      "status": "FOUND",
+      "answer_value": "10% of Contract Price in two instalments of 5% each",
+      "unit": "% of Contract Price",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 19.2(i)",
+      "pdf_page": 103,
+      "verbatim_quote": "The Advance Payment for mobilisation expenses shall be made in two instalments each equal to 5% (ﬁve percent) of the Contract Price.",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Second instalment needs a utilisation certificate for the first. Separate equipment advance is additional (3.6)."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "3.2",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 103,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 103",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 10",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "10% of Contract Price in two instalments of 5% each",
+        "unit": "% of Contract Price",
+        "base": "",
+        "percentages": [
+          {
+            "text": "10",
+            "kind": "percent",
+            "value": 10.0,
+            "base": "contract price"
+          },
+          {
+            "text": "5",
+            "kind": "percent",
+            "value": 5.0,
+            "base": ""
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [
+          {
+            "text": "two",
+            "kind": "count",
+            "value": 2.0
+          }
+        ],
+        "rate_share": 0.1
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 10"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is it interest-free or interest-bearing? At what rate?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C3",
+      "question_id": "3.3",
+      "status": "FOUND",
+      "answer_value": "Interest-bearing at Bank Rate + 3% per annum",
+      "unit": "% p.a.",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 19.2(i); 19.2(vii)",
+      "pdf_page": 102,
+      "verbatim_quote": "The Authority shall make an interest-bearing advance payment (the “Advance Payment”) @ “Bank Rate3 + 3%”, equal to 10 % (ten percent) of the Contract Price,",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "On termination for Contractor Default the unrecovered balance carries Bank Rate + 5% (19.2(vii)). Two different spreads in one clause."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "3.3",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 102,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 102",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Interest-bearing at Bank Rate + 3% per annum",
+        "unit": "% p.a.",
+        "base": "",
+        "percentages": [
+          {
+            "text": "3",
+            "kind": "percent",
+            "value": 3.0,
+            "base": "",
+            "per": "year",
+            "per_day_pct": 0.008219,
+            "conversion": "3% per year = 3/365 = 0.0082% per day (365-day year)"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "How and when is it recovered (per bill %, over a period)?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C3",
+      "question_id": "3.4",
+      "status": "FOUND",
+      "answer_value": "15% deducted from each Stage Payment Statement from the first one; fully repaid before 80% of the scheduled construction period",
+      "unit": "% of each payment",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 19.2(vi)",
+      "pdf_page": 104,
+      "verbatim_quote": "deductions shall be made at the rate of 15% (fifteen percent) of each Stage Payment Statement until such time as the advance payment has been repaid;",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Also: if certified payments stay at or below 20% of price within half the period, the advance is recovered by encashing the guarantee (19.2(vi)(c))."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "3.4",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 104,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 104",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 80",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "15% deducted from each Stage Payment Statement from the first one; fully repaid before 80% of the scheduled construction period",
+        "unit": "% of each payment",
+        "base": "",
+        "percentages": [
+          {
+            "text": "15",
+            "kind": "percent",
+            "value": 15.0,
+            "base": ""
+          },
+          {
+            "text": "80",
+            "kind": "percent",
+            "value": 80.0,
+            "base": "scheduled construction period"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "rate_share": 0.15
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 80"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What security is required for it?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C3",
+      "question_id": "3.5",
+      "status": "FOUND",
+      "answer_value": "Irrevocable unconditional e-Bank Guarantee for 110% of each instalment, valid until full repayment",
+      "unit": "% of instalment",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 19.2(iii) and (iv)",
+      "pdf_page": 103,
+      "verbatim_quote": "for an amount equivalent to 110% (one hundred and ten per cent) of such instalment",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Guarantee can be split into parts of at least 2.75% of Contract Price each. Physical BG also accepted till 31.12.2024 per footnote."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "3.5",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 103,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 103",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Irrevocable unconditional e-Bank Guarantee for 110% of each instalment, valid until full repayment",
+        "unit": "% of instalment",
+        "base": "",
+        "percentages": [
+          {
+            "text": "110",
+            "kind": "percent",
+            "value": 110.0,
+            "base": "instalment"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "rate_share": 1.1
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Are there advances for plant and machinery or secured advance on materials?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C3",
+      "question_id": "3.6",
+      "status": "FOUND",
+      "answer_value": "Additional advance on newly purchased key equipment up to 5% of Contract Price against e-BG; no advance on materials found",
+      "unit": "% of Contract Price",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 19.2(ii)",
+      "pdf_page": 103,
+      "verbatim_quote": "The maximum of such advance shall be 5% (five per cent) of the Contract Price",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Equipment advance needs Engineer verification the equipment is on site. Searched for secured advance on materials: no hits."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "3.6",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 103,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 103",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Additional advance on newly purchased key equipment up to 5% of Contract Price against e-BG; no advance on materials found",
+        "unit": "% of Contract Price",
+        "base": "",
+        "percentages": [
+          {
+            "text": "5",
+            "kind": "percent",
+            "value": 5.0,
+            "base": "contract price"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "cap_share_of_value": 0.05
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Conditions to receive the advance (BG submitted, work started)?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C3",
+      "question_id": "3.7",
+      "status": "FOUND",
+      "answer_value": "Apply after Appointed Date with 110% e-BG; second instalment after 60 days from Appointed Date, with e-BG and utilisation certificate; paid within 15 days of request",
+      "unit": "days",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 19.2(iii)-(v)",
+      "pdf_page": 103,
+      "verbatim_quote": "The Contractor may apply to the Authority for the first instalment of the Advance Payment at any time after the Appointed Date",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "First instalment: any time after Appointed Date. Second: after 60 days plus utilisation certificate for the first 5%."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "3.7",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 103,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 103",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 110, 60, 15 (elsewhere in package)",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": false,
+          "detail": "no base for 110% (working/calendar not said for 60, 15 days)",
+          "severity": "warn"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Apply after Appointed Date with 110% e-BG; second instalment after 60 days from Appointed Date, with e-BG and utilisation certificate; paid within 15 days of request",
+        "unit": "days",
+        "base": "",
+        "percentages": [
+          {
+            "text": "110",
+            "kind": "percent",
+            "value": 110.0,
+            "base": ""
+          }
+        ],
+        "periods": [
+          {
+            "text": "60",
+            "kind": "days",
+            "value": 60.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 60.0
+          },
+          {
+            "text": "15",
+            "kind": "days",
+            "value": 15.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 15.0
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "rate_share": 1.1,
+        "days": 60.0,
+        "days_kind": "unspecified"
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 110, 60, 15 (elsewhere in package)",
+        "V4 Unit and base present warning: no base for 110% (working/calendar not said for 60, 15 days)"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Does the contract impose LD for delay?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C4",
+      "question_id": "4.1",
+      "status": "FOUND",
+      "answer_value": "Yes (called \"Damages\")",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 10.3(ii)",
+      "pdf_page": 64,
+      "verbatim_quote": "it shall pay Damages to the Authority of a sum calculated at the rate of 0.05% (zero point zero five percent) of the Contract Price for delay of each day",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Contract uses the word Damages and says it is not a penalty or liquidated damages (1.2(w)). LLM searching only for \"liquidated damages\" will miss it."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "4.1",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 64,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 64",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Yes (called \"Damages\")",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What is the rate, and on what base (per day/week/month, % of contract value or of the delayed portion)?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C4",
+      "question_id": "4.2",
+      "status": "FOUND",
+      "answer_value": "0.05% of Contract Price for each day of delay, reckoned from the date in Schedule J. Payable if the milestone or the Scheduled Completion Date is not achieved within 30 days of that date",
+      "unit": "% of Contract Price per day",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 10.3(ii)",
+      "pdf_page": 64,
+      "verbatim_quote": "In the event that the Contractor fails to achieve any Project Milestone or the Scheduled Completion Date within a period of 30 (thirty) days from the date set forth in Schedule-J",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Trap: a 30-day grace applies before damages start, but the daily count runs from the Schedule J date, not from day 31. Wording corrected after review: the 30 days is the window in which the milestone must be achieved; the daily count runs from the Schedule J date."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "4.2",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 64,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 64",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 0.05",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given (working/calendar not said for 30 days)",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "mentions 'Schedule'; value source ''",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "0.05% of Contract Price for each day of delay, reckoned from the date in Schedule J. Payable if the milestone or the Scheduled Completion Date is not achieved within 30 days of that date",
+        "unit": "% of Contract Price per day",
+        "base": "",
+        "percentages": [
+          {
+            "text": "0.05",
+            "kind": "percent",
+            "value": 0.05,
+            "base": "contract price",
+            "per": "day",
+            "per_day_pct": 0.05
+          }
+        ],
+        "periods": [
+          {
+            "text": "30",
+            "kind": "days",
+            "value": 30.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 30.0
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "rate_per_day_of_value": 0.0005,
+        "days": 30.0,
+        "days_kind": "unspecified"
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 0.05"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What is the maximum (cap) on LD?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C4",
+      "question_id": "4.3",
+      "status": "FOUND",
+      "answer_value": "10% of Contract Price; above that the Contractor is in default and the Authority may terminate",
+      "unit": "% of Contract Price",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 10.3(iii)",
+      "pdf_page": 65,
+      "verbatim_quote": "the total amount of Damages under Clause 10.3 (ii) shall not exceed 10% (ten percent) of the Contract Price",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Cap is stated in 10.3(iii), a later paragraph than the rate. Cap reached after 200 days at 0.05% a day."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "4.3",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 65,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 65",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "10% of Contract Price; above that the Contractor is in default and the Authority may terminate",
+        "unit": "% of Contract Price",
+        "base": "",
+        "percentages": [
+          {
+            "text": "10",
+            "kind": "percent",
+            "value": 10.0,
+            "base": "contract price"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "cap_share_of_value": 0.1
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Does LD apply only to final completion, or also to milestone delays?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C4",
+      "question_id": "4.4",
+      "status": "FOUND",
+      "answer_value": "Both each Project Milestone and the Scheduled Completion Date",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 10.3(ii)",
+      "pdf_page": 64,
+      "verbatim_quote": "In the event that the Contractor fails to achieve any Project Milestone or the Scheduled Completion Date",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Damages paid for a missed milestone are refunded without interest if the project finishes by the Scheduled Completion Date including extensions."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "4.4",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 64,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 64",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Both each Project Milestone and the Scheduled Completion Date",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "How can the completion date be extended (extension of time conditions)?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C4",
+      "question_id": "4.5",
+      "status": "FOUND",
+      "answer_value": "Time Extension for delayed Right of Way or clearances, Change of Scope, Force Majeure, Authority-caused delay; notice within 15 business days or the right is lost",
+      "unit": "business days",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 10.5(i)-(iii)",
+      "pdf_page": 66,
+      "verbatim_quote": "the Contractor shall be entitled to extension of time in the Project Completion Schedule (the “Time Extension”) to the extent that completion of any Project Milestone is or will be delayed by any of the following, namely:",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Extension applies only to the affected works, not the whole project (10.5(ii))."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "4.5",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 66,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 66",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 15 (elsewhere in package)",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "mentions 'Schedule'; value source ''",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Time Extension for delayed Right of Way or clearances, Change of Scope, Force Majeure, Authority-caused delay; notice within 15 business days or the right is lost",
+        "unit": "business days",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "15",
+            "kind": "days",
+            "value": 15.0,
+            "unit": "days",
+            "day_type": "business",
+            "days": 15.0
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "days": 15.0,
+        "days_kind": "business"
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 15 (elsewhere in package)"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is LD stated as a pre-estimate of loss, and does it require proof of loss?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C4",
+      "question_id": "4.6",
+      "status": "FOUND",
+      "answer_value": "Damages are stated to be a genuine pre-estimate of loss and not a penalty; proof of loss not mentioned",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 1.2(w)",
+      "pdf_page": 26,
+      "verbatim_quote": "mutually agreed genuine pre-estimated loss and damage likely to be suffered and incurred by the Party entitled to receive the same and are not by way of penalty or liquidated damages",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "No wording on whether actual loss must be proved. Relevant to Section 74 of the Contract Act."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "4.6",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 26,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 26",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Damages are stated to be a genuine pre-estimate of loss and not a penalty; proof of loss not mentioned",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is LD deductible from bills, retention or guarantee?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C4",
+      "question_id": "4.7",
+      "status": "FOUND",
+      "answer_value": "Appropriate from Performance Security and Retention Money on Contractor Default; recoverable from amounts due after 20 days notice",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 7.3(i); 7.5(ii); 19.19",
+      "pdf_page": 49,
+      "verbatim_quote": "Upon occurrence of a Contractor’s Default, the Authority shall, without prejudice to its other rights and remedies hereunder or in law, be entitled to encash and appropriate the relevant amounts from the Performance Security as Damages",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Damages cannot be deducted without notice and 20 days for a representation (10.3(iii))."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "4.7",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 49,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 49",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 20 (elsewhere in package)",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": false,
+          "detail": "unit field empty (working/calendar not said for 20 days)",
+          "severity": "warn"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Appropriate from Performance Security and Retention Money on Contractor Default; recoverable from amounts due after 20 days notice",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "20",
+            "kind": "days",
+            "value": 20.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 20.0
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "days": 20.0,
+        "days_kind": "unspecified"
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 20 (elsewhere in package)",
+        "V4 Unit and base present warning: unit field empty (working/calendar not said for 20 days)"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Are there other LD or penalties (quality, performance, availability)?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C4",
+      "question_id": "4.8",
+      "status": "FOUND",
+      "answer_value": "0.01% of Bid Price per day for late security; maintenance non-compliance payment cuts (Sch. M); Authority pays damages for late site handover (8.3); bid ban if >90 days late on projects of Rs 300 crore or more; early completion bonus 0.03% a day, max 5%; also: lane-closure delay damages 0.1% of the monthly maintenance payment for each day per 250 m stretch (page 89); 20% of the cost as Damages for failure to rectify defects (page 96, Art. 17); 120% of the actual removal cost if the contractor fails to remove equipment and debris (page 82)",
+      "unit": "various",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 7.1(iii); 8.3; 10.3(iv); 19.20; Sch. M",
+      "pdf_page": 49,
+      "verbatim_quote": "The Damages shall be the sum calculated at the rate of 0.01% (zero point zero one per cent) of the Bid Price offered by the Selected Bidder",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Several different \"Damages\" run both ways. Do not merge the 0.01% (security delay) with the 0.05% (construction delay). Extra items added after the blind re-read and re-checked in the text."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "4.8",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 49,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 49",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 8.3 (elsewhere in package), 90 (elsewhere in package), 300 (elsewhere in package), 0.03 (elsewhere in package), 5 (elsewhere in package), 0.1 (elsewhere in package), 250 (elsewhere in package), 20 (elsewhere in package), 17 (elsewhere in package), 120 (elsewhere in package)",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": false,
+          "detail": "no base for 0.03%, 5% (working/calendar not said for 90 days)",
+          "severity": "warn"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "0.01% of Bid Price per day for late security; maintenance non-compliance payment cuts (Sch. M); Authority pays damages for late site handover (8.3); bid ban if >90 days late on projects of Rs 300 crore or more; early completion bonus 0.03% a day, max 5%; also: lane-closure delay damages 0.1% of the monthly maintenance payment for each day per 250 m stretch (page 89); 20% of the cost as Damages for failure to rectify defects (page 96, Art. 17); 120% of the actual removal cost if the contractor fails to remove equipment and debris (page 82)",
+        "unit": "various",
+        "base": "",
+        "percentages": [
+          {
+            "text": "0.01",
+            "kind": "percent",
+            "value": 0.01,
+            "base": "bid price",
+            "per": "day",
+            "per_day_pct": 0.01
+          },
+          {
+            "text": "0.03",
+            "kind": "percent",
+            "value": 0.03,
+            "base": "",
+            "per": "day",
+            "per_day_pct": 0.03
+          },
+          {
+            "text": "5",
+            "kind": "percent",
+            "value": 5.0,
+            "base": ""
+          },
+          {
+            "text": "0.1",
+            "kind": "percent",
+            "value": 0.1,
+            "base": "monthly maintenance payment",
+            "per": "day",
+            "per_day_pct": 0.1
+          },
+          {
+            "text": "20",
+            "kind": "percent",
+            "value": 20.0,
+            "base": "cost"
+          },
+          {
+            "text": "120",
+            "kind": "percent",
+            "value": 120.0,
+            "base": "actual removal cost"
+          }
+        ],
+        "periods": [
+          {
+            "text": "90",
+            "kind": "days",
+            "value": 90.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 90.0
+          }
+        ],
+        "amounts_rs": [
+          {
+            "text": "300",
+            "kind": "rupees",
+            "value": 300.0,
+            "rupees": 3000000000.0,
+            "conversion": "300 -> Rs 3,000,000,000"
+          }
+        ],
+        "other_numbers": [
+          {
+            "text": "8.3",
+            "kind": "number",
+            "value": 8.3
+          },
+          {
+            "text": "250",
+            "kind": "number",
+            "value": 250.0
+          },
+          {
+            "text": "17",
+            "kind": "number",
+            "value": 17.0
+          }
+        ],
+        "cap_share_of_value": 0.05,
+        "rate_share": 0.2,
+        "days": 90.0,
+        "days_kind": "unspecified",
+        "amount_rs": 3000000000.0,
+        "conversion_note": "300 -> Rs 3,000,000,000"
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 8.3 (elsewhere in package), 90 (elsewhere in package), 300 (elsewhere in package), 0.03 (elsewhere in package), 5 (elsewhere in package), 0.1 (elsewhere in package), 250 (elsewhere in package), 20 (elsewhere in package), 17 (elsewhere in package), 120 (elsewhere in package)",
+        "V4 Unit and base present warning: no base for 0.03%, 5% (working/calendar not said for 90 days)"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is the contract fixed price, or does it have a price variation clause?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C5",
+      "question_id": "5.1",
+      "status": "FOUND",
+      "answer_value": "Price variation clause applies (index-based adjustment)",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 19.10(iv)",
+      "pdf_page": 108,
+      "verbatim_quote": "The Contract Price shall be adjusted for increase or decrease in rates and price of labour, cement, steel, Plant, machinery and spares, bitumen, fuel and lubricants, and other material inputs",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Contract Price is lump sum but adjusted by formula (19.1(i)). Not fixed price."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "5.1",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 108,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 108",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Price variation clause applies (index-based adjustment)",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "If PVC: what formula is given? Copy it exactly.",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C5",
+      "question_id": "5.2",
+      "status": "FOUND",
+      "answer_value": "Road and other works: VRW = 0.85 x RW x [PL(LI-L0)/L0 + PA(AI-A0)/A0 + PF(FI-F0)/F0 + PB(BI-B0)/B0 + PM(MI-M0)/M0 + PC(CI-C0)/C0 + PS(SI-S0)/S0]. Bridges and structures: VBR = 0.85 x BR x [same terms without the bitumen term PB]. Maintenance lump sum, adjusted quarterly: V = P x (WI - W0)/W0, using the all-commodities WPI",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 19.10(iv)(d)",
+      "pdf_page": 108,
+      "verbatim_quote": "Price adjustment for changes in cost shall be paid in accordance with the following formulae:",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "done",
+      "visual_evidence": "The equations are images, so the extracted text has only the variable definitions (VRW, VBR, AO/AI, CO/CI and others). A tool must not invent the algebra. Corrected after viewing the page image: the equations are on PDF pages 109 and 111 (printed pages 97 and 99); the quote above is the text that introduces them. The P-terms are the component percentages in the table on page 111.",
+      "confidence": "high",
+      "notes": "The equations are images, so the extracted text has only the variable definitions (VRW, VBR, AO/AI, CO/CI and others). A tool must not invent the algebra. Corrected after viewing the page image: the equations are on PDF pages 109 and 111 (printed pages 97 and 99); the quote above is the text that in"
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "5.2",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 108,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 108",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in the package, looks derived (conversion stated): 0.85, 0.85",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Road and other works: VRW = 0.85 x RW x [PL(LI-L0)/L0 + PA(AI-A0)/A0 + PF(FI-F0)/F0 + PB(BI-B0)/B0 + PM(MI-M0)/M0 + PC(CI-C0)/C0 + PS(SI-S0)/S0]. Bridges and structures: VBR = 0.85 x BR x [same terms without the bitumen term PB]. Maintenance lump sum, adjusted quarterly: V = P x (WI - W0)/W0, using the all-commodities WPI",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [
+          {
+            "text": "0.85",
+            "kind": "number",
+            "value": 0.85
+          },
+          {
+            "text": "0.85",
+            "kind": "number",
+            "value": 0.85
+          }
+        ]
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "Visual-only answer: read from a page image, confirm against the page",
+        "V3 Numbers in quote warning: not in the package, looks derived (conversion stated): 0.85, 0.85"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Which components and weights (labour, cement, steel, fuel, bitumen, other)?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C5",
+      "question_id": "5.3",
+      "status": "FOUND",
+      "answer_value": "Labour 20/20/20/15/15%; cement 5/nil/20/15/15%; steel nil/nil/nil/15/20%; bitumen nil/15/nil/nil/nil%; fuel 10% each; other materials 50/40/35/30/25%; plant 15% each (five work types)",
+      "unit": "% by work type",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 19.10(iv)(e)",
+      "pdf_page": 110,
+      "verbatim_quote": "Labour (PL) 20% 20% 20% 15% 15% Cement (PC) 5% Nil 20% 15% 15% Steel (PS) Nil Nil Nil 15% 20% Bitumen (PB) Nil 15% Nil Nil Nil",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Five columns by work type; table text is split across lines and continues on the next page (plant row)."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "5.3",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 110,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 110",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 10, 50, 40, 35, 30, 25",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": false,
+          "detail": "no base for 20%, 20%, 20%, 15%, 15%, 5%, 20%, 15%, 15%, 15%, 20%, 15%, 10%, 50%, 40%, 35%, 30%, 25%, 15%",
+          "severity": "warn"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Labour 20/20/20/15/15%; cement 5/nil/20/15/15%; steel nil/nil/nil/15/20%; bitumen nil/15/nil/nil/nil%; fuel 10% each; other materials 50/40/35/30/25%; plant 15% each (five work types)",
+        "unit": "% by work type",
+        "base": "",
+        "percentages": [
+          {
+            "text": "20",
+            "kind": "percent",
+            "value": 20.0,
+            "base": ""
+          },
+          {
+            "text": "20",
+            "kind": "percent",
+            "value": 20.0,
+            "base": ""
+          },
+          {
+            "text": "20",
+            "kind": "percent",
+            "value": 20.0,
+            "base": ""
+          },
+          {
+            "text": "15",
+            "kind": "percent",
+            "value": 15.0,
+            "base": ""
+          },
+          {
+            "text": "15",
+            "kind": "percent",
+            "value": 15.0,
+            "base": ""
+          },
+          {
+            "text": "5",
+            "kind": "percent",
+            "value": 5.0,
+            "base": ""
+          },
+          {
+            "text": "20",
+            "kind": "percent",
+            "value": 20.0,
+            "base": ""
+          },
+          {
+            "text": "15",
+            "kind": "percent",
+            "value": 15.0,
+            "base": ""
+          },
+          {
+            "text": "15",
+            "kind": "percent",
+            "value": 15.0,
+            "base": ""
+          },
+          {
+            "text": "15",
+            "kind": "percent",
+            "value": 15.0,
+            "base": ""
+          },
+          {
+            "text": "20",
+            "kind": "percent",
+            "value": 20.0,
+            "base": ""
+          },
+          {
+            "text": "15",
+            "kind": "percent",
+            "value": 15.0,
+            "base": ""
+          },
+          {
+            "text": "10",
+            "kind": "percent",
+            "value": 10.0,
+            "base": ""
+          },
+          {
+            "text": "50",
+            "kind": "percent",
+            "value": 50.0,
+            "base": ""
+          },
+          {
+            "text": "40",
+            "kind": "percent",
+            "value": 40.0,
+            "base": ""
+          },
+          {
+            "text": "35",
+            "kind": "percent",
+            "value": 35.0,
+            "base": ""
+          },
+          {
+            "text": "30",
+            "kind": "percent",
+            "value": 30.0,
+            "base": ""
+          },
+          {
+            "text": "25",
+            "kind": "percent",
+            "value": 25.0,
+            "base": ""
+          },
+          {
+            "text": "15",
+            "kind": "percent",
+            "value": 15.0,
+            "base": ""
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "rate_share": 0.2
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 10, 50, 40, 35, 30, 25",
+        "V4 Unit and base present warning: no base for 20%, 20%, 20%, 15%, 15%, 5%, 20%, 15%, 15%, 15%, 20%, 15%, 10%, 50%, 40%, 35%, 30%, 25%, 15%"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Which index and source for each (WPI, CPI-IW, Labour Bureau, notified rates)?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C5",
+      "question_id": "5.4",
+      "status": "FOUND",
+      "answer_value": "WPI machinery; WPI cement (OPC); WPI mild steel long products; WPI all commodities; CPI-IW Bathinda (Labour Bureau); bitumen price at Bathinda (HMEL) refinery; HSD price at IOC pumps in Punjab",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 19.10(iv)(d) definitions",
+      "pdf_page": 110,
+      "verbatim_quote": "SO = The WPI for Mild Steel –Long Products for the month of the Base Date. SI = The WPI for Mild Steel –Long Products for the month three months prior to the month to which the IPC relates.",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Current index is for the month three months before the IPC month. Bitumen and diesel use price points, not WPI."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "5.4",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 110,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 110",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "WPI machinery; WPI cement (OPC); WPI mild steel long products; WPI all commodities; CPI-IW Bathinda (Labour Bureau); bitumen price at Bathinda (HMEL) refinery; HSD price at IOC pumps in Punjab",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What is the base date (bid due date, month before)?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C5",
+      "question_id": "5.5",
+      "status": "FOUND",
+      "answer_value": "Last day of the calendar month at least 28 days before the Bid Due Date",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 1.1 (Base Date)",
+      "pdf_page": 17,
+      "verbatim_quote": "means the last date of the calendar month, which precedes the Bid Due Date by at least 28 (twenty eight) days",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Index comparison point is the Base Date (not the contract signing date)."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "5.5",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 17,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 17",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": false,
+          "detail": "unit field empty (working/calendar not said for 28 days)",
+          "severity": "warn"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Last day of the calendar month at least 28 days before the Bid Due Date",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "28",
+            "kind": "days",
+            "value": 28.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 28.0
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "days": 28.0,
+        "days_kind": "unspecified"
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V4 Unit and base present warning: unit field empty (working/calendar not said for 28 days)"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is there a threshold below which no escalation is paid, or a cap?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C5",
+      "question_id": "5.6",
+      "status": "NOT_STATED",
+      "answer_value": "No threshold or ceiling stated",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "",
+      "pdf_page": 0,
+      "verbatim_quote": "",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Searched Cl. 19.10 and 19.11: no deductible threshold, ceiling or percentage cap. 19.10(iii) says costs not otherwise covered are deemed included in the price."
+    },
+    "doc_id": "",
+    "verification": {
+      "question_id": "5.6",
+      "quote_found": null,
+      "found_doc_id": "",
+      "found_page": 0,
+      "page_matches": null,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": null,
+          "detail": "no quote to check",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": null,
+          "detail": "no quote to check",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": true,
+          "detail": "not a key number; queued for review like every NOT_STATED",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "No threshold or ceiling stated",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "NOT_STATED: confirm nothing is said anywhere in the package"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Does escalation stop after the original completion date?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C5",
+      "question_id": "5.7",
+      "status": "FOUND",
+      "answer_value": "Payable only for stages billed within 30 days of the applicable milestone or Scheduled Completion Date (including extensions)",
+      "unit": "days",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 19.11",
+      "pdf_page": 111,
+      "verbatim_quote": "Price adjustment shall be due and payable only in respect of the stages of Works for which the Stage Payment Statement has been submitted by the Contractor no later than 30 (thirty) days",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Late billing cuts off price adjustment after that milestone or completion date; it is not a blanket stop at original completion."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "5.7",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 111,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 111",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": true,
+          "detail": "1 number(s) found in the quote",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given (working/calendar not said for 30 days)",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Payable only for stages billed within 30 days of the applicable milestone or Scheduled Completion Date (including extensions)",
+        "unit": "days",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "30",
+            "kind": "days",
+            "value": 30.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 30.0
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "days": 30.0,
+        "days_kind": "unspecified"
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Is escalation payable on materials supplied by the employer?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C5",
+      "question_id": "5.8",
+      "status": "NOT_STATED",
+      "answer_value": "No such provision found",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "",
+      "pdf_page": 0,
+      "verbatim_quote": "",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Searched for supplied by or issued by the Authority and free issue of materials: no material-supply clause tied to escalation."
+    },
+    "doc_id": "",
+    "verification": {
+      "question_id": "5.8",
+      "quote_found": null,
+      "found_doc_id": "",
+      "found_page": 0,
+      "page_matches": null,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": null,
+          "detail": "no quote to check",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": null,
+          "detail": "no quote to check",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": null,
+          "detail": "status NOT_STATED",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": true,
+          "detail": "not a key number; queued for review like every NOT_STATED",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "No such provision found",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "NOT_STATED: confirm nothing is said anywhere in the package"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Which securities are required (bid security/EMD, performance security, advance payment guarantee, retention substitution)?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C6",
+      "question_id": "6.1",
+      "status": "FOUND",
+      "answer_value": "Bid Security (RFP stage); Performance Security; Additional Performance Security for low bids; Retention Money; e-BG for each advance (mobilisation and equipment)",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 7.1; 7.5; 19.2",
+      "pdf_page": 48,
+      "verbatim_quote": "Within 30 (thirty) days of receipt of Letter of Acceptance, the selected Bidder shall furnish to the Authority in the form of Insurance Surety Bond",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Retention and advance guarantees are not in the same clause as Performance Security. LLMs often list only the first."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "6.1",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 48,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 48",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Bid Security (RFP stage); Performance Security; Additional Performance Security for low bids; Retention Money; e-BG for each advance (mobilisation and equipment)",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "For each: amount or percentage, and of what base?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C6",
+      "question_id": "6.2",
+      "status": "FOUND",
+      "answer_value": "Performance Security 3% of Bid Price; Additional Performance Security up to 3% of Bid Price; advance e-BG 110% of each instalment; equipment advance up to 5% of Contract Price",
+      "unit": "%",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 7.1(i); 19.2",
+      "pdf_page": 48,
+      "verbatim_quote": "for an amount equal to 3% (three percent) of its Bid Price",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Base is Bid Price for security but Contract Price for the advance. Retention is separate (2.3)."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "6.2",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 48,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 48",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 110 (elsewhere in package), 5 (elsewhere in package)",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Performance Security 3% of Bid Price; Additional Performance Security up to 3% of Bid Price; advance e-BG 110% of each instalment; equipment advance up to 5% of Contract Price",
+        "unit": "%",
+        "base": "",
+        "percentages": [
+          {
+            "text": "3",
+            "kind": "percent",
+            "value": 3.0,
+            "base": "bid price"
+          },
+          {
+            "text": "3",
+            "kind": "percent",
+            "value": 3.0,
+            "base": "bid price"
+          },
+          {
+            "text": "110",
+            "kind": "percent",
+            "value": 110.0,
+            "base": "instalment"
+          },
+          {
+            "text": "5",
+            "kind": "percent",
+            "value": 5.0,
+            "base": "contract price"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "rate_share": 0.03,
+        "cap_share_of_value": 0.03
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 110 (elsewhere in package), 5 (elsewhere in package)"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What forms are accepted (BG, e-BG, surety bond, FDR, DD)?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C6",
+      "question_id": "6.3",
+      "status": "FOUND",
+      "answer_value": "Insurance Surety Bond, Account Payee Demand Draft, Banker's Cheque, irrevocable e-Bank Guarantee; physical BG also acceptable till 31.12.2024",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 7.1(i)(A) and footnote",
+      "pdf_page": 48,
+      "verbatim_quote": "Account Payee Demand Draft, Banker’s Cheque or an irrevocable and unconditional e-Bank Guaranteeα from a Bank",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "The footnote with the 31.12.2024 date sits below the clause on the same page. The date has already passed."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "6.3",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 48,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 48",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Insurance Surety Bond, Account Payee Demand Draft, Banker's Cheque, irrevocable e-Bank Guarantee; physical BG also acceptable till 31.12.2024",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Which issuers are acceptable (scheduled/nationalised bank)?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C6",
+      "question_id": "6.4",
+      "status": "FOUND",
+      "answer_value": "A bank incorporated in India and recognised by the Reserve Bank of India",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 1.1 (Bank)",
+      "pdf_page": 17,
+      "verbatim_quote": "a bank incorporated in India and recognized by the Reserve Bank of India",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Definition of Bank does not say scheduled or nationalised."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "6.4",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 17,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 17",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "A bank incorporated in India and recognised by the Reserve Bank of India",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "What is the validity period, and must it be extended if time is extended?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C6",
+      "question_id": "6.5",
+      "status": "FOUND",
+      "answer_value": "Performance Security valid until 60 days after the Defects Liability Period (may be furnished for 2 years and extended 2 months before expiry); Additional Performance Security valid until 28 days after Project Completion Date",
+      "unit": "days",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 7.1(i)(B); 7.2",
+      "pdf_page": 48,
+      "verbatim_quote": "The Performance Security shall be valid until 60(sixty) days after the Defects Liability Period. The Additional Performance Security shall be valid until 28 (twenty eight) days after Project Completion Date.",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Two validity rules: initial 2-year term with rolling extension, and the final end date. 28 vs 60 days differ by security type."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "6.5",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 48,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 48",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 2 (elsewhere in package), 2 (elsewhere in package)",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given (working/calendar not said for 60, 28 days)",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Performance Security valid until 60 days after the Defects Liability Period (may be furnished for 2 years and extended 2 months before expiry); Additional Performance Security valid until 28 days after Project Completion Date",
+        "unit": "days",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "60",
+            "kind": "days",
+            "value": 60.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 60.0
+          },
+          {
+            "text": "2",
+            "kind": "years",
+            "value": 2.0,
+            "unit": "years",
+            "day_type": "",
+            "days": 730.0,
+            "conversion": "2 years ~ 730 days (365 days per year)"
+          },
+          {
+            "text": "2",
+            "kind": "months",
+            "value": 2.0,
+            "unit": "months",
+            "day_type": "",
+            "days": 60.0,
+            "conversion": "2 months ~ 60 days (30 days per month)"
+          },
+          {
+            "text": "28",
+            "kind": "days",
+            "value": 28.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 28.0
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "days": 60.0,
+        "days_kind": "unspecified",
+        "months": 2.0
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 2 (elsewhere in package), 2 (elsewhere in package)"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "On what grounds can the employer encash it?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C6",
+      "question_id": "6.6",
+      "status": "FOUND",
+      "answer_value": "On Contractor Default; on termination for Contractor Default; advance guarantee if advance not recovered",
+      "unit": "",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 7.3(i); 23.6(i); 19.2(vi)(c)",
+      "pdf_page": 49,
+      "verbatim_quote": "Upon occurrence of a Contractor’s Default, the Authority shall, without prejudice to its other rights and remedies hereunder or in law, be entitled to encash and appropriate the relevant amounts from the Performance Security as Damages",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "After encashment the Contractor must replenish within 30 days or the Authority may terminate (7.3(ii))."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "6.6",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 49,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 49",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": null,
+          "detail": "no numbers in the answer",
+          "severity": "info"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": null,
+          "detail": "no percentage or period",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "no values to test",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "On Contractor Default; on termination for Contractor Default; advance guarantee if advance not recovered",
+        "unit": "",
+        "base": "",
+        "percentages": [],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": []
+      },
+      "verdict": "pass",
+      "discard": false
+    },
+    "review": {
+      "decision": "not_needed",
+      "reasons": [],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "When is it released?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C6",
+      "question_id": "6.7",
+      "status": "FOUND",
+      "answer_value": "Performance Security within 60 days of the end of the Maintenance Period or Defects Liability Period, whichever is later; Additional Performance Security within 28 days of Completion Certificate",
+      "unit": "days",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 7.4(i) and (ii)",
+      "pdf_page": 50,
+      "verbatim_quote": "The Authority shall return the Performance Security to the Contractor within 60 (sixty) days of the expiry of the Maintenance Period or the Defects Liability Period, whichever is later",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "With a 5 or 10 year defects period, Performance Security stays for years. 9% interest applies if returned late (7.4(iii))."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "6.7",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 50,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 50",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 28",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given (working/calendar not said for 60, 28 days)",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Performance Security within 60 days of the end of the Maintenance Period or Defects Liability Period, whichever is later; Additional Performance Security within 28 days of Completion Certificate",
+        "unit": "days",
+        "base": "",
+        "percentages": [],
+        "periods": [
+          {
+            "text": "60",
+            "kind": "days",
+            "value": 60.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 60.0
+          },
+          {
+            "text": "28",
+            "kind": "days",
+            "value": 28.0,
+            "unit": "days",
+            "day_type": "unspecified",
+            "days": 28.0
+          }
+        ],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "days": 60.0,
+        "days_kind": "unspecified"
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 28"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  },
+  {
+    "question": "Are there extra guarantee requirements (additional performance security for low bids)?",
+    "answer": {
+      "contract_id": "BM1",
+      "clause_id": "C6",
+      "question_id": "6.8",
+      "status": "FOUND",
+      "answer_value": "Additional Performance Security if bid is more than 20% below estimate: 20% of the shortfall, capped at 3% of Bid Price",
+      "unit": "% of shortfall",
+      "base": "",
+      "value_source": "",
+      "section_ref": "Cl. 7.1(i)(A)(a) and (b)",
+      "pdf_page": 48,
+      "verbatim_quote": "If the Bid Price offered by the Selected Bidder is lower than 20% of the Estimated Project Cost/ cost put to tender, the Additional Performance Security shall be calculated @20% of the difference",
+      "conflicts": [],
+      "points_to": "",
+      "visual_check": "none",
+      "visual_evidence": "",
+      "confidence": "high",
+      "notes": "Wording \"lower than 20% of the Estimated Project Cost\" is loose: it means a bid more than 20% below estimate. Possible misreading by an LLM."
+    },
+    "doc_id": "d1",
+    "verification": {
+      "question_id": "6.8",
+      "quote_found": true,
+      "found_doc_id": "d1",
+      "found_page": 48,
+      "page_matches": true,
+      "checks": [
+        {
+          "check": "V1",
+          "name": "Quote exists",
+          "passed": true,
+          "detail": "exact match (sorted text)",
+          "severity": "info"
+        },
+        {
+          "check": "V2",
+          "name": "Page matches",
+          "passed": true,
+          "detail": "d1 page 48",
+          "severity": "info"
+        },
+        {
+          "check": "V3",
+          "name": "Numbers in quote",
+          "passed": false,
+          "detail": "not in quote, only on the page: 3",
+          "severity": "warn"
+        },
+        {
+          "check": "V4",
+          "name": "Unit and base present",
+          "passed": true,
+          "detail": "base and unit given",
+          "severity": "info"
+        },
+        {
+          "check": "V5",
+          "name": "Schedule followed",
+          "passed": null,
+          "detail": "no schedule or contract-data pointer",
+          "severity": "info"
+        },
+        {
+          "check": "V6",
+          "name": "No conflicting values",
+          "passed": true,
+          "detail": "none reported",
+          "severity": "info"
+        },
+        {
+          "check": "V7",
+          "name": "Plausible range",
+          "passed": true,
+          "detail": "within ranges",
+          "severity": "info"
+        },
+        {
+          "check": "V8",
+          "name": "Absence confirmed",
+          "passed": null,
+          "detail": "status FOUND",
+          "severity": "info"
+        }
+      ],
+      "normalised": {
+        "original": "Additional Performance Security if bid is more than 20% below estimate: 20% of the shortfall, capped at 3% of Bid Price",
+        "unit": "% of shortfall",
+        "base": "",
+        "percentages": [
+          {
+            "text": "20",
+            "kind": "percent",
+            "value": 20.0,
+            "base": ""
+          },
+          {
+            "text": "20",
+            "kind": "percent",
+            "value": 20.0,
+            "base": "shortfall"
+          },
+          {
+            "text": "3",
+            "kind": "percent",
+            "value": 3.0,
+            "base": "bid price"
+          }
+        ],
+        "periods": [],
+        "amounts_rs": [],
+        "other_numbers": [],
+        "rate_share": 0.2,
+        "cap_share_of_value": 0.03
+      },
+      "verdict": "warn",
+      "discard": false
+    },
+    "review": {
+      "decision": "pending",
+      "reasons": [
+        "V3 Numbers in quote warning: not in quote, only on the page: 3"
+      ],
+      "user_answer": null,
+      "note": "",
+      "decided_at": ""
+    },
+    "raw_call_id": ""
+  }
+]

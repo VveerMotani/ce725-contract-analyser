@@ -142,7 +142,7 @@ def install_fakes(monkeypatch, tmp_path: Path) -> dict:
     monkeypatch.setattr(config, "UPLOADS_DIR", tmp_path / "runs" / "_uploads")
     (tmp_path / "runs").mkdir()
     pipeline.clear_caches()
-    calls = {"flags": 0, "score": [], "params": 0, "build": 0}
+    calls = {"flags": 0, "score": [], "params": 0, "build": 0, "user_inputs": []}
 
     def build_package(files, contract_id, title="", package_id=None):
         calls["build"] += 1
@@ -169,6 +169,7 @@ def install_fakes(monkeypatch, tmp_path: Path) -> dict:
 
     def params(envelopes, user_inputs, llm):
         calls["params"] += 1
+        calls["user_inputs"].append(dict(user_inputs))
         return fake_params(envelopes, user_inputs, llm)
 
     def flag_risks(envelopes, package, cash=None, cash_result=None):
@@ -187,7 +188,8 @@ def install_fakes(monkeypatch, tmp_path: Path) -> dict:
         "extract": dict(extract_package=extract_package),
         "verify": dict(verify_answers=fake_verify),
         "params": dict(map_to_cash_params=params),
-        "cashflow": dict(run_cashflow=fake_run_cashflow, reference_view=fake_reference_view),
+        "cashflow": dict(run_cashflow=fake_run_cashflow, reference_view=fake_reference_view,
+                         s_curve=lambda T: [1.0 / T] * T),
         "risk": dict(flag_risks=flag_risks),
         "evaluate": dict(score_run=score_run),
     }

@@ -111,6 +111,14 @@ def start_run(package_id: str, contract_id: str, user_inputs: dict) -> RunMeta:
     return meta
 
 
+REPLAY_MODEL = "answer-key replay (no LLM)"   # set by scripts/make_replay_runs.py
+
+
+def is_replay(meta: RunMeta) -> bool:
+    """Answer-key replay runs hold the golden answers, not AI output."""
+    return meta.model == REPLAY_MODEL or "_replay-" in meta.run_id
+
+
 def is_active(run_id: str) -> bool:
     return run_id in _ACTIVE
 
@@ -215,8 +223,7 @@ def _run_job(meta: RunMeta, user_inputs: dict) -> None:
         # 4-7. params, cash flow, flags, score (soft stages)
         current = "params"
         p.stage("params", 0.80, "Mapping answers to cash-model inputs")
-        params = _soft(p, "params", lambda: module("params").map_to_cash_params(
-            envelopes, user_inputs, llm))
+        params = _soft(p, "params", lambda: build_params(envelopes, user_inputs, llm, p.log))
         if params is not None:
             store.save(run_id, "params", params)
         refresh_downstream(run_id, meta.contract_id, envelopes, package, params, {},
@@ -249,6 +256,59 @@ def _soft(p_or_log: Any, what: str, fn: Callable[[], Any]) -> Any:
 # ---------------------------------------------------------------------------
 # Cash flow, flags and score (used by the job, the review screen and the cash view)
 # ---------------------------------------------------------------------------
+
+
+# Project inputs the website's "New analysis" form sends (spec §2 B).
+USER_INPUT_KEYS = {"contract_value", "duration_months", "progress_curve", "progress",
+                   "cost_share", "overdraft_rate_pa", "bank_rate_pa", "bg_commission_pa",
+                   "delay_days", "index_rise_pa", "supplier_credit_days"}
+
+
+def clean_user_inputs(raw: dict | None) -> tuple[dict, str, list[str]]:
+    """Form values -> (inputs for the params mapping, progress curve choice, ignored keys).
+
+    Empty fields (None) are dropped so the mapping falls back to extracted or default
+    values; 'progress_curve' is not a cash input, it is handled by build_params.
+    """
+    raw = dict(raw or {})
+    curve = raw.pop("progress_curve", None) or "even"
+    ignored = sorted(k for k in raw if k not in USER_INPUT_KEYS)
+    clean: dict = {}
+    for key, value in raw.items():
+        if key in ignored or value is None:
+            continue
+        if key == "index_rise_pa" and isinstance(value, dict):
+            value = {name: float(r) for name, r in value.items() if r is not None}
+        if key in ("index_rise_pa", "progress") and not value:
+            continue
+        if key == "duration_months":
+            value = max(1, round(float(value)))
+        clean[key] = value
+    return clean, curve, ignored
+
+
+def build_params(envelopes: list[AnswerEnvelope], raw_user_inputs: dict | None, llm,
+                 log: Callable[[str], None]) -> CashParams:
+    """Params mapping (M1) on the cleaned form inputs, plus the S-curve choice.
+
+    The S-curve needs the duration, which may come from the user or from the contract,
+    so it is filled in only after the mapping has settled duration_months.
+    """
+    clean, curve, ignored = clean_user_inputs(raw_user_inputs)
+    if ignored:
+        log(f"Ignored unknown user input(s): {', '.join(ignored)}")
+    if curve not in ("even", "s_curve"):
+        log(f"Unknown progress_curve '{curve}'; using even progress")
+    params: CashParams = module("params").map_to_cash_params(envelopes, clean, llm)
+    if curve == "s_curve" and params.inputs.progress is None:
+        months = params.inputs.duration_months
+        curve_values = module("cashflow").s_curve(months)
+        params = CashParams(
+            inputs=params.inputs.model_copy(update={"progress": curve_values}),
+            provenance=[p for p in params.provenance if p.field != "progress"]
+            + [ParamProvenance(field="progress", source="user",
+                               quote=f"S-curve over {months} months chosen by the user")])
+    return params
 
 
 def apply_overrides(inputs: CashInputs, overrides: dict | None) -> CashInputs:
@@ -320,15 +380,24 @@ def keep_confirmed(new: CashParams, old: CashParams | None) -> CashParams:
 
 
 def confirm_params(submitted: CashParams, stored: CashParams | None) -> CashParams:
-    """Mark every field as confirmed by the user; changed values get source 'user'."""
+    """Store what the user confirmed: every field is marked confirmed.
+
+    The submitted provenance is authoritative (the UI adds or changes items for fields
+    the user edited). Fields it leaves out keep their stored provenance, or get source
+    'user' if their value changed, else 'default'.
+    """
     old_inputs = stored.inputs.model_dump() if stored else {}
     new_inputs = submitted.inputs.model_dump()
-    prov = {p.field: p for p in submitted.provenance}
+    sent = {p.field: p for p in submitted.provenance}
+    old_prov = {p.field: p for p in stored.provenance} if stored else {}
     out: list[ParamProvenance] = []
     for field in CashInputs.model_fields:
-        p = prov.get(field) or ParamProvenance(field=field, source="default")
-        if field in old_inputs and old_inputs[field] != new_inputs[field]:
-            p = ParamProvenance(field=field, source="user", question_id=p.question_id)
+        if field in sent:
+            p = sent[field]
+        elif field in old_inputs and old_inputs[field] != new_inputs[field]:
+            p = ParamProvenance(field=field, source="user")
+        else:
+            p = old_prov.get(field) or ParamProvenance(field=field, source="default")
         out.append(p.model_copy(update={"confirmed": True}))
     return CashParams(inputs=submitted.inputs, provenance=out)
 
@@ -351,13 +420,12 @@ def recompute_after_review(run_id: str) -> None:
     old = CashParams.model_validate(old_raw) if old_raw else None
 
     # The LLM call is cached, so unchanged answers cost nothing; without a client, code only.
-    params_mod = module("params")
     llm = _try_llm()
     new = _soft(log_lines.append, "params (with model)",
-                lambda: params_mod.map_to_cash_params(envelopes, user_inputs, llm))
+                lambda: build_params(envelopes, user_inputs, llm, log_lines.append))
     if new is None and llm is not None:
         new = _soft(log_lines.append, "params (code only)",
-                    lambda: params_mod.map_to_cash_params(envelopes, user_inputs, None))
+                    lambda: build_params(envelopes, user_inputs, None, log_lines.append))
     params = keep_confirmed(new, old) if new is not None else old
     if params is not None:
         store.save(run_id, "params", params)

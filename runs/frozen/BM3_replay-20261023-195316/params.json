@@ -1,0 +1,285 @@
+{
+  "inputs": {
+    "contract_value": 18865000.0,
+    "duration_months": 12,
+    "progress": null,
+    "cost_share": 0.85,
+    "supplier_credit_days": 0.0,
+    "overdraft_rate_pa": 0.1,
+    "bank_rate_pa": 0.0625,
+    "bg_commission_pa": 0.015,
+    "delay_days": 0,
+    "index_rise_pa": {},
+    "cert_lag_days": 0.0,
+    "pay_lag_days": 30.0,
+    "min_bill_value": 0.0,
+    "late_interest_rate_pa": 0.0,
+    "retention_rate": 0.05,
+    "retention_cap": 0.05,
+    "retention_release": [
+      {
+        "share": 1.0,
+        "months_after_completion": 36.0
+      }
+    ],
+    "dlp_months": 36.0,
+    "advance_instalments": [],
+    "advance_recovery_rate": 0.0,
+    "advance_recovery_deadline": null,
+    "advance_interest_rate_pa": 0.0,
+    "ld_rate_per_day": 0.0005,
+    "ld_cap": 0.1,
+    "ld_grace_days": 0,
+    "pv_applies": false,
+    "pv_factor": 0.85,
+    "pv_weights": {},
+    "perf_security_pct": 0.05,
+    "perf_security_validity_months_after_completion": 0.0,
+    "index_lag_months": 0,
+    "advance_interest_rate_encashed_pa": null,
+    "part_payment_share": null,
+    "part_payment_days": null
+  },
+  "provenance": [
+    {
+      "field": "contract_value",
+      "source": "user",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "duration_months",
+      "source": "user",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "dlp_months",
+      "source": "extracted",
+      "question_id": "0.5",
+      "quote": "3 years",
+      "confirmed": false,
+      "note": "3 years = 36 months; first period stated; others apply to other work types"
+    },
+    {
+      "field": "cert_lag_days",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "pay_lag_days",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "late_interest_rate_pa",
+      "source": "extracted",
+      "question_id": "1.4",
+      "quote": "No interest",
+      "confirmed": false,
+      "note": "0% per year = 0 per year; the document says no interest"
+    },
+    {
+      "field": "min_bill_value",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "retention_rate",
+      "source": "extracted",
+      "question_id": "2.2",
+      "quote": "5%",
+      "confirmed": false,
+      "note": "5% = 0.05 (fraction)"
+    },
+    {
+      "field": "retention_cap",
+      "source": "extracted",
+      "question_id": "2.3",
+      "quote": "5%",
+      "confirmed": false,
+      "note": "5% = 0.05 (fraction)"
+    },
+    {
+      "field": "retention_release",
+      "source": "extracted",
+      "question_id": "2.5",
+      "quote": "on completion of defect liability period",
+      "confirmed": false,
+      "note": "100% released 3 years after completion = 36 months; released at the end of the defects liability period (0.5)"
+    },
+    {
+      "field": "advance_instalments",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "advance_recovery_rate",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "advance_recovery_deadline",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "advance_interest_rate_pa",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "ld_rate_per_day",
+      "source": "extracted",
+      "question_id": "4.2",
+      "quote": "0.05% of contract price per day",
+      "confirmed": false,
+      "note": "0.05% per day = 0.05% per day (0.0005 of value per day)"
+    },
+    {
+      "field": "ld_cap",
+      "source": "extracted",
+      "question_id": "4.3",
+      "quote": "10%",
+      "confirmed": false,
+      "note": "10% = 0.1 (fraction)"
+    },
+    {
+      "field": "ld_grace_days",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "pv_applies",
+      "source": "extracted",
+      "question_id": "5.1",
+      "quote": "Fixed price",
+      "confirmed": false,
+      "note": "as printed: 0 number; fixed price or price variation switched off"
+    },
+    {
+      "field": "pv_factor",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "pv_weights",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "perf_security_pct",
+      "source": "extracted",
+      "question_id": "6.2",
+      "quote": "performance security 5%",
+      "confirmed": false,
+      "note": "5% = 0.05 (fraction)"
+    },
+    {
+      "field": "perf_security_validity_months_after_completion",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "cost_share",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "overdraft_rate_pa",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "bg_commission_pa",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "delay_days",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "progress",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "index_rise_pa",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "bank_rate_pa",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "supplier_credit_days",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    }
+  ]
+}

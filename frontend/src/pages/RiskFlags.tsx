@@ -9,11 +9,21 @@ import { sortFlags } from "../lib/keyFigures";
 import { RunGate } from "../components/RunGate";
 import { Chip, ClampText, EmptyState, ErrorBox, KpiTile, PageHeader, Quote, SEVERITY_META, SeverityChip, Spinner, TONE_SOLID, cx } from "../components/ui";
 
+function ClampLines({ text, className }: { text: string; className?: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="min-w-0">
+      <div className={cx("break-words", className, !open && "line-clamp-2")} title={open ? undefined : text}>{text}</div>
+      {text.length > 70 && <button onClick={() => setOpen(!open)} className="text-[11.5px] font-medium text-accent-ink hover:underline">{open ? "less" : "more"}</button>}
+    </div>
+  );
+}
+
 function FlagCard({ f, onOpen }: { f: RiskFlag; onOpen: () => void }) {
   const { fullMoney } = useApp();
   const tone = SEVERITY_META[f.severity].tone;
   return (
-    <article className="relative flex overflow-hidden rounded-xl border border-line bg-surface">
+    <article className="relative flex min-w-0 overflow-hidden rounded-xl border border-line bg-surface">
       <span className={cx("w-1.5 shrink-0", TONE_SOLID[tone])} aria-hidden />
       <div className="flex min-w-0 flex-1 flex-col gap-2.5 p-4">
         <div className="flex flex-wrap items-start gap-2">
@@ -22,20 +32,20 @@ function FlagCard({ f, onOpen }: { f: RiskFlag; onOpen: () => void }) {
           <span className="font-mono text-[11px] text-muted" title={f.rule}>{f.flag_id}</span>
         </div>
 
-        <div className="grid gap-2 sm:grid-cols-[1fr_1fr_auto]">
-          <div className="rounded-lg bg-surface-2 px-3 py-2">
+        <div className="flex flex-wrap items-stretch gap-2">
+          <div className="min-w-[220px] flex-1 rounded-lg bg-surface-2 px-3 py-2">
             <div className="text-[10.5px] font-semibold uppercase tracking-wide text-muted">Found in contract</div>
-            <div className="mt-0.5 text-[14px] font-semibold text-ink">{f.value_found || "–"}</div>
+            <ClampLines text={f.value_found || "–"} className="mt-0.5 text-[14px] font-semibold text-ink" />
           </div>
-          <div className="rounded-lg border border-dashed border-line-strong px-3 py-2">
+          <div className="min-w-[220px] flex-1 rounded-lg border border-dashed border-line-strong px-3 py-2">
             <div className="flex items-center gap-1 text-[10.5px] font-semibold uppercase tracking-wide text-muted"><Scale className="h-3 w-3" /> Reference</div>
-            <div className="mt-0.5 text-[14px] font-semibold text-ink-2">{f.reference_value || "–"}</div>
-            {f.reference_source && <div className="mt-0.5 flex items-center gap-1 truncate text-[11px] text-muted" title={f.reference_source}><BookMarked className="h-3 w-3 shrink-0" />{f.reference_source}</div>}
+            <ClampLines text={f.reference_value || "–"} className="mt-0.5 text-[14px] font-semibold text-ink-2" />
+            {f.reference_source && <div className="mt-0.5 flex min-w-0 items-center gap-1 text-[11px] text-muted" title={f.reference_source}><BookMarked className="h-3 w-3 shrink-0" /><span className="truncate">{f.reference_source}</span></div>}
           </div>
           {f.rupee_impact != null && f.rupee_impact > 0 && (
-            <div className="flex flex-col justify-center rounded-lg bg-bad-soft/60 px-3 py-2 sm:min-w-[120px]">
+            <div className="flex shrink-0 flex-col justify-center rounded-lg bg-bad-soft/60 px-3 py-2">
               <div className="flex items-center gap-1 text-[10.5px] font-semibold uppercase tracking-wide text-bad-ink"><IndianRupee className="h-3 w-3" />Impact</div>
-              <div className="text-[15px] font-semibold text-ink tnum">{money(f.rupee_impact, fullMoney)}</div>
+              <div className="whitespace-nowrap text-[15px] font-semibold text-ink tnum">{money(f.rupee_impact, fullMoney)}</div>
             </div>
           )}
         </div>
@@ -86,12 +96,12 @@ function Inner() {
 
       <section>
         <h2 className="mb-2 flex items-center gap-2 text-[15px] font-semibold text-ink"><AlertTriangle className="h-4 w-4 text-bad" /> High-risk terms <span className="text-xs font-normal text-muted">{risk.length}</span></h2>
-        {risk.length ? <div className="grid gap-3 xl:grid-cols-2">{risk.map((f, i) => <FlagCard key={f.flag_id + i} f={f} onOpen={() => open(f)} />)}</div>
+        {risk.length ? <div className="grid gap-3 min-[1600px]:grid-cols-2">{risk.map((f, i) => <FlagCard key={f.flag_id + i} f={f} onOpen={() => open(f)} />)}</div>
           : <EmptyState title="No high-risk terms">No rule fired at this filter.</EmptyState>}
       </section>
       <section>
         <h2 className="mb-2 flex items-center gap-2 text-[15px] font-semibold text-ink"><HelpCircle className="h-4 w-4 text-violet" /> Unclear or missing terms <span className="text-xs font-normal text-muted">{unclear.length}</span></h2>
-        {unclear.length ? <div className="grid gap-3 xl:grid-cols-2">{unclear.map((f, i) => <FlagCard key={f.flag_id + i} f={f} onOpen={() => open(f)} />)}</div>
+        {unclear.length ? <div className="grid gap-3 min-[1600px]:grid-cols-2">{unclear.map((f, i) => <FlagCard key={f.flag_id + i} f={f} onOpen={() => open(f)} />)}</div>
           : <EmptyState title="Nothing unclear">Every term was found or confirmed absent.</EmptyState>}
       </section>
       <p className="text-xs text-muted">Thresholds are starting points from the sources shown, not law. Flags are written from the contractor's side.</p>

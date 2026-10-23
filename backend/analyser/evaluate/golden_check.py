@@ -69,11 +69,12 @@ def check_key_quotes(golden: list[dict] | None = None) -> list[dict]:
         for g in golden:
             if g["contract_id"] != cid or not g.get("verbatim_quote"):
                 continue
-            i, score = idx.find_quote(g["verbatim_quote"], int(g["pdf_page"]))
-            found_page = idx.pages[i].page if i is not None else 0
+            hit = idx.find_quote(g["verbatim_quote"], int(g["pdf_page"]))
+            found_page = idx.pages[hit.index].page if hit.index is not None else 0
             rows.append({"test_id": g["test_id"], "stated_page": g["pdf_page"],
-                         "found_page": found_page, "score": round(score, 1),
-                         "on_stated_page": found_page == g["pdf_page"]})
+                         "found_page": found_page, "score": round(hit.score, 1),
+                         "method": hit.method, "on_stated_page": found_page == g["pdf_page"]})
+        idx.close()
     return rows
 
 

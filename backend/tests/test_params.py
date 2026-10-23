@@ -148,3 +148,94 @@ def test_retention_release_steps():
     params = map_to_cash_params(envs, {}, llm)
     steps = params.inputs.retention_release
     assert [(s.share, s.months_after_completion) for s in steps] == [(0.5, 6), (0.5, 12)]
+
+
+# ---------------------------------------------------------------- regex mode on the golden answers
+# The answer key stands in for extraction here (as in the offline replay runs); nothing from it
+# goes into a prompt.
+
+from analyser.evaluate.golden_check import golden_envelopes
+
+GOLDEN = golden_envelopes()
+
+
+def regex_params(cid, user=None):
+    params = map_to_cash_params(GOLDEN[cid], user or {}, None)
+    for p in params.provenance:
+        if p.source == "extracted":
+            assert p.question_id and p.quote and p.note, p      # every value carries proof and a note
+    return params
+
+
+def test_golden_bm1_regex():
+    params = regex_params("BM1", {"bank_rate_pa": 0.065})
+    x = params.inputs
+    assert x.duration_months == 24 and prov(params, "duration_months").source == "extracted"
+    assert prov(params, "contract_value").source == "default"          # price is blank (POINTS_ELSEWHERE)
+    assert x.dlp_months == 60
+    assert (x.cert_lag_days, x.pay_lag_days) == (15, 30)
+    assert x.late_interest_rate_pa == pytest.approx(0.095)
+    assert x.advance_interest_rate_pa == pytest.approx(0.095)
+    assert (x.retention_rate, x.retention_cap) == pytest.approx((0.06, 0.05))
+    assert x.retention_release[0].share == 1.0
+    assert x.retention_release[0].months_after_completion == pytest.approx(15 / 30.4375)
+    assert [(i.share_of_value, i.month) for i in x.advance_instalments] == [(0.05, 0), (0.05, 1)]
+    assert "assumed paid in month 1" in prov(params, "advance_instalments").note
+    assert (x.advance_recovery_rate, x.advance_recovery_deadline) == pytest.approx((0.15, 0.8))
+    assert x.ld_rate_per_day == pytest.approx(0.0005) and x.ld_cap == pytest.approx(0.10)
+    assert x.ld_grace_days == 30
+    assert x.pv_applies is True and x.pv_factor == pytest.approx(0.85)
+    assert x.perf_security_pct == pytest.approx(0.03)
+
+
+def test_golden_bm2_regex():
+    params = regex_params("BM2")
+    x = params.inputs
+    assert x.contract_value == 21_227_336 and x.duration_months == 9
+    assert x.dlp_months == 12 and x.pay_lag_days == 10
+    assert x.late_interest_rate_pa == pytest.approx(0.05)
+    assert x.min_bill_value == pytest.approx(3_000_000)
+    assert (x.retention_rate, x.retention_cap) == pytest.approx((0.05, 0.05))
+    assert [(s.share, s.months_after_completion) for s in x.retention_release] == [(1.0, 12)]
+    assert [(i.share_of_value, i.month) for i in x.advance_instalments] == [(0.10, 0)]
+    assert x.advance_interest_rate_pa == pytest.approx(0.10)
+    assert x.advance_recovery_rate == 0.0                    # pro rata, no per-bill % stated
+    assert x.advance_recovery_deadline == pytest.approx(0.8)
+    assert x.ld_rate_per_day == pytest.approx(0.01 / 30)
+    assert "÷ 30" in prov(params, "ld_rate_per_day").note
+    assert prov(params, "pv_applies").source == "default"   # 10CC gated on period: left for a person
+    assert x.perf_security_pct == pytest.approx(0.05)
+
+
+def test_golden_bm3_regex():
+    params = regex_params("BM3")
+    x = params.inputs
+    assert x.contract_value == pytest.approx(18_865_000) and x.duration_months == 12
+    assert x.dlp_months == 36
+    assert x.late_interest_rate_pa == 0.0
+    assert prov(params, "late_interest_rate_pa").source == "extracted"   # "No interest payable"
+    assert [(s.share, s.months_after_completion) for s in x.retention_release] == [(1.0, 36)]
+    assert x.advance_instalments == []                       # advance NOT_APPLICABLE
+    assert x.ld_rate_per_day == pytest.approx(0.0005) and x.ld_cap == pytest.approx(0.10)
+    assert x.pv_applies is False and prov(params, "pv_applies").source == "extracted"
+    assert x.perf_security_pct == pytest.approx(0.05)
+
+
+def test_golden_bm4_regex():
+    params = regex_params("BM4")
+    x = params.inputs
+    assert x.contract_value == 725_065
+    assert x.duration_months == 1                           # 40 days, rounded
+    assert prov(params, "dlp_months").source == "default"   # "No defect liability period stated"
+    assert x.min_bill_value == pytest.approx(350_000)
+    assert x.retention_rate == pytest.approx(0.025) and x.retention_cap is None
+    assert prov(params, "late_interest_rate_pa").source == "default"   # POINTS_ELSEWHERE
+    assert x.pv_applies is False and x.perf_security_pct == pytest.approx(0.05)
+
+
+def test_negative_interest_needs_the_words():
+    envs = [env("1.4", "Interest at 0% stated nowhere")]
+    llm = FakeParamsLLM([item("late_interest_rate_pa", "1.4", 0, per="year", negative=True)])
+    params = map_to_cash_params(envs, {}, llm)
+    assert prov(params, "late_interest_rate_pa").source == "default"
+    assert "no 'no interest' wording" in prov(params, "late_interest_rate_pa").note

@@ -8,12 +8,10 @@ text) and V3 (a number found nowhere in the package), whose detail also starts w
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass, field
+from analyser.models import Answer, CheckResult
 
-from analyser.models import Answer, CheckResult, Package, PageInfo
-
+from .locate import PageIndex
 from .numbers import all_number_values, contains_value, extract_quantities, value_quantities
-from .text import compact, quote_in_text, split_quote
 
 FAIL = "FAIL: "
 
@@ -40,59 +38,6 @@ _POINTER = re.compile(r"\b(schedule|contract data|annexure|appendix|bid data she
                       r"special conditions|particular conditions)\b", re.I)
 _DERIVED = re.compile(r"=|\bequivalent\b|\bi\.e\.|\bconverted\b|\bworks out\b|\bderived\b", re.I)
 
-
-@dataclass
-class PageIndex:
-    """Page texts of a package, prepared once for fast quote and number look-ups."""
-    pages: list[PageInfo]
-    compact_text: list[str] = field(default_factory=list)
-    _numbers: dict[int, set[float]] = field(default_factory=dict)
-    _all_numbers: set[float] | None = None
-
-    @classmethod
-    def from_package(cls, package: Package) -> "PageIndex":
-        idx = cls(pages=list(package.pages))
-        idx.compact_text = [compact(p.text) for p in idx.pages]
-        return idx
-
-    def numbers_on(self, i: int) -> set[float]:
-        if i not in self._numbers:
-            self._numbers[i] = all_number_values(self.pages[i].text)
-        return self._numbers[i]
-
-    def all_numbers(self) -> set[float]:
-        if self._all_numbers is None:
-            self._all_numbers = set()
-            for i in range(len(self.pages)):
-                self._all_numbers |= self.numbers_on(i)
-        return self._all_numbers
-
-    def page_positions(self, page: int, doc_id: str = "") -> list[int]:
-        return [i for i, p in enumerate(self.pages)
-                if p.page == page and (not doc_id or p.doc_id == doc_id)]
-
-    def find_quote(self, quote: str, page: int, doc_id: str = "") -> tuple[int | None, float]:
-        """Index of the page holding the quote: stated page first, then +-1, then anywhere."""
-        order: list[int] = []
-        for pg in (page, page - 1, page + 1):
-            order += self.page_positions(pg, doc_id)
-        order += [i for i in range(len(self.pages)) if i not in order]
-        parts = [compact(p) for p in split_quote(quote)]
-        # 1) exact match on the compact form (fast, covers line breaks and hyphenation)
-        for i in order:
-            if parts and all(p and p in self.compact_text[i] for p in parts):
-                return i, 100.0
-        # 2) fuzzy match, best page wins
-        best_i, best_s = None, 0.0
-        for i in order:
-            ok, s = quote_in_text(quote, self.pages[i].text)
-            if ok and s > best_s:
-                best_i, best_s = i, s
-                if s >= 99:
-                    break
-            elif not ok and s > best_s and best_i is None:
-                best_s = s
-        return best_i, best_s
 
 
 def _cr(check: str, name: str, passed: bool | None, detail: str = "") -> CheckResult:
@@ -126,16 +71,22 @@ def check_quote(a: Answer, idx: PageIndex, doc_id: str = "") -> tuple[CheckResul
         return (_cr("V1", "Quote exists", None, "package has no page text"),
                 _cr("V2", "Page matches", None, "package has no page text"), loc)
 
-    i, score = idx.find_quote(quote, a.pdf_page, doc_id)
-    if i is None:
+    hit = idx.find_quote(quote, a.pdf_page, doc_id)
+    if hit.index is None:
         loc["quote_found"] = False
         return (_cr("V1", "Quote exists", False,
-                    FAIL + f"quote not found in any page (best fuzzy score {score:.0f})"),
+                    FAIL + f"quote not found in any page: sorted text, raw text or PDF search "
+                           f"(best fuzzy score {hit.score:.0f})"),
                 _cr("V2", "Page matches", None, "quote not found"), loc)
-    page = idx.pages[i]
+    page = idx.pages[hit.index]
     loc.update(quote_found=True, found_doc_id=page.doc_id, found_page=page.page)
-    v1 = _cr("V1", "Quote exists", True,
-             "exact match" if score >= 100 else f"fuzzy match, score {score:.0f}")
+    if hit.method == "PDF search":
+        how = f"PDF search, {hit.score:.0f}% of the words"
+    elif hit.score >= 100:
+        how = f"exact match ({hit.method})"
+    else:
+        how = f"fuzzy match, score {hit.score:.0f} ({hit.method})"
+    v1 = _cr("V1", "Quote exists", True, how)
     diff = abs(page.page - a.pdf_page)
     if diff == 0:
         loc["page_matches"] = True

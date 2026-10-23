@@ -1,0 +1,23 @@
+{
+  "run_id": "BM3_replay-20261023-195316",
+  "package_id": "BM3",
+  "contract_id": "BM3",
+  "model": "answer-key replay (no LLM)",
+  "prompt_version": "v1",
+  "schema_version": "v1",
+  "effort": "",
+  "started_at": "2026-10-23T19:53:16",
+  "finished_at": "2026-10-23T19:53:16",
+  "stage": "done",
+  "progress": 1.0,
+  "log": [
+    "ANSWER-KEY REPLAY: answers come from golden_tests_v1.json, not from the AI.",
+    "Run finished"
+  ],
+  "error": "",
+  "llm_calls": 0,
+  "cache_hits": 0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "frozen": false
+}

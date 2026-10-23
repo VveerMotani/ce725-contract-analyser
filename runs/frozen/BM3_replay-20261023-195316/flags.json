@@ -1,0 +1,129 @@
+[
+  {
+    "flag_id": "R6",
+    "title": "No interest on late payment",
+    "severity": "High",
+    "category": "risk",
+    "rule": "Raise when the contract says no interest is payable on late payment (High), or is silent (unclear).",
+    "value_found": "no interest is payable on late payment: 'No interest payable on any payment due or awarded'",
+    "reference_value": "NHAI pays Bank Rate + 3% on unpaid sums; CPWD pays 5% simple interest after 45 days.",
+    "reference_source": "NHAI EPC agreement cl. 19.9 [SEEN]; CPWD GCC 2023 cl. 7 [SEEN]; 'no interest' seen in the MP tender [SEEN]",
+    "question_ids": [
+      "1.4"
+    ],
+    "quote": "23. No Interest Payable No interest shall be payable to the Contractor on any payment due or awarded by",
+    "section_ref": "GCC 23",
+    "pdf_page": 52,
+    "explanation": "The contract says no interest is payable on late payment: 'No interest payable on any payment due or awarded'. If the employer pays late you carry the cost on your overdraft and cannot claim interest. Every month of late payment is a straight loss.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R12",
+    "title": "Progress-linked termination or heavy withholding",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when the employer may terminate on slow progress or once damages hit the cap, or withholds large percentages for missed milestones.",
+    "value_found": "termination penalty adds 20% of value of work not completed; Milestone slippage: amount retained of 2.5%, 5%, 7.5% or 10% of the work remaining unexecuted (by slippage band)",
+    "reference_value": "Milestone withholding refunded when progress is made good; termination only for real default.",
+    "reference_source": "Seen in the MP tender (Annexure P) and the MoEF tender (Schedule F) [SEEN]; 1% line [ASSUMPTION]",
+    "question_ids": [
+      "4.2",
+      "4.8"
+    ],
+    "quote": "Penalty for not establishing field Laboratory 1% of Contract Amount per month, subject to a maximum of Rs. 50,000/- per month of",
+    "section_ref": "Contract Data 5, 8, 11, 15",
+    "pdf_page": 62,
+    "explanation": "The employer can end the contract when progress or damages pass a limit (termination penalty adds 20% of value of work not completed). On termination you also risk losing your securities, so a bad patch can become a total loss. Missed milestones lead to money being held back (Milestone slippage: amount retained of 2.5%, 5%, 7.5% or 10% of the work remaining unexecuted (by slippage band)). Cash you expected can stop mid-contract; it is usually refunded only if you catch up. Money at stake: about Rs 18.86 lakh (largest withholding % x contract value).",
+    "rupee_impact": 1886500.0
+  },
+  {
+    "flag_id": "R1",
+    "title": "Retention or security deposit high or uncapped",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when the total retention cap is above 5% of contract value, or there is no cap, or all retention is held to the end of the defects period with no stage release.",
+    "value_found": "Refunded on completion of defect liability period",
+    "reference_value": "Security deposit usually 5% of each running bill, replaceable by a bank guarantee; half released at taking-over.",
+    "reference_source": "Manual for Procurement of Works 2022, Dept. of Expenditure [SEEN]",
+    "question_ids": [
+      "2.5"
+    ],
+    "quote": "30.3 The Security deposits shall be refunded of completion of defect liability period. The",
+    "section_ref": "GCC 30.3",
+    "pdf_page": 54,
+    "explanation": "All retention is held to the end of the defects period ('Refunded on completion of defect liability period'), with none released at completion. The reference practice releases half at taking-over. Plan to finance this money for the full defects period, or offer a bank guarantee instead. Money at stake: about Rs 9.43 lakh (largest retention held, from the cash model).",
+    "rupee_impact": 943250.0
+  },
+  {
+    "flag_id": "R3",
+    "title": "Performance security high",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when performance security is above 5% of value, or an additional security for low bids applies.",
+    "value_found": "Additional performance security if the bid is more than 15% below the estimate: contract amount times the difference between the bid perc...",
+    "reference_value": "Usually 5% of contract value; Dept. of Expenditure order of 12 Nov 2020 cut it to 3%.",
+    "reference_source": "Manual for Procurement of Works 2022 [SEEN]; DoE OM 12 Nov 2020 [SEEN, via a circular that quotes it]",
+    "question_ids": [
+      "6.8"
+    ],
+    "quote": "Additional Performance Security, if any Equal to an amount arrived at, by multiplying the contract amount with difference of percentage between percent rates (below/minus) of successful bid and 15% percent (below/minus), considering bid rates less than Fifteen percent",
+    "section_ref": "Bid Data Sheet 11",
+    "pdf_page": 16,
+    "explanation": "An extra security applies on top of the normal guarantee: Additional performance security if the bid is more than 15% below the estimate: contract amount times the difference between the bid perc.... If your bid is well below the estimate you must lock up more bank limit; price this into an aggressive bid. Money at stake: about Rs 9.43 lakh (performance security x contract value).",
+    "rupee_impact": 943250.0
+  },
+  {
+    "flag_id": "R7",
+    "title": "Slow or unclear payment",
+    "severity": "Medium",
+    "category": "unclear",
+    "rule": "Raise when the period to pay a bill is above 30 days, or is not stated.",
+    "value_found": "NOT_STATED: silent (nothing found after a full search)",
+    "reference_value": "NHAI pays within 30 days; CPWD part payment in 10 and the rest in 28 working days.",
+    "reference_source": "NHAI EPC agreement cl. 19.9 [SEEN]; CPWD GCC 2023 cl. 7 [SEEN]; 30-day line [ASSUMPTION]",
+    "question_ids": [
+      "1.3"
+    ],
+    "quote": "",
+    "section_ref": "",
+    "pdf_page": 0,
+    "explanation": "The contract does not say how many days the employer has to pay a bill. You cannot plan your cash, and late payment is hard to challenge.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R8",
+    "title": "No advance, or a costly one",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when there is no mobilisation advance, or the advance carries interest, or its guarantee is above 100% of the advance.",
+    "value_found": "No mobilisation and construction machinery advance is payable",
+    "reference_value": "Advance should be need-based; interest-free advances are discouraged.",
+    "reference_source": "Manual for Procurement of Works 2022 [SEEN]; 100% guarantee line [ASSUMPTION]",
+    "question_ids": [
+      "3.1"
+    ],
+    "quote": "Clause 32.1 Mobilization and Construction Machinery Advance Applicable No Mobilization and Construction Machinery",
+    "section_ref": "Contract Data 19; GCC 32.1",
+    "pdf_page": 64,
+    "explanation": "No mobilisation advance is given (No mobilisation and construction machinery advance is payable). You must fund mobilisation, site set-up and early materials from your own money until the first bill is paid.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R11",
+    "title": "Price variation with holes",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when price variation leaves out labour, uses a long index lag, cuts off late-billed work, or applies only above a size or duration this contract does not reach.",
+    "value_found": "applies only over Rs 10.00 crore; this contract is Rs 1.89 crore (contract value from the cash inputs)",
+    "reference_value": "A full price variation covers labour and the main materials, uses recent indices and pays on all work done in the stipulated or extended period.",
+    "reference_source": "Read from the contract's own clause (C5); lag line [ASSUMPTION]",
+    "question_ids": [
+      "5.1"
+    ],
+    "quote": "Price Adjustment shall be applicable only in case where the Amount in N.I.T. is more than Rs. 10 (Ten) Crores. This clause",
+    "section_ref": "Annexure-1 GCC 31; Contract Data 18",
+    "pdf_page": 2,
+    "explanation": "Price variation is printed but does not apply to this contract: applies only over Rs 10.00 crore; this contract is Rs 1.89 crore (contract value from the cash inputs). Treat the contract as fixed price.",
+    "rupee_impact": null
+  }
+]

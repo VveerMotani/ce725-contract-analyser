@@ -11,7 +11,7 @@ import re
 from typing import Callable, Optional
 
 from ..models import RiskFlag
-from . import parse
+from . import parse, targets
 from .context import SEVERITY_ORDER, RuleContext, fill
 
 EPS = 1e-9          # "above 5%" means strictly above; 5.0 is not flagged
@@ -73,7 +73,7 @@ def unclear_flag(rule: dict, ctx: RuleContext, qid: str, kind: Optional[str] = N
     kind = kind or {"NOT_STATED": "not_stated", "POINTS_ELSEWHERE": "points_elsewhere"}.get(status, "not_stated")
     unclear = rule.get("unclear", {})
     severity = "Needs review" if kind == "points_elsewhere" else unclear.get("severity", "Needs review")
-    pointer = (a.points_to or f"the document cited at {a.section_ref or 'an unnamed place'}") if a else ""
+    pointer = targets.target_of(a)[1] if a else ""
     default = {
         "not_stated": f"The package does not answer question {qid} after a full search, so this rule cannot be checked. Confirm the term with the employer.",
         "points_elsewhere": "This term is not in the package; it is in {pointer}. Check it there.",
@@ -341,7 +341,8 @@ def _recovery_from_cash(ctx) -> Optional[tuple[int, float, float, int]]:
             cum_gross += r.gross
             recovered_any = recovered_any or r.advance_recovery > 0
             if recovered_any and r.advance_outstanding <= 1e-6 * v:
-                return r.month, cum_gross / v, advance, len(res.months)
+                planned = ctx.cash.duration_months if ctx.cash else len(res.months)
+                return r.month, cum_gross / v, advance, planned
         return None
     if not cash or not cash.advance_instalments or cash.advance_recovery_rate <= 0:
         return None
@@ -597,47 +598,68 @@ def _target_in_package(target: str, ctx: RuleContext) -> bool:
     return False
 
 
-UNNAMED_TARGET = "a blank or an unnamed document"
-
-
-def r17_unresolved_references(rule, ctx):
+def reference_groups(ctx: RuleContext) -> list[tuple[str, list[str]]]:
+    """POINTS_ELSEWHERE answers grouped by normalised target: [(display name, question ids)]."""
     groups: dict[str, list[str]] = {}
     names: dict[str, str] = {}
     for qid in sorted(ctx.answers, key=_qkey):
         a = ctx.answers[qid]
-        if a.status != "POINTS_ELSEWHERE":
-            continue
-        name = a.points_to.strip() or f"{UNNAMED_TARGET} (cited at {a.section_ref or '?'})"
-        key = name.lower()
-        groups.setdefault(key, []).append(qid)
-        names[key] = name
+        if a.status == "POINTS_ELSEWHERE":
+            key, name = targets.target_of(a)
+            groups.setdefault(key, []).append(qid)
+            names.setdefault(key, name)
+    for small, big in targets.merge_gcc(groups).items():     # "GCC" joins "CPWD GCC 2023"
+        groups[big] = sorted(groups[big] + groups.pop(small), key=_qkey)
+    return [(names[k], q) for k, q in sorted(groups.items(), key=lambda kv: _qkey(kv[1][0]))]
+
+
+def r17_unresolved_references(rule, ctx):
+    """One flag per target document; one flag in all when there are more targets than the YAML limit."""
+    groups = reference_groups(ctx)
+    if not groups:
+        return ctx.skip("R17", "no POINTS_ELSEWHERE answers")
+
+    def in_package(name):
+        return not name.startswith(targets.UNNAMED) and _target_in_package(name, ctx)
+
+    if len(groups) > rule["thresholds"].get("max_separate_flags", 3):
+        detail = "; ".join(f"{name}{' [seems to be in the package]' if in_package(name) else ''}: Q {', '.join(q)}"
+                           for name, q in groups)
+        qids = sorted({q for _, qs in groups for q in qs}, key=_qkey)
+        hit = Hit("many_targets", detail, groups[0][1][0], count=len(qids), targets=len(groups))
+        return [build_flag(rule, [hit], ctx, question_ids=qids)]
     flags = []
-    for key, qids in groups.items():
-        name = names[key]
-        in_package = not name.startswith(UNNAMED_TARGET) and _target_in_package(name, ctx)
-        trigger = "target_in_package" if in_package else "missing_target"
-        detail = "questions " + ", ".join(qids)
-        hit = Hit(trigger, detail, qids[0], count=len(qids), pointer=name)
+    for name, qids in groups:
+        trigger = "target_in_package" if in_package(name) else "missing_target"
+        hit = Hit(trigger, "questions " + ", ".join(qids), qids[0], count=len(qids), pointer=name)
         flags.append(build_flag(rule, [hit], ctx, question_ids=qids))
-    if not flags:
-        ctx.skip("R17", "no POINTS_ELSEWHERE answers")
     return flags
 
 
 def r18_missing_documents(rule, ctx):
-    flags, seen = [], set()
+    """One flag for the whole package; financially important documents (YAML 'priority') first."""
+    refs, seen = [], set()
     for ref in ctx.package.missing_references:
         key = ref.label.strip().lower()
-        if key in seen:
-            continue
-        seen.add(key)
-        hit = Hit("missing", ref.label, "")
-        f = build_flag(rule, [hit], ctx)
-        f.quote, f.pdf_page, f.section_ref = ref.quote, ref.page, f"cited in {ref.doc_id}"
-        flags.append(f)
-    if not flags:
-        ctx.skip("R18", "package lists no missing references")
-    return flags
+        if key not in seen:
+            seen.add(key)
+            refs.append(ref)
+    if not refs:
+        return ctx.skip("R18", "package lists no missing references")
+    priority = [(pat, why) for pat, why in rule.get("priority", [])]
+
+    def rank(ref):
+        for i, (pat, _) in enumerate(priority):
+            if re.search(pat, ref.label, re.I):
+                return i
+        return len(priority)
+    refs.sort(key=rank)                       # stable: unlisted documents keep package order
+    important = [f"{r.label} ({priority[rank(r)][1]})" for r in refs if rank(r) < len(priority)]
+    note = f" Most important for money: {'; '.join(important)}." if important else ""
+    hit = Hit("missing", ", ".join(r.label for r in refs), "", count=len(refs), priority=note)
+    f = build_flag(rule, [hit], ctx)
+    f.quote, f.pdf_page, f.section_ref = refs[0].quote, refs[0].page, f"cited in {refs[0].doc_id}"
+    return [f]
 
 
 EVALUATORS: dict[str, Callable] = {

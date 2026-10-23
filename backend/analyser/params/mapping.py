@@ -236,7 +236,8 @@ def accept_items(items: list[dict], by_q: dict[str, AnswerEnvelope],
             continue
         source = ParamProvenance(field=name, source="extracted", question_id=item["question_id"],
                                  quote=(item.get("quote") or "")[:200],
-                                 note=scaling_note(kind, item, value, bank_rate))
+                                 note="; ".join(filter(None, [scaling_note(kind, item, value, bank_rate),
+                                                              item.get("note", "")])))
         if kind == "instalment":
             month = item.get("instalment_month", -1)
             instalments.append(AdvanceInstalment(share_of_value=value,
@@ -279,66 +280,183 @@ def _reject_reason(item: dict, kind: str, by_q: dict[str, AnswerEnvelope]) -> st
         return f"source answer is {status}"
     text = _source_text(env)
     value = float(item.get("value", 0))
+    if item.get("negative") or (kind == "rate_pa" and value == 0):
+        # "no interest payable" -> 0: the words must be in the answer
+        return "" if value == 0 and NEGATIVE_RATE.search(text) else "no 'no interest' wording in answer"
+    if item.get("check_question_id"):      # release "after the DLP": the months come from 0.5
+        other = by_q.get(item["check_question_id"])
+        if other is None or other.effective().status != "FOUND":
+            return f"question {item['check_question_id']} has no value"
+        text = _source_text(other)
     if kind == "release":
         share = float(item.get("share", 100))
-        if share != 100 and not number_appears(share, text):
-            return f"share {share} not in answer"
+        if share != 100 and not number_appears(share, _source_text(env)):
+            return f"share {share:g}% not in answer"
         if value == 0:
             return ""                      # "on completion": no number to check
     if not number_appears(value, text):
-        return f"number {value:g} not in answer {item['question_id']}"
+        return f"number {value:g} not in answer {item.get('check_question_id') or item['question_id']}"
     return ""
 
 
 # ---------------------------------------------------------------------------- no-LLM mapping
+#
+# Used when there is no LLM (offline answer-key replay runs). Each rule reads the effective
+# answer of one question; every number it produces still goes through accept_items, so it must
+# appear in that answer (or, for "after the DLP", in answer 0.5).
 
+_NUM = r"(\d+(?:\.\d+)?|" + "|".join(NUMBER_WORDS) + r")"
 _PCT = r"(\d+(?:\.\d+)?)\s*%"
+NEGATIVE_RATE = re.compile(r"\bno\s+interest\b|\binterest[\s-]free\b|\bwithout\s+interest\b", re.I)
+NOT_GIVEN = re.compile(r"^\s*no\b|\bnot\s+stated\b|\bno\s+(?:separate\s+)?cap\b", re.I)
+RUPEES = re.compile(r"(?:Rs\.?|INR|₹)\s*₹?\s*(\d[\d,]*(?:\.\d+)?)\s*(lakhs?|lacs?|crores?)?", re.I)
+PV_OFF = re.compile(r"fixed\s+price|rates?\s+(?:are\s+|shall\s+be\s+)?firm|no\s+(?:general\s+)?"
+                    r"(?:index-based\s+)?(?:price\s+variation|price\s+adjustment|escalation)", re.I)
+PV_ON = re.compile(r"\b(?:applies|is\s+applicable|shall\s+be\s+adjusted)\b", re.I)
+PV_GATE = re.compile(r"\bonly\s+(?:if|for|in\s+case|where|when)\b|\bprobably\b|\bnot\s+applicable\b", re.I)
+
+
+def _num(word: str) -> float:
+    """'12' -> 12.0, 'twelve' -> 12.0, 'half' -> 50.0."""
+    return float(word) if word[0].isdigit() else float(NUMBER_WORDS[word.lower()])
+
+
+def _money_unit(word: str | None) -> str:
+    word = (word or "").lower()
+    return "crore" if word.startswith("crore") else "lakh" if word.startswith(("lakh", "lac")) else "rupees"
 
 
 def regex_items(by_q: dict[str, AnswerEnvelope]) -> list[dict]:
     """Deterministic rules for the obvious numbers (used when there is no LLM)."""
     items: list[dict] = []
 
-    def text_of(qid: str) -> str:
+    def answer(qid: str) -> str:
         env = by_q.get(qid)
         return env.effective().answer_value if env and env.effective().status == "FOUND" else ""
+
+    def status(qid: str) -> str:
+        env = by_q.get(qid)
+        return env.effective().status if env else ""
 
     def add(field_name, qid, value, unit, per="", quote="", **extra):
         items.append({"field": field_name, "question_id": qid, "value": float(value), "unit": unit,
                       "per": per, "relative_to_bank_rate": False, "component": "", "share": 100,
-                      "instalment_month": -1, "quote": quote, **extra})
+                      "instalment_month": -1, "quote": quote.strip(), **extra})
 
-    for field_name, qid in (("retention_rate", "2.2"), ("retention_cap", "2.3"), ("ld_cap", "4.3")):
-        m = re.search(_PCT, text_of(qid))
-        if m:
-            add(field_name, qid, m.group(1), "percent", quote=m.group(0))
+    # C0 facts: contract value, duration, defects liability period
+    if (m := RUPEES.search(answer("0.3"))):
+        add("contract_value", "0.3", m.group(1).replace(",", ""), _money_unit(m.group(2)), quote=m.group(0))
+    if (m := re.search(r"(\d+)\s*(days|weeks|months|years)\b", answer("0.4"), re.I)):
+        add("duration_months", "0.4", m.group(1), m.group(2).lower(), quote=m.group(0),
+            note="rounded to whole months")
+    dlp, dlp_period = answer("0.5"), None
+    if dlp and not NOT_GIVEN.search(dlp) and (m := re.search(_NUM + r"\s*(years?|months?)\b", dlp, re.I)):
+        unit = "years" if m.group(2).lower().startswith("year") else "months"
+        several = len(re.findall(r"\b(?:years?|months?)\b", dlp, re.I)) > 1
+        dlp_period = (_num(m.group(1)), unit)
+        add("dlp_months", "0.5", dlp_period[0], unit, quote=m.group(0),
+            note="first period stated; others apply to other work types" if several else "")
 
-    m = re.search(_PCT + r"[^;]*?\b(?:per|a|each|for each|for every)\s+(day|week|month)", text_of("4.2"), re.I)
-    if m:
-        add("ld_rate_per_day", "4.2", m.group(1), "percent", per=m.group(2).lower(), quote=m.group(0))
+    # C1 payment
+    for field_name, qid in (("cert_lag_days", "1.2"), ("pay_lag_days", "1.3")):
+        if (m := re.search(r"(\d+)\s*(?:working\s+|calendar\s+|clear\s+)?days", answer(qid), re.I)):
+            add(field_name, qid, m.group(1), "days", quote=m.group(0))
+    _interest_items(add, "late_interest_rate_pa", "1.4", answer("1.4"))
+    bill = answer("1.6")
+    if bill and not NOT_GIVEN.search(bill) and (m := RUPEES.search(bill)):
+        add("min_bill_value", "1.6", m.group(1).replace(",", ""), _money_unit(m.group(2)), quote=m.group(0))
 
-    adv = text_of("3.2")
+    # C2 retention
+    if (m := re.search(_PCT, answer("2.2"))):
+        add("retention_rate", "2.2", m.group(1), "percent", quote=m.group(0))
+    cap = answer("2.3")
+    if cap and not NOT_GIVEN.search(cap) and (m := re.search(_PCT, cap)):
+        add("retention_cap", "2.3", m.group(1), "percent", quote=m.group(0))
+    _release_items(add, answer("2.5"), dlp_period)
+
+    # C3 advance
+    adv = answer("3.2")
     parts = re.search(r"\b(two|three|four|\d+)\s+(?:equal\s+)?instal+ments?\s+of\s+" + _PCT, adv, re.I)
     if parts:
-        count = NUMBER_WORDS.get(parts.group(1).lower()) or int(parts.group(1))
-        for i in range(count):
+        for i in range(int(_num(parts.group(1)))):
             add("advance_instalments", "3.2", parts.group(2), "percent", quote=parts.group(0),
-                instalment_month=i)
+                instalment_month=i, note=f"instalment {i + 1} assumed paid in month {i} (month not stated)")
     elif (m := re.search(_PCT, adv)):
-        add("advance_instalments", "3.2", m.group(1), "percent", quote=m.group(0), instalment_month=0)
+        add("advance_instalments", "3.2", m.group(1), "percent", quote=m.group(0), instalment_month=0,
+            note="whole advance assumed paid in month 0 (timing not stated)")
+    _interest_items(add, "advance_interest_rate_pa", "3.3", answer("3.3"))
+    rec = answer("3.4")
+    if (m := re.search(_PCT + r"[^;%]*?\b(?:each|every)\b", rec, re.I)):
+        add("advance_recovery_rate", "3.4", m.group(1), "percent", quote=m.group(0))
+    if (m := re.search(r"\b(?:before|by\s+the\s+time)\s+(\d+(?:\.\d+)?)\s*%", rec, re.I)):
+        add("advance_recovery_deadline", "3.4", m.group(1), "percent", quote=m.group(0),
+            note="taken as a share of the contract period")
 
-    # "15% of each bill; repaid before 80% of the period": the words after each % (up to the
-    # next % or ;) decide whether it is the per-bill rate or the deadline.
-    for m in re.finditer(_PCT + r"(?=([^%;]{0,40}))", text_of("3.4")):
-        name = "advance_recovery_deadline" if "period" in m.group(2).lower() else "advance_recovery_rate"
-        add(name, "3.4", m.group(1), "percent", quote=(m.group(0) + m.group(2)).strip())
+    # C4 delay damages
+    ld = answer("4.2")
+    if (m := re.search(_PCT + r"[^;]*?\b(?:per|a|each|for each|for every)\s+(day|week|month)", ld, re.I)):
+        add("ld_rate_per_day", "4.2", m.group(1), "percent", per=m.group(2).lower(), quote=m.group(0))
+    if (m := re.search(r"\bwithin\s+(?:a\s+period\s+of\s+)?(\d+)\s*(?:\(\w+\)\s*)?days", ld, re.I)):
+        add("ld_grace_days", "4.2", m.group(1), "days", quote=m.group(0),
+            note="damages start only if the date is missed by more than this")
+    if (m := re.search(_PCT, answer("4.3"))):
+        add("ld_cap", "4.3", m.group(1), "percent", quote=m.group(0))
 
-    for field_name, qid in (("cert_lag_days", "1.2"), ("pay_lag_days", "1.3")):
-        m = re.search(r"(\d+)\s*(?:working\s+|calendar\s+|clear\s+)?days", text_of(qid), re.I)
-        if m:
-            add(field_name, qid, m.group(1), "days", quote=m.group(0))
+    # C5 price variation
+    pv = answer("5.1")
+    if status("5.1") == "NOT_APPLICABLE" or (pv and PV_OFF.search(pv)):
+        off = PV_OFF.search(pv)
+        add("pv_applies", "5.1", 0, "number", quote=off.group(0) if off else "NOT_APPLICABLE",
+            note="fixed price or price variation switched off")
+    elif pv and PV_ON.search(pv) and not PV_GATE.search(pv):
+        add("pv_applies", "5.1", 1, "number", quote=PV_ON.search(pv).group(0))
+    if (m := re.search(r"\b(0\.\d+)\s*[x×*]", answer("5.2"))):
+        add("pv_factor", "5.2", m.group(1), "number", quote=m.group(0))
 
-    m = re.search(r"performance\s+(?:security|guarantee)[^;%]*?" + _PCT, text_of("6.2"), re.I)
-    if m:
+    # C6 guarantees
+    if (m := re.search(r"performance\s+(?:security|guarantee)[^;%]*?" + _PCT, answer("6.2"), re.I)):
         add("perf_security_pct", "6.2", m.group(1), "percent", quote=m.group(0))
     return items
+
+
+def _interest_items(add, field_name: str, qid: str, text: str) -> None:
+    """'No interest' -> 0; 'Bank Rate + 3%' -> bank rate + 0.03; 'simple interest 10%' -> 0.10."""
+    if not text:
+        return
+    if (m := NEGATIVE_RATE.search(text)):
+        add(field_name, qid, 0, "percent", per="year", quote=m.group(0), negative=True,
+            note="the document says no interest")
+    elif (m := re.search(r"bank\s+rate\s*\+\s*" + _PCT, text, re.I)):
+        add(field_name, qid, m.group(1), "percent", per="year", quote=m.group(0),
+            relative_to_bank_rate=True)
+    elif (m := re.search(r"interest[^;%]*?" + _PCT, text, re.I)):
+        after = text[m.end():m.end() + 20]
+        per = "month" if re.search(r"(?:per|a)\s+month", after, re.I) else "year"
+        add(field_name, qid, m.group(1), "percent", per=per, quote=m.group(0))
+
+
+def _release_items(add, text: str, dlp_period: tuple[float, str] | None) -> None:
+    """Retention release: half and half / within N days of completion / N months after completion /
+    at the end of the defects liability period / on completion."""
+    if not text:
+        return
+    periods = re.findall(_NUM + r"\s*(days?|months?)\b", text, re.I)
+    if re.search(r"\bhalf\b", text, re.I) and periods:
+        for word, unit in periods[:2]:
+            add("retention_release", "2.5", _num(word), "days" if unit.lower().startswith("day") else "months",
+                share=50, quote=f"half ... {word} {unit}")
+        if len(periods) == 1 and dlp_period and re.search(r"defects?\s+liability|DLP", text, re.I):
+            add("retention_release", "2.5", dlp_period[0], dlp_period[1], share=50,
+                check_question_id="0.5", quote="balance after the defect liability period",
+                note="months taken from the defects liability period (0.5)")
+        return
+    if (m := re.search(r"within\s+(\d+)\s*(?:\(\w+\)\s*)?(days|months)\s+of\s+(?:the\s+)?completion", text, re.I)):
+        add("retention_release", "2.5", m.group(1), m.group(2).lower(), quote=m.group(0))
+    elif (m := re.search(_NUM + r"\s*(days|months)\s+after\s+(?:the\s+)?completion", text, re.I)):
+        add("retention_release", "2.5", _num(m.group(1)), m.group(2).lower(), quote=m.group(0))
+    elif dlp_period and (m := re.search(r"(?:on\s+completion\s+of|after|end\s+of)\s+(?:the\s+)?"
+                                        r"(?:defects?\s+liability\s+period|DLP)", text, re.I)):
+        add("retention_release", "2.5", dlp_period[0], dlp_period[1], check_question_id="0.5",
+            quote=m.group(0), note="released at the end of the defects liability period (0.5)")
+    elif (m := re.search(r"\bon\s+completion\b", text, re.I)):
+        add("retention_release", "2.5", 0, "months", quote=m.group(0))

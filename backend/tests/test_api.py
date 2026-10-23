@@ -173,7 +173,7 @@ def test_params_put_confirms_and_survives_review(env):
     prov = {p["field"]: p for p in r.json()["provenance"]}
     assert all(p["confirmed"] for p in prov.values())
     assert prov["contract_value"]["source"] == "user"
-    assert prov["ld_rate_per_day"]["source"] == "user"
+    assert prov["ld_rate_per_day"]["source"] == "extracted"   # submitted provenance wins
     assert prov["retention_rate"]["source"] == "default"
 
     # A later review recomputes params but keeps the user's confirmed values.
@@ -262,11 +262,125 @@ def test_spa_fallback(tmp_path):
     (dist / "assets" / "app.js").write_text("console.log(1)", encoding="utf-8")
     (dist / "favicon.svg").write_text("<svg/>", encoding="utf-8")
     client = TestClient(create_app(dist))
-    assert client.get("/").text == "<html>app</html>"
-    assert client.get("/runs/BM1_x/review").text == "<html>app</html>"
+    for path in ("/", "/runs/BM1_x/review", "/runs/BM1_replay-20261023-120000", "/evaluation",
+                 "/about", "/new", "/packages/BM1"):
+        r = client.get(path)
+        assert r.status_code == 200 and r.text == "<html>app</html>", path
     assert client.get("/assets/app.js").text == "console.log(1)"
     assert client.get("/favicon.svg").text == "<svg/>"
     assert client.get("/api/not-a-route").status_code == 404
     assert client.options("/api/benchmarks", headers={
         "Origin": "http://localhost:5173", "Access-Control-Request-Method": "GET"}
     ).headers["access-control-allow-origin"] == "http://localhost:5173"
+
+
+def test_params_put_keeps_submitted_provenance(env):
+    client, _ = env
+    run_id = start_and_wait(client)["run_id"]
+    params = client.get(f"/api/runs/{run_id}/params").json()
+    params["inputs"]["cost_share"] = 0.9
+    params["provenance"].append({"field": "cost_share", "source": "user", "quote": "edited in UI"})
+    params["inputs"]["delay_days"] = 60          # changed but no provenance item sent
+    prov = {p["field"]: p for p in client.put(f"/api/runs/{run_id}/params",
+                                              json=params).json()["provenance"]}
+    assert prov["cost_share"]["quote"] == "edited in UI" and prov["cost_share"]["confirmed"]
+    assert prov["delay_days"]["source"] == "user"
+    assert prov["ld_rate_per_day"]["question_id"] == "4.1"
+
+
+def test_user_inputs_cleaned_and_s_curve(env):
+    client, calls = env
+    form = {"contract_value": 2e7, "duration_months": 10.0, "progress_curve": "s_curve",
+            "progress": None, "cost_share": 0.8, "overdraft_rate_pa": None,
+            "bank_rate_pa": 0.065, "bg_commission_pa": None, "delay_days": 0,
+            "index_rise_pa": {"cement": 0.05, "steel": None, "fuel": None, "labour": 0.06,
+                              "bitumen": None},
+            "supplier_credit_days": None, "favourite_colour": "blue"}
+    meta = start_and_wait(client, "BM1", **form)
+    assert meta["stage"] == "done"
+    assert calls["user_inputs"][-1] == {
+        "contract_value": 2e7, "duration_months": 10, "cost_share": 0.8, "bank_rate_pa": 0.065,
+        "delay_days": 0, "index_rise_pa": {"cement": 0.05, "labour": 0.06}}
+    assert any("Ignored unknown user input(s): favourite_colour" in line for line in meta["log"])
+    params = client.get(f"/api/runs/{meta['run_id']}/params").json()
+    assert params["inputs"]["progress"] == [0.1] * 10
+    assert {p["field"]: p for p in params["provenance"]}["progress"]["source"] == "user"
+
+    # The S-curve is also applied when a review triggers a recompute.
+    before = calls["params"]
+    client.patch(f"/api/runs/{meta['run_id']}/review/4.1", json={"decision": "accepted"})
+    assert calls["params"] > before
+    after = client.get(f"/api/runs/{meta['run_id']}/params").json()
+    assert after["inputs"]["progress"] == [0.1] * 10
+
+
+def test_explicit_progress_beats_s_curve(env):
+    client, calls = env
+    meta = start_and_wait(client, "BM1", contract_value=1e7, duration_months=2,
+                          progress_curve="s_curve", progress=[0.3, 0.7])
+    assert meta["stage"] == "done"
+    assert calls["user_inputs"][-1]["progress"] == [0.3, 0.7]
+
+
+def test_review_pending_is_undo(env):
+    client, _ = env
+    run_id = start_and_wait(client)["run_id"]
+    client.patch(f"/api/runs/{run_id}/review/4.1",
+                 json={"decision": "edited", "user_answer": {"answer_value": "0.1"},
+                       "note": "my note"})
+    ld = client.get(f"/api/runs/{run_id}/params").json()["inputs"]["ld_rate_per_day"]
+    assert ld == pytest.approx(0.001)
+    r = client.patch(f"/api/runs/{run_id}/review/4.1", json={"decision": "pending", "note": "x"})
+    review = r.json()["review"]
+    assert review["decision"] == "pending" and review["user_answer"] is None
+    assert review["note"] == "" and review["decided_at"] == ""
+    ld = client.get(f"/api/runs/{run_id}/params").json()["inputs"]["ld_rate_per_day"]
+    assert ld == pytest.approx(0.0005)
+
+
+def test_errors_are_json_detail_strings(env, monkeypatch):
+    client, _ = env
+    run_id = start_and_wait(client)["run_id"]
+    bad = client.patch(f"/api/runs/{run_id}/review/4.1", json={"decision": "maybe"})
+    assert bad.status_code == 422 and isinstance(bad.json()["detail"], str)
+    assert "decision" in bad.json()["detail"]
+    assert isinstance(client.post("/api/runs", json={}).json()["detail"], str)
+    assert isinstance(client.get("/api/runs/nope").json()["detail"], str)
+
+    pipeline._ACTIVE.add(run_id)                       # pretend it is still running
+    try:
+        busy = client.patch(f"/api/runs/{run_id}/review/4.1", json={"decision": "accepted"})
+        assert busy.status_code == 409 and isinstance(busy.json()["detail"], str)
+    finally:
+        pipeline._ACTIVE.discard(run_id)
+
+    store.freeze_run(run_id)
+    shutil.rmtree(config.RUNS_DIR / run_id)
+    frozen = client.patch(f"/api/runs/{run_id}/review/4.1", json={"decision": "accepted"})
+    assert frozen.status_code == 403 and "frozen" in frozen.json()["detail"]
+
+    def crash(*a, **k):
+        raise RuntimeError("boom")
+
+    monkeypatch.setattr(pipeline, "compute_cash", crash)
+    err = client.post(f"/api/runs/{run_id}/cashflow", json={})
+    assert err.status_code == 500
+    assert err.json() == {"detail": "Internal error: RuntimeError: boom"}
+
+
+def test_evaluation_prefers_ai_runs_over_replays(env):
+    client, _ = env
+    ai = start_and_wait(client, "BM1")["run_id"]
+    for cid in ("BM1", "BM2"):                         # replays made later than the AI run
+        rid = f"{cid}_replay-20991231-000000"
+        store.new_run_dir(rid)
+        store.save_meta(RunMeta(run_id=rid, package_id=cid, contract_id=cid,
+                                model=pipeline.REPLAY_MODEL, started_at="2099-12-31T00:00:00",
+                                stage="done", progress=1.0))
+        store.save(rid, "answers", [])
+    r = client.get("/api/evaluation").json()
+    assert r["runs_used"] == {"BM1": ai, "BM2": "BM2_replay-20991231-000000"}
+    assert r["replay"] is True and r["replay_contracts"] == ["BM2"]
+    runs = {m["run_id"]: m for m in client.get("/api/runs").json()}
+    assert runs["BM1_replay-20991231-000000"]["replay"] is True and runs[ai]["replay"] is False
+    assert client.get("/api/runs/BM1_replay-20991231-000000/answers").json() == []

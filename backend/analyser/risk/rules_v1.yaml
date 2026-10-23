@@ -393,9 +393,11 @@ rules:
     title: Unresolved reference
     category: unclear
     question_ids: []
-    rule: "Raise when an answer points to another document or blank schedule that is not in the package."
-    thresholds: {}
-    threshold_status: {}
+    rule: "Raise when an answer points to another document or blank schedule that is not in the package. Targets are normalised (GCC + issuer + year, Schedule X, Annexure X) before grouping."
+    thresholds:
+      max_separate_flags: 3      # more target documents than this -> one combined flag
+    threshold_status:
+      max_separate_flags: "[ASSUMPTION]"
     reference_value: "n/a"
     reference_source: "n/a (cross-reference follower, F7)"
     triggers:
@@ -405,17 +407,30 @@ rules:
       target_in_package:
         severity: Needs review
         explanation: "{count} answer(s) point to {pointer}, which seems to be in the package but was not followed ({detail}). Re-run the cross-reference step or check by hand."
+      many_targets:
+        severity: Needs review
+        explanation: "{count} answers depend on {targets} documents or places that this package does not resolve: {detail}. Get those documents, or confirm the terms with the employer, before pricing."
 
   - id: R18
     title: Missing document
     category: unclear
     question_ids: []
-    rule: "Raise when schedules or conditions are referred to but not supplied."
+    rule: "Raise ONE flag per package when schedules or conditions are referred to but not supplied."
     thresholds: {}
     threshold_status: {}
+    # Missing documents that matter most for money are listed first, in this order, with the reason.
+    priority:
+      - ['general conditions|\bGCC\b', 'incorporated by reference; holds the payment, retention, damages and escalation terms']
+      - ['schedule[- ]?h\b', 'sets the stage-payment percentages']
+      - ['contract data|bid data', 'fills the rates and caps the clauses point to']
+      - ['schedule[- ]?f\b', 'switches advances, escalation and milestones on or off (CPWD)']
+      - ['schedule[- ]?e\b', 'sets security deposit and guarantee percentages (CPWD)']
+      - ['schedule[- ]?j\b', 'sets the milestone dates that trigger damages']
+      - ['corrigend|amendment|addend', 'may change any term']
+      - ['annexure[- ]?(p|r)\b|price adjustment|escalation', 'may hold the damages scale or escalation weights']
     reference_value: "n/a"
     reference_source: "n/a (package completeness check, F1)"
     triggers:
       missing:
         severity: Needs review
-        explanation: "The package refers to {detail} but does not include it. Terms in it bind you even though you have not read them; ask for a copy."
+        explanation: "The package refers to {count} document(s) it does not include: {detail}.{priority} Terms in them bind you even though you have not read them; ask the employer for copies."

@@ -72,6 +72,7 @@ def verify_answers(envelopes: list[AnswerEnvelope], package: Package,
         env.verification = verify_one(env, idx, llm)
         if env.verification.found_doc_id:
             env.doc_id = env.verification.found_doc_id
+    idx.close()                       # PDFs opened for raw text / PDF search
 
     # F9: the same item with different values in different answers.
     by_qid = {env.answer.question_id: env for env in envelopes}

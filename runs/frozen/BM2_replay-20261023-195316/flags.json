@@ -1,0 +1,111 @@
+[
+  {
+    "flag_id": "R13",
+    "title": "High minimum bill",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when the value of work needed before an interim bill is payable is more than one planned month of billing.",
+    "value_found": "work worth Rs 30.00 lakh is done since the last bill; one planned month of billing is about Rs 23.59 lakh (contract value from the cash inputs, over 9 months)",
+    "reference_value": "Minimum bill no larger than one month of planned work.",
+    "reference_source": "Seen in the IIT Bombay schedule [SEEN]; one-month line [ASSUMPTION]",
+    "question_ids": [
+      "1.6"
+    ],
+    "quote": "Clause 7 Gross work to be done together with net payment /adjustment of advances for material collected, if any, since the last such payment for being eligible to interim payment 30 lakhs",
+    "section_ref": "Schedule F, clause 7",
+    "pdf_page": 109,
+    "explanation": "No interim bill is paid until work worth Rs 30.00 lakh is done since the last bill; one planned month of billing is about Rs 23.59 lakh (contract value from the cash inputs, over 9 months). In slow months you wait for the next bill and fund the gap yourself. Money at stake: about Rs 30.00 lakh (work value you may have to carry before a bill is due).",
+    "rupee_impact": 3000000.0
+  },
+  {
+    "flag_id": "R9",
+    "title": "Fast advance recovery",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when the advance is fully recovered before 80% of the planned work is done (needs the cash inputs).",
+    "value_found": "month 7 of 9, when only 78% of the work is done",
+    "reference_value": "CPWD recovers the advance pro rata so that it is fully back when 80% of the work value is done.",
+    "reference_source": "CPWD GCC cl. 10B(iii) pattern [SEEN]; 80% line [ASSUMPTION, calibrate]",
+    "question_ids": [
+      "3.4"
+    ],
+    "quote": "on pro-rata percentage basis to the gross value of the work billed beyond 10% in such a way that the entire advance is recovered by the time eighty percent of the gross value of the contract",
+    "section_ref": "Clause 10B(iii)",
+    "pdf_page": 29,
+    "explanation": "The advance is fully taken back by month 7 of 9, when only 78% of the work is done. After that the bills are cut while the work still needs funding, so the advance helps less than its size suggests. Money at stake: about Rs 21.23 lakh (advance taken back from bills before 80% of the work).",
+    "rupee_impact": 2122733.6
+  },
+  {
+    "flag_id": "R1",
+    "title": "Retention or security deposit high or uncapped",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when the total retention cap is above 5% of contract value, or there is no cap, or all retention is held to the end of the defects period with no stage release.",
+    "value_found": "Not before 12 months after completion certificate (6 months for works of Rs 10 lakhs or less, except road work), or u...",
+    "reference_value": "Security deposit usually 5% of each running bill, replaceable by a bank guarantee; half released at taking-over.",
+    "reference_source": "Manual for Procurement of Works 2022, Dept. of Expenditure [SEEN]",
+    "question_ids": [
+      "2.5"
+    ],
+    "quote": "shall not be refunded before the expiry of twelve months (six months in the case of work costing Rs. Ten lakhs and below except road work) after the issue of the certificate final or otherwise,",
+    "section_ref": "Clause 17 (and clause 41)",
+    "pdf_page": 41,
+    "explanation": "All retention is held to the end of the defects period ('Not before 12 months after completion certificate (6 months for works of Rs 10 lakhs or less, except road work), or u...'), with none released at completion. The reference practice releases half at taking-over. Plan to finance this money for the full defects period, or offer a bank guarantee instead. Money at stake: about Rs 10.61 lakh (largest retention held, from the cash model).",
+    "rupee_impact": 1061366.8
+  },
+  {
+    "flag_id": "R8",
+    "title": "No advance, or a costly one",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when there is no mobilisation advance, or the advance carries interest, or its guarantee is above 100% of the advance.",
+    "value_found": "Simple interest 10% a year from date of payment to date of recovery, on the outstanding balance; 110% of the advance",
+    "reference_value": "Advance should be need-based; interest-free advances are discouraged.",
+    "reference_source": "Manual for Procurement of Works 2022 [SEEN]; 100% guarantee line [ASSUMPTION]",
+    "question_ids": [
+      "3.3",
+      "3.5"
+    ],
+    "quote": "bear simple interest at the rate of 10 percent per annum and shall be calculated from the date of payment to the date of recovery",
+    "section_ref": "Clause 10B(iii)",
+    "pdf_page": 28,
+    "explanation": "The advance carries interest (Simple interest 10% a year from date of payment to date of recovery, on the outstanding balance). Compare that rate with your overdraft rate; the advance may cost about the same as borrowing. The advance needs a bank guarantee of 110% of the advance, more than the advance itself. It uses up bank limit and commission for a smaller amount of cash. Money at stake: about Rs 1.24 lakh (interest on the advance, from the cash model).",
+    "rupee_impact": 123826.13
+  },
+  {
+    "flag_id": "R11",
+    "title": "Price variation with holes",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when price variation leaves out labour, uses a long index lag, cuts off late-billed work, or applies only above a size or duration this contract does not reach.",
+    "value_found": "applies only over 12 months; this contract is 9 months (duration from the cash inputs)",
+    "reference_value": "A full price variation covers labour and the main materials, uses recent indices and pays on all work done in the stipulated or extended period.",
+    "reference_source": "Read from the contract's own clause (C5); lag line [ASSUMPTION]",
+    "question_ids": [
+      "5.1"
+    ],
+    "quote": "Clause 10CC Applicable/ Not Applicable Clause 10 CC to be applicable in contracts with stipulated period of completion exceeding the period shown in next column 12 (Twelve) months",
+    "section_ref": "Clauses 10C, 10CA, 10CC; Schedule F",
+    "pdf_page": 110,
+    "explanation": "Price variation is printed but does not apply to this contract: applies only over 12 months; this contract is 9 months (duration from the cash inputs). Treat the contract as fixed price.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R14",
+    "title": "Guarantee validity tied to extensions",
+    "severity": "Low",
+    "category": "risk",
+    "rule": "Raise when guarantees must be extended whenever the time for completion is extended.",
+    "value_found": "'Performance guarantee valid to stipulated completion date plus 60 days (Format I) or plus 6 months (Format II), and extended if time is e...'",
+    "reference_value": "CPWD GCC 2023: performance guarantee valid to completion plus at least 6 months, extended with time.",
+    "reference_source": "CPWD GCC 2023 [SEEN]",
+    "question_ids": [
+      "6.5"
+    ],
+    "quote": "The Performance Guarantee shall be initially valid up to the stipulated date of completion plus minimum 60 days beyond that, if the same is submitted by the agency on scheduled format I as per GCC.",
+    "section_ref": "Clause 1(ii)",
+    "pdf_page": 15,
+    "explanation": "Guarantees must be renewed every time the completion date moves ('Performance guarantee valid to stipulated completion date plus 60 days (Format I) or plus 6 months (Format II), and extended if time is e...'). Each month of extension adds bank commission and keeps your bank limit tied up. Money at stake: about Rs 15,921 (bank commission on the performance guarantee per extra year).",
+    "rupee_impact": 15920.5
+  }
+]

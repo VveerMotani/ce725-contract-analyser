@@ -40,7 +40,7 @@ def make_run(contract_id: str) -> str:
                    model="answer-key replay (no LLM)", started_at=pipeline.now(),
                    stage="verify", progress=0.5)
     meta.log.append("ANSWER-KEY REPLAY: answers come from golden_tests_v1.json, not from the AI.")
-    store.save_meta(meta)
+    # meta.json is written only at the end, so the server never sees a half-built run
 
     package = benchmark_package(contract_id)
     store.save(run_id, "package", package.model_copy(update={"pages": []}))

@@ -228,6 +228,15 @@ def test_missing_document_gives_r18():
     assert "General Conditions of Contract 2023" in f.explanation
 
 
+def test_r18_is_one_flag_with_important_documents_first():
+    pkg = package(missing=[("Schedule A", 30, "qa"), ("Schedule B", 30, "qb"), ("Schedule H", 54, "qh"),
+                           ("Annexure A", 229, "qx"), ("Schedule A", 31, "dup")])
+    f = one(run(pkg=pkg), "R18")
+    assert f.value_found == "Schedule H, Schedule A, Schedule B, Annexure A"
+    assert (f.quote, f.pdf_page) == ("qh", 54)
+    assert "4 document(s)" in f.explanation and "Schedule H (sets the stage-payment percentages)" in f.explanation
+
+
 def test_conflict_gives_r16():
     c = Conflict(value="cement 20%, steel 20%", section_ref="Annexure R", pdf_page=70)
     f = one(run(env("5.3", value="cement 18%, steel 13%", section="Contract Data", conflicts=[c])), "R16")
@@ -242,6 +251,52 @@ def test_r17_groups_by_target_and_checks_package():
     pkg = package(files=("NIT.pdf", "Reference_CPWD_GCC_2023.pdf"))
     f = one(run(env("1.2", status="POINTS_ELSEWHERE", points_to="CPWD GCC 2023"), pkg=pkg), "R17")
     assert "seems to be in the package" in f.explanation
+
+
+GCC_PHRASINGS = [
+    dict(points_to="CPWD GCC 2023"),
+    dict(points_to="General Conditions of Contract for CPWD 2023 (clause 2)"),
+    dict(points_to="Reference_CPWD_GCC_2023.pdf"),
+    dict(points_to="cpwd gcc-2023, Clause 10CC"),
+    dict(points_to="GCC clause 2"),                                   # bare: merges into CPWD GCC 2023
+    dict(value="Not in this file (GCC clause 2)."),                   # no points_to: read from the answer
+    dict(value="The NIT incorporates CPWD General Conditions of Contract 2023 by reference (Schedule E)."),
+    dict(value="Rate not stated here", section="Schedule E"),          # nothing named: unnamed, cited place
+]
+
+
+def test_r17_normalises_varied_gcc_phrasings():
+    envs = [env(f"1.{i + 1}", status="POINTS_ELSEWHERE", **{"value": "", **p}) for i, p in enumerate(GCC_PHRASINGS)]
+    flags = [f for f in run(*envs) if f.flag_id == "R17"]
+    assert len(flags) == 2, [f.value_found for f in flags]
+    gcc = next(f for f in flags if "CPWD GCC 2023" in f.explanation)
+    assert gcc.question_ids == [f"1.{i}" for i in range(1, 8)]
+    assert any("cited at Schedule E" in f.explanation for f in flags)
+
+
+@pytest.mark.parametrize("text,key", [
+    ("Schedule F, Cl. 2", "schedule f"), ("Schedule-F (clause 7)", "schedule f"), ("SCHEDULE F of the NIT", "schedule f"),
+    ("Annexure P", "annexure p"), ("Annex-P to Contract Data", "annexure p"), ("Annexure-P, item 3", "annexure p"),
+    ("Contract Data sheet, item 18", "contract data"), ("Schedules A to D", "schedule a"),
+    ("MoRTH Specifications for Road Works, Section 900", "morth specifications for road works"),
+])
+def test_target_normalisation(text, key):
+    from analyser.risk.targets import normalise
+    assert normalise(text)[0] == key
+
+
+def test_r17_more_than_three_targets_gives_one_flag():
+    envs = [env("1.2", status="POINTS_ELSEWHERE", points_to="CPWD GCC 2023"),
+            env("1.3", status="POINTS_ELSEWHERE", points_to="General Conditions of Contract (CPWD) 2023, cl. 7"),
+            env("2.5", status="POINTS_ELSEWHERE", points_to="Schedule F, Cl. 17"),
+            env("4.2", status="POINTS_ELSEWHERE", points_to="Annexure P"),
+            env("5.3", status="POINTS_ELSEWHERE", points_to="Contract Data 31.2.4"),
+            env("6.2", status="POINTS_ELSEWHERE", points_to="Schedule-F")]
+    f = one(run(*envs), "R17")
+    assert f.question_ids == ["1.2", "1.3", "2.5", "4.2", "5.3", "6.2"]
+    assert "CPWD GCC 2023: Q 1.2, 1.3" in f.value_found and "Schedule F: Q 2.5, 6.2" in f.value_found
+    assert "Annexure P: Q 4.2" in f.value_found and "Contract Data: Q 5.3" in f.value_found
+    assert "4 documents" in f.explanation
 
 
 # ---------------------------------------------------------------------------

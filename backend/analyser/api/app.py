@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any, Literal, Optional, get_args
 
 from fastapi import APIRouter, FastAPI, HTTPException, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
@@ -20,8 +21,8 @@ from starlette.concurrency import run_in_threadpool
 
 from analyser import config
 from analyser.api import pipeline, store
-from analyser.models import (Answer, AnswerEnvelope, CashParams, CashResult, DocTag,
-                             Package, RiskFlag, RunMeta, ScoreSummary)
+from analyser.models import (Answer, CashParams, CashResult, DocTag, Package, ReviewState,
+                             RiskFlag, RunMeta, ScoreSummary)
 
 FRONTEND_DIST = config.PROJECT_DIR / "frontend" / "dist"
 DEV_ORIGINS = ["http://localhost:5173", "http://127.0.0.1:5173"]
@@ -54,6 +55,15 @@ class CashflowRequest(BaseModel):
 # ---------------------------------------------------------------------------
 
 
+def errors_text(errors: list[dict]) -> str:
+    """pydantic error list -> one readable line, e.g. 'body.decision: Input should be ...'."""
+    parts = []
+    for e in errors:
+        where = ".".join(str(x) for x in e.get("loc", ()))
+        parts.append(f"{where}: {e.get('msg', 'invalid')}" if where else e.get("msg", "invalid"))
+    return "; ".join(parts) or "Invalid request"
+
+
 def _meta(run_id: str) -> RunMeta:
     try:
         return pipeline.get_meta(run_id)
@@ -62,8 +72,9 @@ def _meta(run_id: str) -> RunMeta:
 
 
 def _meta_json(meta: RunMeta) -> dict:
-    """RunMeta plus a 'frozen' flag (frozen runs are read-only demo copies)."""
-    return {**meta.model_dump(mode="json"), "frozen": store.is_frozen(meta.run_id)}
+    """RunMeta plus 'frozen' (read-only demo copy) and 'replay' (answer-key replay) flags."""
+    return {**meta.model_dump(mode="json"), "frozen": store.is_frozen(meta.run_id),
+            "replay": pipeline.is_replay(meta)}
 
 
 def _editable(run_id: str) -> RunMeta:
@@ -106,12 +117,18 @@ def _all_metas() -> list[RunMeta]:
 
 
 def _latest_done_runs() -> dict[str, RunMeta]:
-    """Latest finished run of each benchmark contract (live or frozen)."""
+    """Latest finished run of each benchmark contract (live or frozen).
+
+    Real AI runs always beat answer-key replay runs; a replay is used only when a
+    contract has no finished AI run.
+    """
+    def rank(m: RunMeta) -> tuple:
+        return (not pipeline.is_replay(m), m.started_at, m.run_id)
+
     best: dict[str, RunMeta] = {}
     for m in _all_metas():
         if m.stage == "done" and m.contract_id in config.BENCHMARKS:
-            if m.contract_id not in best or (m.started_at, m.run_id) > (
-                    best[m.contract_id].started_at, best[m.contract_id].run_id):
+            if m.contract_id not in best or rank(m) > rank(best[m.contract_id]):
                 best[m.contract_id] = m
     return best
 
@@ -235,7 +252,10 @@ def review_answer(run_id: str, question_id: str, body: ReviewRequest) -> dict:
         raise HTTPException(404, f"No question {question_id} in this run")
 
     review = env.review.model_copy()
-    if body.decision == "edited":
+    if body.decision == "pending":
+        # Undo: back in the queue, AI answer effective again, edit and note cleared.
+        review = ReviewState(decision="pending", reasons=env.review.reasons)
+    elif body.decision == "edited":
         if not body.user_answer:
             raise HTTPException(422, "An edited answer needs user_answer.")
         merged = {**env.effective().model_dump(), **body.user_answer,
@@ -244,11 +264,12 @@ def review_answer(run_id: str, question_id: str, body: ReviewRequest) -> dict:
         try:
             review.user_answer = Answer.model_validate(merged)
         except ValidationError as exc:
-            raise HTTPException(422, f"user_answer is not a valid answer: {exc.errors()}")
+            raise HTTPException(422, "user_answer is not a valid answer: "
+                                + errors_text(exc.errors()))
     else:
         review.user_answer = None
     review.decision = body.decision
-    if body.note is not None:
+    if body.note is not None and body.decision != "pending":
         review.note = body.note
     review.decided_at = "" if body.decision == "pending" else pipeline.now()
     env.review = review
@@ -290,7 +311,9 @@ def run_cashflow(run_id: str, body: CashflowRequest | None = None) -> dict:
     overrides = (body.overrides if body else None) or {}
     try:
         cash = pipeline.compute_cash(params.inputs, overrides)
-    except (ValueError, ValidationError) as exc:
+    except ValidationError as exc:
+        raise HTTPException(422, errors_text(exc.errors()))
+    except ValueError as exc:
         raise HTTPException(422, str(exc))
     result = {"as_written": store.dump(cash["as_written"]),
               "reference": store.dump(cash["reference"])}
@@ -334,7 +357,9 @@ def evaluation() -> dict:
     summary: ScoreSummary = pipeline.module("evaluate").score_run(
         envelopes, "+".join(run_ids.values()))
     missing = [cid for cid in config.BENCHMARKS if cid not in run_ids]
-    return {**summary.model_dump(mode="json"), "runs_used": run_ids, "missing_benchmarks": missing}
+    replays = [cid for cid, m in sorted(latest.items()) if pipeline.is_replay(m)]
+    return {**summary.model_dump(mode="json"), "runs_used": run_ids,
+            "missing_benchmarks": missing, "replay": bool(replays), "replay_contracts": replays}
 
 
 # ---------------------------------------------------------------------------
@@ -377,9 +402,25 @@ def export_pdf(run_id: str) -> Response:
 def create_app(frontend_dist: Path | None = FRONTEND_DIST) -> FastAPI:
     """Build the app; serves the built website too when frontend_dist exists."""
     app = FastAPI(title="Tender and Contract Analyser API", version="1.0")
+
+    @app.middleware("http")
+    async def server_error(request: Request, call_next):
+        """Unexpected crashes also come back as {"detail": ...} (inside CORS, so the
+        browser can read them)."""
+        try:
+            return await call_next(request)
+        except Exception as exc:  # noqa: BLE001
+            return JSONResponse({"detail": f"Internal error: {type(exc).__name__}: {exc}"},
+                                status_code=500)
+
     app.add_middleware(CORSMiddleware, allow_origins=DEV_ORIGINS, allow_credentials=True,
                        allow_methods=["*"], allow_headers=["*"])
     app.include_router(api)
+
+    # Every error reaches the website as {"detail": "<plain text>"}.
+    @app.exception_handler(RequestValidationError)
+    async def bad_request(request: Request, exc: RequestValidationError):
+        return JSONResponse({"detail": errors_text(exc.errors())}, status_code=422)
 
     if frontend_dist is not None and (frontend_dist / "index.html").exists():
         dist = frontend_dist.resolve()

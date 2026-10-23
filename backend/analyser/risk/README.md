@@ -5,7 +5,7 @@
 No LLM calls. Every threshold and phrase list lives in the YAML; edit it there.
 `flag_risks_with_trace()` also returns the reason each rule did not fire.
 
-Files: `rules_v1.yaml` (the rule table), `parse.py` (number and phrase parsers), `context.py`
+Files: `rules_v1.yaml` (the rule table), `parse.py` (number and phrase parsers), `targets.py` (names the document a pointer refers to), `context.py`
 (answers by question id, contract value and duration), `rules.py` (one function per rule), `__init__.py`.
 
 Order of output: High, Medium, Low, Info, Needs review; inside each, larger rupee impact first.
@@ -31,8 +31,8 @@ or the reviewer rejected are not used; a reviewer's edit replaces the AI answer.
 | R14 Guarantee tied to extensions | validity must be extended whenever time is extended (Low) | phrase list | SEEN | CPWD GCC 2023 |
 | R15 Payment conditions | pay-when-paid or papers before payment (Low) | phrase list | SEEN | CPWD-style Schedule F 7A |
 | R16 Conflict | an answer has `conflicts` (Needs review) | none | - | F9 |
-| R17 Unresolved reference | `POINTS_ELSEWHERE`, grouped per target; says if the target seems to be in the package | none | - | F7 |
-| R18 Missing document | each `package.missing_references` entry | none | - | F1 |
+| R17 Unresolved reference | `POINTS_ELSEWHERE`, grouped per normalised target (`targets.py`: GCC + issuer + year, Schedule X, Annexure X, Contract Data; taken from points_to, else the answer text); one combined flag when there are more than 3 targets | `max_separate_flags: 3` | **ASSUMPTION** | F7 |
+| R18 Missing document | one flag per package listing every `missing_references` entry, money-relevant ones (YAML `priority`) first | none | - | F1 |
 
 **Assumptions to calibrate** (bold above): R4 daily rate 0.05% and 30-day month; R7 30 days and
 working-day factor 1.4; R8 100% guarantee line; R9 80% of work; R11 3-month lag; R12 1% withholding;

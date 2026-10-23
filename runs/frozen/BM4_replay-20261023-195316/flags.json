@@ -1,0 +1,122 @@
+[
+  {
+    "flag_id": "R12",
+    "title": "Progress-linked termination or heavy withholding",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when the employer may terminate on slow progress or once damages hit the cap, or withholds large percentages for missed milestones.",
+    "value_found": "each missed milestone withholds 1.25% of accepted tendered amount",
+    "reference_value": "Milestone withholding refunded when progress is made good; termination only for real default.",
+    "reference_source": "Seen in the MP tender (Annexure P) and the MoEF tender (Schedule F) [SEEN]; 1% line [ASSUMPTION]",
+    "question_ids": [
+      "0.6"
+    ],
+    "quote": "1 Work done amounting to 25% of accepted tender amount (Civil + Electrical). 10 Days 1.25% of accepted tendered amount.",
+    "section_ref": "Schedule F, Cl. 5",
+    "pdf_page": 23,
+    "explanation": "Missed milestones lead to money being held back (each missed milestone withholds 1.25% of accepted tendered amount). Cash you expected can stop mid-contract; it is usually refunded only if you catch up. Money at stake: about Rs 9,063 (largest withholding % x contract value).",
+    "rupee_impact": 9063.31
+  },
+  {
+    "flag_id": "R8",
+    "title": "No advance, or a costly one",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when there is no mobilisation advance, or the advance carries interest, or its guarantee is above 100% of the advance.",
+    "value_found": "No: clause 10B(ii) shall not be applicable",
+    "reference_value": "Advance should be need-based; interest-free advances are discouraged.",
+    "reference_source": "Manual for Procurement of Works 2022 [SEEN]; 100% guarantee line [ASSUMPTION]",
+    "question_ids": [
+      "3.1"
+    ],
+    "quote": "Clause 10 B Clause 10B (ii) Whether Clause 10 B (ii) shall be applicable No",
+    "section_ref": "Schedule F, Cl. 10B(ii)",
+    "pdf_page": 24,
+    "explanation": "No mobilisation advance is given (No: clause 10B(ii) shall not be applicable). You must fund mobilisation, site set-up and early materials from your own money until the first bill is paid.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R6",
+    "title": "No interest on late payment",
+    "severity": "Needs review",
+    "category": "unclear",
+    "rule": "Raise when the contract says no interest is payable on late payment (High), or is silent (unclear).",
+    "value_found": "POINTS_ELSEWHERE: CPWD GCC 2023",
+    "reference_value": "NHAI pays Bank Rate + 3% on unpaid sums; CPWD pays 5% simple interest after 45 days.",
+    "reference_source": "NHAI EPC agreement cl. 19.9 [SEEN]; CPWD GCC 2023 cl. 7 [SEEN]; 'no interest' seen in the MP tender [SEEN]",
+    "question_ids": [
+      "1.4"
+    ],
+    "quote": "General Conditions of Contract 2023 for Construction works, Central Public Works Department, as amended up to last date of submission of bids.",
+    "section_ref": "Schedule E",
+    "pdf_page": 21,
+    "explanation": "Interest on late payment is not in this package; it is in CPWD GCC 2023. Read that document before relying on any interest.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R7",
+    "title": "Slow or unclear payment",
+    "severity": "Needs review",
+    "category": "unclear",
+    "rule": "Raise when the period to pay a bill is above 30 days, or is not stated.",
+    "value_found": "POINTS_ELSEWHERE: CPWD GCC 2023",
+    "reference_value": "NHAI pays within 30 days; CPWD part payment in 10 and the rest in 28 working days.",
+    "reference_source": "NHAI EPC agreement cl. 19.9 [SEEN]; CPWD GCC 2023 cl. 7 [SEEN]; 30-day line [ASSUMPTION]",
+    "question_ids": [
+      "1.3"
+    ],
+    "quote": "General Conditions of Contract 2023 for Construction works, Central Public Works Department, as amended up to last date of submission of bids.",
+    "section_ref": "Schedule E",
+    "pdf_page": 21,
+    "explanation": "The payment period is not in this package; it is in CPWD GCC 2023. Read that document before relying on a payment date.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R17",
+    "title": "Unresolved reference",
+    "severity": "Needs review",
+    "category": "unclear",
+    "rule": "Raise when an answer points to another document or blank schedule that is not in the package. Targets are normalised (GCC + issuer + year, Schedule X, Annexure X) before grouping.",
+    "value_found": "questions 1.2, 1.3, 1.4, 1.7, 2.5, 3.6, 4.2, 4.3, 4.6, 4.7, 5.2, 5.4, 5.5, 5.6, 5.7",
+    "reference_value": "n/a",
+    "reference_source": "n/a (cross-reference follower, F7)",
+    "question_ids": [
+      "1.2",
+      "1.3",
+      "1.4",
+      "1.7",
+      "2.5",
+      "3.6",
+      "4.2",
+      "4.3",
+      "4.6",
+      "4.7",
+      "5.2",
+      "5.4",
+      "5.5",
+      "5.6",
+      "5.7"
+    ],
+    "quote": "General Conditions of Contract 2023 for Construction works, Central Public Works Department, as amended up to last date of submission of bids.",
+    "section_ref": "Schedule E",
+    "pdf_page": 21,
+    "explanation": "15 answer(s) depend on CPWD GCC 2023, which is not in the package (questions 1.2, 1.3, 1.4, 1.7, 2.5, 3.6, 4.2, 4.3, 4.6, 4.7, 5.2, 5.4, 5.5, 5.6, 5.7). Get that document, or confirm the terms with the employer.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R18",
+    "title": "Missing document",
+    "severity": "Needs review",
+    "category": "unclear",
+    "rule": "Raise ONE flag per package when schedules or conditions are referred to but not supplied.",
+    "value_found": "General Conditions of Contract for CPWD 2023",
+    "reference_value": "n/a",
+    "reference_source": "n/a (package completeness check, F1)",
+    "question_ids": [],
+    "quote": "6, CPWD-7 including schedule A to F for major and minor component of the work, Standard General Conditions of Contract for CPWD 2023 (Construction work) as amended/ modified upto last date of submission of bid.  Part",
+    "section_ref": "cited in d1",
+    "pdf_page": 9,
+    "explanation": "The package refers to 1 document(s) it does not include: General Conditions of Contract for CPWD 2023. Most important for money: General Conditions of Contract for CPWD 2023 (incorporated by reference; holds the payment, retention, damages and escalation terms). Terms in them bind you even though you have not read them; ask the employer for copies.",
+    "rupee_impact": null
+  }
+]

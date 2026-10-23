@@ -5,7 +5,8 @@ import { Bar, BarChart, CartesianGrid, Legend as RLegend, ResponsiveContainer, T
 import { AlertTriangle, Bug, Crosshair, FlaskConical, Quote as QuoteIcon, Search, Star, Target } from "lucide-react";
 import { api } from "../api";
 import { useAsync } from "../context";
-import { CLAUSE_IDS, CLAUSE_SHORT, LABELS, type Label, type TestScore } from "../types";
+import { CLAUSE_IDS, CLAUSE_SHORT, LABELS, labelCounts, type Label, type TestScore } from "../types";
+import { ReplayBanner } from "../components/Replay";
 import { Card, CheckIcon, Chip, Donut, ErrorBox, KpiTile, Legend, PageHeader, Spinner, type Tone, cx, inputCls } from "../components/ui";
 
 export const LABEL_COLORS: Record<string, string> = {
@@ -69,7 +70,7 @@ function Heatmap({ tests }: { tests: TestScore[] }) {
 }
 
 function stackData(by: Record<string, Record<string, number>>, keys: string[], nameOf: (k: string) => string = (k) => k) {
-  return keys.filter((k) => by[k]).map((k) => ({ name: nameOf(k), ...by[k] }));
+  return keys.filter((k) => by[k]).map((k) => ({ name: nameOf(k), ...labelCounts(by[k]) }));
 }
 
 function StackedBars({ data }: { data: Record<string, string | number>[] }) {
@@ -114,14 +115,22 @@ export default function Evaluation() {
   if (ev.loading) return <Spinner label="Loading evaluation…" />;
   if (ev.error) return <><PageHeader title="Evaluation" /><ErrorBox error={ev.error} title="No evaluation yet" /></>;
   const total = s!.tests.length;
-  const donut = LABELS.map((l) => ({ name: l, value: s!.counts[l] ?? 0, color: LABEL_COLORS[l] }));
-  const correct = (s!.counts["Correct"] ?? 0) + (s!.counts["Correct absent"] ?? 0);
+  const counts = labelCounts(s!.counts);
+  const donut = LABELS.map((l) => ({ name: l, value: counts[l], color: LABEL_COLORS[l] }));
+  const correct = counts["Correct"] + counts["Correct absent"];
   const causes = Object.entries(s!.tests.reduce<Record<string, number>>((a, t) => { if (t.cause_code) a[t.cause_code] = (a[t.cause_code] ?? 0) + 1; return a; }, {})).sort((a, b) => b[1] - a[1]);
 
   return (
     <div className="flex flex-col gap-4">
       <PageHeader title="Evaluation" icon={<FlaskConical className="h-5 w-5 text-accent" />}
-        subtitle={<>Tool answers scored against the {total} golden tests (spec §10). <span className="font-mono text-xs">{s!.run_id}</span></>} />
+        subtitle={<>Tool answers scored against the {total} golden tests (spec §10).</>} />
+
+      {s!.replay && (
+        <ReplayBanner>
+          These scores use answer-key replay runs for: <b>{(s!.replay_contracts ?? Object.keys(s!.runs_used ?? {})).join(", ")}</b> — they test the pipeline, not the AI.
+          Run the AI on each benchmark for real accuracy numbers.
+        </ReplayBanner>
+      )}
 
       <div className="flex flex-wrap items-center gap-1.5">
         <span className="text-xs text-muted">Runs used:</span>
