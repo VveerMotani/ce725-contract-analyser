@@ -1,0 +1,507 @@
+[
+ {
+  "id": "BM2-0.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Tool names CPWD-7/8 percentage-rate IITB tender on GCC 2020 as modified, as in Schedule F 9(ii).",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-0.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Employer Director IITB acting through Dean IPS; contractor correctly left blank/not stated.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-0.3",
+  "verdict": "Partial",
+  "missing": [
+   "Earnest money Rs 4,24,547 (only in tool_notes, not in answer)"
+  ],
+  "reason": "Estimated cost and blank tendered value match; EMD figure missing from answer fields.",
+  "cause_code": "ONE_OF_MANY_NUMBERS",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-0.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "9 months and start 15 days from letter of acceptance both present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-0.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "12 months after completion certificate with 6-month / Rs 10 lakh limb, as in Clause 17.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-0.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "All activity periods (1 month, 15 days, 7 months, 15 days, total 9 months) and absence of amounts stated.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-1.1",
+  "verdict": "Partial",
+  "missing": [
+   "No interim payment until completion for works estimated at Rs 20 lac or less"
+  ],
+  "reason": "Monthly RA bills on measurement for works over Rs 20 lakh given, but the complementary no-payment-before-completion rule is not stated.",
+  "cause_code": "ONE_OF_MANY_NUMBERS",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-1.2",
+  "verdict": "Correct absent",
+  "missing": [],
+  "reason": "Both key and tool find no certification period.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-1.3",
+  "verdict": "Incorrect",
+  "missing": [
+   "10 working days after presentation of bill",
+   "15 working days outside HQ"
+  ],
+  "reason": "Against the key: status mismatch (key FOUND, tool NOT_APPLICABLE); the tool reports the 10/15 working-day terms as struck through.",
+  "cause_code": "TEXT_LAYER_MISSED_STRIKE",
+  "scorer_issue": "",
+  "key_issue": "Key appears wrong: on page 25 (text ~~ marks and page image d1_p25.png) the whole sentence 'The amount admissible shall be paid by 10th working day ... extended to fifteen working days' is struck through, so it is not a contract term; the tool is right that no interim payment period applies (status arguably NOT_STATED rather than NOT_APPLICABLE). The strike was missed on the key side."
+ },
+ {
+  "id": "BM2-1.4",
+  "verdict": "Incorrect",
+  "missing": [
+   "Interim-bill interest 5% p.a. after 45 days (tool says it is struck)",
+   "10% p.a. interest payable to IITB for late bill after advance payment"
+  ],
+  "reason": "Against the key: final-bill 5% simple interest matches, but the tool says the interim 5%/45-day interest does not apply (contradicts key) and omits the 10% item.",
+  "cause_code": "TEXT_LAYER_MISSED_STRIKE",
+  "scorer_issue": "Code label Partial is wrong either way: against the key the tool contradicts the interim-interest part (Incorrect); against the document it is Correct.",
+  "key_issue": "Key appears wrong: on page 25 both the 'delay in payment of intermediate bills after 45 days ... simple interest @ 5%' sentence and the 'In case of delay in submission of bill ... simple interest @ 10% per annum shall be paid to the Government IITB' paragraph are struck through (~~ in text, visible on d1_p25.png). Only the final-bill 5% interest (Clause 9, page 26) stands, which is exactly the tool's answer."
+ },
+ {
+  "id": "BM2-1.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "SD 5% of gross bill, secured-advance and mobilisation-advance recovery, and Clause 2 compensation/other sums all present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-1.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Rs 30 lakh minimum gross work since last payment, from Schedule F.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-1.7",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Submission (3 months / 1 month whichever earlier), payment 2/3/6 months by tendered value, and 5% interest all present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-1.8",
+  "verdict": "Correct absent",
+  "missing": [],
+  "reason": "Both key and tool find no pay-when-paid condition.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-2.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Yes, security deposit deducted from running and final bills.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-2.2",
+  "verdict": "Partial",
+  "missing": [
+   "Schedule E: security deposit 5% of tendered value (only in notes/quote)"
+  ],
+  "reason": "5% of gross amount of each running and final bill matches; the 5% of tendered value part is not in the answer fields.",
+  "cause_code": "ONE_OF_MANY_NUMBERS",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-2.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Cap 5% of tendered value.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-2.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "No; EMD returned after performance guarantee.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-2.5",
+  "verdict": "Partial",
+  "missing": [
+   "6 months for works costing Rs 10 lakhs or less (except road work)"
+  ],
+  "reason": "12 months / final bill whichever later and labour clearance present; the 6-month / Rs 10 lakh limb is omitted.",
+  "cause_code": "ONE_OF_MANY_NUMBERS",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-2.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Rs 5 lac accumulation and per-guarantee floor, Clause 17 validity extended with time all present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-2.7",
+  "verdict": "Correct absent",
+  "missing": [],
+  "reason": "Both key and tool find no interest on security deposit.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-3.1",
+  "verdict": "Partial",
+  "missing": [
+   "up to 10% of tendered value",
+   "10% simple interest"
+  ],
+  "reason": "Correct Yes (struck 'No' in Schedule F read), but the advance size and interest stated in the key are not given.",
+  "cause_code": "ONE_OF_MANY_NUMBERS",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-3.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Not exceeding 10% of tendered value in two or more instalments.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-3.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Simple interest 10% p.a. on outstanding amount from payment to recovery.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-3.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Recovery starts after 10% of gross value, pro rata, complete by 80%.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-3.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Not more than 6 BGs from scheduled bank for 110% of advance, renewed for balance.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-3.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "75% of assessed value or material element cost whichever lower; no plant and machinery advance.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-3.7",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Request within one month, BG before release, later instalments after proof of utilisation.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-4.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Yes, compensation for delay under Clause 2.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-4.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Maximum 1% per month computed per day on accepted tendered value; rate a maximum based on damage suffered.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-4.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "10% of accepted tendered value (or sectional part).",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-4.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Applies to completion and progress/milestones; milestone amounts withheld and released on catch-up.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-4.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Events, Institute hindrance, 14-day request, 21-day decision and Clause 12.1 deviation extension all present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-4.6",
+  "verdict": "Partial",
+  "missing": [
+   "Clause 22: compensation is reasonable compensation without reference to actual loss, whether or not damage sustained (no proof of loss needed)"
+  ],
+  "reason": "Tool rightly says not a pre-estimate and cites 'quantum of damage suffered', but misses Clause 22 (page 49), the key's main point on proof of loss.",
+  "cause_code": "CONFLICT_MISSED",
+  "scorer_issue": "Code label Correct is wrong: the Clause 22 element of the expected answer is absent.",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-4.7",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Set-off against any sum under this or other IITB contract; also from security deposit.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-4.8",
+  "verdict": "Partial",
+  "missing": [
+   "Clause 19K penalty (excluded by tool, only explained in notes)"
+  ],
+  "reason": "All other charges (0.1% completion plans, 0.1%/day PG late fee, Sch F recoveries, 19C/19D/19G, Rs 1,00,000 and Rs 60,000/month) present; 19K not in answer fields.",
+  "cause_code": "CONVENTION_DIFFERENCE",
+  "scorer_issue": "",
+  "key_issue": "Key's inclusion of 19K looks wrong: page 48, Clause 19K proviso says it 'shall not be applicable for works with estimated cost put to tender being less than Rs. 5 crores'; estimate is Rs 2,12,27,336, so the tool's exclusion (stated in notes) is right."
+ },
+ {
+  "id": "BM2-5.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "10CC applicable, 10CA not applicable (strikes read), 12-month threshold vs 9 months, and 10C present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-5.2",
+  "verdict": "Partial",
+  "missing": [
+   "10CA formula V = P x Q x (CI - CIo)/CIo (only in tool_notes)"
+  ],
+  "reason": "10CC material and labour formulas and W = 0.85M match; the 10CA formula is not in the answer fields.",
+  "cause_code": "CONVENTION_DIFFERENCE",
+  "scorer_issue": "Code label Correct is too generous: 10CA formula appears only in notes.",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-5.3",
+  "verdict": "Partial",
+  "missing": [
+   "35% balance for 10CA materials (100 - 40 - 25)"
+  ],
+  "reason": "Xm 40%, Y 25% and 10CA base prices present; the 35% 10CA share (derivable from the Schedule F note on page 110) is not given. The tool's 85% is the separate, correct N = 0.85M factor.",
+  "cause_code": "CONVENTION_DIFFERENCE",
+  "scorer_issue": "Code label Incorrect is wrong: the 85% is the N = 0.85M escalation base (a correct, different figure), not a wrong value for the 35%; should be Partial.",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-5.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "WPI (Economic Adviser), minimum wage of unskilled mazdoor, and DG CPWD indices for 10CA materials all present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-5.5",
+  "verdict": "Partial",
+  "missing": [
+   "10CA base: base price and period as indicated in Schedule F (not stated)"
+  ],
+  "reason": "10CC base date (last stipulated date of receipt of tenders incl. extensions) matches; the 10CA base-date part is omitted.",
+  "cause_code": "CONVENTION_DIFFERENCE",
+  "scorer_issue": "Code label Correct is too generous: the 10CA part of the expected answer is missing.",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-5.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "No escalation if period <= 12 months, 85% of work value, no cap.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-5.7",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Only for stipulated period plus justified Clause 5 extension without Clause 2 action.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-5.8",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Department-supplied fixed-price materials excluded.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-6.1",
+  "verdict": "Partial",
+  "missing": [
+   "EMD Rs 4,24,547",
+   "PG 5% of tendered value",
+   "SD 5%",
+   "mobilisation advance BG 110%",
+   "Schedule F late fee on late PG"
+  ],
+  "reason": "The four security types are named but none of the amounts/percentages (all in notes only) or the PG late fee are in the answer.",
+  "cause_code": "ONE_OF_MANY_NUMBERS",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-6.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "PG 5% of tendered value, SD 5% of tendered value, EMD Rs 4,24,547, advance BG 110% all present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-6.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "All forms with Rs 10,000 and Rs 1,00,000 limits present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-6.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Any scheduled bank or SBI.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-6.5",
+  "verdict": "Partial",
+  "missing": [
+   "BG against security deposit valid per Clause 17 and extended with time"
+  ],
+  "reason": "PG validity (+60 days Format I, +6 months Format II) and extension present; the Clause 17 validity of deposit-replacement guarantees is omitted.",
+  "cause_code": "ONE_OF_MANY_NUMBERS",
+  "scorer_issue": "Code label Correct is too generous: the deposit-guarantee validity part is missing.",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-6.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Failure to extend, failure to pay within 30 days, determination/rescission, failure to start all present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-6.7",
+  "verdict": "Partial",
+  "missing": [
+   "40% returned at provisional completion where contract includes maintenance"
+  ],
+  "reason": "80% at provisional completion, balance without interest after completion, and 50% maintenance retention present; the 40% maintenance-contract release (page 16) is omitted.",
+  "cause_code": "ONE_OF_MANY_NUMBERS",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM2-6.8",
+  "verdict": "Correct absent",
+  "missing": [],
+  "reason": "Both key and tool find no extra guarantee for low bids.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ }
+]

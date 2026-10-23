@@ -1,0 +1,200 @@
+[
+  {
+    "flag_id": "R9",
+    "title": "Fast advance recovery",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when the advance is fully recovered before 80% of the planned work is done (needs the cash inputs).",
+    "value_found": "month 16 of 24, when only 67% of the work is done",
+    "reference_value": "CPWD recovers the advance pro rata so that it is fully back when 80% of the work value is done.",
+    "reference_source": "CPWD GCC cl. 10B(iii) pattern [SEEN]; 80% line [ASSUMPTION, calibrate]",
+    "question_ids": [
+      "3.4"
+    ],
+    "quote": "deductions shall be made at the rate of 15% (fifteen percent) of each Stage Payment Statement until such time as the advance payment has been repaid;",
+    "section_ref": "Clause 19.2 (vi)",
+    "pdf_page": 104,
+    "explanation": "The advance is fully taken back by month 16 of 24, when only 67% of the work is done. After that the bills are cut while the work still needs funding, so the advance helps less than its size suggests. Money at stake: about Rs 10.00 crore (advance taken back from bills before 80% of the work).",
+    "rupee_impact": 100000000.0
+  },
+  {
+    "flag_id": "R3",
+    "title": "Performance security high",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when performance security is above 5% of value, or an additional security for low bids applies.",
+    "value_found": "Yes - Additional Performance Security if Bid Price is lower than 20% of Estimated Project Cost: 20% of difference between (Estimated Proj...",
+    "reference_value": "Usually 5% of contract value; Dept. of Expenditure order of 12 Nov 2020 cut it to 3%.",
+    "reference_source": "Manual for Procurement of Works 2022 [SEEN]; DoE OM 12 Nov 2020 [SEEN, via a circular that quotes it]",
+    "question_ids": [
+      "6.8"
+    ],
+    "quote": "If the Bid Price offered by the Selected Bidder is lower than 20% of the Estimated Project Cost/ cost put to tender, the Additional Performance Security shall be calculated @20% of the difference",
+    "section_ref": "Clause 7.1 (i) (A) (a)-(c)",
+    "pdf_page": 48,
+    "explanation": "An extra security applies on top of the normal guarantee: Yes - Additional Performance Security if Bid Price is lower than 20% of Estimated Project Cost: 20% of difference between (Estimated Proj.... If your bid is well below the estimate you must lock up more bank limit; price this into an aggressive bid. Money at stake: about Rs 3.00 crore (performance security x contract value).",
+    "rupee_impact": 30000000.0
+  },
+  {
+    "flag_id": "R8",
+    "title": "No advance, or a costly one",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when there is no mobilisation advance, or the advance carries interest, or its guarantee is above 100% of the advance.",
+    "value_found": "Interest-bearing @ Bank Rate (RBI) + 3%, compounded annually on reducing balance; 110% of the advance",
+    "reference_value": "Advance should be need-based; interest-free advances are discouraged.",
+    "reference_source": "Manual for Procurement of Works 2022 [SEEN]; 100% guarantee line [ASSUMPTION]",
+    "question_ids": [
+      "3.3",
+      "3.5"
+    ],
+    "quote": "would be deemed as interest bearing advance at the applicable interest rate (@\"Bank rate + 3%”), to be compounded annually on a reducing balance basis.",
+    "section_ref": "Clause 19.2 (ii) last para; 19.2 (vii)",
+    "pdf_page": 103,
+    "explanation": "The advance carries interest (Interest-bearing @ Bank Rate (RBI) + 3%, compounded annually on reducing balance). Compare that rate with your overdraft rate; the advance may cost about the same as borrowing. The advance needs a bank guarantee of 110% of the advance, more than the advance itself. It uses up bank limit and commission for a smaller amount of cash. Money at stake: about Rs 75.00 lakh (interest on the advance, from the cash model).",
+    "rupee_impact": 7500000.0
+  },
+  {
+    "flag_id": "R12",
+    "title": "Progress-linked termination or heavy withholding",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when the employer may terminate on slow progress or once damages hit the cap, or withholds large percentages for missed milestones.",
+    "value_found": "exceeding it = deemed Contractor default, termination under 23.1(ii)",
+    "reference_value": "Milestone withholding refunded when progress is made good; termination only for real default.",
+    "reference_source": "Seen in the MP tender (Annexure P) and the MoEF tender (Schedule F) [SEEN]; 1% line [ASSUMPTION]",
+    "question_ids": [
+      "4.3"
+    ],
+    "quote": "The Parties expressly agree that the total amount of Damages under Clause 10.3 (ii) shall not exceed 10% (ten percent) of the Contract Price.",
+    "section_ref": "Clause 10.3 (iii)",
+    "pdf_page": 65,
+    "explanation": "The employer can end the contract when progress or damages pass a limit (exceeding it = deemed Contractor default, termination under 23.1(ii)). On termination you also risk losing your securities, so a bad patch can become a total loss.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R2",
+    "title": "Deduction rate above the cap",
+    "severity": "Info",
+    "category": "risk",
+    "rule": "Raise when the retention deduction rate per bill is higher than the stated total cap.",
+    "value_found": "6% of each bill with a total cap of 5%; deductions stop after about 83% of the work is billed",
+    "reference_value": "Not a fault in itself: the higher rate front-loads the deductions until the cap is reached.",
+    "reference_source": "Seen in the NHAI test agreement (rate 6%, cap 5%) [SEEN]",
+    "question_ids": [
+      "2.2",
+      "2.3"
+    ],
+    "quote": "the Authority shall deduct 6% (six per cent) thereof as guarantee money for performance of the obligations of the Contractor during the Construction Period",
+    "section_ref": "Clause 7.5 (i)",
+    "pdf_page": 50,
+    "explanation": "Deductions are 6% of each bill with a total cap of 5%; deductions stop after about 83% of the work is billed. Early bills are cut harder than the cap suggests: use the rate for early-month cash and the cap for the total locked up.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R16",
+    "title": "Conflict in the document",
+    "severity": "Needs review",
+    "category": "unclear",
+    "rule": "Raise when two places in the package give different values for the same term.",
+    "value_found": "Q0.5: 'Maintenance Period 05 (five) years corresponding to the Defects Liability Per...' at Clause 14.1 (i); Clause 17.1, p87 vs 'DLP: 5 years flexible pavement; 10 years rigid/perpetual/stand-alone structur...' at Clause 17.1 (i), p95",
+    "reference_value": "n/a",
+    "reference_source": "n/a (conflict detector, F9)",
+    "question_ids": [
+      "0.5"
+    ],
+    "quote": "The Contractor shall maintain the Project Highway for a period of 05 (five) years, corresponding to the Defects Liability Period, commencing from the date of the Completion Certificate",
+    "section_ref": "Clause 14.1 (i); Clause 17.1",
+    "pdf_page": 87,
+    "explanation": "The package gives more than one value here: Q0.5: 'Maintenance Period 05 (five) years corresponding to the Defects Liability Per...' at Clause 14.1 (i); Clause 17.1, p87 vs 'DLP: 5 years flexible pavement; 10 years rigid/perpetual/stand-alone structur...' at Clause 17.1 (i), p95. Ask the employer which one governs before you price it.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R16",
+    "title": "Conflict in the document",
+    "severity": "Needs review",
+    "category": "unclear",
+    "rule": "Raise when two places in the package give different values for the same term.",
+    "value_found": "Q0.6: 'Yes. Milestone-I: 145th day from Appointed Date, Stage Payment Statements >=...' at Schedule-J paras 2-5, p219 vs 'Milestone-I illustrated as 10% of Contract Price on 180th day [governs: Sched...' at Clause 10.3 (ii), p65",
+    "reference_value": "n/a",
+    "reference_source": "n/a (conflict detector, F9)",
+    "question_ids": [
+      "0.6"
+    ],
+    "quote": "Project Milestone-I shall occur on the date falling on the 145th (one hundred and forty fifth first) day from the Appointed Date",
+    "section_ref": "Schedule-J paras 2-5",
+    "pdf_page": 219,
+    "explanation": "The package gives more than one value here: Q0.6: 'Yes. Milestone-I: 145th day from Appointed Date, Stage Payment Statements >=...' at Schedule-J paras 2-5, p219 vs 'Milestone-I illustrated as 10% of Contract Price on 180th day [governs: Sched...' at Clause 10.3 (ii), p65. Ask the employer which one governs before you price it.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R16",
+    "title": "Conflict in the document",
+    "severity": "Needs review",
+    "category": "unclear",
+    "rule": "Raise when two places in the package give different values for the same term.",
+    "value_found": "Q1.4: 'Yes; interest @ Bank Rate + 3% per annum on sums unpaid from due date till ac...' at Clause 19.9 (ii), p108 vs 'Base Rate + 2% calculated at quarterly rests (where no period is specified) [...' at Clause 27.3, p143",
+    "reference_value": "n/a",
+    "reference_source": "n/a (conflict detector, F9)",
+    "question_ids": [
+      "1.4"
+    ],
+    "quote": "the Authority shall be liable to pay to the Contractor interest @ Bank Rate + 3% per annum, on all sums remaining unpaid from the date on which the same should have been paid",
+    "section_ref": "Clause 19.9 (ii)",
+    "pdf_page": 108,
+    "explanation": "The package gives more than one value here: Q1.4: 'Yes; interest @ Bank Rate + 3% per annum on sums unpaid from due date till ac...' at Clause 19.9 (ii), p108 vs 'Base Rate + 2% calculated at quarterly rests (where no period is specified) [...' at Clause 27.3, p143. Ask the employer which one governs before you price it.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R16",
+    "title": "Conflict in the document",
+    "severity": "Needs review",
+    "category": "unclear",
+    "rule": "Raise when two places in the package give different values for the same term.",
+    "value_found": "Q3.5: 'Irrevocable unconditional e-Bank Guarantee for 110% of each instalment, effec...' at Clause 19.2 (iii)-(iv); Schedule-G Annex-II, p103 vs 'Form for Guarantee for Advance Payment is Annex-II of Schedule-G (scheduled b...' at Schedule-G Annex-II, p210",
+    "reference_value": "n/a",
+    "reference_source": "n/a (conflict detector, F9)",
+    "question_ids": [
+      "3.5"
+    ],
+    "quote": "irrevocable and unconditional e-Bank guaranteeα from a Bank for an amount equivalent to 110% (one hundred and ten per cent) of such instalment, substantially in the form provided at Annex-III of Schedule-G",
+    "section_ref": "Clause 19.2 (iii)-(iv); Schedule-G Annex-II",
+    "pdf_page": 103,
+    "explanation": "The package gives more than one value here: Q3.5: 'Irrevocable unconditional e-Bank Guarantee for 110% of each instalment, effec...' at Clause 19.2 (iii)-(iv); Schedule-G Annex-II, p103 vs 'Form for Guarantee for Advance Payment is Annex-II of Schedule-G (scheduled b...' at Schedule-G Annex-II, p210. Ask the employer which one governs before you price it.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R17",
+    "title": "Unresolved reference",
+    "severity": "Needs review",
+    "category": "unclear",
+    "rule": "Raise when an answer points to another document or blank schedule that is not in the package. Targets are normalised (GCC + issuer + year, Schedule X, Annexure X) before grouping.",
+    "value_found": "questions 0.3",
+    "reference_value": "n/a",
+    "reference_source": "n/a (cross-reference follower, F7)",
+    "question_ids": [
+      "0.3"
+    ],
+    "quote": "the lump sum price accepted by the Authority in consideration of the obligations specified in this Agreement for an amount of INR",
+    "section_ref": "Clause 19.1 (i)",
+    "pdf_page": 102,
+    "explanation": "1 answer(s) depend on Accepted Bid / Letter of Acceptance amount blank in, which is not in the package (questions 0.3). Get that document, or confirm the terms with the employer.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R18",
+    "title": "Missing document",
+    "severity": "Needs review",
+    "category": "unclear",
+    "rule": "Raise ONE flag per package when schedules or conditions are referred to but not supplied.",
+    "value_found": "Schedule H, Schedule A, Schedule B, Schedule C, Schedule D, Annexure A",
+    "reference_value": "n/a",
+    "reference_source": "n/a (package completeness check, F1)",
+    "question_ids": [],
+    "quote": "Works not exceeding an aggregate value, such value to be determined in accordance with Schedule-H, equal to 10 (ten) percent of the Contract Price. (b) Provided that if any Works cann",
+    "section_ref": "cited in d1",
+    "pdf_page": 54,
+    "explanation": "The package refers to 6 document(s) it does not include: Schedule H, Schedule A, Schedule B, Schedule C, Schedule D, Annexure A. Most important for money: Schedule H (sets the stage-payment percentages). Terms in them bind you even though you have not read them; ask the employer for copies.",
+    "rupee_impact": null
+  }
+]

@@ -1,0 +1,275 @@
+{
+  "as_written": {
+    "months": [
+      {
+        "month": 0,
+        "gross": 0.0,
+        "retention": 0.0,
+        "advance_recovery": 0.0,
+        "net_certified": 0.0,
+        "cash_in": 0.0,
+        "cash_out": 0.0,
+        "cum_in": 0.0,
+        "cum_out": 0.0,
+        "gap": 0.0,
+        "retention_held": 0.0,
+        "advance_outstanding": 0.0,
+        "billed": 0.0
+      },
+      {
+        "month": 1,
+        "gross": 362532.5,
+        "retention": 9063.3125,
+        "advance_recovery": 0.0,
+        "net_certified": 353469.1875,
+        "cash_in": 0.0,
+        "cash_out": 308152.625,
+        "cum_in": 0.0,
+        "cum_out": 308152.625,
+        "gap": 308152.625,
+        "retention_held": 9063.3125,
+        "advance_outstanding": 0.0,
+        "billed": 362532.5
+      },
+      {
+        "month": 2,
+        "gross": 362532.5,
+        "retention": 9063.3125,
+        "advance_recovery": 0.0,
+        "net_certified": 353469.1875,
+        "cash_in": 362532.5,
+        "cash_out": 308152.625,
+        "cum_in": 362532.5,
+        "cum_out": 616305.25,
+        "gap": 253772.75,
+        "retention_held": 9063.3125,
+        "advance_outstanding": 0.0,
+        "billed": 362532.5
+      },
+      {
+        "month": 3,
+        "gross": 0.0,
+        "retention": 0.0,
+        "advance_recovery": 0.0,
+        "net_certified": 0.0,
+        "cash_in": 362532.5,
+        "cash_out": 0.0,
+        "cum_in": 725065.0,
+        "cum_out": 616305.25,
+        "gap": -108759.75,
+        "retention_held": 0.0,
+        "advance_outstanding": 0.0,
+        "billed": 0.0
+      }
+    ],
+    "peak_funding": 308152.625,
+    "peak_month": 1,
+    "overdraft_interest": 4682.711458333334,
+    "advance_interest": 0.0,
+    "guarantee_cost": 90.633125,
+    "retention_locked_max": 9063.3125,
+    "retention_financing_cost": 151.05520833333335,
+    "ld_amount": 0.0,
+    "ld_days_to_cap": null,
+    "escalation_amount": 0.0,
+    "escalation_is_recovery": false,
+    "total_cost_of_terms": 4773.344583333334,
+    "sensitivities": [
+      {
+        "name": "Payment lag +30 days",
+        "peak_funding": 607241.9375,
+        "peak_month": 2,
+        "interest_cost": 9667.533333333335,
+        "total_cost_of_terms": 9758.166458333335
+      },
+      {
+        "name": "Retention release +6 months",
+        "peak_funding": 308152.625,
+        "peak_month": 1,
+        "interest_cost": 4758.2390625,
+        "total_cost_of_terms": 4848.8721875
+      },
+      {
+        "name": "Advance off",
+        "peak_funding": 308152.625,
+        "peak_month": 1,
+        "interest_cost": 4682.711458333334,
+        "total_cost_of_terms": 4773.344583333334
+      },
+      {
+        "name": "Delay 0 days",
+        "peak_funding": 308152.625,
+        "peak_month": 1,
+        "interest_cost": 4682.711458333334,
+        "total_cost_of_terms": 4773.344583333334
+      },
+      {
+        "name": "Delay 30 days",
+        "peak_funding": 308152.625,
+        "peak_month": 1,
+        "interest_cost": 4758.2390625,
+        "total_cost_of_terms": 4894.18875
+      },
+      {
+        "name": "Delay 90 days",
+        "peak_funding": 308152.625,
+        "peak_month": 1,
+        "interest_cost": 4758.2390625,
+        "total_cost_of_terms": 4984.821875
+      },
+      {
+        "name": "Delay 180 days",
+        "peak_funding": 308152.625,
+        "peak_month": 1,
+        "interest_cost": 4758.2390625,
+        "total_cost_of_terms": 5120.7715625
+      }
+    ],
+    "notes": [
+      "Retention reaches its cap in month 2.",
+      "Largest sum certified but not yet paid: Rs 353,469."
+    ],
+    "retention_cap_month": 2,
+    "advance_repaid_month": null,
+    "receivable_max": 353469.1875,
+    "late_interest_income": 0.0,
+    "escalation_net_burden": 0.0
+  },
+  "reference": {
+    "months": [
+      {
+        "month": 0,
+        "gross": 0.0,
+        "retention": 0.0,
+        "advance_recovery": 0.0,
+        "net_certified": 0.0,
+        "cash_in": 0.0,
+        "cash_out": 0.0,
+        "cum_in": 0.0,
+        "cum_out": 0.0,
+        "gap": 0.0,
+        "retention_held": 0.0,
+        "advance_outstanding": 0.0,
+        "billed": 0.0
+      },
+      {
+        "month": 1,
+        "gross": 362532.5,
+        "retention": 9063.3125,
+        "advance_recovery": 0.0,
+        "net_certified": 353469.1875,
+        "cash_in": 0.0,
+        "cash_out": 308152.625,
+        "cum_in": 0.0,
+        "cum_out": 308152.625,
+        "gap": 308152.625,
+        "retention_held": 9063.3125,
+        "advance_outstanding": 0.0,
+        "billed": 362532.5
+      },
+      {
+        "month": 2,
+        "gross": 362532.5,
+        "retention": 9063.3125,
+        "advance_recovery": 0.0,
+        "net_certified": 353469.1875,
+        "cash_in": 362532.5,
+        "cash_out": 308152.625,
+        "cum_in": 362532.5,
+        "cum_out": 616305.25,
+        "gap": 253772.75,
+        "retention_held": 9063.3125,
+        "advance_outstanding": 0.0,
+        "billed": 362532.5
+      },
+      {
+        "month": 3,
+        "gross": 0.0,
+        "retention": 0.0,
+        "advance_recovery": 0.0,
+        "net_certified": 0.0,
+        "cash_in": 362532.5,
+        "cash_out": 0.0,
+        "cum_in": 725065.0,
+        "cum_out": 616305.25,
+        "gap": -108759.75,
+        "retention_held": 0.0,
+        "advance_outstanding": 0.0,
+        "billed": 0.0
+      }
+    ],
+    "peak_funding": 308152.625,
+    "peak_month": 1,
+    "overdraft_interest": 4682.711458333334,
+    "advance_interest": 0.0,
+    "guarantee_cost": 90.633125,
+    "retention_locked_max": 9063.3125,
+    "retention_financing_cost": 151.05520833333335,
+    "ld_amount": 0.0,
+    "ld_days_to_cap": null,
+    "escalation_amount": 0.0,
+    "escalation_is_recovery": false,
+    "total_cost_of_terms": 4773.344583333334,
+    "sensitivities": [
+      {
+        "name": "Payment lag +30 days",
+        "peak_funding": 607241.9375,
+        "peak_month": 2,
+        "interest_cost": 9667.533333333335,
+        "total_cost_of_terms": 9758.166458333335
+      },
+      {
+        "name": "Retention release +6 months",
+        "peak_funding": 308152.625,
+        "peak_month": 1,
+        "interest_cost": 4758.2390625,
+        "total_cost_of_terms": 4848.8721875
+      },
+      {
+        "name": "Advance off",
+        "peak_funding": 308152.625,
+        "peak_month": 1,
+        "interest_cost": 4682.711458333334,
+        "total_cost_of_terms": 4773.344583333334
+      },
+      {
+        "name": "Delay 0 days",
+        "peak_funding": 308152.625,
+        "peak_month": 1,
+        "interest_cost": 4682.711458333334,
+        "total_cost_of_terms": 4773.344583333334
+      },
+      {
+        "name": "Delay 30 days",
+        "peak_funding": 308152.625,
+        "peak_month": 1,
+        "interest_cost": 4758.2390625,
+        "total_cost_of_terms": 4894.18875
+      },
+      {
+        "name": "Delay 90 days",
+        "peak_funding": 308152.625,
+        "peak_month": 1,
+        "interest_cost": 4758.2390625,
+        "total_cost_of_terms": 4984.821875
+      },
+      {
+        "name": "Delay 180 days",
+        "peak_funding": 308152.625,
+        "peak_month": 1,
+        "interest_cost": 4758.2390625,
+        "total_cost_of_terms": 5120.7715625
+      }
+    ],
+    "notes": [
+      "Retention reaches its cap in month 2.",
+      "Largest sum certified but not yet paid: Rs 353,469."
+    ],
+    "retention_cap_month": 2,
+    "advance_repaid_month": null,
+    "receivable_max": 353469.1875,
+    "late_interest_income": 0.0,
+    "escalation_net_burden": 0.0
+  },
+  "overrides": {}
+}

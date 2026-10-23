@@ -1,0 +1,111 @@
+[
+  {
+    "flag_id": "R13",
+    "title": "High minimum bill",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when the value of work needed before an interim bill is payable is more than one planned month of billing.",
+    "value_found": "work worth Rs 30.00 lakh is done since the last bill; one planned month of billing is about Rs 23.59 lakh (contract value from the cash inputs, over 9 months)",
+    "reference_value": "Minimum bill no larger than one month of planned work.",
+    "reference_source": "Seen in the IIT Bombay schedule [SEEN]; one-month line [ASSUMPTION]",
+    "question_ids": [
+      "1.6"
+    ],
+    "quote": "Gross work to be done together with net payment /adjustment of advances for material collected, if any, since the last such payment for being eligible to interim payment 30 lakhs",
+    "section_ref": "Schedule F, Clause 7",
+    "pdf_page": 109,
+    "explanation": "No interim bill is paid until work worth Rs 30.00 lakh is done since the last bill; one planned month of billing is about Rs 23.59 lakh (contract value from the cash inputs, over 9 months). In slow months you wait for the next bill and fund the gap yourself. Money at stake: about Rs 30.00 lakh (work value you may have to carry before a bill is due).",
+    "rupee_impact": 3000000.0
+  },
+  {
+    "flag_id": "R9",
+    "title": "Fast advance recovery",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when the advance is fully recovered before 80% of the planned work is done (needs the cash inputs).",
+    "value_found": "month 7 of 9, when only 78% of the work is done",
+    "reference_value": "CPWD recovers the advance pro rata so that it is fully back when 80% of the work value is done.",
+    "reference_source": "CPWD GCC cl. 10B(iii) pattern [SEEN]; 80% line [ASSUMPTION, calibrate]",
+    "question_ids": [
+      "3.4"
+    ],
+    "quote": "on pro-rata percentage basis to the gross value of the work billed beyond 10% in such a way that the entire advance is recovered by the time eighty percent of the gross value of the contract is executed and paid,",
+    "section_ref": "Clause 10B(iii)",
+    "pdf_page": 29,
+    "explanation": "The advance is fully taken back by month 7 of 9, when only 78% of the work is done. After that the bills are cut while the work still needs funding, so the advance helps less than its size suggests. Money at stake: about Rs 21.23 lakh (advance taken back from bills before 80% of the work).",
+    "rupee_impact": 2122733.6
+  },
+  {
+    "flag_id": "R1",
+    "title": "Retention or security deposit high or uncapped",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when the total retention cap is above 5% of contract value, or there is no cap, or all retention is held to the end of the defects period with no stage release.",
+    "value_found": "After 12 months from certificate (final or otherwise) of completion, or after final bill prepared and passed, whichev...",
+    "reference_value": "Security deposit usually 5% of each running bill, replaceable by a bank guarantee; half released at taking-over.",
+    "reference_source": "Manual for Procurement of Works 2022, Dept. of Expenditure [SEEN]",
+    "question_ids": [
+      "2.5"
+    ],
+    "quote": "The security deposit of the contractor shall not be refunded before the expiry of twelve months (six months in the case of work costing Rs. Ten lakhs and below except road work) after the issue of the certificate",
+    "section_ref": "Clause 17; Clause 41",
+    "pdf_page": 41,
+    "explanation": "All retention is held to the end of the defects period ('After 12 months from certificate (final or otherwise) of completion, or after final bill prepared and passed, whichev...'), with none released at completion. The reference practice releases half at taking-over. Plan to finance this money for the full defects period, or offer a bank guarantee instead. Money at stake: about Rs 10.61 lakh (largest retention held, from the cash model).",
+    "rupee_impact": 1061366.8
+  },
+  {
+    "flag_id": "R8",
+    "title": "No advance, or a costly one",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when there is no mobilisation advance, or the advance carries interest, or its guarantee is above 100% of the advance.",
+    "value_found": "Interest-bearing: simple interest 10% per annum on outstanding amount, from date of payment to da...; 110% of the advance",
+    "reference_value": "Advance should be need-based; interest-free advances are discouraged.",
+    "reference_source": "Manual for Procurement of Works 2022 [SEEN]; 100% guarantee line [ASSUMPTION]",
+    "question_ids": [
+      "3.3",
+      "3.5"
+    ],
+    "quote": "The mobilization advance in (ii) above bear simple interest at the rate of 10 percent per annum and shall be calculated from the date of payment to the date of recovery",
+    "section_ref": "Clause 10B(iii)",
+    "pdf_page": 28,
+    "explanation": "The advance carries interest (Interest-bearing: simple interest 10% per annum on outstanding amount, from date of payment to da...). Compare that rate with your overdraft rate; the advance may cost about the same as borrowing. The advance needs a bank guarantee of 110% of the advance, more than the advance itself. It uses up bank limit and commission for a smaller amount of cash. Money at stake: about Rs 1.24 lakh (interest on the advance, from the cash model).",
+    "rupee_impact": 123826.13
+  },
+  {
+    "flag_id": "R16",
+    "title": "Conflict in the document",
+    "severity": "Needs review",
+    "category": "unclear",
+    "rule": "Raise when two places in the package give different values for the same term.",
+    "value_found": "Q1.4: 'Yes, only for delayed final bill: simple interest 5% per annum, compounded ye...' at Clause 9, p26 vs '5% p.a. on intermediate bills delayed beyond 45 days (struck through) [govern...' at Clause 7, p25",
+    "reference_value": "n/a",
+    "reference_source": "n/a (conflict detector, F9)",
+    "question_ids": [
+      "1.4"
+    ],
+    "quote": "a simple interest @ 5 % per annum shall be paid to the contractor from the date of expiry of prescribed time limit which will be compounded on yearly basis",
+    "section_ref": "Clause 9",
+    "pdf_page": 26,
+    "explanation": "The package gives more than one value here: Q1.4: 'Yes, only for delayed final bill: simple interest 5% per annum, compounded ye...' at Clause 9, p26 vs '5% p.a. on intermediate bills delayed beyond 45 days (struck through) [govern...' at Clause 7, p25. Ask the employer which one governs before you price it.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R16",
+    "title": "Conflict in the document",
+    "severity": "Needs review",
+    "category": "unclear",
+    "rule": "Raise when two places in the package give different values for the same term.",
+    "value_found": "Q5.1: 'PVC selected: Clause 10CC Applicable, Clause 10CA Not Applicable (Schedule F)...' at Schedule F, Clause 10CA/10CC, p110 vs 'Stipulated period 9 months (not above 12-month threshold) [governs: Clause 10...' at Schedule F, Clause 5 table, p107",
+    "reference_value": "n/a",
+    "reference_source": "n/a (conflict detector, F9)",
+    "question_ids": [
+      "5.1"
+    ],
+    "quote": "Clause 10 CC to be applicable in contracts with stipulated period of completion exceeding the period shown in next column 12 (Twelve) months",
+    "section_ref": "Schedule F, Clause 10CA/10CC",
+    "pdf_page": 110,
+    "explanation": "The package gives more than one value here: Q5.1: 'PVC selected: Clause 10CC Applicable, Clause 10CA Not Applicable (Schedule F)...' at Schedule F, Clause 10CA/10CC, p110 vs 'Stipulated period 9 months (not above 12-month threshold) [governs: Clause 10...' at Schedule F, Clause 5 table, p107. Ask the employer which one governs before you price it.",
+    "rupee_impact": null
+  }
+]

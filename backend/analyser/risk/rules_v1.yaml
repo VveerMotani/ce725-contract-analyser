@@ -22,6 +22,7 @@ version: 1
 rules:
   - id: R1
     title: Retention or security deposit high or uncapped
+    pass_label: "Retention within normal limits"     # shown as a green flag when the rule checks and passes
     category: risk
     question_ids: ["2.1", "2.2", "2.3", "2.5"]
     rule: "Raise when the total retention cap is above 5% of contract value, or there is no cap, or all retention is held to the end of the defects period with no stage release."
@@ -53,6 +54,7 @@ rules:
 
   - id: R2
     title: Deduction rate above the cap
+    pass_label: "Retention rate within its cap"     # shown as a green flag when the rule checks and passes
     category: risk
     question_ids: ["2.2", "2.3"]
     rule: "Raise when the retention deduction rate per bill is higher than the stated total cap."
@@ -69,6 +71,7 @@ rules:
 
   - id: R3
     title: Performance security high
+    pass_label: "Performance guarantee at normal level"     # shown as a green flag when the rule checks and passes
     category: risk
     question_ids: ["6.2", "6.8"]
     rule: "Raise when performance security is above 5% of value, or an additional security for low bids applies."
@@ -94,6 +97,7 @@ rules:
 
   - id: R4
     title: Delay damages uncapped or high
+    pass_label: "Delay penalty capped at 10% or less"     # shown as a green flag when the rule checks and passes
     category: risk
     question_ids: ["4.1", "4.2", "4.3"]
     rule: "Raise when delay damages have no cap (High), or the cap is above 10% of value, or the daily rate is above 0.05% of value (Medium)."
@@ -125,6 +129,7 @@ rules:
 
   - id: R5
     title: No extension-of-time route
+    pass_label: "Extension of time available"     # shown as a green flag when the rule checks and passes
     category: risk
     question_ids: ["4.1", "4.5"]
     rule: "Raise when delay damages apply but no grounds for extension of time are found."
@@ -143,6 +148,7 @@ rules:
 
   - id: R6
     title: No interest on late payment
+    pass_label: "Interest paid on late payment"     # shown as a green flag when the rule checks and passes
     category: risk
     question_ids: ["1.4"]
     rule: "Raise when the contract says no interest is payable on late payment (High), or is silent (unclear)."
@@ -163,6 +169,7 @@ rules:
 
   - id: R7
     title: Slow or unclear payment
+    pass_label: "Payment within 30 days"     # shown as a green flag when the rule checks and passes
     category: risk
     question_ids: ["1.3", "1.2"]
     rule: "Raise when the period to pay a bill is above 30 days, or is not stated."
@@ -187,6 +194,7 @@ rules:
 
   - id: R8
     title: No advance, or a costly one
+    pass_label: "Interest-free advance available"     # shown as a green flag when the rule checks and passes
     category: risk
     question_ids: ["3.1", "3.3", "3.5"]
     rule: "Raise when there is no mobilisation advance, or the advance carries interest, or its guarantee is above 100% of the advance."
@@ -217,6 +225,7 @@ rules:
 
   - id: R9
     title: Fast advance recovery
+    pass_label: "Advance recovered in step with work"     # shown as a green flag when the rule checks and passes
     category: risk
     question_ids: ["3.4"]
     rule: "Raise when the advance is fully recovered before 80% of the planned work is done (needs the cash inputs)."
@@ -235,6 +244,7 @@ rules:
 
   - id: R10
     title: Fixed price on a long contract
+    pass_label: "No long fixed-price exposure"     # shown as a green flag when the rule checks and passes
     category: risk
     question_ids: ["5.1", "0.4"]
     rule: "Raise when there is no price variation and the planned duration is above 18 months."
@@ -263,6 +273,7 @@ rules:
 
   - id: R11
     title: Price variation with holes
+    pass_label: "Price adjustment complete"     # shown as a green flag when the rule checks and passes
     category: risk
     question_ids: ["5.1", "5.3", "5.4", "5.7"]
     rule: "Raise when price variation leaves out labour, uses a long index lag, cuts off late-billed work, or applies only above a size or duration this contract does not reach."
@@ -271,7 +282,7 @@ rules:
     threshold_status:
       max_index_lag_months: "[ASSUMPTION]"
     patterns:
-      labour: ['labou?r']
+      labour: ['labou?r', 'wages?', '(?-i:\bL\s*[=:]?\s*[1-9]\d*)']   # 'L20' = labour weight 20 in weight tables
       lag: ['(\d+|one|two|three|four|five|six)\s*months?\s*(before|prior|preceding|earlier)']
       billing_cutoff: ['billed within', 'bill(s|ed)? (is |are )?(submitted|presented) within', 'stages? billed', 'within \d+ days of the (applicable )?milestone']
     reference_value: "A full price variation covers labour and the main materials, uses recent indices and pays on all work done in the stipulated or extended period."
@@ -295,6 +306,7 @@ rules:
 
   - id: R12
     title: Progress-linked termination or heavy withholding
+    pass_label: "No harsh termination or withholding"     # shown as a green flag when the rule checks and passes
     category: risk
     question_ids: ["0.6", "4.2", "4.3", "4.4", "4.8"]
     rule: "Raise when the employer may terminate on slow progress or once damages hit the cap, or withholds large percentages for missed milestones."
@@ -319,6 +331,7 @@ rules:
 
   - id: R13
     title: High minimum bill
+    pass_label: "No high minimum bill"     # shown as a green flag when the rule checks and passes
     category: risk
     question_ids: ["1.6"]
     rule: "Raise when the value of work needed before an interim bill is payable is more than one planned month of billing."
@@ -340,6 +353,7 @@ rules:
 
   - id: R14
     title: Guarantee validity tied to extensions
+    pass_label: "Guarantee not tied to extensions"     # shown as a green flag when the rule checks and passes
     category: risk
     question_ids: ["6.5"]
     rule: "Raise when guarantees must be extended whenever the time for completion is extended."
@@ -358,6 +372,7 @@ rules:
 
   - id: R15
     title: Payment conditions
+    pass_label: "No conditions on payment"     # shown as a green flag when the rule checks and passes
     category: risk
     question_ids: ["1.8", "1.1", "1.5", "1.7"]
     rule: "Raise when bills are not paid until labour registrations or other papers are submitted, or payment depends on third-party funds."
@@ -377,6 +392,7 @@ rules:
 
   - id: R16
     title: Conflict in the document
+    pass_label: "No conflicting values"     # shown as a green flag when the rule checks and passes
     category: unclear
     question_ids: []
     rule: "Raise when two places in the package give different values for the same term."
@@ -391,6 +407,7 @@ rules:
 
   - id: R17
     title: Unresolved reference
+    pass_label: "All references resolved"     # shown as a green flag when the rule checks and passes
     category: unclear
     question_ids: []
     rule: "Raise when an answer points to another document or blank schedule that is not in the package. Targets are normalised (GCC + issuer + year, Schedule X, Annexure X) before grouping."
@@ -413,6 +430,7 @@ rules:
 
   - id: R18
     title: Missing document
+    pass_label: "Package complete"     # shown as a green flag when the rule checks and passes
     category: unclear
     question_ids: []
     rule: "Raise ONE flag per package when schedules or conditions are referred to but not supplied."

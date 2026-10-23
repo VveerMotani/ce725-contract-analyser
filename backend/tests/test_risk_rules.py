@@ -351,3 +351,11 @@ def test_sort_order_severity_then_rupees():
     out = sort_flags([f(18, "Needs review"), f(14, "Low"), f(2, "Info"), f(1, "Medium", 1e5),
                       f(3, "Medium", 9e7), f(8, "Medium"), f(6, "High")])
     assert ids(out) == ["R6", "R3", "R1", "R8", "R14", "R2", "R18"]
+
+
+def test_r11_labour_weight_written_as_L_code():
+    """A weight table written as 'L20 C5 ...' has a labour component (regression)."""
+    from analyser.risk import load_rules, parse
+    pat = [r for r in load_rules() if r["id"] == "R11"][0]["patterns"]["labour"]
+    assert parse.has("Earthwork: L20 C5 S0 B0 F10 M50 A15", pat)
+    assert not parse.has("cement 18%, steel 13%", pat)

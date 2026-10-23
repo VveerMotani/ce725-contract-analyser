@@ -1,0 +1,492 @@
+[
+ {
+  "id": "BM4-0.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "CPWD Form 7 percentage-rate bid under GCC 2023 (Construction works) corrected up to last date of bid submission, all present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-0.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "President of India through EE CED-I, CCU, MoEF&CC; contractor correctly left blank.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-0.3",
+  "verdict": "Partial",
+  "missing": [
+   "EMD Rs 14,501",
+   "bid is a percentage above/below the estimate"
+  ],
+  "reason": "Estimate Rs 7,25,065 is right but the EMD Rs 14,501 part of the expected answer is absent.",
+  "cause_code": "ONE_OF_MANY_NUMBERS",
+  "scorer_issue": "Code label Incorrect is wrong: nothing the tool states is wrong; it omits the EMD, so Partial.",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-0.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "40 days from date of start (7 days after LoA) or site handover, whichever later.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-0.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Key accepts '1 year (materials)'; tool gives the 1-year materials warranty and says no separate DLP in package.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-0.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "All four milestones (25/50/75/100% at 10/20/30/40 days) and 1.25% withholding each are given.",
+  "cause_code": "",
+  "scorer_issue": "Code label Partial is wrong: the count 4 is implicit in the listed M1-M4.",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-1.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "RA bills on measurement in CMB, no frequency stated; extra Rs 3.50 lakh threshold is correct.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-1.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Both point to CPWD GCC 2023 (Cl. 6-7); no invented period.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-1.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Both point to CPWD GCC 2023; no invented payment period.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-1.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Both point to CPWD GCC 2023; no invented interest rate.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-1.5",
+  "verdict": "Partial",
+  "missing": [
+   "no payment for items using materials below permissible limits (NIT para 35)"
+  ],
+  "reason": "SD 2.50%, 1.25% milestone withholding and zoo fines given, but the para 35 non-payment item is missing.",
+  "cause_code": "ONE_OF_MANY_NUMBERS",
+  "scorer_issue": "Code label Correct overlooks the missing para 35 part.",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-1.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Rs 3.50 lakh gross work since last payment as a minimum threshold.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-1.7",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Both point to CPWD GCC 2023 for final bill timing.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-1.8",
+  "verdict": "Correct absent",
+  "missing": [],
+  "reason": "Both NOT_STATED; no pay-when-paid clause in the package.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-2.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Yes, SD 2.50% of tendered amount; mechanics in GCC noted.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-2.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "2.50% of tendered amount, base matches.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-2.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "SD fixed at 2.50% of tendered amount with no separate cap wording.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-2.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "EMD returned after PG received; tool's 'not converted' is the same inference the key draws.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-2.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Both point to CPWD GCC 2023 for SD release.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-2.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "BG form covering SD exists, conditions deferred to GCC; extra details (Rs 100 stamp paper, 10 days) are on p29.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-2.7",
+  "verdict": "Incorrect",
+  "missing": [],
+  "reason": "Status mismatch: key NOT_STATED, tool POINTS_ELSEWHERE (GCC) with no accept_also_status; content (package silent) agrees.",
+  "cause_code": "CONVENTION_DIFFERENCE",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-3.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Clause 10B(ii) not applicable; status NOT_APPLICABLE matches.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-3.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Not applicable, no percentage or instalments invented.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-3.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Not applicable; no interest rate invented.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-3.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Not applicable.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-3.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Not applicable; BG form mention correctly treated as generic.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-3.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Cl. 7 'advances for material collected, if any' noted, no firm yes/no, 10B terms in GCC.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-3.7",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Not applicable.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-4.1",
+  "verdict": "Partial",
+  "missing": [
+   "1.25% per missed milestone"
+  ],
+  "reason": "Clause 2 compensation and SE CCU authority given, but milestone withholding is mentioned without the 1.25% figure.",
+  "cause_code": "ONE_OF_MANY_NUMBERS",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-4.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Rate in GCC Cl. 2; 1.25% of accepted tendered amount per missed milestone given.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-4.3",
+  "verdict": "Partial",
+  "missing": [
+   "1.25% per milestone",
+   "derived 4 x 1.25% = 5% maximum withholding"
+  ],
+  "reason": "Correctly points to GCC Cl. 2 but omits the package value the key gives (4 x 1.25% = 5% milestone withholding).",
+  "cause_code": "ONE_OF_MANY_NUMBERS",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-4.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Both: 40-day completion (100% at 40 days) plus four milestones each with 1.25% withholding.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-4.5",
+  "verdict": "Incorrect",
+  "missing": [
+   "rescheduling of milestones = SE CCU"
+  ],
+  "reason": "Status mismatch: key FOUND, tool POINTS_ELSEWHERE with no accept_also_status; content (EE for EOT, SE for shifting start) otherwise matches.",
+  "cause_code": "CONVENTION_DIFFERENCE",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-4.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Both point to CPWD GCC 2023 (Cl. 2); no pre-estimate claim invented.",
+  "cause_code": "",
+  "scorer_issue": "Code label Partial ('base not named: estimated cost') is spurious; the key names no base.",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-4.7",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Recovery mechanism not in package (GCC Cl. 2); zoo fines kept separate from delay compensation as the key requires.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-4.8",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "All four items given: 19C/D/G/K by EE, 0.1%/day PG late fee (2 days), Rs 30,000/month/person, Rs 10/m conduit.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-5.1",
+  "verdict": "Partial",
+  "missing": [
+   "labour component 25%"
+  ],
+  "reason": "10CC and 10CA not applicable and 10C applicable are right, but the 25% labour component is absent.",
+  "cause_code": "ONE_OF_MANY_NUMBERS",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-5.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "No formula in package; 10C mechanics in GCC.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-5.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Labour 25% of value of work; no other components.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-5.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Both point to CPWD GCC 2023 for indices.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-5.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Both point to CPWD GCC 2023 for base date.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-5.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Both point to CPWD GCC 2023 for threshold/cap.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-5.7",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Both point to CPWD GCC 2023.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-5.8",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Schedule B NIL, so not applicable.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-6.1",
+  "verdict": "Partial",
+  "missing": [
+   "bids valid 30 days",
+   "guarantee bonds for listed works (only in tool_notes)"
+  ],
+  "reason": "EMD Rs 14,501, PG 5% and SD 2.50% of tendered amount given; 30-day bid validity missing and guarantee bonds only in notes.",
+  "cause_code": "ONE_OF_MANY_NUMBERS",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-6.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "EMD Rs 14,501, PG 5% and SD 2.50% of tendered amount.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-6.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "PG and EMD lists kept separate and complete; pay order / deposit at call receipt are on p8.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-6.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Commercial Bank (CPWD-6) and Scheduled Bank (NIT p8) both reported.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-6.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "EMD BG 90/180 days, BG valid unless extended on demand, PG validity not stated.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-6.6",
+  "verdict": "Partial",
+  "missing": [
+   "BG payable on demand within 10 days"
+  ],
+  "reason": "PG forfeiture for failure to commence and EMD forfeiture for late PG given; the 10-day BG payment period is missing.",
+  "cause_code": "ONE_OF_MANY_NUMBERS",
+  "scorer_issue": "Code label Incorrect is wrong: the tool's '7 days' is the correct EMD-withdrawal window (CPWD-6 para 18, p16), not a misread of the 10 days; the 10 days is simply omitted, so Partial.",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-6.7",
+  "verdict": "Incorrect",
+  "missing": [],
+  "reason": "Status mismatch: key FOUND, tool POINTS_ELSEWHERE with no accept_also_status; EMD refund/return content matches.",
+  "cause_code": "CONVENTION_DIFFERENCE",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM4-6.8",
+  "verdict": "Missed",
+  "missing": [
+   "guarantee bonds for stone work, water supply, sanitary/drainage, waterproofing, CPVC doors/windows, aluminium and road works",
+   "1 year materials warranty"
+  ],
+  "reason": "Tool answered NOT_STATED, reading the question as low-bid security only, though it saw NIT para 30 guarantee bonds.",
+  "cause_code": "CONVENTION_DIFFERENCE",
+  "scorer_issue": "",
+  "key_issue": ""
+ }
+]

@@ -1,0 +1,477 @@
+[
+ {
+  "id": "BM1-0.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Identifies draft NHAI EPC agreement, Makhu Town NH-54 Punjab, dated July 2024.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-0.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Employer (President of India via MoRTH, represented by Chairman NHAI, RO Chandigarh) correct; contractor correctly left as placeholder, no invented name.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-0.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Same status; states the lump-sum price is blank and set by the accepted bid/LOA, and gives no figure.",
+  "cause_code": "",
+  "scorer_issue": "Code said Partial ('base not named: bid price') but the tool says the price is set by the selected bidder's accepted Bid/LOA, so the bid-price base is present.",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-0.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "730 days from the Appointed Date.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-0.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Gives 5 years flexible and 10 years rigid/perpetual/stand-alone structures from completion; extra 3-year limbs are in Cl. 17.1(f)-(g).",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-0.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Milestones 145/320/520/730 days with 10%/35%/70% thresholds and bridges condition all match Schedule J.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-1.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Stage payments per Schedule-H, monthly Stage Payment Statement by the 7th.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-1.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Both the 10-day 90% recommendation and the 15-day IPC are given with correct triggers.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-1.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Payment within 30 days from submission of the statement, with the pay-the-claimed-amount rule if no IPC; base (submission, not certification) correct.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-1.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Bank Rate + 3% p.a. on unpaid sums; extra Base Rate + 2% is the general Cl. 27.3 rule and is in the text.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-1.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "All three deductions present: 6% retention (cap 5% of Contract Price), 15% advance recovery, withholding for unperformed/defective work.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": "Key note says taxes at source appear only in the termination valuation (23.5), but Schedule-O (p.236) lists 'Any amount towards deduction of taxes' under Stage Payment Statement deductions; the tool's tax item is supported. Key answer itself is not wrong."
+ },
+ {
+  "id": "BM1-1.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "No minimum bill; only 90% of the broadly determined amount released before IPC.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-1.7",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "60-day Final Payment Statement, 30-day Final Payment Certificate, and payment within 30 days under 19.9(i)(b) all present.",
+  "cause_code": "",
+  "scorer_issue": "Code said Partial for missing '19.9', which is a clause reference, not a value; the tool states the 19.9 payment term and cites 19.9 (i)(b).",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-1.8",
+  "verdict": "Correct absent",
+  "missing": [],
+  "reason": "Both NOT_STATED.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-2.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Yes, retention deducted.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-2.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "6% of every payment for Works under Cl. 19.5.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-2.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Cap 5% of Contract Price.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-2.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "No link; Bid Security stays until substituted by Performance Security.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-2.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Balance refunded within 15 days of Completion Certificate after appropriations.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-2.6",
+  "verdict": "Correct absent",
+  "missing": [],
+  "reason": "Both NOT_STATED.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-2.7",
+  "verdict": "Correct absent",
+  "missing": [],
+  "reason": "Both NOT_STATED; tool correctly confines the 9% to Performance Security.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-3.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Yes, interest-bearing advance.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-3.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "10% of Contract Price in two 5% instalments.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-3.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Interest-bearing at Bank Rate + 3% (plus Bank Rate + 5% on the termination balance).",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-3.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "15% of each Stage Payment Statement from the first; repaid before 80% of the construction period.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-3.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Irrevocable unconditional e-BG for 110% of each instalment, valid until full repayment.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-3.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Equipment advance up to 5% of Contract Price against e-BG; no materials advance.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-3.7",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "First instalment after Appointed Date with 110% e-BG, second after 60 days with utilisation certificate, paid within 15 days.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-4.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Yes, called Damages.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-4.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "0.05% of Contract Price per day from the Schedule J date, triggered if not achieved within 30 days.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-4.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "10% of Contract Price; exceeding it is Contractor default with termination right.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-4.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Applies to each Project Milestone and the Scheduled Completion Date.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-4.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Grounds (RoW/clearances, Change of Scope, Force Majeure, Authority delay) and 15 business-day notice with forfeiture all present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-4.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Genuine pre-estimate, not a penalty; on proof of loss the tool marks it '(not stated)', matching the key, though its phrase 'no proof of loss required' goes beyond the text.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-4.7",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Appropriation from Performance Security and Retention Money on default and recovery from amounts due after 20 days notice all present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-4.8",
+  "verdict": "Partial",
+  "missing": [
+   "Authority's Damages to Contractor for late handover of Site (Cl. 8.3)",
+   "Early completion bonus 0.03% of Contract Price per day, max 5% (Cl. 19.20)"
+  ],
+  "reason": "Gives 0.01% late security, Sch. M cuts, bid ban, 0.1% lane closure, 20% rectification and 120% removal, but omits the 8.3 Authority damages and the 19.20 bonus.",
+  "cause_code": "RETRIEVAL_MISSED",
+  "scorer_issue": "Code said Incorrect ('0.03% ... tool says 18%'), but the 18% is a separate supported item (interest on labour dues, Cl. 11.18 text); the bonus is missing, not misstated, so Partial.",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-5.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Price variation (index-based adjustment) applies.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-5.2",
+  "verdict": "Partial",
+  "missing": [
+   "Maintenance formula V = P x (WI - W0)/W0 using WPI all commodities (Cl. 19.12)"
+  ],
+  "reason": "VRW and VBR formulas with the 0.85 factor match the key; the maintenance formula is only mentioned as illegible in notes, not given in the answer.",
+  "cause_code": "IMAGE_NOT_READ",
+  "scorer_issue": "Label Partial is right but the code's reason ('missing 0.85') is wrong: the tool writes '0.85RW' and '0.85BR'.",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-5.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "All five work-type weight columns (L, C, S, B, F, M, A) match the key exactly.",
+  "cause_code": "",
+  "scorer_issue": "Code said Incorrect because it compared against the column totals (100%) and the 0.85 factor (85%); the tool's 'L20 C5 ...' weights match the key in full.",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-5.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "All seven indices/price sources match (CPI-IW Bathinda, WPI cement/steel/all commodities/machinery, HMEL Bathinda bitumen, IOC HSD Punjab).",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-5.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Last day of the calendar month at least 28 days before Bid Due Date.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-5.6",
+  "verdict": "Correct absent",
+  "missing": [],
+  "reason": "Both NOT_STATED; the 0.85 factor mentioned is not a threshold or cap.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-5.7",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Adjustment only for stages billed within 30 days of the milestone/SCD including extensions.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-5.8",
+  "verdict": "Correct absent",
+  "missing": [],
+  "reason": "Both NOT_STATED.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-6.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Bid Security, Performance Security, Additional PS, Retention Money and e-BGs for both advances all listed (extra 'professional liability insurance' is an insurance, not a security, but is in the text).",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-6.2",
+  "verdict": "Partial",
+  "missing": [
+   "Equipment advance up to 5% of Contract Price (against e-BG)"
+  ],
+  "reason": "PS 3% of Bid Price, APS max 3% of Bid Price and advance e-BG 110% of each instalment are right, but the equipment-advance 5% of Contract Price part is missing.",
+  "cause_code": "ONE_OF_MANY_NUMBERS",
+  "scorer_issue": "Code said Correct but missed that the equipment-advance (5% of Contract Price) part of the key is absent.",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-6.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Surety bond, DD, banker's cheque, e-BG and physical BG till 31.12.2024 all present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-6.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Bank incorporated in India and recognised by RBI; extras (scheduled bank in Annex-II, Canara Bank SFMS) are in the text.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-6.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "PS valid to 60 days after DLP with 2-year initial term and extension 2 months before expiry; APS to 28 days after Project Completion Date.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-6.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Contractor Default, termination for default, and advance BG encashment if advance not recovered all present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-6.7",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "PS within 60 days of later of Maintenance Period/DLP; APS within 28 days of Completion Certificate.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM1-6.8",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "APS at 20% of the shortfall below 80% of estimate, capped at 3% of Bid Price.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ }
+]

@@ -21,7 +21,7 @@ from starlette.concurrency import run_in_threadpool
 
 from analyser import config
 from analyser.api import pipeline, store
-from analyser.models import (Answer, CashParams, CashResult, DocTag, Package, ReviewState,
+from analyser.models import (Answer, CashParams, CashResult, DocTag, Package, ReviewState, TestScore,
                              RiskFlag, RunMeta, ScoreSummary)
 
 FRONTEND_DIST = config.PROJECT_DIR / "frontend" / "dist"
@@ -337,6 +337,41 @@ def get_flags(run_id: str) -> list[dict]:
     return store.load(run_id, "flags", []) or []
 
 
+_NOT_CHECKED = re.compile(r"(?<!no )POINTS_ELSEWHERE|NOT_STATED|NOT_APPLICABLE|MISSING|not in the package|"
+                          r"needs |no advance in this contract|state is 'off'|discarded|no evaluator|"
+                          r"cannot|could not|unclear", re.I)
+
+
+@api.get("/runs/{run_id}/checks")
+def get_checks(run_id: str) -> list[dict]:
+    """Every risk rule with its outcome: "flag" (red/amber), "pass" (green flag: checked against
+    the contract and fine) or "not_checked" (term missing, elsewhere or not applicable)."""
+    meta = _meta(run_id)
+    risk = pipeline.module("risk")
+    params = store.load(run_id, "params")
+    cash = store.load(run_id, "cashflow") or {}
+    inputs = CashParams.model_validate(params).inputs if params else None
+    result = CashResult.model_validate(cash["as_written"]) if cash.get("as_written") else None
+    flags, skipped = risk.flag_risks_with_trace(store.load_answers(run_id), pipeline.run_package(meta),
+                                                cash=inputs, cash_result=result)
+    why = dict(skipped)
+    out = []
+    for rule in risk.load_rules():
+        rid = rule["id"]
+        fired = [f for f in flags if f.flag_id == rid]
+        if fired:
+            out.append({"flag_id": rid, "result": "flag", "label": fired[0].title,
+                        "severity": fired[0].severity, "reason": fired[0].value_found,
+                        "question_ids": fired[0].question_ids})
+            continue
+        reason = why.get(rid, "")
+        result_kind = "not_checked" if not reason or _NOT_CHECKED.search(reason) else "pass"
+        out.append({"flag_id": rid, "result": result_kind,
+                    "label": rule.get("pass_label", rule["title"]) if result_kind == "pass" else rule["title"],
+                    "severity": "", "reason": reason, "question_ids": rule.get("question_ids", [])})
+    return out
+
+
 @api.get("/runs/{run_id}/score")
 def get_score(run_id: str) -> dict:
     meta = _meta(run_id)
@@ -354,8 +389,21 @@ def evaluation() -> dict:
         raise HTTPException(404, "No finished benchmark runs yet")
     envelopes = {cid: store.load_answers(m.run_id) for cid, m in sorted(latest.items())}
     run_ids = {cid: m.run_id for cid, m in sorted(latest.items())}
-    summary: ScoreSummary = pipeline.module("evaluate").score_run(
-        envelopes, "+".join(run_ids.values()))
+    saved = {cid: store.load(rid, "score") for cid, rid in run_ids.items()}
+    if all(s and s.get("tests") for s in saved.values()):
+        # Combine each run's saved score: it may hold judge or reviewer labels a fresh
+        # deterministic re-score would lose.
+        from analyser.evaluate.scoring import invented_number, summarise
+        tests = [TestScore.model_validate(t) for s in saved.values() for t in s["tests"]]
+        invented = set()
+        for cid, envs in envelopes.items():
+            by_qid = {e.answer.question_id: e for e in envs}
+            invented |= {t.test_id for t in tests
+                         if t.contract_id == cid and invented_number(by_qid.get(t.question_id))}
+        summary = summarise(tests, "+".join(run_ids.values()), invented)
+    else:
+        summary: ScoreSummary = pipeline.module("evaluate").score_run(
+            envelopes, "+".join(run_ids.values()))
     missing = [cid for cid in config.BENCHMARKS if cid not in run_ids]
     replays = [cid for cid, m in sorted(latest.items()) if pipeline.is_replay(m)]
     return {**summary.model_dump(mode="json"), "runs_used": run_ids,

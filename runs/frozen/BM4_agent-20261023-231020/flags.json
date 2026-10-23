@@ -1,0 +1,197 @@
+[
+  {
+    "flag_id": "R12",
+    "title": "Progress-linked termination or heavy withholding",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when the employer may terminate on slow progress or once damages hit the cap, or withholds large percentages for missed milestones.",
+    "value_found": "amount withheld for non-achievement 1.25% of accepted tendered amount for each milestone",
+    "reference_value": "Milestone withholding refunded when progress is made good; termination only for real default.",
+    "reference_source": "Seen in the MP tender (Annexure P) and the MoEF tender (Schedule F) [SEEN]; 1% line [ASSUMPTION]",
+    "question_ids": [
+      "0.6"
+    ],
+    "quote": "Work done amounting to 25% of accepted  1.25% of accepted tendered",
+    "section_ref": "Schedule F Clause 5 (milestones table)",
+    "pdf_page": 23,
+    "explanation": "Missed milestones lead to money being held back (amount withheld for non-achievement 1.25% of accepted tendered amount for each milestone). Cash you expected can stop mid-contract; it is usually refunded only if you catch up. Money at stake: about Rs 9,063 (largest withholding % x contract value).",
+    "rupee_impact": 9063.31
+  },
+  {
+    "flag_id": "R8",
+    "title": "No advance, or a costly one",
+    "severity": "Medium",
+    "category": "risk",
+    "rule": "Raise when there is no mobilisation advance, or the advance carries interest, or its guarantee is above 100% of the advance.",
+    "value_found": "No; Schedule F states Clause 10B(ii) not applicable",
+    "reference_value": "Advance should be need-based; interest-free advances are discouraged.",
+    "reference_source": "Manual for Procurement of Works 2022 [SEEN]; 100% guarantee line [ASSUMPTION]",
+    "question_ids": [
+      "3.1"
+    ],
+    "quote": "Whether Clause 10 B (ii) shall be applicable  No",
+    "section_ref": "Schedule F Clause 10B(ii)",
+    "pdf_page": 24,
+    "explanation": "No mobilisation advance is given (No; Schedule F states Clause 10B(ii) not applicable). You must fund mobilisation, site set-up and early materials from your own money until the first bill is paid.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R6",
+    "title": "No interest on late payment",
+    "severity": "Needs review",
+    "category": "unclear",
+    "rule": "Raise when the contract says no interest is payable on late payment (High), or is silent (unclear).",
+    "value_found": "POINTS_ELSEWHERE: CPWD GCC 2023",
+    "reference_value": "NHAI pays Bank Rate + 3% on unpaid sums; CPWD pays 5% simple interest after 45 days.",
+    "reference_source": "NHAI EPC agreement cl. 19.9 [SEEN]; CPWD GCC 2023 cl. 7 [SEEN]; 'no interest' seen in the MP tender [SEEN]",
+    "question_ids": [
+      "1.4"
+    ],
+    "quote": "The bidders should also read the General Conditions of Contract for CPWD 2023 (Construction work) amended up to last date of submission of bid of this work, which is available as Govt. of India Publications;",
+    "section_ref": "NIT item 23",
+    "pdf_page": 10,
+    "explanation": "Interest on late payment is not in this package; it is in CPWD GCC 2023. Read that document before relying on any interest.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R7",
+    "title": "Slow or unclear payment",
+    "severity": "Needs review",
+    "category": "unclear",
+    "rule": "Raise when the period to pay a bill is above 30 days, or is not stated.",
+    "value_found": "POINTS_ELSEWHERE: CPWD GCC 2023",
+    "reference_value": "NHAI pays within 30 days; CPWD part payment in 10 and the rest in 28 working days.",
+    "reference_source": "NHAI EPC agreement cl. 19.9 [SEEN]; CPWD GCC 2023 cl. 7 [SEEN]; 30-day line [ASSUMPTION]",
+    "question_ids": [
+      "1.3"
+    ],
+    "quote": "Attention is also drawn to Clauses 6 and 7 of General Condition of Contract for CPWD works 2023 for Construction works, which prescribes the procedure for computerized recording of measurement and preparation of bill by contractor.",
+    "section_ref": "NIT item 32",
+    "pdf_page": 10,
+    "explanation": "The payment period is not in this package; it is in CPWD GCC 2023. Read that document before relying on a payment date.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R16",
+    "title": "Conflict in the document",
+    "severity": "Needs review",
+    "category": "unclear",
+    "rule": "Raise when two places in the package give different values for the same term.",
+    "value_found": "Q6.2: 'EMD Rs 14,501 (fixed amount); Performance Guarantee 5% of tendered amount, wi...' at Schedule E; Schedule F Clause 1, p21 vs 'PG 5% of composite contract amount [governs: Same 5%; base wording differs; d...' at NIT item 29, p10",
+    "reference_value": "n/a",
+    "reference_source": "n/a (conflict detector, F9)",
+    "question_ids": [
+      "6.2"
+    ],
+    "quote": "Earnest money  Rs. 14,501/- Performance Guarantee  5.00% of tendered amount Security Deposit  2.50% of tendered amount.",
+    "section_ref": "Schedule E; Schedule F Clause 1",
+    "pdf_page": 21,
+    "explanation": "The package gives more than one value here: Q6.2: 'EMD Rs 14,501 (fixed amount); Performance Guarantee 5% of tendered amount, wi...' at Schedule E; Schedule F Clause 1, p21 vs 'PG 5% of composite contract amount [governs: Same 5%; base wording differs; d...' at NIT item 29, p10. Ask the employer which one governs before you price it.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R16",
+    "title": "Conflict in the document",
+    "severity": "Needs review",
+    "category": "unclear",
+    "rule": "Raise when two places in the package give different values for the same term.",
+    "value_found": "Q6.3: 'PG: Insurance Surety Bonds, Account Payee Demand Draft, Fixed Deposit Receipt...' at CPWD-6 11; CPWD-6 9, p15 vs 'EMD mode of payment DD, FDR, BC, TC [governs: Not stated]' at Portal EMD Details, p2",
+    "reference_value": "n/a",
+    "reference_source": "n/a (conflict detector, F9)",
+    "question_ids": [
+      "6.3"
+    ],
+    "quote": "This guarantee shall be in the form of Insurance Surety Bonds, Account Payee Demand Draft, Fixed Deposit Receipt or Bank Guarantee from any of the Commercial Banks in accordance with the prescribed form.",
+    "section_ref": "CPWD-6 11; CPWD-6 9",
+    "pdf_page": 15,
+    "explanation": "The package gives more than one value here: Q6.3: 'PG: Insurance Surety Bonds, Account Payee Demand Draft, Fixed Deposit Receipt...' at CPWD-6 11; CPWD-6 9, p15 vs 'EMD mode of payment DD, FDR, BC, TC [governs: Not stated]' at Portal EMD Details, p2. Ask the employer which one governs before you price it.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R16",
+    "title": "Conflict in the document",
+    "severity": "Needs review",
+    "category": "unclear",
+    "rule": "Raise when two places in the package give different values for the same term.",
+    "value_found": "Q6.4: 'Any Commercial Bank (CPWD-6 for EMD and PG); NIT item 7 says any Scheduled Ba...' at CPWD-6 11, p15 vs 'any Scheduled Bank (EMD) [governs: Not stated]' at NIT item 7, p8",
+    "reference_value": "n/a",
+    "reference_source": "n/a (conflict detector, F9)",
+    "question_ids": [
+      "6.4"
+    ],
+    "quote": "This guarantee shall be in the form of Insurance Surety Bonds, Account Payee Demand Draft, Fixed Deposit Receipt or Bank Guarantee from any of the Commercial Banks in accordance with the prescribed form.",
+    "section_ref": "CPWD-6 11",
+    "pdf_page": 15,
+    "explanation": "The package gives more than one value here: Q6.4: 'Any Commercial Bank (CPWD-6 for EMD and PG); NIT item 7 says any Scheduled Ba...' at CPWD-6 11, p15 vs 'any Scheduled Bank (EMD) [governs: Not stated]' at NIT item 7, p8. Ask the employer which one governs before you price it.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R16",
+    "title": "Conflict in the document",
+    "severity": "Needs review",
+    "category": "unclear",
+    "rule": "Raise when two places in the package give different values for the same term.",
+    "value_found": "Q6.5: 'EMD BG validity 90 days (single bid) / 180 days (two bid or more) from last d...' at CPWD-6 9; BG form para 8, p14 vs 'Bid validity 75 days after technical cum eligibility bid opening [governs: No...' at Portal Bid Submission Dates, p1",
+    "reference_value": "n/a",
+    "reference_source": "n/a (conflict detector, F9)",
+    "question_ids": [
+      "6.5"
+    ],
+    "quote": "having validity for a period of 90 days for single bid works and 180 days for two bid system or more from the last date of receipt of bids",
+    "section_ref": "CPWD-6 9; BG form para 8",
+    "pdf_page": 14,
+    "explanation": "The package gives more than one value here: Q6.5: 'EMD BG validity 90 days (single bid) / 180 days (two bid or more) from last d...' at CPWD-6 9; BG form para 8, p14 vs 'Bid validity 75 days after technical cum eligibility bid opening [governs: No...' at Portal Bid Submission Dates, p1. Ask the employer which one governs before you price it.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R17",
+    "title": "Unresolved reference",
+    "severity": "Needs review",
+    "category": "unclear",
+    "rule": "Raise when an answer points to another document or blank schedule that is not in the package. Targets are normalised (GCC + issuer + year, Schedule X, Annexure X) before grouping.",
+    "value_found": "questions 1.2, 1.3, 1.4, 1.7, 2.5, 2.7, 3.6, 4.2, 4.3, 4.5, 4.6, 4.7, 5.2, 5.4, 5.5, 5.6, 5.7, 6.7",
+    "reference_value": "n/a",
+    "reference_source": "n/a (cross-reference follower, F7)",
+    "question_ids": [
+      "1.2",
+      "1.3",
+      "1.4",
+      "1.7",
+      "2.5",
+      "2.7",
+      "3.6",
+      "4.2",
+      "4.3",
+      "4.5",
+      "4.6",
+      "4.7",
+      "5.2",
+      "5.4",
+      "5.5",
+      "5.6",
+      "5.7",
+      "6.7"
+    ],
+    "quote": "Attention is also drawn to Clauses 6 and 7 of General Condition of Contract for CPWD works 2023 for Construction works, which prescribes the procedure for computerized recording of measurement and preparation of bill by contractor.",
+    "section_ref": "NIT item 32",
+    "pdf_page": 10,
+    "explanation": "18 answer(s) depend on CPWD GCC 2023, which is not in the package (questions 1.2, 1.3, 1.4, 1.7, 2.5, 2.7, 3.6, 4.2, 4.3, 4.5, 4.6, 4.7, 5.2, 5.4, 5.5, 5.6, 5.7, 6.7). Get that document, or confirm the terms with the employer.",
+    "rupee_impact": null
+  },
+  {
+    "flag_id": "R18",
+    "title": "Missing document",
+    "severity": "Needs review",
+    "category": "unclear",
+    "rule": "Raise ONE flag per package when schedules or conditions are referred to but not supplied.",
+    "value_found": "General Conditions of Contract for CPWD 2023",
+    "reference_value": "n/a",
+    "reference_source": "n/a (package completeness check, F1)",
+    "question_ids": [],
+    "quote": "6, CPWD-7 including schedule A to F for major and minor component of the work, Standard General Conditions of Contract for CPWD 2023 (Construction work) as amended/ modified upto last date of submission of bid.  Part",
+    "section_ref": "cited in d1",
+    "pdf_page": 9,
+    "explanation": "The package refers to 1 document(s) it does not include: General Conditions of Contract for CPWD 2023. Most important for money: General Conditions of Contract for CPWD 2023 (incorporated by reference; holds the payment, retention, damages and escalation terms). Terms in them bind you even though you have not read them; ask the employer for copies.",
+    "rupee_impact": null
+  }
+]

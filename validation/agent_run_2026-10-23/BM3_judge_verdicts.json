@@ -1,0 +1,472 @@
+[
+ {
+  "id": "BM3-0.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Appendix 2.10, effective 23.07.2014, percentage-rate form, Tender No. 03 and NIT dated 05.08.2021 all given (p1).",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-0.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Employer (MD, MP State Agro Ind. Dev. Corp.), EIC (EE H.O. Bhopal) and blank contractor all match.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-0.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "PAC Rs 188.65 lakh and blank contract amount both stated.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-0.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "12 months incl. rainy season and start from date of signing agreement both given.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-0.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Building 3 yr, new BT/concrete road 5 yr, bridge 3 yr, maintenance 1 yr all present; extra road sub-cases are correct detail.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-0.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "All four milestones with correct work/time fractions; month equivalents are disclosed as computed.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-1.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Monthly statements of value of work executed supported by measurements.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-1.2",
+  "verdict": "Correct absent",
+  "missing": [],
+  "reason": "Both NOT_STATED; tool correctly notes only the final-account 45-day limit exists.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-1.3",
+  "verdict": "Correct absent",
+  "missing": [],
+  "reason": "Both NOT_STATED; no payment period for certified bills.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-1.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Negative correctly read: no interest payable on any payment due or awarded (GCC 23).",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-1.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "All four deductions (advance recovery, SD, other recoveries, TDS) present; extra 5% SD and 3.5% PF detail is consistent with key notes.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-1.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "No general minimum; 75% after 7-day strength tests and 25% after 28 days for rigid pavement, matching key; Hindi quote verified on page image p93.",
+  "cause_code": "",
+  "scorer_issue": "Provisional Incorrect is wrong: quote is from scanned p93 (no text layer) and matches the image verbatim (Circular 3625 dt 25.10.2016).",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-1.7",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "21 days for contractor's final account and 45 days for certification both present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-1.8",
+  "verdict": "Correct absent",
+  "missing": [],
+  "reason": "Both NOT_STATED; no pay-when-paid term.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-2.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Yes, SD deducted from each running bill.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-2.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "5% of gross amount of running bill: rate and base match.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-2.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Cap up to 5% of final contract amount matches.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-2.4",
+  "verdict": "Partial",
+  "missing": [],
+  "reason": "Key is NOT_STATED; tool's FOUND is allowed by accept_also_status so capped at Partial, though its content (EMD discharged on signing, not converted) is accurate to ITB 17.5.",
+  "cause_code": "CONVENTION_DIFFERENCE",
+  "scorer_issue": "",
+  "key_issue": "Key note says nothing says EMD is returned, but p10 ITB 17.5 says 'EMD of the successful Bidder will be discharged when the Bidder has signed the Agreement'; NOT_STATED on conversion itself remains defensible."
+ },
+ {
+  "id": "BM3-2.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Refunded on completion of defect liability period.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-2.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "BG or FDR replacement, valid 3 months beyond DLP.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-2.7",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "No interest, by the general GCC 23 bar, with no SD-specific clause, exactly as key.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": "Key is FOUND but cites page 0 and no quote; GCC 23 is on p52 ('No interest shall be payable to the Contractor on any payment due or awarded'). Content of key is fine; only the citation is missing."
+ },
+ {
+  "id": "BM3-3.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "NOT_APPLICABLE agreed; Contract Data 19 / Annexure-1 say no mobilisation or machinery advance.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-3.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Not applicable; printed 80% GCC text correctly flagged as inactive.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-3.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Not applicable; interest-bearing nature noted only as printed GCC text.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-3.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Not applicable.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-3.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Not applicable; BG form described only as printed text.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-3.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "No secured advance and no machinery advance.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-3.7",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Not applicable.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-4.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Yes, LD per Contract Data pointing to Annexure P.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-4.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Both mechanisms present: 2.5/5/7.5/10% of unexecuted work by band and 0.05% per day with contract price as base.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-4.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Cap 10% of contract price.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-4.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Both milestones (refundable retention) and final completion (per-day) covered.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-4.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Decision within 30 days of application; up to 30 days EE, beyond 30 days MD all present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-4.6",
+  "verdict": "Correct absent",
+  "missing": [],
+  "reason": "Both NOT_STATED; no pre-estimate or proof-of-loss wording.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-4.7",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Retention from bills, bankable security in lieu, and recovery from PS/SD (GCC 24) all present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-4.8",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Field lab 1%/month max Rs 50,000; Rs 30,000 graduate and Rs 18,000 diploma per month; programme 1% max Rs 50,000; termination 20% of unexecuted work, all present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-5.1",
+  "verdict": "Incorrect",
+  "missing": [],
+  "reason": "Content matches the key (fixed price; PVC only above Rs 10 crore; PAC Rs 1.8865 crore) but tool status NOT_APPLICABLE differs from key FOUND with no accept_also_status.",
+  "cause_code": "CONVENTION_DIFFERENCE",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-5.2",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Cement formula read and matches key exactly; steel/bitumen/POL forms are character repairs of garbled OCR consistent with the printed variable definitions (p70-71), and the tool discloses this.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-5.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Both weight sets (CD 18/13, Annexure R 20/20) and absence of bitumen/POL weights stated.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-5.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "All four indices/sources and eaindustry.nic.in source match.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-5.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Base date = date of opening of bids.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-5.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "No threshold or cap; Rs 10 crore correctly treated as applicability limit.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-5.7",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Up to intended completion or employer-caused extensions, none for contractor delay, applies in force majeure extension; Hindi SCC conflict also noted.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-5.8",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "No; departmental material deducted from R.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-6.1",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "EMD, performance security, additional performance security and security deposit all listed.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-6.2",
+  "verdict": "Partial",
+  "missing": [
+   "Additional performance security 5% for PWD road works (Annexure-1 ITB 22(2), p2)"
+  ],
+  "reason": "EMD Rs 1,88,650, PS 5%, low-bid APS formula and SD 5% present, but the Annexure-1 additional performance security of 5% for PWD road works is omitted.",
+  "cause_code": "ONE_OF_MANY_NUMBERS",
+  "scorer_issue": "Provisional Correct is wrong: one part of the multi-part key (APS 5% for road works) is missing, so Partial.",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-6.3",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "TDR/BG for PS, EMD online only, SD as BG/FDR all present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-6.4",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "Nationalised or scheduled commercial bank.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-6.5",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "PS valid 3 months beyond DLP and APS to stipulated completion plus 3 months both present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-6.6",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "First-demand guarantee without proof and recovery of claims, defect costs and termination penalty from PS all present.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-6.7",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "APS refunded on satisfactory completion; PS has no release trigger and runs to DLP + 3 months, matching key.",
+  "cause_code": "",
+  "scorer_issue": "",
+  "key_issue": ""
+ },
+ {
+  "id": "BM3-6.8",
+  "verdict": "Correct",
+  "missing": [],
+  "reason": "APS for bids more than 15% below PAC = contract amount x (bid % below minus 15%), valid to stipulated completion + 3 months; PAC is the estimate the key refers to (BDS 11, p16).",
+  "cause_code": "",
+  "scorer_issue": "Provisional Partial ('base not named: estimated cost') is wrong: tool names PAC, which is the document's own term for the estimate (BDS ITB 11, p16).",
+  "key_issue": ""
+ }
+]

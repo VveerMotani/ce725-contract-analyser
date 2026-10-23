@@ -1,0 +1,31 @@
+Run: BM1_agent-20261023-231019+BM2_agent-20261023-231019+BM3_agent-20261023-231019+BM4_agent-20261023-231020
+
+By contract
+             Correct   Partial    Incorr    Missed   CorrAbs WrongPres     total
+BM1               44         3         0         0         5         0        52
+BM2               33        13         2         0         4         0        52
+BM3               45         2         1         0         4         0        52
+BM4               40         7         3         1         1         0        52
+ALL              162        25         6         1        14         0       208
+
+By clause type
+             Correct   Partial    Incorr    Missed   CorrAbs WrongPres     total
+C0                22         2         0         0         0         0        24
+C1                21         2         2         0         7         0        32
+C2                21         3         1         0         3         0        28
+C3                27         1         0         0         0         0        28
+C4                25         5         1         0         1         0        32
+C5                24         5         1         0         2         0        32
+C6                22         7         1         1         1         0        32
+
+Tests scored                                            208
+Precision (Correct / answers given)                     83.9%
+Recall (Correct / answers in key)                       84.4%
+Core pass rate                                          84.6%
+Quote verification rate                                 99.5%
+Hallucinations (Wrongly present + invented numbers)     4
+Headline correct (Correct + Correct absent) / total     84.6%
+Needs human check                                       208
+Labels set by code (deterministic)                      0
+Labels set by LLM judge                                 208
+Labels set by manual override                           0

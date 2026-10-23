@@ -384,3 +384,13 @@ def test_evaluation_prefers_ai_runs_over_replays(env):
     runs = {m["run_id"]: m for m in client.get("/api/runs").json()}
     assert runs["BM1_replay-20991231-000000"]["replay"] is True and runs[ai]["replay"] is False
     assert client.get("/api/runs/BM1_replay-20991231-000000/answers").json() == []
+
+
+def test_checks_classifies_rule_outcomes():
+    """/checks: fired rules are "flag"; a rule that checked and passed is "pass"; a rule that
+    could not be checked (term missing or elsewhere) is "not_checked", never a green flag."""
+    from analyser.api.app import _NOT_CHECKED
+    assert _NOT_CHECKED.search("rate and cap not in the package (4.2 POINTS_ELSEWHERE)")
+    assert _NOT_CHECKED.search("minimum bill answer is MISSING")
+    assert not _NOT_CHECKED.search("no POINTS_ELSEWHERE answers")
+    assert not _NOT_CHECKED.search("damages capped at or below the reference")
