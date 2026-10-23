@@ -14,6 +14,7 @@ import { brief, firstPct, rate, usable } from "../lib/terms";
 import { daysIn, milestones, pctNum, rupeesIn, seg, segments, validity, weightTables } from "../lib/termDetail";
 import type { RuleCheck } from "../types";
 import { Figure, InfoTip } from "../components/ui";
+import { Term, TermIn } from "../components/Term";
 import { payDaysText } from "./TermCards";
 import { Block, KeyPoints, NoData, Ruler, type KeyPoint, type RulerRow } from "./TermDetailParts";
 
@@ -59,13 +60,13 @@ function Figs({ children }: { children: ReactNode }) {
 
 export function PaymentPanel({ d }: { d: D }) {
   const a12 = d.ans("1.2"), a13 = d.ans("1.3"), a14 = d.ans("1.4");
-  const rows: RulerRow[] = [{ label: "Bill submitted", end: 0, value: "day 0", env: d.env("1.1") }];
+  const rows: RulerRow[] = [{ label: "Bill submitted", end: 0, value: "day 0", env: d.env("1.1"), term: "ra_bill", word: "Bill" }];
   const partSeg = seg(a12, /part|90 ?%|recommend/i) ?? seg(a13, /part payment|90 ?%/i);
   const part = partSeg ? daysIn(partSeg) : null;
   if (part) rows.push({ label: "Part payment", end: part.days, value: part.label, env: seg(a12, /part|90 ?%|recommend/i) ? d.env("1.2") : d.env("1.3"), note: firstPct(partSeg!) ? `${firstPct(partSeg!)} of the bill` : undefined });
   const certSeg = seg(a12, /certif|IPC|measure|check/i);
   const cert = certSeg && certSeg !== partSeg ? daysIn(certSeg) : d.ok("cert_lag_days") && d.inp!.cert_lag_days > 0 ? { days: d.inp!.cert_lag_days, label: `${d.inp!.cert_lag_days} days` } : null;
-  if (cert) rows.push({ label: "Certified", end: cert.days, value: cert.label, env: d.env("1.2") });
+  if (cert) rows.push({ label: "Certified", end: cert.days, value: cert.label, env: d.env("1.2"), term: "certification" });
   const full = a13?.status === "FOUND" ? payDaysText(a13) : null;
   if (full) rows.push({ label: "Paid in full", end: full, value: `${full} days`, env: d.env("1.3"), tone: "good" });
   const lateSeg = seg(a14, /\d+\s*days/i);
@@ -158,7 +159,7 @@ export function RetentionPanel({ d }: { d: D }) {
           <Figure label="Held from a typical bill" value={rate22 != null && typical ? money(rate22 * typical) : "—"} note={rate22 != null ? `${pct(rate22)} of the bill` : undefined} />
           <Figure label="Most held at once" value={c && c.retention_locked_max > 0 ? money(c.retention_locked_max) : "—"} note={capRs ? `cap ${money(capRs)}` : undefined} />
           <Figure label="Cap reached" value={c?.retention_cap_month ? `month ${c.retention_cap_month}` : "—"} note={d.inp ? `of ${d.inp.duration_months}` : undefined} />
-          <Figure label="Financing cost" value={c ? money(c.retention_financing_cost) : "—"} note="interest on money held" />
+          <Figure label={<Term k="financing_cost">Financing cost</Term>} value={c ? money(c.retention_financing_cost) : "—"} note="interest on money held" />
         </Figs>
         <p className="mt-4 text-[13.5px] text-ink-2"><span className="text-muted">Returned: </span>{rel}</p>
       </Block>
@@ -182,9 +183,9 @@ export function RetentionPanel({ d }: { d: D }) {
           kp(d, "Rate per bill", "2.2", rate22 != null ? `${pct(rate22)} of each bill` : undefined),
           kp(d, "Limit", "2.3"),
           kp(d, "Returned", "2.5", rel),
-          kp(d, "Bank guarantee instead", "2.6", d.ans("2.6")?.status === "FOUND" ? (/^\s*no\b/i.test(d.ans("2.6")!.answer_value) ? "No" : "Yes") : undefined, d.ans("2.6")?.status === "FOUND" && !/^\s*no\b/i.test(d.ans("2.6")!.answer_value) ? "good" : undefined),
+          { term: "bg", word: "Bank guarantee", ...kp(d, "Bank guarantee instead", "2.6", d.ans("2.6")?.status === "FOUND" ? (/^\s*no\b/i.test(d.ans("2.6")!.answer_value) ? "No" : "Yes") : undefined, d.ans("2.6")?.status === "FOUND" && !/^\s*no\b/i.test(d.ans("2.6")!.answer_value) ? "good" : undefined) },
           kp(d, "Interest on money held", "2.7", d.ans("2.7")?.status === "FOUND" ? (/^\s*no\b|none|without interest/i.test(d.ans("2.7")!.answer_value) ? "None" : brief(d.ans("2.7")!.answer_value, 40)) : undefined),
-          kp(d, "Bid security (EMD) link", "2.4", d.ans("2.4")?.status === "FOUND" ? (/^\s*no\b/i.test(d.ans("2.4")!.answer_value) ? "Not counted" : brief(d.ans("2.4")!.answer_value, 40)) : undefined),
+          { term: "emd", word: "Bid security (EMD)", ...kp(d, "Bid security (EMD) link", "2.4", d.ans("2.4")?.status === "FOUND" ? (/^\s*no\b/i.test(d.ans("2.4")!.answer_value) ? "Not counted" : brief(d.ans("2.4")!.answer_value, 40)) : undefined) },
         ]} />
       </Block>
     </>
@@ -209,7 +210,7 @@ export function AdvancePanel({ d }: { d: D }) {
         kp(d, "Interest", "3.3", d.ans("3.3")?.status === "FOUND" ? (/interest[- ]free|no interest/i.test(d.ans("3.3")!.answer_value) ? "Interest-free" : rate(d.ans("3.3")!.answer_value) || brief(d.ans("3.3")!.answer_value, 40)) : undefined),
         kp(d, "How it is taken back", "3.4", d.ans("3.4")?.status === "FOUND" ? brief(d.ans("3.4")!.answer_value, 60) : undefined),
         kp(d, "Security needed", "3.5", d.ans("3.5")?.status === "FOUND" ? brief(d.ans("3.5")!.answer_value, 50) : undefined),
-        kp(d, "Machinery or materials advance", "3.6", d.ans("3.6")?.status === "FOUND" ? brief(d.ans("3.6")!.answer_value, 60) : undefined),
+        { term: "secured_advance", word: "materials advance", ...kp(d, "Machinery or materials advance", "3.6", d.ans("3.6")?.status === "FOUND" ? brief(d.ans("3.6")!.answer_value, 60) : undefined) },
         kp(d, "Conditions", "3.7", d.ans("3.7")?.status === "FOUND" ? brief(d.ans("3.7")!.answer_value, 60) : undefined),
       ]} />
     </Block>
@@ -221,7 +222,7 @@ export function AdvancePanel({ d }: { d: D }) {
         <Figs>
           <Figure label="Advance" value={totalRs ? money(totalRs) : total ? pct(total) : "—"} note={total ? `${pct(total)} of value` : undefined} />
           <Figure label="Interest cost" value={c ? money(c.advance_interest) : "—"} note="from the cash model" />
-          <Figure label="Guarantee needed" value={bgPct && totalRs ? money(bgPct * totalRs) : bgPct ? pct(bgPct) : "—"} note={bgPct ? `${pct(bgPct)} of the advance` : undefined} />
+          <Figure label={<TermIn text="Guarantee needed" k="bg" word="Guarantee" />} value={bgPct && totalRs ? money(bgPct * totalRs) : bgPct ? pct(bgPct) : "—"} note={bgPct ? `${pct(bgPct)} of the advance` : undefined} />
           <Figure label="Repaid by" value={c?.advance_repaid_month != null ? `month ${c.advance_repaid_month}` : "—"} note={deadline ? `deadline month ${+deadline.toFixed(1)}` : undefined} />
         </Figs>
       </Block>
@@ -276,8 +277,8 @@ export function DelayPanel({ d }: { d: D }) {
   const keys = (
     <Block title="Key points">
       <KeyPoints items={[
-        kp(d, "Milestones", "4.4", d.ans("4.4")?.status === "FOUND" ? brief(d.ans("4.4")!.answer_value, 60) : undefined),
-        kp(d, "Extension of time", "4.5", d.ans("4.5")?.status === "FOUND" ? (daysIn(d.ans("4.5")!.answer_value) ? `Notice within ${daysIn(d.ans("4.5")!.answer_value)!.label}` : "Available") : undefined),
+        { term: "milestone", ...kp(d, "Milestones", "4.4", d.ans("4.4")?.status === "FOUND" ? brief(d.ans("4.4")!.answer_value, 60) : undefined) },
+        { term: "eot", ...kp(d, "Extension of time", "4.5", d.ans("4.5")?.status === "FOUND" ? (daysIn(d.ans("4.5")!.answer_value) ? `Notice within ${daysIn(d.ans("4.5")!.answer_value)!.label}` : "Available") : undefined) },
         kp(d, "Proof of loss", "4.6", d.ans("4.6")?.status === "FOUND" ? brief(d.ans("4.6")!.answer_value, 50) : undefined),
         kp(d, "Taken from", "4.7", d.ans("4.7")?.status === "FOUND" ? brief(d.ans("4.7")!.answer_value, 50) : undefined),
         kp(d, "Other penalties and bonus", "4.8", d.ans("4.8")?.status === "FOUND" ? `${segments(d.ans("4.8")!.answer_value).length} items` : undefined),
@@ -321,7 +322,7 @@ export function DelayPanel({ d }: { d: D }) {
         ) : <NoData>{a42?.status === "FOUND" ? "Rate or contract value not in the cash figures" : notStated(a42)}</NoData>}
       </Block>
       {ms2.length > 0 && (
-        <Block title="Milestones">
+        <Block title="Milestones" term="milestone">
           <ul className="divide-y divide-line border-y border-line text-[14px]">
             {ms2.map((m) => <li key={m.name + m.day} className="grid grid-cols-3 py-2 tnum"><span>{m.name}</span><span>day {m.day}</span><span className="text-right text-muted">{m.share ?? ""}</span></li>)}
           </ul>
@@ -379,8 +380,8 @@ export function PricePanel({ d }: { d: D }) {
     <Block title="Key points">
       <KeyPoints items={[
         kp(d, "Fixed or adjusted", "5.1", applies == null ? undefined : applies ? "Adjusted with indices" : "Fixed price", applies === false ? "bad" : undefined),
-        kp(d, "Indices", "5.4", d.ans("5.4")?.status === "FOUND" ? `${segments(d.ans("5.4")!.answer_value).length} indices` : undefined),
-        kp(d, "Base date", "5.5", d.ans("5.5")?.status === "FOUND" ? brief(d.ans("5.5")!.answer_value, 50) : undefined),
+        { term: "index", ...kp(d, "Indices", "5.4", d.ans("5.4")?.status === "FOUND" ? `${segments(d.ans("5.4")!.answer_value).length} indices` : undefined) },
+        { term: "base_date", ...kp(d, "Base date", "5.5", d.ans("5.5")?.status === "FOUND" ? brief(d.ans("5.5")!.answer_value, 50) : undefined) },
         kp(d, "Threshold or limit", "5.6", d.ans("5.6") && d.ans("5.6")!.status !== "POINTS_ELSEWHERE" ? brief(d.ans("5.6")!.answer_value, 60) || notStated(d.ans("5.6")) : undefined),
         kp(d, "After the due date", "5.7", d.ans("5.7")?.status === "FOUND" ? brief(d.ans("5.7")!.answer_value, 60) : undefined),
         kp(d, "Employer-supplied materials", "5.8", d.ans("5.8")?.status === "FOUND" ? brief(d.ans("5.8")!.answer_value, 50) : undefined),
@@ -401,7 +402,7 @@ export function PricePanel({ d }: { d: D }) {
         </Block>
       )}
       {tables.length > 0 && (
-        <Block title="Index weights" aside={<InfoTip>Share of each cost in the price adjustment formula, by type of work.</InfoTip>}>
+        <Block title="Index weights" term="index" word="Index" aside={<InfoTip>Share of each cost in the price adjustment formula, by type of work.</InfoTip>}>
           <ul className="flex flex-col gap-3">
             {tables.map((t) => {
               const tot = t.w.reduce((x, [, v]) => x + v, 0) || 1;
@@ -488,13 +489,13 @@ export function GuaranteePanel({ d }: { d: D }) {
   const rows: RulerRow[] = [];
   if (T) {
     const pv = validity(seg(a65, /performance|\bPG\b/i) ?? "");
-    if (pv) rows.push({ label: "Performance", start: 0, end: (pv.anchor === "dlp" ? T + (dlp ?? 0) : T) + pv.offsetMonths, value: pv.label, env: d.env("6.5"), note: pv.anchor === "dlp" && dlp == null ? "defects period unknown" : undefined });
+    if (pv) rows.push({ label: "Performance", term: "perf", start: 0, end: (pv.anchor === "dlp" ? T + (dlp ?? 0) : T) + pv.offsetMonths, value: pv.label, env: d.env("6.5"), note: pv.anchor === "dlp" && dlp == null ? "defects period unknown" : undefined });
     const av = validity(seg(a65, /additional/i) ?? "");
-    if (av) rows.push({ label: "Extra, low bid", start: 0, end: (av.anchor === "dlp" ? T + (dlp ?? 0) : T) + av.offsetMonths, value: av.label, env: d.env("6.5"), tone: "muted" });
+    if (av) rows.push({ label: "Extra, low bid", term: "aps", start: 0, end: (av.anchor === "dlp" ? T + (dlp ?? 0) : T) + av.offsetMonths, value: av.label, env: d.env("6.5"), tone: "muted" });
     if (advTot && c?.advance_repaid_month != null) rows.push({ label: "Advance guarantee", start: 0, end: c.advance_repaid_month, value: `to month ${c.advance_repaid_month}`, tone: "muted" });
     if (rc && d.ok("retention_release") && d.inp!.retention_release.length) {
       const m = d.inp!.retention_release[d.inp!.retention_release.length - 1].months_after_completion;
-      rows.push({ label: "Retention", start: 0, end: T + m, value: `to month ${+(T + m).toFixed(1)}`, tone: "muted", env: d.env("2.5") });
+      rows.push({ label: "Retention", term: "retention", start: 0, end: T + m, value: `to month ${+(T + m).toFixed(1)}`, tone: "muted", env: d.env("2.5") });
     }
   }
   const max = Math.max(T ?? 1, ...rows.map((r) => r.end), T && dlp ? T + dlp : 0) * 1.05;
@@ -521,7 +522,7 @@ export function GuaranteePanel({ d }: { d: D }) {
       </Block>
       <Block title="Figures">
         <Figs>
-          <Figure label="Bank commission" value={c ? money(c.guarantee_cost) : "—"} note={d.inp ? `at ${pct(d.inp.bg_commission_pa)} a year${usable(d.params, "bg_commission_pa") ? "" : " (assumed)"}` : undefined} />
+          <Figure label={<Term k="bg">Bank commission</Term>} value={c ? money(c.guarantee_cost) : "—"} note={d.inp ? `at ${pct(d.inp.bg_commission_pa)} a year${usable(d.params, "bg_commission_pa") ? "" : " (assumed)"}` : undefined} />
           <Figure label="Performance" value={ps ? pct(ps) : "—"} note={ps && V ? money(ps * V) : undefined} />
         </Figs>
       </Block>
@@ -529,7 +530,7 @@ export function GuaranteePanel({ d }: { d: D }) {
         <KeyPoints items={[
           kp(d, "Accepted forms", "6.3", d.ans("6.3")?.status === "FOUND" ? brief(d.ans("6.3")!.answer_value, 60) : undefined),
           kp(d, "Accepted banks", "6.4", d.ans("6.4")?.status === "FOUND" ? brief(d.ans("6.4")!.answer_value, 50) : undefined),
-          kp(d, "When it can be cashed", "6.6", d.ans("6.6")?.status === "FOUND" ? brief(d.ans("6.6")!.answer_value, 60) : undefined),
+          { term: "encashment", word: "cashed", ...kp(d, "When it can be cashed", "6.6", d.ans("6.6")?.status === "FOUND" ? brief(d.ans("6.6")!.answer_value, 60) : undefined) },
           kp(d, "When it is returned", "6.7", d.ans("6.7")?.status === "FOUND" ? brief(d.ans("6.7")!.answer_value, 60) : undefined),
           kp(d, "Low-bid rule", "6.8", a68?.status === "FOUND" ? (/^\s*no\b/i.test(a68.answer_value) ? "None" : brief(a68.answer_value, 60)) : undefined, a68?.status === "FOUND" && !/^\s*no\b/i.test(a68.answer_value) ? "bad" : undefined),
         ]} />

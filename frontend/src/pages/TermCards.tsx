@@ -12,6 +12,8 @@ import { cardTone, type Scorecard } from "../lib/scorecard";
 import { TERM_SLUG } from "../lib/termDetail";
 import { brief, days, elsewhereTarget, firstPct, rate, usable, type Tone } from "../lib/terms";
 import { StatusDot, cx } from "../components/ui";
+import { Term } from "../components/Term";
+import { TERM_GLOSS } from "../lib/glossary";
 
 // ---------------------------------------------------------------------------
 // Pieces
@@ -56,7 +58,7 @@ function Card({ clause, label, tone, big, unit, visual, chips, env }: {
       onKeyDown={(e) => { if (e.key === "Enter") nav(href); }}
       className="group flex min-w-0 cursor-pointer flex-col rounded-lg border border-line bg-surface p-4 transition hover:border-accent focus:outline-none focus-visible:border-accent">
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[13px] font-medium text-muted group-hover:text-accent-ink">{label} <span aria-hidden className="opacity-0 transition group-hover:opacity-100">→</span></span>
+        <span className="text-[13px] font-medium text-muted group-hover:text-accent-ink">{TERM_GLOSS[clause] ? <Term k={TERM_GLOSS[clause]!}>{label}</Term> : label} <span aria-hidden className="opacity-0 transition group-hover:opacity-100">→</span></span>
         <StatusDot tone={tone} />
       </div>
       <div className="mt-1.5 flex items-baseline gap-1.5">

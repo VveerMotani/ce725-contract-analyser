@@ -5,6 +5,8 @@ import { useRun } from "../context";
 import { effective, type AnswerEnvelope } from "../types";
 import { STATUS_WORD, topic } from "../lib/plain";
 import { cx } from "../components/ui";
+import { TermIn } from "../components/Term";
+import type { GlossKey } from "../lib/glossary";
 
 export interface RulerRow {
   label: string;
@@ -14,6 +16,9 @@ export interface RulerRow {
   env?: AnswerEnvelope | null;
   tone?: "accent" | "good" | "bad" | "muted";
   note?: string;
+  /** glossary word in the label */
+  term?: GlossKey;
+  word?: string;
 }
 
 const BAR: Record<NonNullable<RulerRow["tone"]>, string> = {
@@ -31,7 +36,7 @@ export function Ruler({ rows, max, marks = [], unit }: { rows: RulerRow[]; max: 
           const a = r.env ? effective(r.env) : null;
           return (
             <li key={i} className="grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 border-b border-line py-2.5 sm:grid-cols-[170px_1fr_170px]">
-              <span className="text-[14px] text-ink">{r.label}{r.note && <span className="block text-[12px] text-muted">{r.note}</span>}</span>
+              <span className="text-[14px] text-ink">{r.term ? <TermIn text={r.label} k={r.term} word={r.word} /> : r.label}{r.note && <span className="block text-[12px] text-muted">{r.note}</span>}</span>
               <span className="relative order-3 col-span-2 h-3 sm:order-none sm:col-span-1">
                 <span className="absolute inset-y-[5px] left-0 right-0 rounded bg-surface-2" />
                 {marks.map((m) => <span key={m.label} className="absolute inset-y-0 w-px bg-line-strong" style={{ left: x(m.at) }} />)}
@@ -55,7 +60,7 @@ export function Ruler({ rows, max, marks = [], unit }: { rows: RulerRow[]; max: 
   );
 }
 
-export interface KeyPoint { label: string; value: ReactNode; env?: AnswerEnvelope | null; tone?: "bad" | "good" }
+export interface KeyPoint { label: string; value: ReactNode; env?: AnswerEnvelope | null; tone?: "bad" | "good"; term?: GlossKey; word?: string }
 
 /** Small tiles: short label, short value, the full answer one click away. */
 export function KeyPoints({ items }: { items: KeyPoint[] }) {
@@ -72,7 +77,7 @@ function KeyTile({ k }: { k: KeyPoint }) {
   const a = k.env ? effective(k.env) : null;
   return (
     <li className="border-b border-line py-2.5">
-      <div className="text-[12.5px] text-muted">{k.label}</div>
+      <div className="text-[12.5px] text-muted">{k.term ? <TermIn text={k.label} k={k.term} word={k.word} /> : k.label}</div>
       <div className="flex items-start justify-between gap-3">
         <span className={cx("text-[15px]", k.tone === "bad" ? "text-bad" : k.tone === "good" ? "text-good" : "text-ink")}>{k.value}</span>
         <span className="flex shrink-0 items-center gap-2 pt-0.5 text-[12.5px]">
@@ -120,10 +125,10 @@ export function QuestionRows({ envs }: { envs: AnswerEnvelope[] }) {
   );
 }
 
-export function Block({ title, children, aside }: { title: string; children: ReactNode; aside?: ReactNode }) {
+export function Block({ title, children, aside, term, word }: { title: string; children: ReactNode; aside?: ReactNode; term?: GlossKey; word?: string }) {
   return (
     <section className="mt-9">
-      <h2 className="mb-3 flex items-center gap-2 font-serif text-[19px] font-semibold text-ink">{title}{aside}</h2>
+      <h2 className="mb-3 flex items-center gap-2 font-serif text-[19px] font-semibold text-ink">{term ? <span><TermIn text={title} k={term} word={word} /></span> : title}{aside}</h2>
       {children}
     </section>
   );

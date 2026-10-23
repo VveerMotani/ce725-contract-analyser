@@ -419,3 +419,73 @@ export interface ReviewPatch {
   user_answer?: Partial<Answer>;
   note?: string;
 }
+
+// ---------------------------------------------------------------------------
+// Project area (GET /golden/{cid}, /project/judge-notes, /project/overrides, /runs/{id}/reference-changes)
+// ---------------------------------------------------------------------------
+
+/** One row of golden_tests_v1.json: the team's hand-built answer. */
+export interface GoldenTest {
+  test_id: string;
+  contract_id: string;
+  contract: string;
+  clause_id: ClauseId;
+  question_id: string;
+  question: string;
+  expected_status: Status;
+  expected_answer: string;
+  expected_unit: string;
+  section_ref: string;
+  pdf_page: number;
+  verbatim_quote: string;
+  core: boolean;
+  accept_also_status: Status[];
+  scanned_or_visual_only: boolean;
+  notes: string;
+}
+
+/** The judge's verdict on one test of a validation run. */
+export interface JudgeNote {
+  test_id: string;
+  contract_id: string;
+  verdict: Label | string;
+  missing: string[];
+  reason: string;
+  cause_code: string;
+  scorer_issue: string;
+  key_issue: string;
+  run_id: string;
+  folder: string;
+}
+
+/** One entry of manual_overrides.json: a label set by a person. */
+export interface ManualOverride {
+  test_id: string;
+  label: Label;
+  reason: string;
+  run_id?: string;
+  cause_code?: string;
+  by?: string;
+}
+
+export interface OverridesState {
+  overrides: ManualOverride[];
+  progress: { total: number; checked: number; compared: number; agree: number; agreement: number | null };
+  read_only?: boolean;
+}
+
+export interface OverrideRequest {
+  test_id: string;
+  label: Label;
+  reason: string;
+  by: string;
+  run_id?: string;
+}
+
+/** A term the reference view changes (backend/analyser/cashflow/reference.py). */
+export interface ReferenceChange {
+  field: string;
+  as_written: unknown;
+  reference: unknown;
+  reason: string;
+}

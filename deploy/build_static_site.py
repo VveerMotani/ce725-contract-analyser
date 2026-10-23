@@ -10,7 +10,9 @@ holds only those runs), so the files equal what the server returns:
 
     /                          the website, built with VITE_STATIC=1
     /static-api/<path>.json    every GET the site can ask for (benchmarks, runs, run, answers,
-                               params, flags, checks, score, evaluation, packages)
+                               params, flags, checks, score, reference-changes, evaluation,
+                               packages; Project area: golden/<cid>, project/judge-notes,
+                               project/overrides)
     /static-api/runs/<id>/export.csv, report.pdf
     /static-api/runs/<id>/cashflow/<key>.json   POST /cashflow precomputed on the grid
     /static-pages/<pkg>/<doc>/<page>.png        every page of the four PDFs
@@ -171,6 +173,7 @@ def save_api(client, w: Writer) -> dict:
         flags = json.loads(save_get(client, w, f"/runs/{rid}/flags"))
         save_get(client, w, f"/runs/{rid}/checks")
         save_get(client, w, f"/runs/{rid}/score", required=False)
+        save_get(client, w, f"/runs/{rid}/reference-changes", required=False)
         save_get(client, w, f"/runs/{rid}/export.csv", f"static-api/runs/{rid}/export.csv")
         save_get(client, w, f"/runs/{rid}/report.pdf", f"static-api/runs/{rid}/report.pdf")
         if params is not None:
@@ -183,6 +186,11 @@ def save_api(client, w: Writer) -> dict:
         info["packages"].add(meta["package_id"])
     for pkg in sorted(info["packages"]):
         info.setdefault("package_data", {})[pkg] = json.loads(save_get(client, w, f"/packages/{pkg}"))
+    # Project area: the answer key of each contract, the judge's notes, people's checks (read-only here).
+    contracts = sorted({m["contract_id"] for m in runs})
+    info["golden"] = {cid: json.loads(save_get(client, w, f"/golden/{cid}")) for cid in contracts}
+    save_get(client, w, "/project/judge-notes")
+    save_get(client, w, "/project/overrides")
     return info
 
 
@@ -211,6 +219,9 @@ def highlights_by_page(info: dict) -> dict[tuple[str, str, int], set[str]]:
         for f in run["flags"]:   # Flags.tsx: doc of the flag's first question
             env = by_qid.get((f.get("question_ids") or [""])[0])
             add(pkg, (env or {}).get("doc_id") or "d1", f.get("pdf_page", 0), f.get("quote", ""))
+    for cid, tests in info.get("golden", {}).items():   # Project area: the answer key's quotes
+        for g in tests:                                 # (benchmark package id = contract id, one PDF)
+            add(cid, "d1", g.get("pdf_page", 0), g.get("verbatim_quote", ""))
     for pkg, data in info.get("package_data", {}).items():   # Technical / Key facts: missing documents
         for m in data.get("missing_references", []):
             add(pkg, m.get("doc_id"), m.get("page", 0), m.get("quote", ""))

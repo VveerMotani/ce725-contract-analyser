@@ -1,7 +1,8 @@
-// Page frame: a slim top bar (name, contract switcher, three links), one reading column, a quiet footer.
+// Page frame: a slim top bar (name, Report · All answers, contract switcher, and a separate Project link),
+// one reading column, a quiet footer.
 import { useEffect } from "react";
 import { Link, NavLink, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
-import { Moon, Sun } from "lucide-react";
+import { FlaskConical, Moon, Sun } from "lucide-react";
 import { exportCsvUrl, mockReason, reportPdfUrl } from "../api";
 import { RunProvider, lsLastRun, rememberRun, useApp, useOptionalRun } from "../context";
 import type { RunMeta } from "../types";
@@ -49,6 +50,18 @@ function TopLink({ to, children, disabled, end }: { to: string; children: string
   );
 }
 
+/** The team's Project area (testing and accuracy), set apart from the contractor pages. */
+function ProjectLink() {
+  return (
+    <NavLink to="/project" title="How the team tested the tool" className={({ isActive }) => cx(
+      "inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1 text-[13.5px] transition",
+      isActive ? "border-accent bg-accent-soft font-medium text-ink" : "border-line-strong text-ink-2 hover:border-accent hover:text-ink",
+    )}>
+      <FlaskConical className="h-3.5 w-3.5" aria-hidden />Project
+    </NavLink>
+  );
+}
+
 function TopBar() {
   const run = useOptionalRun();
   const { runs, dark, toggleDark } = useApp();
@@ -65,10 +78,11 @@ function TopBar() {
         <nav className="order-3 flex w-full items-center gap-5 sm:order-none sm:w-auto" aria-label="Main">
           <TopLink to={rid ? `/runs/${rid}` : "/"} disabled={!rid} end>Report</TopLink>
           <TopLink to={rid ? `/runs/${rid}/answers` : "/"} disabled={!rid}>All answers</TopLink>
-          <TopLink to="/accuracy">Accuracy</TopLink>
         </nav>
         <div className="order-2 ml-auto flex min-w-0 flex-1 items-center justify-end gap-2 sm:order-none sm:flex-none">
           <div className="hidden min-w-0 sm:block"><Switcher current={run?.runId ?? null} /></div>
+          <span aria-hidden className="mx-1 hidden h-5 w-px bg-line-strong sm:block" />
+          <ProjectLink />
           <button onClick={toggleDark} className="rounded p-1.5 text-muted hover:text-ink" aria-label={dark ? "Use light theme" : "Use dark theme"} title={dark ? "Light theme" : "Dark theme"}>
             {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>

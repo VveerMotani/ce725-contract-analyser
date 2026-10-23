@@ -109,6 +109,13 @@ REST API, all JSON unless noted, prefix `/api`:
 | GET | `/runs/{run_id}/flags` | | `[RiskFlag]` |
 | GET | `/runs/{run_id}/score` | | `ScoreSummary` or 404 if not a benchmark |
 | GET | `/evaluation` | | latest `ScoreSummary` across all four benchmarks |
+| GET | `/runs/{run_id}/checks` | | every risk rule: `{flag_id, result: flag/pass/not_checked, label, severity, reason, question_ids}` |
+| GET | `/runs/{run_id}/reference-changes` | | terms the reference view changes: `[{field, as_written, reference, reason}]` |
+| GET | `/golden/{contract_id}` | | that contract's answer-key tests (golden_tests_v1.json rows: expected answer, `pdf_page`, `verbatim_quote`, `core`, ...) |
+| GET | `/project/judge-notes` | | every judge verdict of `validation/*/`: `[{test_id, contract_id, verdict, missing, reason, cause_code, scorer_issue, key_issue, run_id, folder}]` |
+| GET | `/project/overrides` | | `{overrides: [manual_overrides.json entries], progress: {total, checked, compared, agree, agreement}, read_only}` |
+| POST | `/project/overrides` | `{test_id, label, reason, by, run_id?, cause_code?}` | records a person's label (replaces their earlier one for the same test and run), re-scores the affected runs (code, judge verdicts, overrides last; score.json in live and frozen copies); returns `{saved, rescored, overrides, progress}`. 403 when `ANALYSER_READ_ONLY=1` |
+| DELETE | `/project/overrides/{test_id}` | `?run_id=` | removes that check and re-scores; 404 if none, 403 when read-only |
 | GET | `/runs/{run_id}/export.csv` | | CSV in answer-key columns |
 | GET | `/runs/{run_id}/report.pdf` | | PDF report |
 

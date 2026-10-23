@@ -8,6 +8,8 @@ import { CLAUSE_IDS, effective, type Answer, type AnswerEnvelope, type ReviewPat
 import { DECISION_WORD, STATUS_WORD, TERM_NAME, reasonsPlain } from "../lib/plain";
 import { elsewhereTarget } from "../lib/terms";
 import { RunReady } from "../components/RunReady";
+import { Term } from "../components/Term";
+import { TERM_GLOSS } from "../lib/glossary";
 import { Button, Choice, ErrorNote, Field, InfoTip, PageTitle, ProofMark, SeeLink, cx, inputCls } from "../components/ui";
 
 const ORDER = [...CLAUSE_IDS.slice(1), CLAUSE_IDS[0]];
@@ -143,7 +145,7 @@ function Inner() {
         if (!items.length) return null;
         return (
           <section key={c} className="mt-9">
-            <h2 className="font-serif text-[20px] font-semibold text-ink">{TERM_NAME[c]}</h2>
+            <h2 className="font-serif text-[20px] font-semibold text-ink">{TERM_GLOSS[c] ? <Term k={TERM_GLOSS[c]!}>{TERM_NAME[c]}</Term> : TERM_NAME[c]}</h2>
             <ul className="mt-2 divide-y divide-line border-y border-line">
               {items.map((e) => <Row key={e.answer.question_id} env={e} frozen={frozen} showReview={filter === "check"} onDecided={onDecided} />)}
             </ul>

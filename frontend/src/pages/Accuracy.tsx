@@ -1,4 +1,4 @@
-// Accuracy (for the team and the professor): per contract, how many of the 52 answers match the answer key,
+// Accuracy (Project area, for the team and the professor): per contract, how many of the 52 answers match the answer key,
 // then a plain list of the mistakes. Precision, recall and the rest are secondary, behind a disclosure.
 import { useMemo } from "react";
 import { Link, useSearchParams } from "react-router-dom";
@@ -7,7 +7,8 @@ import { useApp, useAsync } from "../context";
 import { CLAUSE_IDS, labelCounts, type Label, type Status, type TestScore } from "../types";
 import { LABEL_COLOR, LABEL_ORDER, LABEL_WORD, STATUS_WORD, TERM_NAME, isRight, runSource, topic } from "../lib/plain";
 import { ChevronRight } from "lucide-react";
-import { Disclosure, ErrorNote, InfoTip, PageTitle, Spinner } from "../components/ui";
+import { Disclosure, ErrorNote, InfoTip, Spinner } from "../components/ui";
+import { Head, load } from "./project/shared";
 
 function Bar({ counts, total }: { counts: Record<Label, number>; total: number }) {
   return (
@@ -59,7 +60,7 @@ function Mistakes({ tests, runId }: { tests: TestScore[]; runId: string | undefi
 }
 
 export default function Accuracy() {
-  const ev = useAsync(() => api.evaluation(), []);
+  const ev = useAsync(() => load.evaluation(), []);
   const { runs, benchmarks } = useApp();
   const [sp, setSp] = useSearchParams();
   const s = ev.data;
@@ -69,7 +70,7 @@ export default function Accuracy() {
   if (ev.error || !s) {
     return (
       <div>
-        <PageTitle title="Accuracy" />
+        <Head title="Accuracy" />
         <ErrorNote error={ev.error} title="No scores yet: read at least one of the four test contracts first" />
       </div>
     );
@@ -89,7 +90,7 @@ export default function Accuracy() {
 
   return (
     <div>
-      <PageTitle title="Accuracy">
+      <Head title="Accuracy">
         <div className="mt-2 flex flex-wrap items-center gap-2 text-[13px] text-muted">
           Against the team’s hand-checked answer key
           <InfoTip label="About the answer key">
@@ -97,7 +98,7 @@ export default function Accuracy() {
             through the tool, so they test the pipeline, not Claude’s reading.
           </InfoTip>
         </div>
-      </PageTitle>
+      </Head>
 
       <div className="flex flex-wrap items-baseline gap-x-3">
         <span className="font-serif text-[34px] font-semibold leading-none text-ink tnum">{right}/{total}</span>

@@ -4,7 +4,8 @@
 // Static copy (VITE_STATIC=1): GETs read saved files, see src/staticSite.ts.
 import type {
   AnswerEnvelope, Benchmark, CashParams, CashflowResponse, CashInputs, Package, ReviewPatch, RiskFlag, RunMeta,
-  ScoreSummary, UserInputs, EvaluationSummary, RuleCheck,
+  ScoreSummary, UserInputs, EvaluationSummary, RuleCheck, GoldenTest, JudgeNote, OverridesState, OverrideRequest,
+  ReferenceChange,
 } from "./types";
 import { SAVED_ONLY_NOTE, STATIC_SITE, cashflowKey, loadPageIndex, staticGetUrl, staticPageUrl } from "./staticSite";
 
@@ -117,6 +118,14 @@ export const api = {
   checks: (id: string) => request<RuleCheck[]>("GET", `/runs/${enc(id)}/checks`),
   score: (id: string) => request<ScoreSummary>("GET", `/runs/${enc(id)}/score`),
   evaluation: () => request<EvaluationSummary>("GET", "/evaluation"),
+  // Project area
+  golden: (contractId: string) => request<GoldenTest[]>("GET", `/golden/${enc(contractId)}`),
+  judgeNotes: () => request<JudgeNote[]>("GET", "/project/judge-notes"),
+  overrides: () => request<OverridesState>("GET", "/project/overrides"),
+  addOverride: (o: OverrideRequest) => request<OverridesState & { rescored: string[] }>("POST", "/project/overrides", o),
+  removeOverride: (testId: string, runId?: string) =>
+    request<OverridesState & { rescored: string[] }>("DELETE", `/project/overrides/${enc(testId)}${runId ? `?run_id=${enc(runId)}` : ""}`),
+  referenceChanges: (runId: string) => request<ReferenceChange[]>("GET", `/runs/${enc(runId)}/reference-changes`),
 };
 
 const apiBase = STATIC_SITE ? "/static-api" : "/api";

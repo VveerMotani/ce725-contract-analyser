@@ -8,6 +8,13 @@ import Accuracy from "./pages/Accuracy";
 import Technical from "./pages/Technical";
 import About from "./pages/About";
 import TermDetail from "./pages/TermDetail";
+import ProjectShell from "./pages/project/ProjectShell";
+import ProjectOverview from "./pages/project/Overview";
+import ProjectErrors from "./pages/project/Errors";
+import ProjectCompare from "./pages/project/Compare";
+import ProjectFair from "./pages/project/Fair";
+import ProjectConsistency from "./pages/project/Consistency";
+import ProjectChecks from "./pages/project/ManualCheck";
 import { SAVED_ONLY_NOTE, STATIC_SITE } from "./staticSite";
 
 /** The static copy cannot read new contracts. */
@@ -27,9 +34,20 @@ export default function App() {
       <Route element={<Shell />}>
         <Route index element={<Home />} />
         <Route path="new" element={STATIC_SITE ? <SavedOnly /> : <NewAnalysis />} />
-        <Route path="accuracy" element={<Accuracy />} />
         <Route path="about" element={<About />} />
-        <Route path="evaluation" element={<Navigate to="/accuracy" replace />} />
+        {/* Project area: how the team tested the tool (kept apart from the contractor pages) */}
+        <Route path="project" element={<ProjectShell />}>
+          <Route index element={<ProjectOverview />} />
+          <Route path="accuracy" element={<Accuracy />} />
+          <Route path="errors" element={<ProjectErrors />} />
+          <Route path="compare" element={<ProjectCompare />} />
+          <Route path="fair" element={<ProjectFair />} />
+          <Route path="consistency" element={<ProjectConsistency />} />
+          <Route path="checks" element={<ProjectChecks />} />
+          <Route path="*" element={<Navigate to="/project" replace />} />
+        </Route>
+        <Route path="accuracy" element={<Navigate to="/project/accuracy" replace />} />
+        <Route path="evaluation" element={<Navigate to="/project/accuracy" replace />} />
       </Route>
       <Route path="runs/:runId" element={<RunShell />}>
         <Route index element={<Report />} />

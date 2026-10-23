@@ -21,6 +21,8 @@ from starlette.concurrency import run_in_threadpool
 
 from analyser import config
 from analyser.api import pipeline, store
+from analyser.cashflow.reference import reference_changes as _reference_changes
+from analyser.evaluate import project as evproject   # imported now: API tests replace analyser.evaluate later
 from analyser.models import (Answer, CashParams, CashResult, DocTag, Package, ReviewState, TestScore,
                              RiskFlag, RunMeta, ScoreSummary)
 
@@ -48,6 +50,15 @@ class ReviewRequest(BaseModel):
 
 class CashflowRequest(BaseModel):
     overrides: Optional[dict[str, Any]] = None
+
+
+class OverrideRequest(BaseModel):
+    test_id: str
+    label: Literal["Correct", "Partial", "Incorrect", "Missed", "Correct absent", "Wrongly present"]
+    reason: str
+    by: str
+    run_id: Optional[str] = None
+    cause_code: Optional[str] = None
 
 
 # ---------------------------------------------------------------------------
@@ -417,6 +428,92 @@ def evaluation() -> dict:
     replays = [cid for cid, m in sorted(latest.items()) if pipeline.is_replay(m)]
     return {**summary.model_dump(mode="json"), "runs_used": run_ids,
             "missing_benchmarks": missing, "replay": bool(replays), "replay_contracts": replays}
+
+
+# ---------------------------------------------------------------------------
+# Project area: answer key, judge notes, people's checks (website /project)
+# ---------------------------------------------------------------------------
+
+
+@api.get("/golden/{contract_id}")
+def golden(contract_id: str) -> list[dict]:
+    """The hand-built answer key of one benchmark contract (expected answer, page and quote)."""
+    if contract_id not in config.BENCHMARKS:
+        raise HTTPException(404, f"No answer key for {contract_id}")
+    return evproject.golden_for(contract_id)
+
+
+@api.get("/project/judge-notes")
+def judge_notes() -> list[dict]:
+    """Every judge verdict of the validation runs, with scorer and answer-key issues."""
+    return evproject.judge_notes()
+
+
+def _overrides_payload() -> dict:
+    from analyser.evaluate.scoring import load_overrides
+    return {"overrides": load_overrides(), "progress": evproject.checks_progress(), "read_only": config.READ_ONLY}
+
+
+@api.get("/project/overrides")
+def get_overrides() -> dict:
+    """People's spot checks (manual_overrides.json) and how often they agree with the judge."""
+    return _overrides_payload()
+
+
+def _no_writes() -> None:
+    if config.READ_ONLY:
+        raise HTTPException(403, "This online copy shows saved results only. Record checks on the "
+                                 "team's own copy (see the README).")
+
+
+def _rescore(test_id: str, run_id: str | None) -> list[str]:
+    done = []
+    for rid in evproject.affected_runs(test_id, run_id):
+        if pipeline.is_active(rid):
+            continue
+        if evproject.rescore_run(rid) is not None:
+            done.append(rid)
+    return done
+
+
+@api.post("/project/overrides")
+def post_override(body: OverrideRequest) -> dict:
+    """Record a person's label for one test (replaces their earlier one for the same test and
+    run), then re-score the affected runs: code, judge verdicts, overrides last."""
+    _no_writes()
+    if not any(g["test_id"] == body.test_id for g in evproject.golden_for(body.test_id.split("-")[0])):
+        raise HTTPException(404, f"No test called {body.test_id}")
+    if not body.by.strip():
+        raise HTTPException(422, "Give the name of the person who checked.")
+    if not body.reason.strip():
+        raise HTTPException(422, "Give a reason.")
+    if body.run_id:
+        _meta(body.run_id)
+    entry = evproject.add_override({**body.model_dump(), "by": body.by.strip(), "reason": body.reason.strip()})
+    return {"saved": entry, "rescored": _rescore(body.test_id, body.run_id), **_overrides_payload()}
+
+
+@api.delete("/project/overrides/{test_id}")
+def delete_override(test_id: str, run_id: Optional[str] = None) -> dict:
+    """Remove a person's label (only the one for run_id when given) and re-score."""
+    _no_writes()
+    gone = evproject.remove_override(test_id, run_id)
+    if not gone:
+        raise HTTPException(404, f"No check recorded for {test_id}")
+    runs = set()
+    for o in gone:
+        runs.update(_rescore(test_id, o.get("run_id") or None))
+    return {"removed": gone, "rescored": sorted(runs), **_overrides_payload()}
+
+
+@api.get("/runs/{run_id}/reference-changes")
+def reference_changes(run_id: str) -> list[dict]:
+    """Terms the reference view changes for this run: field, as written, reference value, reason."""
+    _meta(run_id)
+    params = _load_model(run_id, "params", CashParams)
+    if params is None:
+        raise HTTPException(404, "No cash-model inputs for this run yet")
+    return _reference_changes(params.inputs)
 
 
 # ---------------------------------------------------------------------------

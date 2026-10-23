@@ -9,6 +9,8 @@ import { effective, type AnswerEnvelope, type CashParams, type CashResult, type 
 import { money, moneyAxis } from "../lib/format";
 import { answerLookup, keyDates, missingDocs, moneyLocked, numberTiles, payConditions, type Chip, type KeyDate } from "../lib/keyfacts";
 import { cx } from "../components/ui";
+import { Term } from "../components/Term";
+import type { GlossKey } from "../lib/glossary";
 
 // ---------------------------------------------------------------------------
 // Small pieces
@@ -188,6 +190,9 @@ const LOCK = [
   { key: "perf", label: "Performance guarantee", colour: "var(--odd)", opacity: 0.35 },
   { key: "advance", label: "Advance guarantee", colour: "var(--fair)", opacity: 0.45 },
 ] as const;
+const LOCK_TERM: Record<string, [GlossKey, string]> = { retention: ["retention", "Retention"], perf: ["perf", "Performance guarantee"] };
+/** glossary words for the number tiles (retention is already explained in the chart legend) */
+const TILE_TERM: Record<string, GlossKey> = { emd: "emd", ld: "ld", fin: "financing_cost", bg: "bg" };
 
 function LockedChart({ locked }: { locked: NonNullable<ReturnType<typeof moneyLocked>> }) {
   const series = LOCK.filter((s) => s.key === "retention" || (s.key === "perf" ? locked.hasPerf : locked.hasAdvance));
@@ -202,7 +207,8 @@ function LockedChart({ locked }: { locked: NonNullable<ReturnType<typeof moneyLo
         <div className="flex flex-wrap gap-x-4 gap-y-1 text-[12.5px] text-ink-2">
           {series.map((s) => (
             <span key={s.key} className="inline-flex items-center gap-1.5">
-              <span className="inline-block h-2.5 w-3.5 rounded-sm" style={{ background: s.colour, opacity: s.opacity + 0.25 }} />{s.label}
+              <span className="inline-block h-2.5 w-3.5 rounded-sm" style={{ background: s.colour, opacity: s.opacity + 0.25 }} />
+              {LOCK_TERM[s.key] ? <span><Term k={LOCK_TERM[s.key][0]}>{LOCK_TERM[s.key][1]}</Term>{s.label.slice(LOCK_TERM[s.key][1].length)}</span> : s.label}
             </span>
           ))}
         </div>
@@ -283,7 +289,7 @@ export function KeyFacts({ answers, params, cash, flags, checks }: {
         {tiles.map((t) => (
           <li key={t.key} className="flex min-w-0 flex-col rounded-lg border border-line bg-surface p-3">
             <div className="flex items-center gap-0.5 text-[12.5px] text-muted">
-              <span className="truncate">{t.label}</span><Tip label={`About ${t.label}`}>{t.info}</Tip>
+              <span className="truncate">{TILE_TERM[t.key] ? <Term k={TILE_TERM[t.key]}>{t.label}</Term> : t.label}</span><Tip label={`About ${t.label}`}>{t.info}</Tip>
             </div>
             <div className={cx("mt-1 font-serif font-semibold leading-tight text-ink tnum", t.value.length > 14 ? "text-[17px]" : "text-[22px]")}>{t.value}</div>
             <div className="mt-auto flex items-end justify-between gap-2 pt-1">

@@ -334,7 +334,10 @@ def score_benchmark(contract_id: str, envelopes: list[AnswerEnvelope], run_id: s
     """ScoreSummary for a benchmark contract, else None (uploaded contracts have no key)."""
     if contract_id not in config.BENCHMARKS:
         return None
-    return module("evaluate").score_run({contract_id: envelopes}, run_id)
+    # A run graded by the judge keeps the judge's labels (then manual overrides); see evaluate/project.py.
+    judged = getattr(module("evaluate"), "score_run_judged", None)
+    summary = judged(run_id, {contract_id: envelopes}) if judged else None
+    return summary or module("evaluate").score_run({contract_id: envelopes}, run_id)
 
 
 def refresh_downstream(run_id: str, contract_id: str, envelopes: list[AnswerEnvelope],

@@ -19,6 +19,8 @@ PROMPTS_DIR = BACKEND_DIR / "prompts"
 LLM_CACHE_DIR = BACKEND_DIR / "cache" / "llm"
 RUNS_DIR = PROJECT_DIR / "runs"
 UPLOADS_DIR = PROJECT_DIR / "runs" / "_uploads"
+# Validation runs: one folder per run of the judge (score_judged.json, *_judge_verdicts.json).
+VALIDATION_DIR = PROJECT_DIR / "validation"
 
 PROMPT_VERSION = os.getenv("PROMPT_VERSION", "v1")
 MODEL = os.getenv("ANALYSER_MODEL", "claude-opus-5-5")

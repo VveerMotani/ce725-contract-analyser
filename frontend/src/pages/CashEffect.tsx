@@ -7,6 +7,8 @@ import type { CashInputs, CashParams, CashResult, CashflowResponse, ParamProvena
 import { money, moneyAxis, num, pct } from "../lib/format";
 import { Button, Choice, Disclosure, ErrorNote, Figure, Spinner, cx, inputCls } from "../components/ui";
 import { CashArrowDiagram } from "../components/CashArrowDiagram";
+import { Term, TermIn } from "../components/Term";
+import type { GlossKey } from "../lib/glossary";
 import { DELAY_GRID, STATIC_SITE } from "../staticSite";
 
 function useDebounced<T>(value: T, ms: number): T {
@@ -65,16 +67,17 @@ export function CashEffect({ params, base, onParams }: { params: CashParams; bas
   return (
     <div>
       <div className={cx("grid grid-cols-1 gap-5 sm:grid-cols-3", loading && "opacity-60")}>
-        <Figure label="Peak funding" value={money(w.peak_funding)}
+        <Figure label={<Term k="peak_funding">Peak funding</Term>} value={money(w.peak_funding)}
           note={w.peak_funding > 0 ? `month ${w.peak_month} · ${vsFair(w.peak_funding, r.peak_funding)}` : "none needed"} />
-        <Figure label="Financing cost" value={money(w.overdraft_interest)}
+        <Figure label={<Term k="financing_cost">Financing cost</Term>} value={money(w.overdraft_interest)}
           note={`at ${pct(inp.overdraft_rate_pa)} a year`} />
-        <Figure label={`Delay penalty · ${delay} days`} value={money(w.ld_amount)}
+        <Figure label={<><Term k="ld">Delay penalty</Term> · {delay} days</>} value={money(w.ld_amount)}
           note={w.ld_days_to_cap != null ? `cap reached at day ${num(w.ld_days_to_cap)}` : delay === 0 ? "use the slider" : "no cap found"} />
       </div>
 
-      <div className="mt-6">
+      <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1">
         <Choice value={view} onChange={setView} label="Cash view" options={[{ value: "line", label: "Line" }, { value: "arrows", label: "Cash flow diagram" }]} />
+        {view === "arrows" && <span className="text-[12.5px] text-muted"><Term k="cash_flow_diagram">How to read</Term></span>}
       </div>
       {view === "arrows" ? (
         <div className="mt-4">
@@ -120,8 +123,8 @@ export function CashEffect({ params, base, onParams }: { params: CashParams; bas
 // ---------------------------------------------------------------------------
 
 type Kind = "money" | "pct" | "days" | "months" | "bool" | "list";
-const FIELDS: { key: keyof CashInputs; label: string; kind: Kind; none?: string }[] = [
-  { key: "contract_value", label: "Contract value", kind: "money" },
+const FIELDS: { key: keyof CashInputs; label: string; kind: Kind; none?: string; term?: GlossKey; word?: string }[] = [
+  { key: "contract_value", label: "Contract value", kind: "money", term: "contract_value" },
   { key: "duration_months", label: "Time to complete", kind: "months" },
   { key: "progress", label: "Planned progress", kind: "list", none: "not set" },
   { key: "cost_share", label: "Your cost as % of contract value", kind: "pct" },
@@ -132,8 +135,8 @@ const FIELDS: { key: keyof CashInputs; label: string; kind: Kind; none?: string 
   { key: "retention_rate", label: "Share of each bill held back", kind: "pct" },
   { key: "retention_cap", label: "Limit on money held back (share of contract)", kind: "pct", none: "no limit" },
   { key: "retention_release", label: "When held-back money is returned", kind: "list" },
-  { key: "dlp_months", label: "Defects period", kind: "months" },
-  { key: "advance_instalments", label: "Advance", kind: "list" },
+  { key: "dlp_months", label: "Defects period", kind: "months", term: "dlp" },
+  { key: "advance_instalments", label: "Advance", kind: "list", term: "mob_advance" },
   { key: "advance_recovery_rate", label: "Share of each bill taken to repay the advance", kind: "pct" },
   { key: "advance_recovery_deadline", label: "Advance fully repaid by (share of the time)", kind: "pct", none: "no deadline" },
   { key: "advance_interest_rate_pa", label: "Interest on the advance (a year)", kind: "pct" },
@@ -143,11 +146,11 @@ const FIELDS: { key: keyof CashInputs; label: string; kind: Kind; none?: string 
   { key: "pv_applies", label: "Prices adjusted for inflation", kind: "bool" },
   { key: "pv_factor", label: "Share of work value adjusted", kind: "pct" },
   { key: "index_rise_pa", label: "Expected price rise a year", kind: "list" },
-  { key: "perf_security_pct", label: "Performance guarantee", kind: "pct" },
+  { key: "perf_security_pct", label: "Performance guarantee", kind: "pct", term: "perf" },
   { key: "perf_security_validity_months_after_completion", label: "Guarantee kept after completion", kind: "months" },
   { key: "overdraft_rate_pa", label: "Your overdraft interest rate (a year)", kind: "pct" },
-  { key: "bank_rate_pa", label: "RBI Bank Rate", kind: "pct" },
-  { key: "bg_commission_pa", label: "Bank guarantee commission (a year)", kind: "pct" },
+  { key: "bank_rate_pa", label: "RBI Bank Rate", kind: "pct", term: "bank_rate", word: "Bank Rate" },
+  { key: "bg_commission_pa", label: "Bank guarantee commission (a year)", kind: "pct", term: "bg", word: "Bank guarantee" },
   { key: "supplier_credit_days", label: "Credit from your suppliers", kind: "days" },
 ];
 
@@ -218,7 +221,7 @@ function Assumptions({ params, onSaved }: { params: CashParams; onSaved: (p: Cas
           const editable = !frozen && f.kind !== "list";
           return (
             <div key={f.key} className="flex flex-wrap items-center gap-x-4 gap-y-1 py-2 text-[14px]">
-              <span className="w-full text-ink sm:w-[44%]">{f.label}</span>
+              <span className="w-full text-ink sm:w-[44%]">{f.term ? <TermIn text={f.label} k={f.term} word={f.word} /> : f.label}</span>
               <span className="w-[190px]">
                 {editable ? (
                   f.kind === "bool" ? (

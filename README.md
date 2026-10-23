@@ -11,6 +11,10 @@ A website that reads Indian public-works contract PDFs and, from the contractor'
 5. **Models cash impact** (peak funding, interest, guarantee cost, damages, escalation) with plain Python. The AI never does arithmetic.
 6. **Scores itself** against a hand-built answer key of 208 questions over four public contracts.
 
+The proof that the tool works (accuracy, where the AI went wrong, contract comparison, as written vs fair terms,
+repeat readings, people's spot checks of the judge's labels) lives in a separate **Project** area of the website
+(`/project`), not in the contractor pages.
+
 Decision support, not legal advice.
 
 ## Quick start
@@ -38,6 +42,7 @@ Frontend development with hot reload: `cd frontend && npm run dev` (http://local
 | Extract one contract from the command line | `python -m analyser.extract BM1` |
 | Score runs against the answer key | `python -m analyser.evaluate ../runs/<run_id> [--error-log] [--xlsx] [--judge]` |
 | Check the answer key's quotes against the PDFs | `python -m analyser.evaluate.golden_check` |
+| Record a person's check of a judge label | website → Project → Manual check (writes `analyser/evaluate/manual_overrides.json`, re-scores the run: code, judge verdicts from `validation/*/`, overrides last) |
 | Answer-key replay runs (pipeline test, no AI) | `python -m scripts.make_replay_runs [--freeze]` |
 | Freeze a run for the offline demo | `python -m analyser.api.store freeze <run_id>` |
 | Rebuild the §8.4 Excel benchmark | `python -m analyser.cashflow.benchmark` |

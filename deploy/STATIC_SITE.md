@@ -28,6 +28,8 @@ What it does:
    | `GET /api/benchmarks`, `/runs`, `/evaluation` | `/static-api/benchmarks.json`, `runs.json`, `evaluation.json` |
    | `GET /api/runs/<id>` and `/answers`, `/params`, `/flags`, `/checks`, `/score` | `/static-api/runs/<id>.json`, `/static-api/runs/<id>/answers.json`, ... |
    | `GET /api/packages/<pkg>` | `/static-api/packages/<pkg>.json` |
+   | `GET /api/runs/<id>/reference-changes` | `/static-api/runs/<id>/reference-changes.json` |
+   | Project area: `GET /api/golden/<cid>`, `/project/judge-notes`, `/project/overrides` | `/static-api/golden/<cid>.json`, `/static-api/project/judge-notes.json`, `overrides.json` (saved with `read_only: true`, so Manual check shows no buttons) |
    | `GET /api/runs/<id>/export.csv`, `report.pdf` | `/static-api/runs/<id>/export.csv`, `report.pdf` |
    | `POST /api/runs/<id>/cashflow` (grid below) | `/static-api/runs/<id>/cashflow/<key>.json` |
    | `GET /api/packages/<pkg>/page/<doc>/<n>.png` | `/static-pages/<pkg>/<doc>/<n>.png` (every page of the four PDFs) |
@@ -36,7 +38,8 @@ What it does:
 3. Renders the page images with the real `render_page_png` (zoom 2.0, as the server), then stores
    them as 128-colour palette PNGs (same pixel size, about half the bytes). A highlighted variant is
    made for every quote the site can highlight: each answer's `verbatim_quote` (and a person's
-   correction), each red flag's quote, and the quotes of documents referred to but missing.
+   correction), each red flag's quote, the quotes of documents referred to but missing, and every
+   answer-key quote (`golden_tests_v1.json`, for the Project area's "Key's page" buttons).
    Conflict quotes are never highlighted by the site (it shows those pages plain), so they get the
    plain page. If a quote is not found on its page the highlighted image would equal the plain one,
    so none is written and the site uses the plain page.
@@ -68,7 +71,7 @@ npx wrangler pages deploy deploy/static-site --project-name <name>
 (Or drag the folder into the Cloudflare dashboard: Workers & Pages → Create → Pages → Upload assets.)
 
 There is no `404.html`, so Pages serves `index.html` for every unknown path: client routes such as
-`/runs/<id>`, `/runs/<id>/terms/<term>`, `/runs/<id>/answers`, `/accuracy`, `/about` work on reload and
+`/runs/<id>`, `/runs/<id>/terms/<term>`, `/runs/<id>/answers`, `/project/...`, `/about` work on reload and
 as shared links. No `_redirects` is needed. The site checks the content type of every saved file it
 fetches, so a missing file (served as `index.html`) shows the usual "not available" message.
 

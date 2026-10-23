@@ -16,6 +16,7 @@ import { CashEffect, CashLoading } from "./CashEffect";
 import { TermCards } from "./TermCards";
 import { FlagBoard } from "./Flags";
 import { KeyFacts } from "./KeyFacts";
+import { DocQuality } from "./DocQuality";
 
 function useTitle(): string {
   const { meta } = useRun();
@@ -70,6 +71,7 @@ function Inner() {
           <Figure label="Defects period" value={k.dlp} />
           <Figure label="Peak funding" value={w ? money(w.peak_funding) : "—"} note={w && w.peak_funding > 0 ? `month ${w.peak_month}` : w ? "none needed" : undefined} />
         </div>
+        <DocQuality />
         {ready && <Tally t={sc.tally} hasChecks={sc.hasChecks} onClick={toFlags} className="mt-6" />}
       </header>
 

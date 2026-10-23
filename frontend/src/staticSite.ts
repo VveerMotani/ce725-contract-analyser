@@ -61,7 +61,9 @@ export function staticPageUrl(packageId: string, docId: string, page: number, hi
   return `${base}.png`;
 }
 
-/** Saved file for a GET path, e.g. /runs/X/answers -> /static-api/runs/X/answers.json. */
+/** Saved file for a GET path, e.g. /runs/X/answers -> /static-api/runs/X/answers.json.
+ *  Project area: /golden/BM1, /project/judge-notes, /project/overrides, /runs/X/reference-changes map the same way
+ *  (all exported by deploy/build_static_site.py). Writes (POST/DELETE /project/overrides) are refused: read-only copy. */
 export function staticGetUrl(path: string): string {
   return `/static-api${path.split("?")[0]}.json`;
 }

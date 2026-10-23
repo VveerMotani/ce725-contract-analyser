@@ -13,6 +13,7 @@ Command line: python -m analyser.evaluate <run_dir or answers.json> ...
 """
 from .reports import export_scores_xlsx, format_table, write_error_log
 from .scoring import LABELS, load_golden, load_overrides, score_run, score_test
+from .project import score_run_judged
 
 __all__ = ["load_golden", "score_run", "write_error_log", "export_scores_xlsx", "format_table",
-           "score_test", "load_overrides", "LABELS"]
+           "score_test", "load_overrides", "LABELS", "score_run_judged"]

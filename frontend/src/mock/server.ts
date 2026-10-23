@@ -3,7 +3,7 @@
 import type {
   AnswerEnvelope, CashParams, CashflowResponse, Package, PageInfo, ReviewPatch, RiskFlag, RuleCheck, RunMeta, UserInputs, DocTag,
 } from "../types";
-import { BENCHMARKS, BENCH_TITLES, buildAnswers, buildFlags, buildPackage, buildParams, buildScore, h01 } from "./data";
+import { BENCHMARKS, BENCH_TITLES, GOLDEN, buildAnswers, buildFlags, buildPackage, buildParams, buildScore, h01 } from "./data";
 import { referenceView, runCash, sCurve, evenCurve } from "./cashEngine";
 
 interface RunRec {
@@ -207,6 +207,14 @@ export async function mockRequest(method: string, path: string, body?: unknown):
   if (method === "GET" && clean === "/evaluation") {
     return { ...buildScore(), runs_used: { BM1: "run-BM1-mock", BM2: "run-BM2-mock", BM3: "run-BM3-mock", BM4: "run-BM4-mock" }, missing_benchmarks: [] };
   }
+  // Project area (MOCK): the answer key is real; no judge notes; checks are read-only.
+  if (method === "GET" && seg[0] === "golden" && seg.length === 2) return GOLDEN.filter((g) => g.contract_id === seg[1]);
+  if (method === "GET" && clean === "/project/judge-notes") return [];
+  if (method === "GET" && clean === "/project/overrides") {
+    return { overrides: [], progress: { total: GOLDEN.length, checked: 0, compared: 0, agree: 0, agreement: null }, read_only: true };
+  }
+  if (seg[0] === "project") throw new MockHttpError(403, "Sample data: checks are not stored.");
+  if (method === "GET" && seg[0] === "runs" && seg[2] === "reference-changes") return [];
   if (seg[0] === "packages") {
     if (method === "POST" && seg.length === 1) {
       const { pages: _p, ...rest } = makeUploadPackage(body as FormData);

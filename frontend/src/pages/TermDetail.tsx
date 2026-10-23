@@ -13,6 +13,8 @@ import { SLUG_TERM, TERM_ORDER, TERM_SLUG } from "../lib/termDetail";
 import { RunReady } from "../components/RunReady";
 import { ErrorNote, Spinner, StatusDot, cx } from "../components/ui";
 import { TermCards } from "./TermCards";
+import { Term } from "../components/Term";
+import { TERM_GLOSS } from "../lib/glossary";
 import { FlagBoard } from "./Flags";
 import { Block, QuestionRows } from "./TermDetailParts";
 import { AdvancePanel, DelayPanel, GuaranteePanel, PaymentPanel, PricePanel, RetentionPanel, makeD } from "./TermPanels";
@@ -76,7 +78,7 @@ function Inner({ clause }: { clause: Exclude<ClauseId, "C0"> }) {
         <>
           <header className="pt-6">
             <div className="flex items-center gap-2.5">
-              <h1 className="font-serif text-[28px] font-semibold leading-tight text-ink sm:text-[34px]">{TERM_NAME[clause]}</h1>
+              <h1 className="font-serif text-[28px] font-semibold leading-tight text-ink sm:text-[34px]">{TERM_GLOSS[clause] ? <Term k={TERM_GLOSS[clause]!}>{TERM_NAME[clause]}</Term> : TERM_NAME[clause]}</h1>
               <StatusDot tone={cardTone(clause, sc, main)} />
             </div>
             <div className="mt-4"><TermCards answers={envs} params={params.data} cash={w} sc={sc} only={clause} variant="header" /></div>

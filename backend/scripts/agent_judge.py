@@ -22,10 +22,8 @@ from analyser.api import store
 from analyser.evaluate import export_scores_xlsx, format_table, load_golden, score_run, write_error_log
 from analyser.evaluate.judge import load_prompt
 
-CAUSE_CODES = ("TEXT_LAYER_MISSED_STRIKE IMAGE_NOT_READ SCAN_NOT_READ REFERENCE_NOT_FOLLOWED "
-               "SCHEDULE_NOT_USED RATE_CAP_MIXED WRONG_BASE_OR_UNIT ONE_OF_MANY_NUMBERS INVENTED_VALUE "
-               "INVENTED_QUOTE WRONG_CLAUSE TERM_NOT_RECOGNISED NEGATIVE_MISREAD CONFLICT_MISSED "
-               "CONVENTION_DIFFERENCE RETRIEVAL_MISSED").split()
+# The judged scoring itself lives in analyser.evaluate.project (the website re-scores with it too).
+from analyser.evaluate.project import CAUSE_CODES, judged_summary  # noqa: E402,F401
 
 
 def load_runs(run_ids: list[str]) -> dict:
@@ -66,37 +64,6 @@ def dump(judge_dir: Path, run_ids: list[str]) -> None:
             f"Cause codes for every non-Correct verdict (pick the closest): {', '.join(CAUSE_CODES)}.\n",
             encoding="utf-8")
         print(f"{cid}: {len(rows)} tests -> {out}")
-
-
-def judged_summary(by_contract: dict, run_id: str, verdicts: dict[str, dict]):
-    """Code labels first; then the judge's verdict replaces the label of every test it graded.
-
-    The judge sees the code's label and reason, the full answer and quote, and the contract
-    text, so it can also overturn mistakes of the deterministic comparison. The code's label
-    stays in the reason ("[code said ...]") as a cross-check; manual overrides still win.
-    """
-    from analyser.evaluate.judge import PREFIX
-    from analyser.evaluate.scoring import (LABELS, apply_overrides, invented_number,
-                                           load_overrides, summarise)
-    summary = score_run(by_contract, run_id, overrides=[])
-    invented = set()
-    for cid, envs in by_contract.items():
-        by_qid = {e.answer.question_id: e for e in envs}
-        invented |= {t.test_id for t in summary.tests
-                     if t.contract_id == cid and invented_number(by_qid.get(t.question_id))}
-    for t in summary.tests:
-        v = verdicts.get(t.test_id)
-        if not v or v.get("verdict") not in LABELS:
-            continue
-        missing = "; ".join(map(str, v.get("missing") or []))
-        old = f"code said {t.label}" + (f": {t.reason}" if t.reason else "")
-        t.label = v["verdict"]
-        t.reason = (f"{PREFIX} (subagent judge) {v.get('reason', '')}"
-                    + (f" Missing or wrong: {missing}." if missing else "") + f" [{old}]")
-        t.cause_code = "" if t.label in ("Correct", "Correct absent") else v.get("cause_code", "")             if v.get("cause_code") in CAUSE_CODES else t.cause_code
-        t.needs_human_check = True
-    apply_overrides(summary.tests, run_id, load_overrides())
-    return summarise(summary.tests, run_id, invented)
 
 
 def apply(judge_dir: Path, run_ids: list[str], report: Path | None) -> None:
