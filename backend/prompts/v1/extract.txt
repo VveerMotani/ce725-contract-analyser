@@ -18,5 +18,5 @@ For NOT_STATED use pdf_page 0, an empty verbatim_quote and an empty section_ref.
 For POINTS_ELSEWHERE always fill points_to with the name of the document or schedule that holds the detail
 (for example "General Conditions of Contract" or "Schedule F").
 Use "" for any text field that does not apply. Fill visual_evidence only when visual_check is "done".
-Keep notes under 60 words.
+Copy quotes without the ~~ marks. Keep notes under 60 words.
 {page_text}

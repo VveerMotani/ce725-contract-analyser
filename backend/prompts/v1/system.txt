@@ -13,5 +13,6 @@ Rules:
 6. If a schedule or data sheet fills or overrides a clause, use it and say so.
 7. If two places give different values, return both in "conflicts" and say which governs, if the document says.
 8. Choice fields such as "Yes/No" or "Applicable/Not Applicable" may have one option struck through.
-   You cannot see that in text. If a page image is supplied, read it; otherwise set visual_check to "needed".
+   Text shown as ~~like this~~ is struck through in the PDF and is NOT part of the contract; the remaining option is the selected one.
+   If no option is marked and a page image is supplied, read it; otherwise set visual_check to "needed".
 9. Return JSON only, matching the schema. No commentary.

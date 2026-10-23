@@ -223,3 +223,89 @@ def test_points_elsewhere_requires_points_to():
     fixed = normalise(bad, "TEST", "C4")
     fill_points_to(fixed)
     assert fixed["points_to"] == "Schedule F" and schema_errors(fixed) == []
+
+
+# ---------------------------------------------------------------- trap T1 marking and image budget
+
+from analyser.extract.strike import mark_struck, struck_summary
+from analyser.models import RetrievalResult, StrikeHit
+
+
+def strike_page():
+    text = ("Schedule F\nWhether Clause 10 B (ii) shall be applicable  Yes/No\n"
+            "Clause 10CA  Applicable/ Not Applicable\nClause 10CC  Applicable/ Not Applicable\n"
+            "Old rule: the amount admissible\n  shall be paid quickly.\nNew rule stays.")
+    hits = [StrikeHit(word="No", bbox=[0, 0, 1, 1], context="Whether Clause 10 B (ii) shall be applicable Yes/No"),
+            StrikeHit(word="Applicable", bbox=[0, 0, 1, 1], context="Clause 10CA Applicable/ Not Applicable"),
+            StrikeHit(word="Not Applicable", bbox=[0, 0, 1, 1], context="Clause 10CC Applicable/ Not Applicable"),
+            StrikeHit(word="the amount admissible", bbox=[0, 0, 1, 1], context="Old rule: the amount admissible"),
+            StrikeHit(word="shall be paid quickly.", bbox=[0, 0, 1, 1], context="shall be paid quickly.")]
+    return text, hits
+
+
+def test_struck_words_marked_inline_and_listed():
+    text, hits = strike_page()
+    marked = mark_struck(text, hits)
+    assert "Yes/~~No~~" in marked
+    assert "Clause 10CA  ~~Applicable~~/ Not Applicable" in marked
+    assert "Clause 10CC  Applicable/ ~~Not Applicable~~" in marked
+    assert "~~the amount admissible\n  shall be paid quickly.~~" in marked     # one run, wrapped once
+    assert marked.count("~~") == 8
+    summary = struck_summary(hits)
+    assert summary.startswith('[struck-through words on this page: "No" (in "Yes/No")')
+    assert '"Applicable" (in "Applicable/ Not Applicable")' in summary
+
+
+def test_model_sees_struck_text_and_quotes_are_cleaned():
+    text, hits = strike_page()
+    pkg = fake_package()
+    pkg.pages[2] = PageInfo(doc_id="d1", page=3, text=text, char_count=len(text),
+                            choice_fields=["Yes/No"], strike_hits=hits, needs_visual=True)
+    llm = FakeLLM()
+    extract_package(pkg, llm)
+    c3 = next(c for c in llm.calls if c["tag"].endswith(":C3"))
+    assert "Yes/~~No~~" in c3["document"]
+    assert '[struck-through words on this page: "No" (in "Yes/No")' in c3["document"]
+    rec = normalise(record("3.1", "FOUND", verbatim_quote="applicable Yes/~~No~~", pdf_page=3,
+                           section_ref="Schedule F", answer_value="Yes"), "TEST", "C3")
+    assert rec["verbatim_quote"] == "applicable Yes/No"
+
+
+def test_struck_rule_in_system_prompt():
+    from analyser.llm import load_prompt
+    assert "~~like this~~ is struck through in the PDF and is NOT part of the contract" in load_prompt("system")
+
+
+def image_package():
+    """Pages 1-5 front image pages (portal printouts), 6 and 9-12 scans, 7 formula, 8 choice field."""
+    pages = []
+    for n in range(1, 13):
+        pages.append(PageInfo(doc_id="d1", page=n, text="x", char_count=1, needs_visual=True,
+                              low_text=n not in (7, 8), formula_image=(n == 7),
+                              choice_fields=(["Yes/No"] if n == 8 else [])))
+    files = [DocumentFile(doc_id="d1", filename="a.pdf", path="a.pdf", sha256="x", page_count=12)]
+    return Package(package_id="I", contract_id="TEST", files=files, pages=pages)
+
+
+def test_image_pages_prioritised_and_capped():
+    pkg = image_package()
+    refs = [("d1", n) for n in range(1, 13)]
+    scores = {("d1", 11): 5.0, ("d1", 12): 4.0}
+    chosen, dropped = ctxmod.visual_pages(pkg, refs, refs, scores)
+    # choice > formula > front portal pages > other scans (highest retrieval score first)
+    assert chosen == [("d1", 8), ("d1", 7), ("d1", 1), ("d1", 2), ("d1", 3), ("d1", 4), ("d1", 5),
+                      ("d1", 11)]
+    assert dropped == [("d1", 12), ("d1", 6), ("d1", 9), ("d1", 10)]
+    assert set(chosen).isdisjoint(dropped)
+
+
+def test_dropped_image_pages_reported(monkeypatch):
+    pkg = image_package()
+    refs = [("d1", n) for n in range(1, 13)]
+    monkeypatch.setattr(ctxmod, "retrieve", lambda package, cid, dm: RetrievalResult(
+        clause_id=cid, pages=refs, image_pages=refs))
+    messages = []
+    extract_package(pkg, FakeLLM(), on_progress=lambda s, f, m: messages.append((s, m)))
+    visual = [m for s, m in messages if s == "visual" and "over the cap" in m]
+    assert len(visual) >= 7
+    assert "4 image page(s) over the cap of 8 not sent" in visual[0]

@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass, field
+import logging
 from typing import Callable
 
 from ..llm.prompts import IMAGE_TOKENS, estimate_tokens, load_prompt, render
@@ -22,6 +23,7 @@ from .records import (ABSENCE_EXTRA, answers_schema, fill_points_to, make_valida
 from .terms import SYNONYMS
 
 Progress = Callable[[str, float, str], None]
+log = logging.getLogger(__name__)
 
 MAX_POINTER_STEPS = 4         # F7: follow a reference chain up to 4 steps
 MAX_TARGET_PAGES = 12         # pages sent per cross-reference call
@@ -61,6 +63,7 @@ class CallSpec:
     schema: dict
     expected: list[str]
     images: list[bytes] = field(default_factory=list)
+    dropped_images: list[tuple[str, int]] = field(default_factory=list)   # over the image cap
 
     def token_estimate(self) -> dict:
         parts = {"system": estimate_tokens(self.system),
@@ -113,7 +116,8 @@ def _attach_images(ctx: Context, refs: list[tuple[str, int]], render_images: boo
 def build_clause_call(ctx: Context, clause_id: str, render_images: bool = True) -> CallSpec:
     """F6 + F3: the extraction call for one clause type."""
     retrieval = ctx.retrievals[clause_id]
-    refs = ctxmod.visual_pages(ctx.package, retrieval.pages, retrieval.image_pages)
+    refs, dropped = ctxmod.visual_pages(ctx.package, retrieval.pages, retrieval.image_pages,
+                                        ctxmod.retrieval_scores(retrieval))
     images, refs = _attach_images(ctx, refs, render_images)
     desc, page_text, document = _pages_section(ctx, retrieval.pages)
     questions = QUESTIONS[clause_id]
@@ -129,13 +133,14 @@ def build_clause_call(ctx: Context, clause_id: str, render_images: bool = True) 
     return CallSpec(tag=f"extract:{ctx.package.contract_id}:{clause_id}", clause_id=clause_id,
                     system=load_prompt("system"), user_text=user, document=document,
                     image_refs=refs, schema=answers_schema(),
-                    expected=[q["question_id"] for q in questions], images=images)
+                    expected=[q["question_id"] for q in questions], images=images,
+                    dropped_images=dropped)
 
 
 def build_crossref_call(ctx: Context, clause_id: str, slots: dict[str, Slot],
                         targets: list[tuple[str, int]], render_images: bool = True) -> CallSpec:
     """F7: send the pointer target pages with the answers that point at them."""
-    refs = ctxmod.visual_pages(ctx.package, targets)
+    refs, dropped = ctxmod.visual_pages(ctx.package, targets)
     images, refs = _attach_images(ctx, refs, render_images)
     # Target pages are always written out: in full mode they repeat a little of the cached
     # document, but they keep the model's attention on the pages the pointers lead to.
@@ -153,7 +158,8 @@ def build_crossref_call(ctx: Context, clause_id: str, slots: dict[str, Slot],
         page_text=page_text)
     return CallSpec(tag=f"crossref:{ctx.package.contract_id}:{clause_id}", clause_id=clause_id,
                     system=load_prompt("system"), user_text=user, document=ctx.document,
-                    image_refs=refs, schema=answers_schema(), expected=qids, images=images)
+                    image_refs=refs, schema=answers_schema(), expected=qids, images=images,
+                    dropped_images=dropped)
 
 
 def build_absence_call(ctx: Context, clause_id: str, qids: list[str],
@@ -163,7 +169,7 @@ def build_absence_call(ctx: Context, clause_id: str, qids: list[str],
     synonyms = SYNONYMS[clause_id]
     hits = ctxmod.find_pages(ctx.package, terms + synonyms)[:MAX_ABSENCE_PAGES]
     hits = sorted(hits)
-    refs = ctxmod.visual_pages(ctx.package, hits)
+    refs, dropped = ctxmod.visual_pages(ctx.package, hits)
     images, refs = _attach_images(ctx, refs, render_images)
     _, page_text, document = _pages_section(ctx, hits)
     user = render(
@@ -177,7 +183,7 @@ def build_absence_call(ctx: Context, clause_id: str, qids: list[str],
     return CallSpec(tag=f"absence:{ctx.package.contract_id}:{clause_id}", clause_id=clause_id,
                     system=load_prompt("system"), user_text=user, document=document,
                     image_refs=refs, schema=answers_schema(ABSENCE_EXTRA), expected=qids,
-                    images=images)
+                    images=images, dropped_images=dropped)
 
 
 def plan_clause_calls(package: Package, mode: str | None = None,
@@ -188,6 +194,18 @@ def plan_clause_calls(package: Package, mode: str | None = None,
 
 
 # ---------------------------------------------------------------------------- running calls
+
+def report_images(progress: Progress, fraction: float, spec: CallSpec) -> None:
+    """Tell the run log which pages go as images and which were dropped by the image cap."""
+    if not spec.image_refs and not spec.dropped_images:
+        return
+    message = f"{spec.tag}: page images {ctxmod.format_pages(spec.image_refs)}"
+    if spec.dropped_images:
+        message += (f"; {len(spec.dropped_images)} image page(s) over the cap of "
+                    f"{ctxmod.MAX_IMAGES_PER_CALL} not sent: {ctxmod.format_pages(spec.dropped_images)}")
+        log.info(message)
+    progress("visual", fraction, message)
+
 
 def run_call(llm, ctx: Context, spec: CallSpec) -> tuple[dict[str, tuple[dict, dict]], str]:
     """Send one call. Returns {question_id: (clean record, raw item)} and the cache key."""
@@ -265,6 +283,7 @@ def crossref_pass(llm, ctx: Context, slots: dict[str, Slot], progress: Progress)
             progress("crossref", 0.65 + 0.15 * (step - 1 + n / len(work)) / MAX_POINTER_STEPS,
                      f"Following references for {cid} (step {step}): {ctxmod.format_pages(targets)}")
             spec = build_crossref_call(ctx, cid, {q: slots[q] for q in by_q}, targets)
+            report_images(progress, 0.65, spec)
             results, key = run_call(llm, ctx, spec)
             for qid, (record, item) in results.items():
                 old = slots[qid].record
@@ -284,6 +303,7 @@ def absence_pass(llm, ctx: Context, slots: dict[str, Slot], progress: Progress) 
         progress("absence", 0.80 + 0.18 * n / len(todo),
                  f"Absence check for {cid}: {', '.join(qids)}")
         spec = build_absence_call(ctx, cid, qids)
+        report_images(progress, 0.80, spec)
         results, key = run_call(llm, ctx, spec)
         for qid, (record, item) in results.items():
             if item.get("absence_result") == "FOUND_PASSAGE" and record["status"] != "NOT_STATED":
@@ -309,9 +329,7 @@ def extract_package(package: Package, llm, on_progress: Progress | None = None,
     for i, cid in enumerate(CLAUSE_IDS):
         progress("extract", 0.05 + 0.6 * i / len(CLAUSE_IDS), f"{cid} {CLAUSE_NAMES[cid]}")
         spec = build_clause_call(ctx, cid)
-        if spec.image_refs:
-            progress("visual", 0.05 + 0.6 * i / len(CLAUSE_IDS),
-                     f"{cid}: page images {ctxmod.format_pages(spec.image_refs)}")
+        report_images(progress, 0.05 + 0.6 * i / len(CLAUSE_IDS), spec)
         results, key = run_call(llm, ctx, spec)
         for qid in spec.expected:
             if qid in results:

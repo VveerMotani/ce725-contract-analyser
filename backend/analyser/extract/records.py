@@ -86,6 +86,10 @@ def normalise(record: dict, contract_id: str, clause_id: str) -> dict:
     for conflict in rec.get("conflicts") or []:
         if conflict.get("governs") is None:
             conflict.pop("governs", None)
+        if isinstance(conflict.get("verbatim_quote"), str):
+            conflict["verbatim_quote"] = conflict["verbatim_quote"].replace("~~", "")
+    if isinstance(rec.get("verbatim_quote"), str):   # ~~ marks are ours, not in the PDF text
+        rec["verbatim_quote"] = rec["verbatim_quote"].replace("~~", "")
     if rec.get("status") == "NOT_STATED":
         rec["pdf_page"] = 0
     if isinstance(rec.get("notes"), str) and len(rec["notes"]) > NOTES_MAX:

@@ -13,6 +13,7 @@ from pathlib import Path
 
 from ..llm.prompts import estimate_tokens
 from ..models import DocumentFile, Package, PageInfo, RetrievalResult, SectionEntry
+from .strike import page_text_with_strikes
 from .terms import FALLBACK_TERM_LISTS
 
 log = logging.getLogger(__name__)
@@ -29,7 +30,8 @@ def page_marker(doc_id: str, page: int) -> str:
 
 
 def page_block(p: PageInfo) -> str:
-    return f"{page_marker(p.doc_id, p.page)}\n{(p.text or '').strip()}\n"
+    """Marker line, then the page text with struck-through words shown as ~~word~~ (trap T1)."""
+    return f"{page_marker(p.doc_id, p.page)}\n{page_text_with_strikes(p)}\n"
 
 
 def package_text(package: Package, pages: list[tuple[str, int]] | None = None) -> str:
@@ -143,16 +145,51 @@ def _keyword_pages(package: Package, terms: list[str]) -> list[tuple[str, int]]:
 
 # ---------------------------------------------------------------------------- page images (F3)
 
+def image_tier(info: PageInfo) -> int:
+    """Which pages most need to be seen (0 first):
+    0 choice fields or struck words (trap T1), 1 formula images (T2),
+    2 image-only portal pages at the front (T16), 3 other scans (T3), 4 anything else flagged."""
+    if info.choice_fields or info.strike_hits:
+        return 0
+    if info.formula_image:
+        return 1
+    if info.low_text and info.page <= OPENING_PAGES:
+        return 2
+    if info.low_text:
+        return 3
+    return 4
+
+
+def retrieval_scores(retrieval: RetrievalResult | None) -> dict[tuple[str, int], float]:
+    """Term score per page parsed from the retrieval reasons ("terms (4.6): ...")."""
+    scores: dict[tuple[str, int], float] = {}
+    for key, reasons in (retrieval.reasons if retrieval else {}).items():
+        doc_id, _, page = key.partition(":")
+        values = [float(m) for r in reasons for m in re.findall(r"terms \(([\d.]+)\)", r)]
+        scores[(doc_id, int(page))] = max(values, default=0.0) + 0.01 * len(reasons)
+    return scores
+
+
 def visual_pages(package: Package, pages: list[tuple[str, int]],
-                 extra: list[tuple[str, int]] = ()) -> list[tuple[str, int]]:
-    """Pages to send as images: those flagged needs_visual, at most MAX_IMAGES_PER_CALL."""
+                 extra: list[tuple[str, int]] = (),
+                 scores: dict[tuple[str, int], float] | None = None,
+                 ) -> tuple[list[tuple[str, int]], list[tuple[str, int]]]:
+    """(pages to send as images, pages dropped by the cap of MAX_IMAGES_PER_CALL).
+
+    Candidates are the retrieval's image pages plus any page that needs to be seen; they are
+    ranked by image_tier, then by retrieval score, then by their original order."""
     lookup = page_lookup(package)
-    chosen: list[tuple[str, int]] = []
+    scores = scores or {}
+    candidates: list[tuple[str, int]] = []
     for ref in list(extra) + list(pages):
         info = lookup.get(ref)
-        if info and info.needs_visual and ref not in chosen:
-            chosen.append(ref)
-    return chosen[:MAX_IMAGES_PER_CALL]
+        if info is None or ref in candidates:
+            continue
+        if ref in extra or info.needs_visual or image_tier(info) < 2:
+            candidates.append(ref)
+    order = {ref: i for i, ref in enumerate(candidates)}
+    ranked = sorted(candidates, key=lambda r: (image_tier(lookup[r]), -scores.get(r, 0.0), order[r]))
+    return ranked[:MAX_IMAGES_PER_CALL], ranked[MAX_IMAGES_PER_CALL:]
 
 
 def render_pages(package: Package, refs: list[tuple[str, int]]) -> tuple[list[bytes], list[tuple[str, int]]]:
