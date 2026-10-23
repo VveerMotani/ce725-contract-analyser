@@ -1,0 +1,190 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Design tokens. Neutral palette, one accent (blue), status colours used consistently:
+   good = green, warn = amber, bad = red, neutral = grey. Chart series follow the
+   validated categorical order (blue, orange, aqua, ..., violet). */
+:root {
+  color-scheme: light;
+  --page: #f4f4f1;
+  --surface: #ffffff;
+  --surface-2: #f8f8f6;
+  --ink: #111110;
+  --ink-2: #52514e;
+  --muted: #7a7873;
+  --line: #e4e3dd;
+  --line-strong: #c9c8bf;
+  --accent: #2a78d6;
+  --accent-ink: #1c5cab;
+  --accent-soft: #e6f0fc;
+  --good: #0ca30c;
+  --good-ink: #006300;
+  --good-soft: #e3f4e3;
+  --warn: #eda100;
+  --warn-ink: #7f5300;
+  --warn-soft: #fdf1d6;
+  --serious: #ec835a;
+  --serious-ink: #a3401a;
+  --serious-soft: #fce9e0;
+  --bad: #d03b3b;
+  --bad-ink: #a82727;
+  --bad-soft: #fae4e4;
+  --neutral: #9a988f;
+  --neutral-ink: #52514e;
+  --neutral-soft: #eeede8;
+  --violet: #6250d6;
+  --violet-ink: #4a3aa7;
+  --violet-soft: #ecebfb;
+  --s1: #2a78d6;
+  --s2: #eb6834;
+  --s3: #1baf7a;
+  --s7: #6250d6;
+  --grid: #e8e7e1;
+  --seq-0: #eef4fc;
+  --seq-1: #cde2fb;
+  --seq-2: #9ec5f4;
+  --seq-3: #5598e7;
+  --seq-4: #2a78d6;
+  --seq-5: #1c5cab;
+  --seq-6: #0d366b;
+  --heat-hi-ink: #ffffff;
+}
+
+.dark {
+  color-scheme: dark;
+  --page: #0e0e0d;
+  --surface: #1a1a19;
+  --surface-2: #222220;
+  --ink: #f0efec;
+  --ink-2: #c3c2b7;
+  --muted: #8f8d86;
+  --line: #2e2e2b;
+  --line-strong: #44443f;
+  --accent: #3987e5;
+  --accent-ink: #86b6ef;
+  --accent-soft: rgba(57, 135, 229, 0.16);
+  --good: #0ca30c;
+  --good-ink: #5ccf5c;
+  --good-soft: rgba(12, 163, 12, 0.16);
+  --warn: #fab219;
+  --warn-ink: #fac454;
+  --warn-soft: rgba(250, 178, 25, 0.14);
+  --serious: #ec835a;
+  --serious-ink: #f09a77;
+  --serious-soft: rgba(236, 131, 90, 0.16);
+  --bad: #d03b3b;
+  --bad-ink: #ef7d7d;
+  --bad-soft: rgba(208, 59, 59, 0.2);
+  --neutral: #6f6d67;
+  --neutral-ink: #c3c2b7;
+  --neutral-soft: #2a2a27;
+  --violet: #9085e9;
+  --violet-ink: #b3abf1;
+  --violet-soft: rgba(144, 133, 233, 0.16);
+  --s1: #3987e5;
+  --s2: #d95926;
+  --s3: #199e70;
+  --s7: #9085e9;
+  --grid: #2c2c2a;
+  --seq-0: #1d2633;
+  --seq-1: #184f95;
+  --seq-2: #1c5cab;
+  --seq-3: #256abf;
+  --seq-4: #3987e5;
+  --seq-5: #6da7ec;
+  --seq-6: #b7d3f6;
+  --heat-hi-ink: #0b0b0b;
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-good: var(--good);
+  --color-good-ink: var(--good-ink);
+  --color-good-soft: var(--good-soft);
+  --color-warn: var(--warn);
+  --color-warn-ink: var(--warn-ink);
+  --color-warn-soft: var(--warn-soft);
+  --color-serious: var(--serious);
+  --color-serious-ink: var(--serious-ink);
+  --color-serious-soft: var(--serious-soft);
+  --color-bad: var(--bad);
+  --color-bad-ink: var(--bad-ink);
+  --color-bad-soft: var(--bad-soft);
+  --color-neutral: var(--neutral);
+  --color-neutral-ink: var(--neutral-ink);
+  --color-neutral-soft: var(--neutral-soft);
+  --color-violet: var(--violet);
+  --color-violet-ink: var(--violet-ink);
+  --color-violet-soft: var(--violet-soft);
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
+}
+
+html,
+body {
+  background: var(--page);
+  color: var(--ink);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Recharts tooltip and axis text follow the theme */
+.recharts-cartesian-axis-tick-value {
+  fill: var(--muted);
+  font-size: 11px;
+}
+.recharts-default-tooltip {
+  background: var(--surface) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 8px;
+  color: var(--ink);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+input[type="range"] {
+  accent-color: var(--accent);
+}
+
+/* thin scrollbars inside panels */
+.scroll-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 8px;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(24px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+.animate-slide-in {
+  animation: slide-in 160ms ease-out;
+}
