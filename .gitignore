@@ -12,7 +12,6 @@ frontend/dist/
 # runs: keep frozen runs only
 runs/*
 !runs/frozen/
-!runs/packages/
-runs/packages/*/pages.json
+runs/packages/
 # office lock files
 ~$*
