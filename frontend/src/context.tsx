@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { api, ensureMode } from "./api";
-import type { AnswerEnvelope, RunMeta, UserInputs } from "./types";
+import type { AnswerEnvelope, Benchmark, RunMeta, UserInputs } from "./types";
 
 // ---------------------------------------------------------------------------
 // Generic async hook
@@ -26,7 +26,7 @@ export function useAsync<T>(fn: () => Promise<T>, deps: unknown[]) {
 }
 
 // ---------------------------------------------------------------------------
-// App-wide state: backend mode, theme, money format, source viewer, S1 draft
+// App-wide state: backend mode, theme, source panel, runs list, new-analysis draft
 // ---------------------------------------------------------------------------
 
 export interface SourceTarget {
@@ -36,12 +36,10 @@ export interface SourceTarget {
   quote: string;
   env?: AnswerEnvelope;
   title?: string;
+  subtitle?: string;
 }
 
 export interface Draft {
-  source: "benchmark" | "upload";
-  benchmark: string;
-  packageId: string | null;
   contractId: string;
   title: string;
   inputs: UserInputs;
@@ -66,15 +64,14 @@ interface AppCtx {
   mode: "live" | "mock" | "unknown";
   dark: boolean;
   toggleDark: () => void;
-  fullMoney: boolean;
-  setFullMoney: (b: boolean) => void;
   source: SourceTarget | null;
   openSource: (t: SourceTarget) => void;
   closeSource: () => void;
   draft: Draft;
   setDraft: (d: Draft | ((d: Draft) => Draft)) => void;
-  runsVersion: number;
-  bumpRuns: () => void;
+  runs: RunMeta[] | undefined;
+  benchmarks: Benchmark[] | undefined;
+  refreshRuns: () => void;
 }
 
 const Ctx = createContext<AppCtx | null>(null);
@@ -89,14 +86,18 @@ function lsSet(k: string, v: string) {
 export function AppProvider({ children }: { children: ReactNode }) {
   const [mode, setMode] = useState<"live" | "mock" | "unknown">("unknown");
   const [dark, setDark] = useState(() => document.documentElement.classList.contains("dark"));
-  const [fullMoney, setFullMoneyS] = useState(() => lsGet("ta-money-full") === "1");
   const [source, setSource] = useState<SourceTarget | null>(null);
-  const [runsVersion, setRunsVersion] = useState(0);
-  const [draft, setDraft] = useState<Draft>({
-    source: "benchmark", benchmark: "BM1", packageId: null, contractId: "", title: "", inputs: DEFAULT_INPUTS, valueText: "",
-  });
+  const [runs, setRuns] = useState<RunMeta[]>();
+  const [benchmarks, setBenchmarks] = useState<Benchmark[]>();
+  const [draft, setDraft] = useState<Draft>({ contractId: "", title: "", inputs: DEFAULT_INPUTS, valueText: "" });
 
   useEffect(() => { ensureMode().then(setMode); }, []);
+
+  const refreshRuns = useCallback(() => {
+    api.runs().then(setRuns, () => setRuns([]));
+    api.benchmarks().then(setBenchmarks, () => setBenchmarks([]));
+  }, []);
+  useEffect(() => { refreshRuns(); }, [refreshRuns]);
 
   const toggleDark = useCallback(() => {
     const n = !document.documentElement.classList.contains("dark");
@@ -104,21 +105,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setDark(n);
   }, []);
   useEffect(() => { document.documentElement.classList.toggle("dark", dark); }, [dark]);
-  // Follow the OS theme until the user picks one.
-  useEffect(() => {
-    const mq = window.matchMedia?.("(prefers-color-scheme: dark)");
-    if (!mq) return;
-    const on = (e: MediaQueryListEvent) => { if (!lsGet("ta-theme")) setDark(e.matches); };
-    mq.addEventListener?.("change", on);
-    return () => mq.removeEventListener?.("change", on);
-  }, []);
-  const setFullMoney = useCallback((b: boolean) => { setFullMoneyS(b); lsSet("ta-money-full", b ? "1" : "0"); }, []);
 
   const value = useMemo<AppCtx>(() => ({
-    mode, dark, toggleDark, fullMoney, setFullMoney, source,
-    openSource: setSource, closeSource: () => setSource(null),
-    draft, setDraft, runsVersion, bumpRuns: () => setRunsVersion((v) => v + 1),
-  }), [mode, dark, toggleDark, fullMoney, setFullMoney, source, draft, runsVersion]);
+    mode, dark, toggleDark, source, openSource: setSource, closeSource: () => setSource(null),
+    draft, setDraft, runs, benchmarks, refreshRuns,
+  }), [mode, dark, toggleDark, source, draft, runs, benchmarks, refreshRuns]);
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
@@ -127,6 +118,16 @@ export function useApp(): AppCtx {
   const c = useContext(Ctx);
   if (!c) throw new Error("AppProvider missing");
   return c;
+}
+
+export function lsLastRun(): string | null { return lsGet("ta-last-run"); }
+export function rememberRun(id: string) { lsSet("ta-last-run", id); }
+
+/** Title of a contract: the benchmark title, else the contract id. */
+export function useContractTitle(contractId: string | undefined): string {
+  const { benchmarks } = useApp();
+  if (!contractId) return "";
+  return benchmarks?.find((b) => b.contract_id === contractId)?.title ?? contractId;
 }
 
 // ---------------------------------------------------------------------------
@@ -141,17 +142,16 @@ interface RunCtx {
   answersError: unknown;
   done: boolean;
   pending: number;
-  verified: number;
   reloadAnswers: () => void;
   replaceEnvelope: (e: AnswerEnvelope) => void;
-  openAnswer: (e: AnswerEnvelope) => void;
-  openPage: (page: number, quote?: string, docId?: string, title?: string) => void;
+  openAnswer: (e: AnswerEnvelope, subtitle?: string) => void;
+  openPage: (page: number, quote?: string, docId?: string, title?: string, subtitle?: string) => void;
 }
 
 const RCtx = createContext<RunCtx | null>(null);
 
 export function RunProvider({ runId, children }: { runId: string; children: ReactNode }) {
-  const { openSource, bumpRuns } = useApp();
+  const { openSource, refreshRuns } = useApp();
   const [meta, setMeta] = useState<RunMeta>();
   const [metaError, setMetaError] = useState<unknown>(null);
   const [answers, setAnswers] = useState<AnswerEnvelope[]>();
@@ -171,7 +171,7 @@ export function RunProvider({ runId, children }: { runId: string; children: Reac
         setMeta(m);
         setMetaError(null);
         if (m.stage !== "done" && m.stage !== "error") timer = setTimeout(tick, 2000);
-        else bumpRuns();
+        else refreshRuns();
       } catch (e) {
         if (stop) return;
         setMetaError(e);
@@ -195,20 +195,19 @@ export function RunProvider({ runId, children }: { runId: string; children: Reac
   }, []);
 
   const pkg = meta?.package_id ?? "";
-  const openAnswer = useCallback((e: AnswerEnvelope) => {
+  const openAnswer = useCallback((e: AnswerEnvelope, subtitle?: string) => {
     const a = e.review.decision === "edited" && e.review.user_answer ? e.review.user_answer : e.answer;
-    openSource({ packageId: pkg, docId: e.doc_id || e.verification?.found_doc_id || "d1", page: a.pdf_page, quote: a.verbatim_quote, env: e });
+    openSource({ packageId: pkg, docId: e.doc_id || e.verification?.found_doc_id || "d1", page: a.pdf_page, quote: a.verbatim_quote, env: e, subtitle });
   }, [pkg, openSource]);
-  const openPage = useCallback((page: number, quote = "", docId = "d1", title?: string) => {
-    openSource({ packageId: pkg, docId, page, quote, title });
+  const openPage = useCallback((page: number, quote = "", docId = "d1", title?: string, subtitle?: string) => {
+    openSource({ packageId: pkg, docId, page, quote, title, subtitle });
   }, [pkg, openSource]);
 
   const pending = answers?.filter((a) => a.review.decision === "pending").length ?? 0;
-  const verified = answers ? answers.length - pending : 0;
 
   const value = useMemo<RunCtx>(() => ({
-    runId, meta, metaError, answers, answersError, done, pending, verified, reloadAnswers, replaceEnvelope, openAnswer, openPage,
-  }), [runId, meta, metaError, answers, answersError, done, pending, verified, reloadAnswers, replaceEnvelope, openAnswer, openPage]);
+    runId, meta, metaError, answers, answersError, done, pending, reloadAnswers, replaceEnvelope, openAnswer, openPage,
+  }), [runId, meta, metaError, answers, answersError, done, pending, reloadAnswers, replaceEnvelope, openAnswer, openPage]);
 
   return <RCtx.Provider value={value}>{children}</RCtx.Provider>;
 }

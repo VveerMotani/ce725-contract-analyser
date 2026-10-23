@@ -1,43 +1,17 @@
-import { useEffect, useState } from "react";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
-import { api } from "./api";
-import { RunShell, Shell, lastRun } from "./components/Layout";
-import { Spinner } from "./components/ui";
-import { useRun } from "./context";
+import { Navigate, Route, Routes, useParams } from "react-router-dom";
+import { RunShell, Shell } from "./components/Layout";
+import Home from "./pages/Home";
 import NewAnalysis from "./pages/NewAnalysis";
-import PackageCheck, { StandalonePackageCheck } from "./pages/PackageCheck";
-import RunProgress from "./pages/RunProgress";
-import Overview from "./pages/Overview";
-import ClauseTable from "./pages/ClauseTable";
-import ReviewQueue from "./pages/ReviewQueue";
-import RiskFlags from "./pages/RiskFlags";
-import CashFlow from "./pages/CashFlow";
-import Evaluation from "./pages/Evaluation";
-import { About, ExportPage } from "./pages/ExportAbout";
+import Report from "./pages/Report";
+import AllAnswers from "./pages/AllAnswers";
+import Accuracy from "./pages/Accuracy";
+import Technical from "./pages/Technical";
+import About from "./pages/About";
 
-/** "/" goes to the last opened run, else the most recent finished run, else New analysis. */
-function Home() {
-  const nav = useNavigate();
-  const [msg] = useState("Finding your latest run…");
-  useEffect(() => {
-    let alive = true;
-    api.runs().then((runs) => {
-      if (!alive) return;
-      const last = lastRun();
-      const pick = runs.find((r) => r.run_id === last) ?? runs.find((r) => r.stage === "done") ?? runs[0];
-      nav(pick ? `/runs/${pick.run_id}` : "/new", { replace: true });
-    }).catch(() => alive && nav("/new", { replace: true }));
-    return () => { alive = false; };
-  }, [nav]);
-  return <Spinner label={msg} />;
-}
-
-/** /runs/:id lands on Overview when finished, otherwise on Run progress. */
-function RunIndex() {
-  const { meta, metaError } = useRun();
-  if (metaError && !meta) return <Navigate to="progress" replace />;
-  if (!meta) return <Spinner />;
-  return <Navigate to={meta.stage === "done" ? "overview" : "progress"} replace />;
+/** Old addresses (overview, clauses, review, flags, cash, progress, package, export) still land somewhere sensible. */
+function OldRun({ to }: { to: "" | "answers" | "answers?filter=check" | "technical" }) {
+  const { runId = "" } = useParams();
+  return <Navigate to={`/runs/${runId}${to ? `/${to}` : ""}`} replace />;
 }
 
 export default function App() {
@@ -46,20 +20,22 @@ export default function App() {
       <Route element={<Shell />}>
         <Route index element={<Home />} />
         <Route path="new" element={<NewAnalysis />} />
-        <Route path="packages/:packageId" element={<StandalonePackageCheck />} />
-        <Route path="evaluation" element={<Evaluation />} />
+        <Route path="accuracy" element={<Accuracy />} />
         <Route path="about" element={<About />} />
+        <Route path="evaluation" element={<Navigate to="/accuracy" replace />} />
       </Route>
       <Route path="runs/:runId" element={<RunShell />}>
-        <Route index element={<RunIndex />} />
-        <Route path="overview" element={<Overview />} />
-        <Route path="package" element={<PackageCheck />} />
-        <Route path="progress" element={<RunProgress />} />
-        <Route path="clauses" element={<ClauseTable />} />
-        <Route path="review" element={<ReviewQueue />} />
-        <Route path="flags" element={<RiskFlags />} />
-        <Route path="cash" element={<CashFlow />} />
-        <Route path="export" element={<ExportPage />} />
+        <Route index element={<Report />} />
+        <Route path="answers" element={<AllAnswers />} />
+        <Route path="technical" element={<Technical />} />
+        <Route path="overview" element={<OldRun to="" />} />
+        <Route path="flags" element={<OldRun to="" />} />
+        <Route path="cash" element={<OldRun to="" />} />
+        <Route path="clauses" element={<OldRun to="answers" />} />
+        <Route path="review" element={<OldRun to="answers?filter=check" />} />
+        <Route path="progress" element={<OldRun to="technical" />} />
+        <Route path="package" element={<OldRun to="technical" />} />
+        <Route path="export" element={<OldRun to="technical" />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

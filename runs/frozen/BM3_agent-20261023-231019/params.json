@@ -82,6 +82,22 @@
       "note": ""
     },
     {
+      "field": "part_payment_share",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
+      "field": "part_payment_days",
+      "source": "default",
+      "question_id": "",
+      "quote": "",
+      "confirmed": false,
+      "note": ""
+    },
+    {
       "field": "late_interest_rate_pa",
       "source": "extracted",
       "question_id": "1.4",

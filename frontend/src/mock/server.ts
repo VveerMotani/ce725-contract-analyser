@@ -1,7 +1,7 @@
 // MOCK backend: answers the same REST paths as the FastAPI app (backend/INTERFACES.md, M5 table)
 // from in-memory fixtures. Used when VITE_MOCK=1 or the backend is unreachable.
 import type {
-  AnswerEnvelope, CashParams, CashflowResponse, Package, PageInfo, ReviewPatch, RiskFlag, RunMeta, UserInputs, DocTag,
+  AnswerEnvelope, CashParams, CashflowResponse, Package, PageInfo, ReviewPatch, RiskFlag, RuleCheck, RunMeta, UserInputs, DocTag,
 } from "../types";
 import { BENCHMARKS, BENCH_TITLES, buildAnswers, buildFlags, buildPackage, buildParams, buildScore, h01 } from "./data";
 import { referenceView, runCash, sCurve, evenCurve } from "./cashEngine";
@@ -163,6 +163,38 @@ function makeUploadPackage(form: FormData): Package {
   return pkg;
 }
 
+const RULES: [string, string, string[]][] = [
+  ["R1", "Retention within normal limits", ["2.1", "2.2", "2.3", "2.5"]],
+  ["R2", "Retention rate within its cap", ["2.2", "2.3"]],
+  ["R3", "Performance guarantee at normal level", ["6.2", "6.8"]],
+  ["R4", "Delay penalty capped at 10% or less", ["4.1", "4.2", "4.3"]],
+  ["R5", "Extension of time available", ["4.1", "4.5"]],
+  ["R6", "Interest paid on late payment", ["1.4"]],
+  ["R7", "Payment within 30 days", ["1.3", "1.2"]],
+  ["R8", "Advance on fair terms", ["3.1", "3.3", "3.5"]],
+  ["R9", "Advance recovered in step with work", ["3.4"]],
+  ["R10", "No long fixed-price exposure", ["5.1", "0.4"]],
+  ["R11", "Price adjustment complete", ["5.1", "5.3", "5.4", "5.7"]],
+  ["R12", "No heavy withholding", ["0.6", "4.3"]],
+  ["R13", "No high minimum bill", ["1.6"]],
+  ["R14", "Guarantee not tied to extensions", ["6.5"]],
+  ["R15", "No conditions on payment", ["1.8", "1.1", "1.5", "1.7"]],
+  ["R16", "No conflicting values", []],
+  ["R17", "No unresolved references", []],
+  ["R18", "No missing documents", []],
+];
+const SEV_RANK: Record<string, number> = { High: 5, Medium: 4, Low: 3, "Needs review": 2, Info: 1 };
+
+/** MOCK of GET /runs/{id}/checks: a rule that produced a flag is "flag", every other rule "pass". */
+function buildChecks(flags: RiskFlag[]): RuleCheck[] {
+  return RULES.map(([id, label, qs]) => {
+    const fs = flags.filter((f) => f.flag_id === id);
+    if (!fs.length) return { flag_id: id, result: "pass", label, severity: "", reason: "MOCK: rule did not fire", question_ids: qs };
+    const worst = fs.reduce((a, b) => (SEV_RANK[b.severity] > SEV_RANK[a.severity] ? b : a));
+    return { flag_id: id, result: "flag", label: worst.title, severity: worst.severity, reason: worst.value_found, question_ids: [...new Set(fs.flatMap((f) => f.question_ids))] };
+  });
+}
+
 const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 /** Route a request to the mock backend. `path` excludes the /api prefix. */
@@ -233,6 +265,10 @@ export async function mockRequest(method: string, path: string, body?: unknown):
     if (sub === "flags" && method === "GET") {
       if (!r.flags) r.flags = buildFlags(r.dataContract);
       return r.flags;
+    }
+    if (sub === "checks" && method === "GET") {
+      if (!r.flags) r.flags = buildFlags(r.dataContract);
+      return buildChecks(r.flags);
     }
     if (sub === "score" && method === "GET") {
       if (!BENCH_TITLES[r.meta.contract_id]) throw new MockHttpError(404, "not a benchmark");

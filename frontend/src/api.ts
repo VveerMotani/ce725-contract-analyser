@@ -3,7 +3,7 @@
 // answer GET /api/benchmarks at start-up, every call is served by src/mock/server.ts.
 import type {
   AnswerEnvelope, Benchmark, CashParams, CashflowResponse, CashInputs, Package, ReviewPatch, RiskFlag, RunMeta,
-  ScoreSummary, UserInputs, EvaluationSummary,
+  ScoreSummary, UserInputs, EvaluationSummary, RuleCheck,
 } from "./types";
 
 export class ApiError extends Error {
@@ -94,6 +94,7 @@ export const api = {
   saveParams: (id: string, p: CashParams) => request<CashParams>("PUT", `/runs/${enc(id)}/params`, p),
   cashflow: (id: string, overrides?: Partial<CashInputs>) => request<CashflowResponse>("POST", `/runs/${enc(id)}/cashflow`, { overrides: overrides ?? {} }),
   flags: (id: string) => request<RiskFlag[]>("GET", `/runs/${enc(id)}/flags`),
+  checks: (id: string) => request<RuleCheck[]>("GET", `/runs/${enc(id)}/checks`),
   score: (id: string) => request<ScoreSummary>("GET", `/runs/${enc(id)}/score`),
   evaluation: () => request<EvaluationSummary>("GET", "/evaluation"),
 };

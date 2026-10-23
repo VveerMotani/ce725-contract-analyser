@@ -10,8 +10,8 @@
     "bg_commission_pa": 0.015,
     "delay_days": 0,
     "index_rise_pa": {},
-    "cert_lag_days": 10.0,
-    "pay_lag_days": 10.0,
+    "cert_lag_days": 15.0,
+    "pay_lag_days": 30.0,
     "min_bill_value": 0.0,
     "late_interest_rate_pa": 0.0925,
     "retention_rate": 0.06,
@@ -46,8 +46,8 @@
     "perf_security_validity_months_after_completion": 0.0,
     "index_lag_months": 0,
     "advance_interest_rate_encashed_pa": null,
-    "part_payment_share": null,
-    "part_payment_days": null
+    "part_payment_share": 0.9,
+    "part_payment_days": 10.0
   },
   "provenance": [
     {
@@ -78,12 +78,28 @@
       "field": "cert_lag_days",
       "source": "extracted",
       "question_id": "1.2",
-      "quote": "10 days",
+      "quote": "15 days",
       "confirmed": false,
-      "note": "as printed: 10 days"
+      "note": "as printed: 15 days"
     },
     {
       "field": "pay_lag_days",
+      "source": "extracted",
+      "question_id": "1.3",
+      "quote": "30 days",
+      "confirmed": false,
+      "note": "as printed: 30 days"
+    },
+    {
+      "field": "part_payment_share",
+      "source": "extracted",
+      "question_id": "1.3",
+      "quote": "90%",
+      "confirmed": false,
+      "note": "90% = 0.9 (fraction)"
+    },
+    {
+      "field": "part_payment_days",
       "source": "extracted",
       "question_id": "1.3",
       "quote": "10 days",

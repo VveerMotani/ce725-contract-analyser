@@ -239,3 +239,15 @@ def test_negative_interest_needs_the_words():
     params = map_to_cash_params(envs, {}, llm)
     assert prov(params, "late_interest_rate_pa").source == "default"
     assert "no 'no interest' wording" in prov(params, "late_interest_rate_pa").note
+
+
+def test_payment_days_read_clause_by_clause():
+    """Part payment within 10 days must not become the payment period (BM1-style answer)."""
+    from analyser.params.mapping import _payment_day_items
+    got = {}
+    _payment_day_items(lambda f, q, v, u, **k: got.__setitem__(f, float(v)),
+                       "Within 10 days AE recommends release of 90%; within 15 days AE issues IPC",
+                       "90% part payment within 10 days of AE recommendation; full payment no later "
+                       "than 30 days from submission; final payment within 30 days")
+    assert got == {"cert_lag_days": 15, "part_payment_share": 90, "part_payment_days": 10,
+                   "pay_lag_days": 30}

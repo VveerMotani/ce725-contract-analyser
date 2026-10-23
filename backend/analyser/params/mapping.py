@@ -25,7 +25,9 @@ FIELDS: dict[str, tuple[str, str, str]] = {
     "duration_months": ("stipulated completion period", "0.4", "months"),
     "dlp_months": ("defects liability period", "0.5", "months"),
     "cert_lag_days": ("days for the employer to certify a bill", "1.2", "days"),
-    "pay_lag_days": ("days to pay a certified bill", "1.3", "days"),
+    "pay_lag_days": ("days to pay a certified bill (the full or balance payment)", "1.3", "days"),
+    "part_payment_share": ("share of a bill paid early as a part payment, if any", "1.3", "share"),
+    "part_payment_days": ("days within which the part payment is made, if any", "1.3", "days"),
     "late_interest_rate_pa": ("interest rate on delayed payment", "1.4", "rate_pa"),
     "min_bill_value": ("minimum value of work before an interim bill is payable", "1.6", "money"),
     "retention_rate": ("retention or security deposit deducted from each bill", "2.2", "share"),
@@ -358,9 +360,7 @@ def regex_items(by_q: dict[str, AnswerEnvelope]) -> list[dict]:
             note="first period stated; others apply to other work types" if several else "")
 
     # C1 payment
-    for field_name, qid in (("cert_lag_days", "1.2"), ("pay_lag_days", "1.3")):
-        if (m := re.search(r"(\d+)\s*(?:working\s+|calendar\s+|clear\s+)?days", answer(qid), re.I)):
-            add(field_name, qid, m.group(1), "days", quote=m.group(0))
+    _payment_day_items(add, answer("1.2"), answer("1.3"))
     _interest_items(add, "late_interest_rate_pa", "1.4", answer("1.4"))
     bill = answer("1.6")
     if bill and not NOT_GIVEN.search(bill) and (m := RUPEES.search(bill)):
@@ -417,6 +417,43 @@ def regex_items(by_q: dict[str, AnswerEnvelope]) -> list[dict]:
     if (m := re.search(r"performance\s+(?:security|guarantee)[^;%]*?" + _PCT, answer("6.2"), re.I)):
         add("perf_security_pct", "6.2", m.group(1), "percent", quote=m.group(0))
     return items
+
+
+_DAYS = r"(\d+)\s*(?:working\s+|calendar\s+|clear\s+)?days"
+
+
+def _payment_day_items(add, certify: str, pay: str) -> None:
+    """Days to certify (1.2) and to pay (1.3), read clause by clause.
+
+    Answers often hold several periods ("90% part payment within 10 days; full payment no
+    later than 30 days"). Certification takes the clause about the certificate (IPC);
+    payment takes the full/balance clause; a "N% part payment within D days" clause fills the
+    part-payment fields instead of the payment period.
+    """
+    def first_days(segments, prefer=None, avoid=None):
+        for seg in segments:
+            if prefer and not re.search(prefer, seg, re.I):
+                continue
+            if avoid and re.search(avoid, seg, re.I):
+                continue
+            if (m := re.search(_DAYS, seg, re.I)):
+                return m
+        return None
+
+    segs = [s for s in re.split(r";", certify) if s.strip()]
+    m = first_days(segs, prefer=r"\bIPC\b|certif") or first_days(segs)
+    if m:
+        add("cert_lag_days", "1.2", m.group(1), "days", quote=m.group(0))
+
+    segs = [s for s in re.split(r";", pay) if s.strip()]
+    part = next((s for s in segs if re.search(r"part[\s-]*payment", s, re.I)), None)
+    if part and (pct := re.search(_PCT, part)) and (d := re.search(_DAYS, part, re.I)):
+        add("part_payment_share", "1.3", pct.group(1), "percent", quote=pct.group(0))
+        add("part_payment_days", "1.3", d.group(1), "days", quote=d.group(0))
+    m = (first_days(segs, prefer=r"full|balance|remaining|no later than", avoid=r"part[\s-]*payment|final")
+         or first_days(segs, avoid=r"part[\s-]*payment|final") or first_days(segs))
+    if m:
+        add("pay_lag_days", "1.3", m.group(1), "days", quote=m.group(0))
 
 
 def _interest_items(add, field_name: str, qid: str, text: str) -> None:

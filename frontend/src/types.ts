@@ -297,6 +297,16 @@ export interface RiskFlag {
   rupee_impact: number | null;
 }
 
+/** GET /runs/{id}/checks: one row per risk rule, whether it fired, passed or could not be checked. */
+export interface RuleCheck {
+  flag_id: string;
+  result: "flag" | "pass" | "not_checked";
+  label: string;
+  severity: Severity | "";
+  reason: string;
+  question_ids: string[];
+}
+
 // ---------------------------------------------------------------------------
 // F15 evaluation
 // ---------------------------------------------------------------------------
