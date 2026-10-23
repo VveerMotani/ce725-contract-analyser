@@ -2,6 +2,8 @@
 
 CE725 Team 2, Topic 12: AI Contract Analyser for Financial Risk Clauses.
 
+**Live demo (read-only, saved results):** https://ce725-contract-analyser.pages.dev
+
 A website that reads Indian public-works contract PDFs and, from the contractor's side:
 
 1. **Finds** six financial terms (payment, retention, advances, delay damages, price escalation, guarantees) plus contract facts, answering 52 fixed questions.
