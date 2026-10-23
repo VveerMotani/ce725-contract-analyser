@@ -1,0 +1,509 @@
+<title>Contract Data Manual</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout concept: an engineering drawing sheet. Title block on top, then plain sections that each answer one question. */
+:root {
+  --bg: #F1F4F5;
+  --surface: #FFFFFF;
+  --ink: #12222E;
+  --muted: #53636E;
+  --line: #D3DBE0;
+  --accent: #0B6E6E;
+  --accent-soft: #D6ECEC;
+  --warn: #9A4A08;
+  --warn-soft: #FBEBD3;
+  --bad: #B42318;
+  --bad-soft: #FBDEDA;
+  --good: #1B7F4B;
+  --good-soft: #D8F0E2;
+  --out: #B45309;
+  --in: #0B6E6E;
+  --f-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E181F; --surface: #15222B; --ink: #E6EEF2; --muted: #9FB0BA; --line: #2A3A45;
+    --accent: #4FC3C3; --accent-soft: #12383A; --warn: #E8A44A; --warn-soft: #3A2B12;
+    --bad: #F2877D; --bad-soft: #3E1A17; --good: #5CCB8D; --good-soft: #12361F;
+    --out: #E8A44A; --in: #4FC3C3; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E181F; --surface: #15222B; --ink: #E6EEF2; --muted: #9FB0BA; --line: #2A3A45;
+  --accent: #4FC3C3; --accent-soft: #12383A; --warn: #E8A44A; --warn-soft: #3A2B12;
+  --bad: #F2877D; --bad-soft: #3E1A17; --good: #5CCB8D; --good-soft: #12361F;
+  --out: #E8A44A; --in: #4FC3C3; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px 56px;
+}
+.wrap { max-width: 980px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px; }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 700; line-height: 1.1; margin: 0; text-wrap: balance; letter-spacing: .01em; }
+h1 { font-size: clamp(2.4rem, 7vw, 3.6rem); }
+h2 { font-size: clamp(1.7rem, 4.5vw, 2.2rem); }
+h3 { font-size: 1.35rem; font-weight: 600; }
+p { margin: 0; max-width: 68ch; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, input:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.mono { font-family: var(--f-mono); }
+.muted { color: var(--muted); }
+.label { font-family: var(--f-mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+/* title block */
+.title-block { border: 2px solid var(--ink); background: var(--surface); }
+.title-block .head { padding: 20px 20px 16px; display: flex; flex-direction: column; gap: 10px; border-bottom: 2px solid var(--ink); }
+.tb-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+.tb-cell { padding: 10px 16px; border-right: 1px solid var(--line); border-top: 1px solid var(--line); min-width: 0; }
+.tb-cell:first-child { border-top: 0; }
+.tb-cell b { display: block; font-weight: 500; }
+
+section { display: flex; flex-direction: column; gap: 18px; }
+.lede { font-size: 1.08rem; }
+
+/* pipeline */
+.pipeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; counter-reset: step; }
+.step { background: var(--surface); border: 1px solid var(--line); padding: 14px 14px 16px; position: relative; display: flex; flex-direction: column; gap: 6px; min-width: 0; margin-left: -1px; }
+.step:first-child { margin-left: 0; }
+.step .n { font-family: var(--f-mono); font-size: .75rem; color: var(--accent); }
+.step b { font-weight: 600; line-height: 1.25; }
+.step span.who { font-size: .82rem; color: var(--muted); }
+.step.you { background: var(--accent-soft); border-color: var(--accent); z-index: 1; }
+@media (max-width: 720px) { .pipeline { grid-template-columns: 1fr; } .step { margin-left: 0; margin-top: -1px; } .step:first-child { margin-top: 0; } }
+
+/* matrix */
+.scroll { overflow-x: auto; border: 1px solid var(--line); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: .93rem; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--f-mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 500; white-space: nowrap; background: var(--bg); }
+tr:last-child td { border-bottom: 0; }
+td.c, th.c { text-align: center; }
+.dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); vertical-align: middle; }
+.dot.off { background: transparent; border: 1px solid var(--line); }
+.matrix td:first-child { min-width: 220px; }
+
+/* chips */
+.chip { display: inline-block; font-family: var(--f-mono); font-size: .72rem; padding: 2px 8px; border-radius: 3px; white-space: nowrap; letter-spacing: .02em; }
+.chip.good { background: var(--good-soft); color: var(--good); }
+.chip.warn { background: var(--warn-soft); color: var(--warn); }
+.chip.bad { background: var(--bad-soft); color: var(--bad); }
+.chip.plain { background: var(--accent-soft); color: var(--accent); }
+
+/* data cards */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--line); padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.card ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font-size: .93rem; }
+.card .use { font-size: .9rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; margin-top: auto; }
+
+/* features */
+.feature { background: var(--surface); border: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+.feature > div { padding: 20px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.feature .text { border-right: 1px solid var(--line); }
+@media (max-width: 760px) { .feature { grid-template-columns: minmax(0, 1fr); } .feature .text { border-right: 0; border-bottom: 1px solid var(--line); } }
+.note { font-size: .82rem; color: var(--muted); }
+
+/* extraction demo */
+.snippet { font-family: var(--f-mono); font-size: .84rem; line-height: 1.7; background: var(--bg); border: 1px solid var(--line); padding: 12px 14px; }
+mark { background: var(--warn-soft); color: var(--ink); padding: 1px 3px; border-bottom: 2px solid var(--out); }
+mark.b { background: var(--accent-soft); border-bottom-color: var(--accent); }
+.arrow { text-align: center; color: var(--muted); font-family: var(--f-mono); font-size: .8rem; }
+.kv { display: grid; grid-template-columns: 9.5rem 1fr; border: 1px solid var(--line); font-size: .88rem; }
+.kv > * { padding: 6px 10px; border-bottom: 1px solid var(--line); min-width: 0; overflow-wrap: anywhere; }
+.kv > *:nth-last-child(-n+2) { border-bottom: 0; }
+.kv dt { font-family: var(--f-mono); color: var(--muted); background: var(--bg); font-size: .78rem; margin: 0; }
+.kv dd { margin: 0; font-family: var(--f-mono); }
+
+/* controls */
+.controls { display: flex; flex-direction: column; gap: 10px; }
+.ctl { display: grid; grid-template-columns: 11rem minmax(0, 1fr) 4.2rem; align-items: center; gap: 10px; font-size: .9rem; }
+.ctl output { font-family: var(--f-mono); text-align: right; }
+@media (max-width: 520px) { .ctl { grid-template-columns: minmax(0, 1fr) 4.2rem; } .ctl label { grid-column: 1 / -1; } }
+input[type=range] { width: 100%; accent-color: var(--accent); min-height: 28px; }
+.readouts { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
+.readout { border: 1px solid var(--line); padding: 8px 12px; background: var(--bg); }
+.readout b { display: block; font-family: var(--f-mono); font-size: 1.25rem; font-weight: 500; }
+.keys { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .84rem; color: var(--muted); }
+.keys i { display: inline-block; width: 18px; height: 3px; vertical-align: middle; margin-right: 6px; }
+svg { display: block; width: 100%; height: auto; max-width: 100%; }
+svg text { font-family: var(--f-mono); font-size: 14px; fill: var(--muted); }
+svg .peak-label { fill: var(--ink); font-size: 15px; font-weight: 500; paint-order: stroke; stroke: var(--surface); stroke-width: 5px; stroke-linejoin: round; }
+.barwrap { height: 22px; background: var(--bg); border: 1px solid var(--line); position: relative; overflow: hidden; }
+.bar { height: 100%; background: var(--warn); transition: width .15s; }
+.bar.over { background: var(--bad); }
+
+/* limits */
+.limits { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.limit { border-left: 4px solid var(--warn); background: var(--surface); padding: 12px 14px; font-size: .93rem; }
+.limit b { display: block; margin-bottom: 2px; }
+footer { font-size: .85rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; }
+</style>
+
+<div class="wrap">
+
+<header class="title-block">
+  <div class="head">
+    <span class="label">CE725 Construction Economics and Finance</span>
+    <h1>Contract Data Manual</h1>
+    <p class="lede">What data exists for an AI contract analyser, where to get it, and what the team can do with it. Written for the Data Lead, in plain language.</p>
+  </div>
+  <div class="tb-grid">
+    <div class="tb-cell"><span class="label">Team / topic</span><b>Team 2 · Topic 12</b></div>
+    <div class="tb-cell"><span class="label">Scope</span><b>India only, public contracts</b></div>
+    <div class="tb-cell"><span class="label">LLM</span><b>Anthropic API</b></div>
+    <div class="tb-cell"><span class="label">Prepared</span><b>21 Oct 2026, draft</b></div>
+  </div>
+</header>
+
+<section>
+  <h2>How the tool works, and where data goes in</h2>
+  <p class="lede">The tool reads a contract, pulls out six kinds of financial clause, flags risks, and shows what they do to cash. Data is needed at every step, and the Data Lead owns the first one.</p>
+  <div class="pipeline" role="list">
+    <div class="step you" role="listitem"><span class="n">STEP 1</span><b>Collect and label contracts</b><span class="who">Data Lead (you). Build the answer key.</span></div>
+    <div class="step" role="listitem"><span class="n">STEP 2</span><b>Extract clauses with the LLM</b><span class="who">AI and Tool Developer. Quote and section for every answer.</span></div>
+    <div class="step" role="listitem"><span class="n">STEP 3</span><b>Flag risks</b><span class="who">Compare each term with reference values.</span></div>
+    <div class="step" role="listitem"><span class="n">STEP 4</span><b>Estimate cash impact</b><span class="who">Finance Modeller. Retention, advance, delays, escalation.</span></div>
+    <div class="step" role="listitem"><span class="n">STEP 5</span><b>Score against the key</b><span class="who">Validation Engineer. Correct, missed, incorrect.</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>What data is available</h2>
+  <p class="lede">Six groups of data. The grid shows which step of the tool each group feeds.</p>
+  <div class="scroll">
+    <table class="matrix">
+      <thead><tr><th>Data group</th><th class="c">Extract</th><th class="c">Flag</th><th class="c">Cash</th><th class="c">Score</th></tr></thead>
+      <tbody>
+        <tr><td><b>A. Contracts to read</b><br><span class="muted">Standard forms and real tenders</span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot off"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td></tr>
+        <tr><td><b>B. Reference rules</b><br><span class="muted">Government norms for securities and deposits</span></td><td class="c"><span class="dot off"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot off"></span></td><td class="c"><span class="dot off"></span></td></tr>
+        <tr><td><b>C. Price indices</b><br><span class="muted">WPI for cement, steel, fuel</span></td><td class="c"><span class="dot off"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot off"></span></td></tr>
+        <tr><td><b>D. Interest rates</b><br><span class="muted">Repo and bank lending rates</span></td><td class="c"><span class="dot off"></span></td><td class="c"><span class="dot off"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot off"></span></td></tr>
+        <tr><td><b>E. Legal context</b><br><span class="muted">Contract Act and court rulings</span></td><td class="c"><span class="dot off"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot off"></span></td><td class="c"><span class="dot off"></span></td></tr>
+        <tr><td><b>F. CUAD practice set</b><br><span class="muted">510 labelled commercial contracts, not construction</span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot off"></span></td><td class="c"><span class="dot off"></span></td><td class="c"><span class="dot"></span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cards">
+    <article class="card">
+      <h3>A. Contracts to read</h3>
+      <ul>
+        <li><a href="https://morth.gov.in/print/standard_document_archive">MoRTH standard documents</a>: EPC and HAM forms</li>
+        <li><a href="https://morth.gov.in/sites/default/files/Revised_standard_RFP_for_EPC_works_dated_28_12_2018.pdf">Revised standard EPC RFP, 2018</a></li>
+        <li><a href="https://www.pppinindia.gov.in/model_concession_agreement">PPP model concession agreements</a></li>
+        <li><a href="https://iitk.ac.in/iwd/file/2025/12-AC-EE-2025/GCC2023.pdf">CPWD GCC 2023</a> (IIT Kanpur copy)</li>
+        <li><a href="https://tenders.iitm.ac.in/sites/default/files/CPWD%20Form%208%20-%20Annexure_0.pdf">IIT Madras tender annexure</a>, real numbers filled in</li>
+        <li>Live tenders on <a href="https://eprocure.gov.in">CPPP</a> and GeM</li>
+        <li><a href="https://www.worldbank.org/en/programs/project-procurement/framework">World Bank standard documents</a>, non-commercial use</li>
+      </ul>
+      <p class="use"><b>Use:</b> the text the tool reads. Two of these become the benchmark pair. FIDIC Red Book is paid, so it is not on the list.</p>
+    </article>
+    <article class="card">
+      <h3>B. Reference rules</h3>
+      <ul>
+        <li><a href="https://www.gconnect.in/news/amendment-general-financial-rules-2017-rule-171i-performance-security.html">GFR 2017 Rule 171</a>: performance security, reported as 3 to 10% for goods</li>
+        <li>CPWD Form 8: 5% security deposit and 5% performance guarantee (older form)</li>
+      </ul>
+      <p class="use"><b>Use:</b> yardsticks for the risk flags, for example "retention above the norm". Confirm each number in the 2023 text before using it.</p>
+    </article>
+    <article class="card">
+      <h3>C. Price indices</h3>
+      <ul>
+        <li><a href="https://eaindustry.nic.in">eaindustry.nic.in</a>: Wholesale Price Index by commodity, monthly</li>
+        <li>Labour Bureau indices for labour cost</li>
+      </ul>
+      <p class="use"><b>Use:</b> try "what if steel and cement rise X% during the contract". Base years differ and do not link, so pick one. A separate bitumen series was not confirmed.</p>
+    </article>
+    <article class="card">
+      <h3>D. Interest rates</h3>
+      <ul>
+        <li>RBI repo rate</li>
+        <li>Bank lending rates (MCLR) for overdraft cost</li>
+      </ul>
+      <p class="use"><b>Use:</b> turn a cash shortfall into an interest cost. Not looked up yet.</p>
+    </article>
+    <article class="card">
+      <h3>E. Legal context</h3>
+      <ul>
+        <li>Section 74, Indian Contract Act: damages must be reasonable</li>
+        <li><a href="https://api.sci.gov.in/jonew/judis/42354.pdf">Supreme Court, 2015</a>: loss can be presumed from delay, and the contractor must show no loss</li>
+        <li><a href="https://api.sci.gov.in/supremecourt/2020/1837/1837_2020_4_1502_61307_Judgement_28-Apr-2025.pdf">Supreme Court, 28 April 2025</a>: damages refused where the employer extended time and the contractor finished inside it</li>
+      </ul>
+      <p class="use"><b>Use:</b> the wording of LD warnings. The tool gives risk flags and is not legal advice.</p>
+    </article>
+    <article class="card">
+      <h3>F. CUAD practice set</h3>
+      <ul>
+        <li><a href="https://huggingface.co/datasets/theatticusproject/cuad">CUAD on Hugging Face</a></li>
+        <li>510 contracts, 41 clause categories, CC BY 4.0</li>
+      </ul>
+      <p class="use"><b>Use:</b> optional. Practise the extraction prompts and scoring on labelled data before touching Indian contracts. Not construction contracts.</p>
+    </article>
+  </div>
+</section>
+
+<section>
+  <h2>What you can do with the data</h2>
+  <p class="lede">Four things. The first three are live toys below: move the sliders to see the idea. The numbers are invented for illustration and are not from any real contract.</p>
+
+  <div class="feature">
+    <div class="text">
+      <h3>1. Turn contract text into answers</h3>
+      <p>Give the LLM a section of a contract and the questions from the questionnaire. It returns each answer with the exact quote and the clause number. You build the same table by hand, and that table is the answer key.</p>
+      <p class="note">The sentence on the right is an invented example written in CPWD style.</p>
+    </div>
+    <div>
+      <div class="snippet">The Contractor shall allow deduction at the rate of <mark>5%</mark> of the <mark class="b">gross amount of each running bill</mark> until the deduction, with earnest money, reaches <mark>5%</mark> of the tendered value.</div>
+      <div class="arrow">LLM reads the text and returns</div>
+      <dl class="kv" style="margin:0">
+        <dt>clause_id</dt><dd>C2 retention / security deposit</dd>
+        <dt>value</dt><dd>5</dd>
+        <dt>unit</dt><dd>% of gross running bill</dd>
+        <dt>cap</dt><dd>5% of tendered value</dd>
+        <dt>section_ref</dt><dd>Clause 2 (example)</dd>
+        <dt>status</dt><dd>FOUND</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="feature">
+    <div class="text">
+      <h3>2. Show what retention, advance and payment delay do to cash</h3>
+      <p>Contractors fail on cash, not on profit. With the terms from the contract, the tool draws what the contractor has paid out against what has come in, and the biggest gap is the peak funding need. A 10 Cr, 10-month project is used here, and costs are 90% of the billed value.</p>
+      <div class="controls">
+        <div class="ctl"><label for="ret">Retention held back</label><input id="ret" type="range" min="0" max="10" step="0.5" value="5"><output id="retO"></output></div>
+        <div class="ctl"><label for="adv">Mobilisation advance</label><input id="adv" type="range" min="0" max="15" step="1" value="0"><output id="advO"></output></div>
+        <div class="ctl"><label for="lag">Months to get paid</label><input id="lag" type="range" min="0" max="3" step="1" value="1"><output id="lagO"></output></div>
+      </div>
+      <p class="note">Assumptions: advance paid in month 1 and recovered evenly from each bill, retention released in month 14, overdraft at 11% a year.</p>
+    </div>
+    <div>
+      <div class="keys"><span><i style="background:var(--out)"></i>Cash paid out, running total</span><span><i style="background:var(--in)"></i>Cash received, running total</span><span><i style="background:var(--warn-soft);border:1px solid var(--out);height:10px"></i>Funding gap</span></div>
+      <svg id="cashChart" viewBox="0 0 640 300" role="img" aria-label="Running cash paid out versus cash received over 14 months, with the funding gap shaded"></svg>
+      <div class="readouts">
+        <div class="readout"><span class="label">Peak funding need</span><b id="peakO"></b></div>
+        <div class="readout"><span class="label">Month of peak</span><b id="peakMO"></b></div>
+        <div class="readout"><span class="label">Overdraft interest</span><b id="intO"></b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feature">
+    <div class="text">
+      <h3>3. Size two risks: price rise and delay damages</h3>
+      <p>If a contract is fixed price, a rise in cement and steel comes out of the contractor's margin. If it has liquidated damages, every late week costs a fixed share of the contract value. The tool reads the clause and shows the exposure next to the margin.</p>
+      <p class="note">Margin here is 1.0 Cr (10% of 10 Cr). Materials are assumed to be 35% of contract value. LD is capped at 10%. For comparison, the NHAI EPC agreements charge 0.05% a day (0.35% a week) with a 10% cap, and CPWD GCC 2023 allows up to 1% a month with a 10% cap.</p>
+    </div>
+    <div>
+      <div class="controls">
+        <div class="ctl"><label for="rise">Cement and steel price rise</label><input id="rise" type="range" min="0" max="30" step="1" value="12"><output id="riseO"></output></div>
+      </div>
+      <div class="label">Fixed-price exposure against margin</div>
+      <div class="barwrap"><div class="bar" id="escBar"></div></div>
+      <div class="readouts">
+        <div class="readout"><span class="label">Extra cost</span><b id="escO"></b></div>
+        <div class="readout"><span class="label">Share of margin</span><b id="escP"></b></div>
+      </div>
+      <div class="controls" style="margin-top:6px">
+        <div class="ctl"><label for="wk">Weeks of delay</label><input id="wk" type="range" min="0" max="30" step="1" value="8"><output id="wkO"></output></div>
+        <div class="ctl"><label for="ldr">LD rate per week</label><input id="ldr" type="range" min="0.1" max="1" step="0.05" value="0.35"><output id="ldrO"></output></div>
+      </div>
+      <div class="label">LD against margin</div>
+      <div class="barwrap"><div class="bar" id="ldBar"></div></div>
+      <div class="readouts">
+        <div class="readout"><span class="label">LD payable</span><b id="ldO"></b></div>
+        <div class="readout"><span class="label">Share of margin</span><b id="ldP"></b></div>
+        <div class="readout"><span class="label">Cap reached</span><b id="ldC"></b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feature">
+    <div class="text">
+      <h3>4. Score the tool against your answer key</h3>
+      <p>This is where the validation marks come from. For each question, compare the tool's answer with the key and label it. Then count. The table shows how the counting works with invented rows. It is not our result.</p>
+      <div class="readouts">
+        <div class="readout"><span class="label">Recall</span><b id="recO"></b></div>
+        <div class="readout"><span class="label">Precision</span><b id="preO"></b></div>
+      </div>
+      <p class="note">Recall: of the answers in the key, how many the tool got right. Precision: of the answers the tool gave, how many were right.</p>
+    </div>
+    <div>
+      <div class="scroll" style="border:0">
+        <table id="scoreTbl">
+          <thead><tr><th>Question</th><th>Answer key</th><th>Tool said</th><th>Label</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>What the data cannot do</h2>
+  <div class="limits">
+    <div class="limit"><b>No real executed contract</b>Everything is a standard form or a tender. Real contracts have extra negotiated terms, so the tool is tested on the easier case.</div>
+    <div class="limit"><b>Some links are not opened yet</b>The NHAI agreements, the MP tender, CPWD GCC 2023, the 2022 procurement manual and both rulings were opened and read. The rest came from web searches. The register workbook marks each one.</div>
+    <div class="limit"><b>Reference numbers need checking</b>Percentages for deposits, guarantees and delay damages came from summaries and older forms. Confirm each one in the current document.</div>
+    <div class="limit"><b>Not legal advice</b>Two Supreme Court rulings on delay damages were read, and they pull in different directions. The tool flags risks and does not say what a court would do.</div>
+    <div class="limit"><b>No project or competitor data</b>The data does not include a contractor's own costs or schedule. The cash toy needs a bill of quantities from a real tender.</div>
+    <div class="limit"><b>Scanned PDFs may read badly</b>Text extraction can drop tables and schedules, which is exactly where CPWD and MoRTH put the key numbers.</div>
+  </div>
+</section>
+
+<section>
+  <h2>Where each source stands</h2>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Source</th><th>Status</th><th>What to do next</th></tr></thead>
+      <tbody>
+        <tr><td>CUAD (Hugging Face)</td><td><span class="chip good">Opened</span></td><td>Licence CC BY 4.0 and file list confirmed. Check whether payment and LD categories exist.</td></tr>
+        <tr><td>NHAI EPC agreements (Makhu Town and Vijayawada) and the MP Agro tender</td><td><span class="chip good">Opened</span></td><td>Real contracts with all six clause types. Makhu and MP Agro are two of the best four. See Contract_Source_Register.xlsx.</td></tr>
+        <tr><td>MoRTH EPC RFP and archive</td><td><span class="chip warn">Found, not opened</span></td><td>Download, record version, check for later amendments.</td></tr>
+        <tr><td>PPP model agreements</td><td><span class="chip warn">Found, not opened</span></td><td>Download only if time allows.</td></tr>
+        <tr><td>CPWD GCC 2023</td><td><span class="chip good">Opened</span></td><td>Delay compensation is up to 1% a month with a 10% cap. Compare the IIT Kanpur copy with the official CPWD copy.</td></tr>
+        <tr><td>IIT Bombay tender and MoEF&amp;CC tender</td><td><span class="chip good">Opened</span></td><td>Both have filled schedules. With Makhu and MP Agro they make the best four. See Contract_Answer_Key.xlsx.</td></tr>
+        <tr><td>WPI from eaindustry.nic.in</td><td><span class="chip warn">Found, not opened</span></td><td>Pick one base year and download cement and steel series.</td></tr>
+        <tr><td>GFR Rule 171</td><td><span class="chip bad">Secondary source</span></td><td>Read the rule in the official Department of Expenditure text.</td></tr>
+        <tr><td>Supreme Court rulings (2015 and 2025)</td><td><span class="chip good">Opened</span></td><td>Both read. The 2025 one turns on extension of time, not on proof of loss.</td></tr>
+        <tr><td>Repo and lending rates</td><td><span class="chip plain">Not searched</span></td><td>Look up the current RBI repo rate and one bank's lending rate.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>Built from web searches on 21 October 2026 and the CE725 project brief. Companion files: Contract_Source_Register.xlsx and Contract_Extraction_Questionnaire_v0.1.md.</footer>
+
+</div>
+
+<script>
+(function () {
+  var PROG = [3, 6, 10, 14, 16, 16, 14, 10, 7, 4];
+  var V = 10, COST = 0.9, N = 14, REL = 14, RATE = 0.11;
+
+  function model(r, a, lag) {
+    var cumOut = [0], cumIn = [0], gap = [0], peak = 0, peakM = 0, interest = 0;
+    for (var m = 1; m <= N; m++) {
+      var bill = m <= PROG.length ? V * PROG[m - 1] / 100 : 0;
+      var out = COST * bill;
+      var inn = 0, b = m - lag;
+      if (b >= 1 && b <= PROG.length) inn += V * PROG[b - 1] / 100 * (1 - r - a);
+      if (m === 1) inn += a * V;
+      if (m === REL) inn += r * V;
+      cumOut[m] = cumOut[m - 1] + out;
+      cumIn[m] = cumIn[m - 1] + inn;
+      gap[m] = cumOut[m] - cumIn[m];
+      if (gap[m] > peak) { peak = gap[m]; peakM = m; }
+      if (gap[m] > 0) interest += gap[m] * RATE / 12;
+    }
+    return { cumOut: cumOut, cumIn: cumIn, peak: peak, peakM: peakM, interest: interest };
+  }
+
+  function $(id) { return document.getElementById(id); }
+  function cr(x) { return x.toFixed(2) + " Cr"; }
+
+  function drawCash() {
+    var r = +$("ret").value / 100, a = +$("adv").value / 100, lag = +$("lag").value;
+    $("retO").textContent = (r * 100).toFixed(1) + "%";
+    $("advO").textContent = (a * 100).toFixed(0) + "%";
+    $("lagO").textContent = lag + (lag === 1 ? " mo" : " mo");
+    var d = model(r, a, lag);
+    var W = 640, H = 300, L = 46, R = 16, T = 22, B = 34;
+    var pw = W - L - R, ph = H - T - B, YMAX = 10;
+    function X(m) { return L + (m - 1) / (N - 1) * pw; }
+    function Y(v) { return T + ph - v / YMAX * ph; }
+    var s = "";
+    for (var t = 0; t <= 10; t += 2) {
+      s += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + Y(t) + '" y2="' + Y(t) + '" stroke="var(--line)" stroke-width="1"/>';
+      s += '<text x="' + (L - 8) + '" y="' + (Y(t) + 4) + '" text-anchor="end">' + t + '</text>';
+    }
+    for (var m = 1; m <= N; m++) {
+      s += '<text x="' + X(m) + '" y="' + (H - 12) + '" text-anchor="middle">' + m + '</text>';
+    }
+    s += '<text x="' + (L - 8) + '" y="12" text-anchor="end">Cr</text>';
+    s += '<text x="' + (W - R) + '" y="' + (H - 0) + '" text-anchor="end">month</text>';
+    var top = [], bot = [];
+    for (m = 1; m <= N; m++) {
+      top.push(X(m) + "," + Y(Math.max(d.cumOut[m], d.cumIn[m])));
+    }
+    for (m = N; m >= 1; m--) { bot.push(X(m) + "," + Y(d.cumIn[m])); }
+    s += '<polygon points="' + top.join(" ") + " " + bot.join(" ") + '" fill="var(--warn-soft)" stroke="none"/>';
+    var po = [], pi = [];
+    for (m = 1; m <= N; m++) { po.push(X(m) + "," + Y(d.cumOut[m])); pi.push(X(m) + "," + Y(d.cumIn[m])); }
+    s += '<polyline points="' + po.join(" ") + '" fill="none" stroke="var(--out)" stroke-width="2.5" stroke-linejoin="round"/>';
+    s += '<polyline points="' + pi.join(" ") + '" fill="none" stroke="var(--in)" stroke-width="2.5" stroke-linejoin="round"/>';
+    if (d.peak > 0.005) {
+      var px = X(d.peakM), y1 = Y(d.cumOut[d.peakM]), y2 = Y(d.cumIn[d.peakM]);
+      s += '<line x1="' + px + '" x2="' + px + '" y1="' + y1 + '" y2="' + y2 + '" stroke="var(--ink)" stroke-width="2"/>';
+      s += '<circle cx="' + px + '" cy="' + y1 + '" r="4" fill="var(--ink)"/><circle cx="' + px + '" cy="' + y2 + '" r="4" fill="var(--ink)"/>';
+      var anchor = px > W - 120 ? "end" : (px < L + 60 ? "start" : "middle");
+      s += '<text class="peak-label" x="' + (anchor === "end" ? px - 10 : px + 10) + '" y="' + Math.max(18, (y1 + y2) / 2 + 5) + '" text-anchor="' + (anchor === "end" ? "end" : "start") + '">gap ' + d.peak.toFixed(2) + ' Cr</text>';
+    }
+    $("cashChart").innerHTML = s;
+    $("peakO").textContent = d.peak > 0.005 ? cr(d.peak) : "None";
+    $("peakMO").textContent = d.peak > 0.005 ? "Month " + d.peakM : "none";
+    $("intO").textContent = (d.interest * 100).toFixed(1) + " lakh";
+  }
+
+  function drawRisk() {
+    var margin = V * (1 - COST);
+    var rise = +$("rise").value;
+    $("riseO").textContent = rise + "%";
+    var esc = V * 0.35 * rise / 100, ep = esc / margin * 100;
+    $("escO").textContent = cr(esc);
+    $("escP").textContent = ep.toFixed(0) + "%";
+    $("escBar").style.width = Math.min(100, ep) + "%";
+    $("escBar").className = "bar" + (ep > 100 ? " over" : "");
+
+    var wk = +$("wk").value, rate = +$("ldr").value;
+    $("wkO").textContent = wk + " wk";
+    $("ldrO").textContent = rate.toFixed(2) + "%";
+    var raw = rate * wk, capped = Math.min(raw, 10);
+    var ld = V * capped / 100, lp = ld / margin * 100;
+    $("ldO").textContent = cr(ld);
+    $("ldP").textContent = lp.toFixed(0) + "%";
+    $("ldC").textContent = raw >= 10 ? "Yes" : "No";
+    $("ldBar").style.width = Math.min(100, lp) + "%";
+    $("ldBar").className = "bar" + (lp > 100 ? " over" : "");
+  }
+
+  var ROWS = [
+    ["Q1.3 Days to pay", "30 days", "30 days", "correct"],
+    ["Q2.2 Retention %", "5%", "5%", "correct"],
+    ["Q2.5 Retention release", "End of defect period", "NOT_STATED", "missed"],
+    ["Q3.3 Advance interest", "Interest-bearing", "Interest-free", "incorrect"],
+    ["Q4.3 LD cap", "10%", "10%", "correct"],
+    ["Q5.1 Price variation", "Clause applies", "Fixed price", "incorrect"],
+    ["Q6.5 Guarantee validity", "Completion + 60 days", "Completion + 60 days", "correct"],
+    ["Q4.8 Other penalties", "NOT_STATED", "NOT_STATED", "absent"]
+  ];
+  var LBL = {
+    correct: ['good', 'Correct'], absent: ['plain', 'Correct absent'],
+    missed: ['warn', 'Missed'], incorrect: ['bad', 'Incorrect']
+  };
+  function drawScore() {
+    var body = document.querySelector("#scoreTbl tbody"), h = "", ok = 0, keyN = 0, toolN = 0;
+    ROWS.forEach(function (r) {
+      var l = LBL[r[3]];
+      h += "<tr><td>" + r[0] + "</td><td>" + r[1] + "</td><td>" + r[2] + '</td><td><span class="chip ' + l[0] + '">' + l[1] + "</span></td></tr>";
+      if (r[1] !== "NOT_STATED") keyN++;
+      if (r[2] !== "NOT_STATED") toolN++;
+      if (r[3] === "correct") ok++;
+    });
+    body.innerHTML = h;
+    $("recO").textContent = (ok / keyN * 100).toFixed(0) + "%";
+    $("preO").textContent = (ok / toolN * 100).toFixed(0) + "%";
+  }
+
+  ["ret", "adv", "lag"].forEach(function (id) { $(id).addEventListener("input", drawCash); });
+  ["rise", "wk", "ldr"].forEach(function (id) { $(id).addEventListener("input", drawRisk); });
+  drawCash(); drawRisk(); drawScore();
+})();
+</script>

@@ -1,0 +1,18 @@
+# secrets
+.env
+backend/.env
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+# node
+frontend/node_modules/
+frontend/dist/
+# runs: keep frozen runs only
+runs/*
+!runs/frozen/
+!runs/packages/
+runs/packages/*/pages.json
+# office lock files
+~$*

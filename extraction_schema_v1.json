@@ -1,0 +1,192 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "title": "ContractAnswerRecord",
+ "description": "One answer to one questionnaire question about one contract.",
+ "type": "object",
+ "required": [
+  "contract_id",
+  "clause_id",
+  "question_id",
+  "status",
+  "answer_value",
+  "section_ref",
+  "pdf_page",
+  "verbatim_quote",
+  "confidence"
+ ],
+ "additionalProperties": false,
+ "properties": {
+  "contract_id": {
+   "type": "string"
+  },
+  "clause_id": {
+   "enum": [
+    "C0",
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "C5",
+    "C6"
+   ]
+  },
+  "question_id": {
+   "type": "string",
+   "pattern": "^[0-6]\\.[1-8]$"
+  },
+  "status": {
+   "enum": [
+    "FOUND",
+    "NOT_STATED",
+    "NOT_APPLICABLE",
+    "POINTS_ELSEWHERE"
+   ]
+  },
+  "answer_value": {
+   "type": "string",
+   "description": "Short plain answer. Several parts separated by semicolons. Every rate, cap, period and base."
+  },
+  "unit": {
+   "type": "string",
+   "description": "For example '% of gross bill', 'days', '% per day of contract price'."
+  },
+  "base": {
+   "type": "string",
+   "description": "What a percentage is of."
+  },
+  "value_source": {
+   "enum": [
+    "clause",
+    "schedule",
+    "contract_data",
+    "annexure",
+    "amendment",
+    "portal_page",
+    "other",
+    ""
+   ]
+  },
+  "section_ref": {
+   "type": "string",
+   "description": "Clause number as printed."
+  },
+  "pdf_page": {
+   "type": "integer",
+   "minimum": 0,
+   "description": "Position in the PDF file. 0 only for NOT_STATED."
+  },
+  "verbatim_quote": {
+   "type": "string",
+   "description": "At most 40 words copied exactly. Empty only for NOT_STATED or a page with no text layer."
+  },
+  "conflicts": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "value",
+     "section_ref",
+     "pdf_page"
+    ],
+    "properties": {
+     "value": {
+      "type": "string"
+     },
+     "section_ref": {
+      "type": "string"
+     },
+     "pdf_page": {
+      "type": "integer"
+     },
+     "verbatim_quote": {
+      "type": "string"
+     },
+     "governs": {
+      "type": "boolean"
+     }
+    }
+   }
+  },
+  "points_to": {
+   "type": "string",
+   "description": "For POINTS_ELSEWHERE: the document or clause that holds the detail."
+  },
+  "visual_check": {
+   "enum": [
+    "none",
+    "needed",
+    "done"
+   ]
+  },
+  "visual_evidence": {
+   "type": "string",
+   "description": "What the page image showed, if visual_check is done."
+  },
+  "confidence": {
+   "enum": [
+    "high",
+    "medium",
+    "low"
+   ]
+  },
+  "notes": {
+   "type": "string",
+   "maxLength": 400
+  }
+ },
+ "allOf": [
+  {
+   "if": {
+    "properties": {
+     "status": {
+      "const": "NOT_STATED"
+     }
+    },
+    "required": [
+     "status"
+    ]
+   },
+   "then": {
+    "properties": {
+     "pdf_page": {
+      "const": 0
+     }
+    }
+   }
+  },
+  {
+   "if": {
+    "properties": {
+     "status": {
+      "const": "POINTS_ELSEWHERE"
+     }
+    },
+    "required": [
+     "status"
+    ]
+   },
+   "then": {
+    "required": [
+     "points_to"
+    ]
+   }
+  },
+  {
+   "if": {
+    "properties": {
+     "visual_check": {
+      "const": "done"
+     }
+    },
+    "required": [
+     "visual_check"
+    ]
+   },
+   "then": {
+    "required": [
+     "visual_evidence"
+    ]
+   }
+  }
+ ]
+}
