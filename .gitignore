@@ -18,3 +18,6 @@ runs/packages/
 
 # Hugging Face Space build output
 deploy/hf-space/
+
+# Static (Cloudflare Pages) build output
+deploy/static-site/

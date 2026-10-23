@@ -1,10 +1,12 @@
 // REST client for the FastAPI backend (prefix /api, see backend/INTERFACES.md).
 // Mock mode: when VITE_MOCK=1, when the URL has ?mock=1, or when the backend does not
 // answer GET /api/benchmarks at start-up, every call is served by src/mock/server.ts.
+// Static copy (VITE_STATIC=1): GETs read saved files, see src/staticSite.ts.
 import type {
   AnswerEnvelope, Benchmark, CashParams, CashflowResponse, CashInputs, Package, ReviewPatch, RiskFlag, RunMeta,
   ScoreSummary, UserInputs, EvaluationSummary, RuleCheck,
 } from "./types";
+import { SAVED_ONLY_NOTE, STATIC_SITE, cashflowKey, loadPageIndex, staticGetUrl, staticPageUrl } from "./staticSite";
 
 export class ApiError extends Error {
   constructor(public status: number, message: string) { super(message); }
@@ -20,6 +22,7 @@ function forcedMock(): boolean {
 }
 
 async function detect(): Promise<void> {
+  if (STATIC_SITE) { mode = "live"; await loadPageIndex(); return; }
   if (forcedMock()) { mode = "mock"; modeReason = "VITE_MOCK=1"; return; }
   const ctl = new AbortController();
   const timer = setTimeout(() => ctl.abort(), 2500);
@@ -44,8 +47,25 @@ export async function ensureMode(): Promise<"live" | "mock"> {
 export const isMock = () => mode === "mock";
 export const mockReason = () => modeReason;
 
+/** Static copy: GETs and precomputed cash-flow what-ifs come from saved files; nothing can be changed. */
+async function staticRequest<T>(method: string, path: string, body?: unknown): Promise<T> {
+  let url: string;
+  const cash = path.match(/^(\/runs\/[^/]+)\/cashflow$/);
+  if (method === "GET") url = staticGetUrl(path);
+  else if (method === "POST" && cash) {
+    const key = cashflowKey((body as { overrides?: Record<string, unknown> } | undefined)?.overrides);
+    if (!key) throw new ApiError(404, "This what-if is not saved in this copy.");
+    url = `/static-api${cash[1]}/cashflow/${key}.json`;
+  } else throw new ApiError(403, SAVED_ONLY_NOTE);
+  const r = await fetch(url);
+  // Unknown paths get the site's index.html (SPA fallback), so check the type too.
+  if (!r.ok || !(r.headers.get("content-type") || "").includes("json")) throw new ApiError(404, "Not in this saved copy.");
+  return (await r.json()) as T;
+}
+
 async function request<T>(method: string, path: string, body?: unknown): Promise<T> {
   await ensureMode();
+  if (STATIC_SITE) return staticRequest<T>(method, path, body);
   if (mode === "mock") {
     const { mockRequest, MockHttpError } = await import("./mock/server");
     try {
@@ -99,12 +119,14 @@ export const api = {
   evaluation: () => request<EvaluationSummary>("GET", "/evaluation"),
 };
 
-export const exportCsvUrl = (runId: string) => `/api/runs/${enc(runId)}/export.csv`;
-export const reportPdfUrl = (runId: string) => `/api/runs/${enc(runId)}/report.pdf`;
+const apiBase = STATIC_SITE ? "/static-api" : "/api";
+export const exportCsvUrl = (runId: string) => `${apiBase}/runs/${enc(runId)}/export.csv`;
+export const reportPdfUrl = (runId: string) => `${apiBase}/runs/${enc(runId)}/report.pdf`;
 
 /** URL of a rendered PDF page. In mock mode returns an SVG placeholder showing the quote. */
 export function pageImageUrl(packageId: string, docId: string, page: number, highlight?: string): string {
   if (mode === "mock") return mockPageSvg(docId, page, highlight);
+  if (STATIC_SITE) return staticPageUrl(packageId, docId || "d1", page, highlight);
   const q = highlight ? `?highlight=${enc(highlight.slice(0, 400))}` : "";
   return `/api/packages/${enc(packageId)}/page/${enc(docId || "d1")}/${page}.png${q}`;
 }

@@ -42,6 +42,10 @@ npm run typecheck    # TypeScript only
 npm run preview      # serve dist on :4173 (also proxies /api)
 ```
 
+Static read-only copy (Cloudflare Pages): `python deploy/build_static_site.py` from the project root builds with
+`VITE_STATIC=1` into `deploy/static-site/`. In that mode `src/staticSite.ts` maps API calls to saved files; the
+precomputed slider grid is in `src/staticGrid.json`. See `deploy/STATIC_SITE.md`.
+
 ## Screens
 
 The site is a report you read top to bottom, not a dashboard. A slim top bar holds the name, a contract

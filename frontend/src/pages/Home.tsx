@@ -10,6 +10,7 @@ import { scorecard } from "../lib/scorecard";
 import { Tally } from "../components/Tally";
 import { issuerOf, usable } from "../lib/terms";
 import { InfoTip, Spinner, buttonCls } from "../components/ui";
+import { SAVED_ONLY_NOTE, STATIC_SITE } from "../staticSite";
 
 /** The run to open for a contract: finished runs first, AI-read before replay, newest first. */
 export function bestRun(runs: RunMeta[] | undefined, contractId: string): RunMeta | undefined {
@@ -35,7 +36,7 @@ function ContractCard({ b, run }: { b: Benchmark; run: RunMeta | undefined }) {
     : run.stage === "error" ? "Reading stopped"
     : !done ? `Reading · ${Math.round(run.progress * 100)}%`
     : null;
-  const go = () => nav(run ? `/runs/${run.run_id}` : `/new?benchmark=${b.contract_id}`);
+  const go = () => nav(run ? `/runs/${run.run_id}` : STATIC_SITE ? "/" : `/new?benchmark=${b.contract_id}`);
 
   return (
     <li className="flex flex-col rounded-lg border border-line bg-surface p-5 transition hover:border-line-strong">
@@ -49,7 +50,7 @@ function ContractCard({ b, run }: { b: Benchmark; run: RunMeta | undefined }) {
         : <span className="mt-3 text-[14px] text-muted">…</span>}
       <span className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-1 pt-3 text-[13.5px]">
         {run && <span className="text-muted">{sourceShort(run)}</span>}
-        <Link className="text-accent-ink hover:underline" to={`/new?benchmark=${b.contract_id}`}>{run ? "Read again" : "Read it"}</Link>
+        {!STATIC_SITE && <Link className="text-accent-ink hover:underline" to={`/new?benchmark=${b.contract_id}`}>{run ? "Read again" : "Read it"}</Link>}
       </span>
     </li>
   );
@@ -75,7 +76,9 @@ export default function Home() {
             <li key={t} className="rounded border border-line-strong px-2 py-0.5">{t}</li>
           ))}
         </ul>
-        <div className="mt-6"><Link to="/new" className={buttonCls("primary")}>Upload a contract <ArrowRight className="h-4 w-4" /></Link></div>
+        {STATIC_SITE
+          ? <p className="mt-6 text-[14px] text-muted">{SAVED_ONLY_NOTE}</p>
+          : <div className="mt-6"><Link to="/new" className={buttonCls("primary")}>Upload a contract <ArrowRight className="h-4 w-4" /></Link></div>}
       </header>
 
       <section className="border-t border-line pt-8">

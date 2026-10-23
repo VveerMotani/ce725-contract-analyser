@@ -14,9 +14,11 @@ export function SourcePanel() {
   const [zoom, setZoom] = useState(1);
   const [page, setPage] = useState(1);
   const [imgError, setImgError] = useState(false);
+  /** the highlighted image failed: show the plain page instead */
+  const [plain, setPlain] = useState(false);
 
   useEffect(() => {
-    if (source) { setPage(source.page || 1); setImgError(false); }
+    if (source) { setPage(source.page || 1); setImgError(false); setPlain(false); }
   }, [source]);
 
   useEffect(() => {
@@ -30,11 +32,11 @@ export function SourcePanel() {
   const a = env ? effective(env) : undefined;
   const v = env?.verification;
   const hasPage = (source.page ?? 0) > 0;
-  const highlight = page === source.page ? source.quote : undefined;
+  const highlight = page === source.page && !plain ? source.quote : undefined;
   const url = hasPage ? pageImageUrl(source.packageId, source.docId, page, highlight) : "";
   const label = a ? TERM_NAME[a.clause_id] : source.subtitle;
   const title = env ? env.question : source.title ?? `Page ${source.page}`;
-  const go = (p: number) => { setPage(Math.max(1, p)); setImgError(false); };
+  const go = (p: number) => { setPage(Math.max(1, p)); setImgError(false); setPlain(false); };
 
   return (
     <div className="fixed inset-0 z-40 flex justify-end" role="dialog" aria-modal="true" aria-label="The contract page">
@@ -107,7 +109,7 @@ export function SourcePanel() {
                 {imgError ? (
                   <div className="py-16 text-center text-[14px] text-muted">The page image is not available.</div>
                 ) : (
-                  <img src={url} alt={`Contract page ${page}`} onError={() => setImgError(true)}
+                  <img src={url} alt={`Contract page ${page}`} onError={() => (highlight ? setPlain(true) : setImgError(true))}
                     className="mx-auto block max-w-none border border-line bg-white" style={{ width: `${zoom * 100}%` }} />
                 )}
               </div>

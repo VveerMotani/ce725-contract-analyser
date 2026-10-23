@@ -6,6 +6,7 @@ import { exportCsvUrl, mockReason, reportPdfUrl } from "../api";
 import { RunProvider, lsLastRun, rememberRun, useApp, useOptionalRun } from "../context";
 import type { RunMeta } from "../types";
 import { fmtDay } from "../lib/format";
+import { STATIC_SAVED, STATIC_SITE } from "../staticSite";
 import { sourceShort } from "../lib/plain";
 import { cx } from "./ui";
 import { SourcePanel } from "./SourcePanel";
@@ -97,6 +98,7 @@ function Footer() {
           <Link className={linkCls} to="/about">About this tool and its limits</Link>
           <span>Decision support, not legal advice.</span>
         </div>
+        {STATIC_SITE && <div>Static copy · results saved on {fmtDay(STATIC_SAVED)}</div>}
         {mock && <div>Showing made-up sample data{/unreachable|answered/.test(mockReason()) ? " because the server is not answering" : ""}. Start the server to see real results.</div>}
       </div>
     </footer>

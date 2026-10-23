@@ -8,6 +8,12 @@ import Accuracy from "./pages/Accuracy";
 import Technical from "./pages/Technical";
 import About from "./pages/About";
 import TermDetail from "./pages/TermDetail";
+import { SAVED_ONLY_NOTE, STATIC_SITE } from "./staticSite";
+
+/** The static copy cannot read new contracts. */
+function SavedOnly() {
+  return <p className="text-[15px] text-ink-2">{SAVED_ONLY_NOTE}</p>;
+}
 
 /** Old addresses (overview, clauses, review, flags, cash, progress, package, export) still land somewhere sensible. */
 function OldRun({ to }: { to: "" | "answers" | "answers?filter=check" | "technical" }) {
@@ -20,7 +26,7 @@ export default function App() {
     <Routes>
       <Route element={<Shell />}>
         <Route index element={<Home />} />
-        <Route path="new" element={<NewAnalysis />} />
+        <Route path="new" element={STATIC_SITE ? <SavedOnly /> : <NewAnalysis />} />
         <Route path="accuracy" element={<Accuracy />} />
         <Route path="about" element={<About />} />
         <Route path="evaluation" element={<Navigate to="/accuracy" replace />} />

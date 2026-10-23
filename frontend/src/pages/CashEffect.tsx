@@ -7,6 +7,7 @@ import type { CashInputs, CashParams, CashResult, CashflowResponse, ParamProvena
 import { money, moneyAxis, num, pct } from "../lib/format";
 import { Button, Choice, Disclosure, ErrorNote, Figure, Spinner, cx, inputCls } from "../components/ui";
 import { CashArrowDiagram } from "../components/CashArrowDiagram";
+import { DELAY_GRID, STATIC_SITE } from "../staticSite";
 
 function useDebounced<T>(value: T, ms: number): T {
   const [v, setV] = useState(value);
@@ -103,8 +104,8 @@ export function CashEffect({ params, base, onParams }: { params: CashParams; bas
 
       <label className="mt-5 block max-w-[520px]">
         <span className="text-[14px] font-medium text-ink">Delay: <span className="tnum">{delay}</span> days</span>
-        <input type="range" min={0} max={365} step={5} value={delay} onChange={(e) => setDelay(+e.target.value)} className="mt-1.5 w-full" aria-label="Days of delay" />
-        <span className="flex justify-between text-[12px] text-muted"><span>on time</span><span>1 year</span></span>
+        <input type="range" min={0} max={STATIC_SITE ? DELAY_GRID.max : 365} step={STATIC_SITE ? DELAY_GRID.step : 5} value={delay} onChange={(e) => setDelay(+e.target.value)} className="mt-1.5 w-full" aria-label="Days of delay" />
+        <span className="flex justify-between text-[12px] text-muted"><span>on time</span>{STATIC_SITE && <span>steps of {DELAY_GRID.step} days</span>}<span>1 year</span></span>
       </label>
       {err ? <div className="mt-3"><ErrorNote error={err} title="Cash model failed" /></div> : null}
 

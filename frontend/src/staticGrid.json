@@ -1,0 +1,12 @@
+{
+  "_about": "Static (read-only) copy of the site: the one place that defines the precomputed grid and the file keys. Read by deploy/build_static_site.py and by frontend/src/staticSite.ts. Change it here, then rebuild with: python deploy/build_static_site.py",
+  "_keys": {
+    "cashflow": "POST /runs/{id}/cashflow -> /static-api/runs/{id}/cashflow/{key}.json. key = 'base' for no overrides; 'delay-{d}' for {delay_days: d} (d snapped to delay_days grid); 'rise-{p}' for index_rise_pa with every index in rise_pct.indices at p/100 (p snapped to rise_pct grid, written without trailing .0, e.g. rise-5, rise-7.5). Other overrides are not precomputed.",
+    "page": "GET /packages/{pkg}/page/{doc}/{page}.png?highlight=h -> /static-pages/{pkg}/{doc}/{page}-{hash}.png, hash = FNV-1a 32-bit (8 lowercase hex chars) of the UTF-8 bytes of h cut to highlight_max_chars UTF-16 units (as the site cuts it). Listed in /static-api/pages.json only when the highlight changes the image; otherwise, and without highlight, /static-pages/{pkg}/{doc}/{page}.png."
+  },
+  "delay_days": { "min": 0, "max": 360, "step": 15 },
+  "rise_pct": { "min": 0, "max": 15, "step": 0.5, "indices": ["labour", "cement", "steel", "fuel", "bitumen", "materials"] },
+  "highlight_max_chars": 400,
+  "page_zoom": 2.0,
+  "page_colors": 128
+}

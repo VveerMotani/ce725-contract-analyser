@@ -7,6 +7,7 @@ import {
 } from "recharts";
 import { Lock } from "lucide-react";
 import { api } from "../api";
+import { RISE_GRID, STATIC_SITE } from "../staticSite";
 import { effective, type Answer, type AnswerEnvelope, type CashInputs, type CashParams, type CashResult } from "../types";
 import { money, moneyAxis, num, pct } from "../lib/format";
 import { brief, firstPct, rate, usable } from "../lib/terms";
@@ -435,7 +436,7 @@ export function PricePanel({ d }: { d: D }) {
       <Block title="If prices rise" aside={<InfoTip>Your scenario: every index rises by this much a year. The cash model compares your cost rise with what the price adjustment pays back.</InfoTip>}>
         <label className="block max-w-[520px]">
           <span className="text-[13.5px] text-ink">Rise: <span className="tnum">{rise}%</span> a year</span>
-          <input type="range" min={0} max={15} step={0.5} value={rise} onChange={(e) => setRise(+e.target.value)} className="mt-1 w-full" aria-label="Price rise a year" />
+          <input type="range" min={0} max={STATIC_SITE ? RISE_GRID.max : 15} step={STATIC_SITE ? RISE_GRID.step : 0.5} value={rise} onChange={(e) => setRise(+e.target.value)} className="mt-1 w-full" aria-label="Price rise a year" />
         </label>
         {res ? (
           <div className="mt-3 flex flex-col gap-2 text-[13.5px]">
