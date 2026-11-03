@@ -76,3 +76,9 @@ def test_number_kinds():
     assert qs["two"].kind == "count" and qs["two"].value == 2
     assert qs["19.2"].kind == "ref"
     assert all(q.kind == "ref" for q in qs.values() if q.raw in ("05.08", "2021"))
+
+
+def test_number_words_up_to_ninety():
+    qs = {q.raw: q for q in extract_quantities(
+        "recovered by the time eighty percent of the work is done; seventy days; seven days")}
+    assert qs["eighty"].value == 80 and qs["seventy"].value == 70 and qs["seven"].value == 7
