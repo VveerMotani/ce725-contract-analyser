@@ -10,7 +10,7 @@ import { api } from "../api";
 import { RISE_GRID, STATIC_SITE } from "../staticSite";
 import { effective, type Answer, type AnswerEnvelope, type CashInputs, type CashParams, type CashResult } from "../types";
 import { money, moneyAxis, num, pct } from "../lib/format";
-import { brief, firstPct, rate, usable } from "../lib/terms";
+import { brief, firstPct, noLateInterest, rate, usable } from "../lib/terms";
 import { daysIn, milestones, pctNum, rupeesIn, seg, segments, validity, weightTables } from "../lib/termDetail";
 import type { RuleCheck } from "../types";
 import { Figure, InfoTip } from "../components/ui";
@@ -70,7 +70,7 @@ export function PaymentPanel({ d }: { d: D }) {
   const full = a13?.status === "FOUND" ? payDaysText(a13) : null;
   if (full) rows.push({ label: "Paid in full", end: full, value: `${full} days`, env: d.env("1.3"), tone: "good" });
   const lateSeg = seg(a14, /\d+\s*days/i);
-  const hasInterest = a14?.status === "FOUND" && !/\bno interest\b|not payable|\bnil\b/i.test(a14.answer_value);
+  const hasInterest = a14?.status === "FOUND" && !noLateInterest(a14.answer_value);
   if (hasInterest) {
     const ls = lateSeg ? daysIn(lateSeg) : null;
     const at = ls?.days ?? full;

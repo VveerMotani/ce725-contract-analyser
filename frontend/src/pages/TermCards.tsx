@@ -10,7 +10,7 @@ import { money, pct } from "../lib/format";
 import { TERM_SHORT } from "../lib/plain";
 import { cardTone, type Scorecard } from "../lib/scorecard";
 import { TERM_SLUG } from "../lib/termDetail";
-import { brief, days, elsewhereTarget, firstPct, rate, usable, type Tone } from "../lib/terms";
+import { brief, days, elsewhereTarget, firstPct, noLateInterest, rate, usable, type Tone } from "../lib/terms";
 import { StatusDot, cx } from "../components/ui";
 import { Term } from "../components/Term";
 import { TERM_GLOSS } from "../lib/glossary";
@@ -279,7 +279,7 @@ export function TermCards({ answers, params, cash, sc, only, variant = "card" }:
     const cert = ok("cert_lag_days") && inp!.cert_lag_days > 0 ? Math.round(inp!.cert_lag_days) : null;
     let chip: ReactNode = null;
     if (li?.status === "FOUND") {
-      if (/\bno interest\b|not payable|\bnil\b/i.test(li.answer_value)) chip = <Chip tone="bad">No late interest</Chip>;
+      if (noLateInterest(li.answer_value)) chip = <Chip tone="bad">No late interest</Chip>;
       else { const r = rate(li.answer_value); chip = <Chip>Late interest {r ? r.replace(/ a year$/, "") : "yes"}</Chip>; }
     } else if (li?.status === "NOT_STATED") chip = <Chip tone="bad">Late interest not stated</Chip>;
     else if (li?.status === "POINTS_ELSEWHERE") chip = <Chip>Late interest elsewhere</Chip>;

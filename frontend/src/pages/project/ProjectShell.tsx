@@ -27,8 +27,11 @@ export default function ProjectShell() {
     <div>
       <header className="pb-5 pt-1">
         <div className="text-[12px] font-medium uppercase tracking-[0.08em] text-muted">CE725 · Team 2 · Topic 12</div>
-        <h1 className="mt-1 font-serif text-[28px] font-semibold leading-tight text-ink sm:text-[32px]">Project</h1>
-        <p className="mt-1 text-[13.5px] text-muted">How the team tested the tool. Not part of the contractor report.</p>
+        <h1 className="mt-1 font-serif text-[28px] font-semibold leading-tight text-ink sm:text-[32px]">How we tested it</h1>
+        <p className="mt-1 max-w-[64ch] text-[13.5px] text-muted">
+          Our course project work: the tool’s answers checked against an answer key we built by hand, where it went wrong, and
+          comparisons across the four test contracts. You don’t need this part to use the tool.
+        </p>
       </header>
       <nav aria-label="Project" className="-mx-4 mb-8 border-b border-line px-4 sm:mx-0 sm:px-0">
         <ul ref={bar} className="flex gap-5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">

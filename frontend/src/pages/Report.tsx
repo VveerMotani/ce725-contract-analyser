@@ -1,7 +1,7 @@
 // The contract report as a factsheet: key figures and flag tally, six term cards, red/green flags, cash.
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Lightbulb, X } from "lucide-react";
 import { api } from "../api";
 import { useApp, useAsync, useRun } from "../context";
 import { effective, type AnswerEnvelope, type CashParams } from "../types";
@@ -17,6 +17,25 @@ import { TermCards } from "./TermCards";
 import { FlagBoard } from "./Flags";
 import { KeyFacts } from "./KeyFacts";
 import { DocQuality } from "./DocQuality";
+
+const TIP_KEY = "cmt.reportTipSeen";
+
+/** A one-time tip on how to use the summary, until the visitor closes it. */
+function FirstTip() {
+  const [show, setShow] = useState(() => { try { return localStorage.getItem(TIP_KEY) !== "1"; } catch { return true; } });
+  if (!show) return null;
+  const close = () => { setShow(false); try { localStorage.setItem(TIP_KEY, "1"); } catch { /* private mode */ } };
+  return (
+    <div className="mt-5 flex items-start gap-3 rounded-lg border border-accent/30 bg-accent-soft px-4 py-3 text-[14px] text-ink">
+      <Lightbulb className="mt-0.5 h-4 w-4 shrink-0 text-accent-ink" aria-hidden />
+      <p className="flex-1">
+        Click any of the six term cards for the full detail. Page numbers like <span className="tnum">“p. 13”</span> open the contract
+        with the sentence highlighted. <Link to="/help" className="text-accent-ink underline">How to use this site</Link>
+      </p>
+      <button onClick={close} className="rounded p-0.5 text-muted hover:text-ink" aria-label="Close the tip"><X className="h-4 w-4" /></button>
+    </div>
+  );
+}
 
 function useTitle(): string {
   const { meta } = useRun();
@@ -65,6 +84,7 @@ function Inner() {
       <header className="pb-7">
         <h1 className="font-serif text-[28px] font-semibold leading-tight text-ink sm:text-[34px]">{title}</h1>
         <div className="mt-1.5 text-[12.5px] text-muted">{sourceNote(meta!)}</div>
+        <FirstTip />
         <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
           <Figure label="Contract value" value={k.value} note={k.valueNote} />
           <Figure label="Duration" value={k.dur} note={k.durNote} />

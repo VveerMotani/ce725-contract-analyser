@@ -89,8 +89,7 @@ export function sourceNote(m: RunMeta): string {
   if (isMock()) return "Sample data · not a real reading";
   const s = runSource(m);
   if (s === "replay") return "Answer-key replay · pipeline test · every value linked to its page";
-  if (s === "claude") return `Read by Claude ${modelName(m.model)} · every value linked to its page`;
-  return "Every value linked to its page";
+  return "Every value is linked to its page in the contract";
 }
 
 // ---------------------------------------------------------------------------

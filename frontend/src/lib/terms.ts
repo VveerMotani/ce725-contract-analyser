@@ -76,6 +76,11 @@ export function rate(s: string): string {
   return `${m[0].replace(/\s?%/, "%").replace(/per annum|p\.\s?a\.|per year/i, "a year").trim()}`;
 }
 
+/** A late-interest answer (1.4) that says none is paid: "No", "No interest…", "without any interest". Same words as rule R6. */
+export function noLateInterest(s: string): boolean {
+  return /^\s*no\b|\bno interest\b|not payable|\bnil\b|without (any ?)?interest|not entitled to (any )?interest/i.test(s || "");
+}
+
 /** Name of the other document an answer points to, if the text says. */
 export function elsewhereTarget(a: Answer): string {
   if (a.points_to) return brief(a.points_to, 70);
@@ -141,7 +146,7 @@ export function termRows(answers: AnswerEnvelope[], params: CashParams | undefin
     }
     let t = "";
     if (li?.status === "FOUND") {
-      if (/\bno interest\b|not payable|\bnil\b/i.test(li.answer_value)) t = "No interest is paid if they pay late.";
+      if (noLateInterest(li.answer_value)) t ="No interest is paid if they pay late.";
       else { const r = rate(li.answer_value); t = r ? `If they pay late, you get interest of ${r}.` : end(`Late payment: ${brief(li.answer_value)}`); }
     } else if (li?.status === "NOT_STATED") t = "Nothing is said about interest on late payment.";
     else if (li?.status === "POINTS_ELSEWHERE" && a?.status !== "POINTS_ELSEWHERE") t = "Interest on late payment is in another document.";

@@ -7,6 +7,7 @@ import AllAnswers from "./pages/AllAnswers";
 import Accuracy from "./pages/Accuracy";
 import Technical from "./pages/Technical";
 import About from "./pages/About";
+import Help from "./pages/Help";
 import TermDetail from "./pages/TermDetail";
 import ProjectShell from "./pages/project/ProjectShell";
 import ProjectOverview from "./pages/project/Overview";
@@ -35,6 +36,7 @@ export default function App() {
         <Route index element={<Home />} />
         <Route path="new" element={STATIC_SITE ? <SavedOnly /> : <NewAnalysis />} />
         <Route path="about" element={<About />} />
+        <Route path="help" element={<Help />} />
         {/* Project area: how the team tested the tool (kept apart from the contractor pages) */}
         <Route path="project" element={<ProjectShell />}>
           <Route index element={<ProjectOverview />} />

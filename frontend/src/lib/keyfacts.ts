@@ -5,7 +5,7 @@
 import type { Answer, AnswerEnvelope, CashParams, CashResult, Package, RiskFlag, RuleCheck } from "../types";
 import { effective } from "../types";
 import { money, pct } from "./format";
-import { brief, rate, usable } from "./terms";
+import { brief, noLateInterest, rate, usable } from "./terms";
 
 export type Ans = (q: string) => { a: Answer; env: AnswerEnvelope } | null;
 
@@ -356,7 +356,7 @@ export function numberTiles(ans: Ans, params: CashParams | undefined, cash: Cash
     const li = ans("1.4");
     if (li?.a.status === "FOUND") {
       const v = li.a.answer_value;
-      if (/^\s*no\b|no interest|not payable|\bnil\b/i.test(v)) value = "None";
+      if (noLateInterest(v)) value = "None";
       else {
         const r = rate(v);
         if (inp && usable(params, "late_interest_rate_pa") && inp.late_interest_rate_pa > 0) {
