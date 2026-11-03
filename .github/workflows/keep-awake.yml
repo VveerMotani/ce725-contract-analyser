@@ -17,5 +17,5 @@ jobs:
           for i in 1 2; do
             curl -fsS --max-time 120 https://ce725-contract-analyser.onrender.com/api/limits || echo "ping failed"
             echo
-            [ "$i" = 1 ] && sleep 300
+            if [ "$i" = 1 ]; then sleep 300; fi
           done
