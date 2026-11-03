@@ -1,6 +1,6 @@
 # Tender and Contract Analyser
 
-CE725 Team 2, Topic 12: AI Contract Analyser for Financial Risk Clauses.
+CE725 Team 32, Topic 12: AI Contract Analyser for Financial Risk Clauses.
 
 **Live site:** https://ce725-contract-analyser.onrender.com — upload any public contract PDF (3 readings a day). The free server sleeps when idle, so the first visit can take about a minute.
 

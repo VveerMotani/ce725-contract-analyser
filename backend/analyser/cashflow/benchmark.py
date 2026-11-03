@@ -139,7 +139,7 @@ LD_ROW = 2 + [k for k, *_ in SPEC_TABLE].index("ld_60")   # row of 'Benchmark 8.
 
 def _readme(ws) -> None:
     lines = [
-        ("Spec §8.4 hand benchmark (CE725 Team 2, module M4 cash flow)", True),
+        ("Spec §8.4 hand benchmark (CE725 Team 32, module M4 cash flow)", True),
         ("", False),
         ("MANUAL CHECK REQUIRED. The course requires this hand benchmark to be checked by a person.", True),
         ("Open the 'Benchmark 8.4' sheet, redo each line by hand or calculator, and sign below.", False),

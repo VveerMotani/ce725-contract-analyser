@@ -28,7 +28,7 @@ pinned: false
 short_description: Money terms, red flags and cash flow of public-works contracts
 ---
 
-# Contract Money Terms (CE725 Team 2, IIT Bombay)
+# Contract Money Terms (CE725 Team 32, IIT Bombay)
 
 Read-only demo. It shows the saved results of Claude reading four public Indian
 public-works contracts: the six money terms with their source pages, red and green

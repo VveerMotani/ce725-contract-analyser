@@ -26,7 +26,7 @@ export default function ProjectShell() {
   return (
     <div>
       <header className="pb-5 pt-1">
-        <div className="text-[12px] font-medium uppercase tracking-[0.08em] text-muted">CE725 · Team 2 · Topic 12</div>
+        <div className="text-[12px] font-medium uppercase tracking-[0.08em] text-muted">CE725 · Team 32 · Topic 12</div>
         <h1 className="mt-1 font-serif text-[28px] font-semibold leading-tight text-ink sm:text-[32px]">How we tested it</h1>
         <p className="mt-1 max-w-[64ch] text-[13.5px] text-muted">
           Our course project work: the tool’s answers checked against an answer key we built by hand, where it went wrong, and

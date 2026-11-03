@@ -1,6 +1,6 @@
 # Contract Analyser: Detailed Design Notes (v0.1 DRAFT)
 
-Team 2 | CE725 | Topic 12 | Builds on `Contract_Extraction_Questionnaire_v0.1.md` and `Contract_Data_Manual.html`.
+Team 32 | CE725 | Topic 12 | Builds on `Contract_Extraction_Questionnaire_v0.1.md` and `Contract_Data_Manual.html`.
 Scope: Indian civil / infrastructure contracts (CPWD GCC, MoRTH EPC/HAM, institute NITs).
 
 Items marked **[VERIFIED]** were checked against a primary text during this session. **[UNVERIFIED]** means a secondary source or an assumption.

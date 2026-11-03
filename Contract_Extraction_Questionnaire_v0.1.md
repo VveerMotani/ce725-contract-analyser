@@ -1,6 +1,6 @@
 # Contract Extraction Questionnaire (v0.1 DRAFT)
 
-Team 2 | CE725 | Topic 12: AI Contract Analyser for Financial Risk Clauses | Data Lead: Vveer Motani
+Team 32 | CE725 | Topic 12: AI Contract Analyser for Financial Risk Clauses | Data Lead: Vveer Motani
 
 ## 0. Purpose and how this file is used
 

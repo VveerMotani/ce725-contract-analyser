@@ -18,7 +18,7 @@ const LIMITS = [
 export default function About() {
   return (
     <div className="max-w-[720px]">
-      <PageTitle title="About this tool" intro="CE 725 course project, Team 2: an AI reader for the money terms in construction contracts." />
+      <PageTitle title="About this tool" intro="CE 725 course project, Team 32: an AI reader for the money terms in construction contracts." />
 
       <section className="border-t border-line pt-6 text-[15px] leading-relaxed text-ink-2">
         <p><b className="font-medium text-ink">Decision support, not legal advice.</b> The tool shows what a contract says, with proof. A qualified person must check the terms that matter before a bid decision.</p>

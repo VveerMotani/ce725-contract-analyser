@@ -1,6 +1,6 @@
 # Tender and Contract Analyser: Feature and Build Spec (v1)
 
-Team 2 | CE725 | Topic 12 (AI Contract Analyser for Financial Risk Clauses) | prepared 22 Oct 2026 by the Data Lead
+Team 32 | CE725 | Topic 12 (AI Contract Analyser for Financial Risk Clauses) | prepared 22 Oct 2026 by the Data Lead
 
 **What this file is.** A spec the team can hand to their AI (or their developer) to build the tool and to check that it works. It says what the tool must do, what to look for in a tender or contract, what the output must look like, which risks to flag, how to model cash impact, and how to test all of it.
 

@@ -1,6 +1,6 @@
 # Tender and Contract Analyser: Website Build Plan (v1)
 
-CE725 | Team 2 | Topic 12 | drafted 23 Oct 2026 | presentation 31 Oct 2026
+CE725 | Team 32 | Topic 12 | drafted 23 Oct 2026 | presentation 31 Oct 2026
 
 This plan turns `Tender_Analyser_Build_Spec_v1.md` (the spec) into a working website. Where the shared planning chat and the spec disagree, **the spec wins**: 4 statuses (`FOUND`, `NOT_STATED`, `NOT_APPLICABLE`, `POINTS_ELSEWHERE`), 52 questions per contract, 4 benchmark contracts, scoring against `golden_tests_v1.json`.
 
