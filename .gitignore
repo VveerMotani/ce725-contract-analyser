@@ -21,3 +21,6 @@ deploy/hf-space/
 
 # Static (Cloudflare Pages) build output
 deploy/static-site/
+
+# AI response cache (local readings)
+backend/cache/
