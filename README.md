@@ -2,7 +2,9 @@
 
 CE725 Team 2, Topic 12: AI Contract Analyser for Financial Risk Clauses.
 
-**Deploy the live site (free):** [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/VveerMotani/ce725-contract-analyser) — uses `render.yaml`; add `ANTHROPIC_API_KEY` in the service's Environment settings to enable new contract readings (3 a day).
+**Live site:** https://ce725-contract-analyser.onrender.com — upload any public contract PDF (3 readings a day). The free server sleeps when idle, so the first visit can take about a minute.
+
+**Deploy your own copy (free):** [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/VveerMotani/ce725-contract-analyser) — uses `render.yaml`; add `ANTHROPIC_API_KEY` in the service's Environment settings to enable new contract readings (3 a day).
 
 A website that reads Indian public-works contract PDFs and, from the contractor's side:
 
