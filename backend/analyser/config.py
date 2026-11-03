@@ -27,6 +27,12 @@ MODEL = os.getenv("ANALYSER_MODEL", "claude-opus-5-5")
 EFFORT = os.getenv("ANALYSER_EFFORT", "high")
 # Hosted demo copy: show saved results only; no uploads and no new AI runs.
 READ_ONLY = os.getenv("ANALYSER_READ_ONLY", "0") == "1"
+# Public hosted copy (Render): uploads allowed, but the built-in contracts are not re-read,
+# team-only pages (manual check) are read-only, and new readings are capped per day.
+HOSTED = os.getenv("ANALYSER_HOSTED", "0") == "1"
+DAILY_LIMIT = int(os.getenv("ANALYSER_DAILY_LIMIT", "0"))      # 0 = unlimited
+MAX_PAGES = int(os.getenv("ANALYSER_MAX_PAGES", "0"))          # 0 = no limit per package
+LIMIT_TZ = os.getenv("ANALYSER_LIMIT_TZ", "Asia/Kolkata")      # the "day" of the daily limit
 
 # Benchmark packages preloaded in the app. Test contracts must never be used for prompt tuning.
 BENCHMARKS: dict[str, dict] = {

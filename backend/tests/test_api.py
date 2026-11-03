@@ -405,3 +405,19 @@ def test_read_only_demo_blocks_new_analysis(monkeypatch):
     assert c.post("/api/runs", json={"package_id": "BM1", "user_inputs": {}}).status_code == 403
     r = c.post("/api/packages", data={"contract_id": "X"})
     assert r.status_code == 403 and "saved results only" in r.json()["detail"]
+
+
+def test_hosted_limits(env, monkeypatch):
+    """Hosted copy: built-in contracts are not re-read; new readings stop at the daily limit."""
+    client, _ = env
+    monkeypatch.setattr(config, "HOSTED", True)
+    monkeypatch.setattr(config, "DAILY_LIMIT", 1)
+    lim = client.get("/api/limits").json()
+    assert lim["daily_limit"] == 1 and lim["remaining"] == 1 and lim["hosted"] is True
+    r = client.post("/api/runs", json={"package_id": "BM1", "user_inputs": {}})
+    assert r.status_code == 403 and "already analysed" in r.json()["detail"]
+    import analyser.api.app as appmod
+    monkeypatch.setattr(appmod, "_runs_started_today", lambda: 1)
+    r = client.post("/api/runs", json={"package_id": "UPLOADED_X", "user_inputs": {}})
+    assert r.status_code == 429 and "Daily limit" in r.json()["detail"]
+    assert client.get("/api/project/overrides").json()["read_only"] is True

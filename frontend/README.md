@@ -33,6 +33,9 @@ Mock data (all clearly fake, for development only):
 - `src/mock/server.ts`: routes the same REST paths as `backend/INTERFACES.md` in memory. New runs step
   through the stages in about 20 s. BM1 is editable; BM2 to BM4 behave as frozen demo runs (403 on
   review and parameter edits). State resets on page reload.
+- Daily limit (`GET /limits`): the mock allows 3 readings a day with 2 left. URL switches, read when the mock loads:
+  `?mockLimit=N` (readings left, 0 = used up), `?mockHosted=1` (hosted copy: built-in contracts refused with 403,
+  no "Read again", manual check read-only), `?mock429=1` (every start answers 429), `?mockMaxPages=N` (400 on longer PDFs).
 
 ## Build
 
@@ -45,6 +48,11 @@ npm run preview      # serve dist on :4173 (also proxies /api)
 Static read-only copy (Cloudflare Pages): `python deploy/build_static_site.py` from the project root builds with
 `VITE_STATIC=1` into `deploy/static-site/`. In that mode `src/staticSite.ts` maps API calls to saved files; the
 precomputed slider grid is in `src/staticGrid.json`. See `deploy/STATIC_SITE.md`.
+
+Hosted copy (one shared server): `GET /limits` gives the daily reading limit. Home and `/new` show it in one quiet
+line with the reading time and page limit, Start is disabled once the day's readings are used, and 429 / 403 / 400
+messages from the server appear where the form shows errors. With `hosted: true` the four built-in contracts lose
+"Read again" and the manual check is read-only. Backends without the endpoint (and the static copy) count as unlimited.
 
 ## Screens
 

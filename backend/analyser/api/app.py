@@ -154,6 +154,45 @@ def _load_model(run_id: str, name: str, model: type[BaseModel]):
 # ---------------------------------------------------------------------------
 
 
+def _today() -> str:
+    """Today's date in the limit's time zone (YYYY-MM-DD)."""
+    from zoneinfo import ZoneInfo
+    try:
+        return datetime.now(ZoneInfo(config.LIMIT_TZ)).strftime("%Y-%m-%d")
+    except Exception:  # noqa: BLE001 - missing tz data: fall back to the machine's clock
+        return datetime.now().strftime("%Y-%m-%d")
+
+
+def _runs_started_today() -> int:
+    """New (not frozen) runs started today; each one used paid AI credit."""
+    today = _today()
+    return sum(1 for rid, frozen in store.list_run_ids()
+               if not frozen and _started_on(rid) == today)
+
+
+def _started_on(run_id: str) -> str:
+    try:
+        started = pipeline.get_meta(run_id).started_at
+    except Exception:  # noqa: BLE001
+        return ""
+    try:   # stored as ISO time in UTC or local time; convert to the limit's zone when it has an offset
+        from zoneinfo import ZoneInfo
+        dt = datetime.fromisoformat(started)
+        # naive times are the server's local clock (UTC on Render); astimezone() reads them as such
+        return dt.astimezone(ZoneInfo(config.LIMIT_TZ)).strftime("%Y-%m-%d")
+    except Exception:  # noqa: BLE001
+        return started[:10]
+
+
+@api.get("/limits")
+def get_limits() -> dict:
+    """What this copy allows: daily cap on new AI readings, page limit, hosted/read-only flags."""
+    used = _runs_started_today()
+    remaining = max(0, config.DAILY_LIMIT - used) if config.DAILY_LIMIT else None
+    return {"daily_limit": config.DAILY_LIMIT, "used_today": used, "remaining": remaining,
+            "hosted": config.HOSTED, "read_only": config.READ_ONLY, "max_pages": config.MAX_PAGES}
+
+
 @api.get("/benchmarks")
 def list_benchmarks() -> list[dict]:
     done = {m.contract_id for m in _all_metas() if m.stage == "done"}
@@ -208,6 +247,9 @@ async def upload_package(request: Request) -> dict:
         pkg: Package = await run_in_threadpool(ingest.build_package, files, contract_id, title)
     except Exception as exc:  # noqa: BLE001
         raise HTTPException(400, f"Could not read the package: {type(exc).__name__}: {exc}")
+    if config.MAX_PAGES and len(pkg.pages) > config.MAX_PAGES:
+        raise HTTPException(400, f"This package has {len(pkg.pages)} pages; the online copy reads up to "
+                                 f"{config.MAX_PAGES} pages per contract.")
     pipeline._PACKAGES[pkg.package_id] = pkg
     return pkg.model_copy(update={"pages": []}).model_dump(mode="json")
 
@@ -238,6 +280,12 @@ def page_png(package_id: str, doc_id: str, page: int, highlight: Optional[str] =
 @api.post("/runs")
 def start_run(body: RunRequest) -> dict:
     _no_new_analysis()
+    if config.HOSTED and body.package_id in config.BENCHMARKS:
+        raise HTTPException(403, "The four built-in contracts are already analysed. "
+                                 "Upload your own contract to try a new reading.")
+    if config.DAILY_LIMIT and _runs_started_today() >= config.DAILY_LIMIT:
+        raise HTTPException(429, f"Daily limit reached: {config.DAILY_LIMIT} contracts a day, because "
+                                 "each reading uses paid AI credit. Try again tomorrow.")
     if not store.safe_id(body.package_id):
         raise HTTPException(404, "Unknown package")
     contract_id = _package_contract_id(body.package_id)
@@ -451,7 +499,8 @@ def judge_notes() -> list[dict]:
 
 def _overrides_payload() -> dict:
     from analyser.evaluate.scoring import load_overrides
-    return {"overrides": load_overrides(), "progress": evproject.checks_progress(), "read_only": config.READ_ONLY}
+    return {"overrides": load_overrides(), "progress": evproject.checks_progress(),
+            "read_only": config.READ_ONLY or config.HOSTED}
 
 
 @api.get("/project/overrides")
@@ -461,7 +510,7 @@ def get_overrides() -> dict:
 
 
 def _no_writes() -> None:
-    if config.READ_ONLY:
+    if config.READ_ONLY or config.HOSTED:
         raise HTTPException(403, "This online copy shows saved results only. Record checks on the "
                                  "team's own copy (see the README).")
 

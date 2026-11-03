@@ -1,0 +1,17 @@
+.git
+.claude
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+backend/.env
+backend/cache
+backend/tests
+frontend/node_modules
+frontend/dist
+deploy
+Dev Documents
+runs/*
+!runs/frozen
+runs/frozen/*_replay-*
+*.xlsx
+!backend/analyser/cashflow/benchmark_8_4.xlsx

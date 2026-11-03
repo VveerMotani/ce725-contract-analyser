@@ -2,12 +2,13 @@
 import { useRef, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { FileUp, X } from "lucide-react";
-import { api } from "../api";
+import { ApiError, api } from "../api";
 import { useApp } from "../context";
 import type { DocTag, UserInputs } from "../types";
 import { money } from "../lib/format";
 import { evenCurve, sCurve } from "../lib/curves";
 import { Button, Choice, Disclosure, ErrorNote, Field, PageTitle, cx, inputCls } from "../components/ui";
+import { LimitNote, limitReached, useLimits } from "../components/LimitNote";
 
 const TAGS: { value: DocTag; label: string }[] = [
   { value: "notice", label: "Tender notice or RFP" },
@@ -40,6 +41,15 @@ function PctInput({ value, onChange, label }: { value: number; onChange: (v: num
   );
 }
 
+/** Heading over the server's message: the limit (429), a refused contract (403), a rejected PDF (400). */
+function errorTitle(e: unknown, at: "upload" | "start"): string {
+  const s = e instanceof ApiError ? e.status : 0;
+  if (s === 429) return "Daily limit reached";
+  if (s === 403) return "Not read again";
+  if (at === "upload") return "Could not upload";
+  return "Could not start";
+}
+
 export default function NewAnalysis() {
   const nav = useNavigate();
   const [sp] = useSearchParams();
@@ -49,6 +59,11 @@ export default function NewAnalysis() {
   const [files, setFiles] = useState<{ file: File; tag: DocTag }[]>([]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<unknown>(null);
+  const [errorAt, setErrorAt] = useState<"upload" | "start">("start");
+  const { limits, refresh: refreshLimits } = useLimits();
+  const full = limitReached(limits);
+  // On the hosted copy the four built-in contracts are already read; the server refuses to read them again.
+  const fixedBm = !!bmId && !!limits?.hosted;
   const [dragOver, setDragOver] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -64,6 +79,7 @@ export default function NewAnalysis() {
 
   const start = async () => {
     setBusy(true); setError(null);
+    let at: "upload" | "start" = "start";
     try {
       let pid: string;
       if (bmId) {
@@ -73,8 +89,10 @@ export default function NewAnalysis() {
         if (!files.length) throw new Error("Add at least one PDF first.");
         const name = draft.title.trim() || "New contract";
         const cid = draft.contractId.trim() || name.replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 32).toUpperCase() || "CONTRACT-1";
+        at = "upload";
         const pkg = await api.createPackage(files.map((f) => f.file), files.map((f) => f.tag), cid, name);
         pid = pkg.package_id;
+        at = "start";
       }
       const T = inp.duration_months;
       const ui: UserInputs = {
@@ -84,20 +102,28 @@ export default function NewAnalysis() {
       };
       const run = await api.startRun(pid, ui);
       refreshRuns();
+      refreshLimits();
       nav(`/runs/${run.run_id}`);
-    } catch (e) { setError(e); } finally { setBusy(false); }
+    } catch (e) {
+      setError(e); setErrorAt(at);
+      if (e instanceof ApiError && e.status === 429) refreshLimits();
+    } finally { setBusy(false); }
   };
 
-  const canStart = !busy && (bmId ? !!bm : files.length > 0);
+  const canStart = !busy && !full && !fixedBm && (bmId ? !!bm : files.length > 0);
 
   return (
     <div className="max-w-[680px]">
       <PageTitle title={bm ? `Read “${bm.title}”` : "Read a new contract"} />
+      <LimitNote limits={limits} className="mb-6" />
 
       <section className="border-t border-line pt-6">
         <h2 className="font-serif text-[20px] font-semibold text-ink">1. The contract</h2>
         {bmId ? (
-          <p className="mt-2 text-[15px] text-ink-2">{bm ? bm.title : bmId} · test contract. <Link className="text-accent-ink hover:underline" to="/new">Upload another</Link></p>
+          <>
+            <p className="mt-2 text-[15px] text-ink-2">{bm ? bm.title : bmId} · test contract. <Link className="text-accent-ink hover:underline" to="/new">Upload another</Link></p>
+            {fixedBm && <p className="mt-2 text-[14px] text-muted">Already read on this site. {bm && <Link className="text-accent-ink hover:underline" to="/">Open it from the home page</Link>}</p>}
+          </>
         ) : (
           <div className="mt-4 flex flex-col gap-4">
             <Field label="Name of the contract" hint="For example: Road widening, Package 3">
@@ -192,7 +218,7 @@ export default function NewAnalysis() {
         </Disclosure>
       </section>
 
-      {error ? <div className="mt-6"><ErrorNote error={error} title="Could not start" /></div> : null}
+      {error ? <div className="mt-6"><ErrorNote error={error} title={errorTitle(error, errorAt)} /></div> : null}
       <div className="mt-8 border-t border-line pt-6">
         <Button variant="primary" onClick={start} disabled={!canStart}>{busy ? "Starting…" : "Start reading the contract"}</Button>
       </div>

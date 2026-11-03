@@ -5,8 +5,9 @@
 import type {
   AnswerEnvelope, Benchmark, CashParams, CashflowResponse, CashInputs, Package, ReviewPatch, RiskFlag, RunMeta,
   ScoreSummary, UserInputs, EvaluationSummary, RuleCheck, GoldenTest, JudgeNote, OverridesState, OverrideRequest,
-  ReferenceChange,
+  ReferenceChange, Limits,
 } from "./types";
+import { NO_LIMITS } from "./types";
 import { SAVED_ONLY_NOTE, STATIC_SITE, cashflowKey, loadPageIndex, staticGetUrl, staticPageUrl } from "./staticSite";
 
 export class ApiError extends Error {
@@ -97,6 +98,15 @@ const enc = encodeURIComponent;
 
 export const api = {
   benchmarks: () => request<Benchmark[]>("GET", "/benchmarks"),
+  /** Daily reading limit. Never throws: the static copy and backends without the endpoint get NO_LIMITS. */
+  limits: async (): Promise<Limits> => {
+    if (STATIC_SITE) return { ...NO_LIMITS };
+    try {
+      const l = await request<Partial<Limits>>("GET", "/limits");
+      if (!l || typeof l !== "object" || typeof l.daily_limit !== "number") return { ...NO_LIMITS };
+      return { ...NO_LIMITS, ...l };
+    } catch { return { ...NO_LIMITS }; }
+  },
   createPackage: (files: File[], tags: string[], contractId: string, title: string) => {
     const fd = new FormData();
     files.forEach((f) => fd.append("files[]", f));

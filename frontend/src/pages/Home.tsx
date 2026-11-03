@@ -11,6 +11,7 @@ import { Tally } from "../components/Tally";
 import { issuerOf, usable } from "../lib/terms";
 import { InfoTip, Spinner, buttonCls } from "../components/ui";
 import { SAVED_ONLY_NOTE, STATIC_SITE } from "../staticSite";
+import { LimitNote, useLimits } from "../components/LimitNote";
 
 /** The run to open for a contract: finished runs first, AI-read before replay, newest first. */
 export function bestRun(runs: RunMeta[] | undefined, contractId: string): RunMeta | undefined {
@@ -19,7 +20,8 @@ export function bestRun(runs: RunMeta[] | undefined, contractId: string): RunMet
   return mine.sort((a, b) => score(b) - score(a) || (b.finished_at || b.started_at).localeCompare(a.finished_at || a.started_at))[0];
 }
 
-function ContractCard({ b, run }: { b: Benchmark; run: RunMeta | undefined }) {
+/** `fixed`: the hosted copy, where the four built-in contracts are already read and cannot be read again. */
+function ContractCard({ b, run, fixed }: { b: Benchmark; run: RunMeta | undefined; fixed: boolean }) {
   const nav = useNavigate();
   const done = run?.stage === "done";
   const info = useAsync(async () => {
@@ -36,7 +38,7 @@ function ContractCard({ b, run }: { b: Benchmark; run: RunMeta | undefined }) {
     : run.stage === "error" ? "Reading stopped"
     : !done ? `Reading · ${Math.round(run.progress * 100)}%`
     : null;
-  const go = () => nav(run ? `/runs/${run.run_id}` : STATIC_SITE ? "/" : `/new?benchmark=${b.contract_id}`);
+  const go = () => nav(run ? `/runs/${run.run_id}` : STATIC_SITE || fixed ? "/" : `/new?benchmark=${b.contract_id}`);
 
   return (
     <li className="flex flex-col rounded-lg border border-line bg-surface p-5 transition hover:border-line-strong">
@@ -50,7 +52,7 @@ function ContractCard({ b, run }: { b: Benchmark; run: RunMeta | undefined }) {
         : <span className="mt-3 text-[14px] text-muted">…</span>}
       <span className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-1 pt-3 text-[13.5px]">
         {run && <span className="text-muted">{sourceShort(run)}</span>}
-        {!STATIC_SITE && <Link className="text-accent-ink hover:underline" to={`/new?benchmark=${b.contract_id}`}>{run ? "Read again" : "Read it"}</Link>}
+        {!STATIC_SITE && !fixed && <Link className="text-accent-ink hover:underline" to={`/new?benchmark=${b.contract_id}`}>{run ? "Read again" : "Read it"}</Link>}
       </span>
     </li>
   );
@@ -58,6 +60,7 @@ function ContractCard({ b, run }: { b: Benchmark; run: RunMeta | undefined }) {
 
 export default function Home() {
   const { benchmarks, runs } = useApp();
+  const { limits } = useLimits();
   const others = (runs ?? []).filter((r) => !benchmarks?.some((b) => b.contract_id === r.contract_id));
   return (
     <div>
@@ -78,14 +81,19 @@ export default function Home() {
         </ul>
         {STATIC_SITE
           ? <p className="mt-6 text-[14px] text-muted">{SAVED_ONLY_NOTE}</p>
-          : <div className="mt-6"><Link to="/new" className={buttonCls("primary")}>Upload a contract <ArrowRight className="h-4 w-4" /></Link></div>}
+          : (
+            <div className="mt-6">
+              <Link to="/new" className={buttonCls("primary")}>Upload a contract <ArrowRight className="h-4 w-4" /></Link>
+              <LimitNote limits={limits} className="mt-2.5" />
+            </div>
+          )}
       </header>
 
       <section className="border-t border-line pt-8">
         <h2 className="font-serif text-[22px] font-semibold text-ink">Test contracts</h2>
         {!benchmarks ? <Spinner /> : (
           <ul className="mt-5 grid gap-4 sm:grid-cols-2">
-            {benchmarks.map((b) => <ContractCard key={b.contract_id} b={b} run={bestRun(runs, b.contract_id)} />)}
+            {benchmarks.map((b) => <ContractCard key={b.contract_id} b={b} run={bestRun(runs, b.contract_id)} fixed={!!limits?.hosted} />)}
           </ul>
         )}
       </section>

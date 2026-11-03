@@ -489,3 +489,23 @@ export interface ReferenceChange {
   reference: unknown;
   reason: string;
 }
+
+// ---------------------------------------------------------------------------
+// GET /limits: daily reading limit on the hosted copy
+// ---------------------------------------------------------------------------
+
+export interface Limits {
+  /** Readings allowed per day; 0 = unlimited. */
+  daily_limit: number;
+  used_today: number;
+  /** null when unlimited. */
+  remaining: number | null;
+  /** The shared hosted copy (built-in contracts cannot be read again there). */
+  hosted: boolean;
+  read_only: boolean;
+  /** Pages allowed per PDF; 0 = no limit stated. */
+  max_pages: number;
+}
+
+/** Used when the endpoint is missing (older backend) and on the static copy. */
+export const NO_LIMITS: Limits = { daily_limit: 0, used_today: 0, remaining: null, hosted: false, read_only: true, max_pages: 0 };

@@ -28,6 +28,24 @@ const STAGES: [string, string][] = [
 ];
 const STAGE_SECONDS = 2.2;
 
+// MOCK daily limit (GET /limits). URL switches, read once when the mock loads:
+//   ?mockLimit=N    readings left today (default 2 of 3; 0 = used up)
+//   ?mockHosted=1   behave like the hosted copy (built-in contracts refused, manual check read-only)
+//   ?mock429=1      the server says the limit is reached on start, whatever the counter says
+//   ?mockMaxPages=N pages allowed per PDF (default 300)
+function urlParam(k: string): string | null {
+  try { return new URLSearchParams(window.location.search).get(k); } catch { return null; }
+}
+const DAILY_LIMIT = 3;
+const leftParam = urlParam("mockLimit");
+const limitState = {
+  used: leftParam != null && !isNaN(parseInt(leftParam)) ? DAILY_LIMIT - Math.max(0, Math.min(DAILY_LIMIT, parseInt(leftParam))) : 1,
+  hosted: urlParam("mockHosted") === "1",
+  force429: urlParam("mock429") === "1",
+  maxPages: parseInt(urlParam("mockMaxPages") ?? "") || 300,
+};
+const LIMIT_MSG = `Daily limit reached: ${DAILY_LIMIT} contracts a day, each reading uses paid AI credit. Try again tomorrow. (MOCK)`;
+
 const packages = new Map<string, Package>();
 const runs = new Map<string, RunRec>();
 
@@ -204,6 +222,12 @@ export async function mockRequest(method: string, path: string, body?: unknown):
   const seg = clean.split("/").filter(Boolean);
 
   if (method === "GET" && clean === "/benchmarks") return BENCHMARKS;
+  if (method === "GET" && clean === "/limits") {
+    return {
+      daily_limit: DAILY_LIMIT, used_today: limitState.used, remaining: Math.max(0, DAILY_LIMIT - limitState.used),
+      hosted: limitState.hosted, read_only: false, max_pages: limitState.maxPages,
+    };
+  }
   if (method === "GET" && clean === "/evaluation") {
     return { ...buildScore(), runs_used: { BM1: "run-BM1-mock", BM2: "run-BM2-mock", BM3: "run-BM3-mock", BM4: "run-BM4-mock" }, missing_benchmarks: [] };
   }
@@ -217,6 +241,8 @@ export async function mockRequest(method: string, path: string, body?: unknown):
   if (method === "GET" && seg[0] === "runs" && seg[2] === "reference-changes") return [];
   if (seg[0] === "packages") {
     if (method === "POST" && seg.length === 1) {
+      const long = (((body as FormData).getAll("files[]") as File[])).find((f) => 12 + Math.floor(h01(f.name) * 80) > limitState.maxPages);
+      if (long) throw new MockHttpError(400, `${long.name} has more than ${limitState.maxPages} pages. Upload the parts with the money terms. (MOCK)`);
       const { pages: _p, ...rest } = makeUploadPackage(body as FormData);
       return { ...rest, pages: [] };
     }
@@ -230,6 +256,11 @@ export async function mockRequest(method: string, path: string, body?: unknown):
     if (seg.length === 1 && method === "POST") {
       const b = body as { package_id: string; user_inputs: Partial<UserInputs> };
       const pkg = getPackage(b.package_id);
+      if (limitState.hosted && BENCH_TITLES[pkg.package_id]) {
+        throw new MockHttpError(403, "The four built-in contracts are already analysed. Open them from the home page. (MOCK)");
+      }
+      if (limitState.force429 || limitState.used >= DAILY_LIMIT) throw new MockHttpError(429, LIMIT_MSG);
+      limitState.used += 1;
       const id = `run-${pkg.contract_id}-${Date.now().toString(36)}`;
       const meta: RunMeta = {
         run_id: id, package_id: pkg.package_id, contract_id: pkg.contract_id, model: "claude-opus-5-5", prompt_version: "v1",

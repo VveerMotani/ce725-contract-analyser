@@ -1,0 +1,24 @@
+# Render Blueprint: one free web service for the whole site (New + > Blueprint > this repo).
+services:
+  - type: web
+    name: ce725-contract-analyser
+    runtime: docker
+    plan: free
+    region: singapore
+    branch: main
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/limits
+    autoDeploy: true
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false            # Render asks for the value; it is never stored in the repo
+      - key: ANALYSER_HOSTED
+        value: "1"
+      - key: ANALYSER_DAILY_LIMIT
+        value: "3"
+      - key: ANALYSER_MAX_PAGES
+        value: "300"
+      - key: ANALYSER_MODEL
+        value: claude-opus-5-5
+      - key: ANALYSER_EFFORT
+        value: high

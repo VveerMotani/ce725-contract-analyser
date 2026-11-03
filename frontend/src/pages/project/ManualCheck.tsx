@@ -1,6 +1,6 @@
 // Manual check: the team re-grades a sample of the judge's labels. "Agree" stores an override equal to the
 // judge's label ("confirmed by <name>"), "Change label…" stores a different label with a reason. Both go to
-// manual_overrides.json through POST /project/overrides and re-score the run. Read-only copies show the list only.
+// manual_overrides.json through POST /project/overrides and re-score the run. Read-only copies (static, hosted) show the list only.
 import { useMemo, useState } from "react";
 import { Check, Undo2 } from "lucide-react";
 import { api } from "../../api";
@@ -9,6 +9,7 @@ import { effective, LABELS, type AnswerEnvelope, type GoldenTest, type JudgeNote
 import { LABEL_COLOR, topic } from "../../lib/plain";
 import { STATIC_SITE } from "../../staticSite";
 import { Button, ErrorNote, Spinner, cx, inputCls } from "../../components/ui";
+import { useLimits } from "../../components/LimitNote";
 import {
   Head, LABEL_SHORT, PageBtn, Pills, answerText, forget, isClaude, keyTarget, load, reasonOf, selectCls, toolTarget, upper,
 } from "./shared";
@@ -164,6 +165,7 @@ export default function ManualCheck() {
   const [contract, setContract] = useState("");
   const [shown, setShown] = useState(PAGE);
   const [name, setName] = useState(() => lsGet(NAME_KEY));
+  const { limits } = useLimits();
 
   const d = data.data;
   const list = useMemo(() => {
@@ -178,7 +180,8 @@ export default function ManualCheck() {
 
   if (data.loading && !d) return <Spinner label="Loading the graded tests…" />;
   if (data.error || !d) return <ErrorNote error={data.error} title="Could not load the graded tests" />;
-  const writable = !STATIC_SITE && mode === "live" && !d.checks.read_only;
+  // The hosted copy is shared, so checks are recorded only on the team's own copy (as on the static copy).
+  const writable = !STATIC_SITE && mode === "live" && !d.checks.read_only && !!limits && !limits.hosted;
   const cids = Object.keys(d.runOf).sort();
   const changed = (s: OverridesState) => {
     forget("evaluation", "overrides");
