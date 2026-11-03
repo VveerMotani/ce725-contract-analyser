@@ -24,3 +24,4 @@ deploy/static-site/
 
 # AI response cache (local readings)
 backend/cache/
+.wrangler/
