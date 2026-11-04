@@ -140,3 +140,21 @@ details[open] > summary .disclosure-caret {
 .animate-slide-in {
   animation: slide-in 160ms ease-out;
 }
+
+/* An "it is working" bar with no known end: a short block that sweeps across. */
+@keyframes sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(300%);
+  }
+}
+.animate-sweep {
+  animation: sweep 1.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-sweep {
+    animation: none;
+  }
+}

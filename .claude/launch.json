@@ -6,6 +6,12 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["backend/run_server.py"],
       "port": 8000
+    },
+    {
+      "name": "website-mock",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "frontend", "run", "dev:mock"],
+      "port": 5173
     }
   ]
 }

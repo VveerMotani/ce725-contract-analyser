@@ -50,6 +50,29 @@ function errorTitle(e: unknown, at: "upload" | "start"): string {
   return "Could not start";
 }
 
+/** Under the start button while it works: the upload bar, then "opening the pages" until the reading starts. */
+function SendProgress({ sent }: { sent: number | null }) {
+  const uploading = sent !== null && sent < 1;
+  const p = Math.round((sent ?? 1) * 100);
+  return (
+    <div className="mt-4 max-w-[520px]" role="status" aria-live="polite">
+      <div className="flex items-baseline justify-between text-[14.5px]">
+        <span className="flex items-center gap-2 text-ink">
+          <span className="h-2 w-2 animate-pulse rounded-full bg-accent" aria-hidden />
+          {uploading ? "Uploading the PDF" : "Opening the pages and starting the reading"}…
+        </span>
+        {uploading && <span className="tnum text-muted">{p}%</span>}
+      </div>
+      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-line">
+        {uploading
+          ? <div className="h-full rounded-full bg-accent transition-all duration-300" style={{ width: `${p}%` }} />
+          : <div className="h-full w-1/3 animate-sweep rounded-full bg-accent" />}
+      </div>
+      <p className="mt-2 text-[13px] text-muted">Large PDFs can take a minute here. Keep this page open; the reading screen opens by itself.</p>
+    </div>
+  );
+}
+
 export default function NewAnalysis() {
   const nav = useNavigate();
   const [sp] = useSearchParams();
@@ -58,6 +81,8 @@ export default function NewAnalysis() {
   const bm = bmId ? benchmarks?.find((b) => b.contract_id === bmId) : undefined;
   const [files, setFiles] = useState<{ file: File; tag: DocTag }[]>([]);
   const [busy, setBusy] = useState(false);
+  /** Share of the PDFs sent to the server while uploading; null once they are in (or for a test contract). */
+  const [sent, setSent] = useState<number | null>(null);
   const [error, setError] = useState<unknown>(null);
   const [errorAt, setErrorAt] = useState<"upload" | "start">("start");
   const { limits, refresh: refreshLimits } = useLimits();
@@ -90,7 +115,9 @@ export default function NewAnalysis() {
         const name = draft.title.trim() || "New contract";
         const cid = draft.contractId.trim() || name.replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 32).toUpperCase() || "CONTRACT-1";
         at = "upload";
-        const pkg = await api.createPackage(files.map((f) => f.file), files.map((f) => f.tag), cid, name);
+        setSent(0);
+        const pkg = await api.createPackage(files.map((f) => f.file), files.map((f) => f.tag), cid, name, setSent);
+        setSent(null);
         pid = pkg.package_id;
         at = "start";
       }
@@ -107,7 +134,7 @@ export default function NewAnalysis() {
     } catch (e) {
       setError(e); setErrorAt(at);
       if (e instanceof ApiError && e.status === 429) refreshLimits();
-    } finally { setBusy(false); }
+    } finally { setBusy(false); setSent(null); }
   };
 
   const canStart = !busy && !full && !fixedBm && (bmId ? !!bm : files.length > 0);
@@ -221,6 +248,7 @@ export default function NewAnalysis() {
       {error ? <div className="mt-6"><ErrorNote error={error} title={errorTitle(error, errorAt)} /></div> : null}
       <div className="mt-8 border-t border-line pt-6">
         <Button variant="primary" onClick={start} disabled={!canStart}>{busy ? "Starting…" : "Start reading the contract"}</Button>
+        {busy && <SendProgress sent={sent} />}
       </div>
     </div>
   );

@@ -65,6 +65,27 @@ async function staticRequest<T>(method: string, path: string, body?: unknown): P
   return (await r.json()) as T;
 }
 
+/** A form POST that reports how much of the upload has been sent (fetch cannot), for large PDFs. */
+function postWithProgress<T>(path: string, fd: FormData, onProgress: (fraction: number) => void): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const x = new XMLHttpRequest();
+    x.open("POST", `/api${path}`);
+    x.upload.onprogress = (e) => { if (e.lengthComputable) onProgress(e.loaded / e.total); };
+    x.upload.onload = () => onProgress(1);
+    x.onerror = () => reject(new ApiError(0, "The upload did not reach the server. Check the connection and try again."));
+    x.onload = () => {
+      if (x.status >= 200 && x.status < 300) {
+        try { resolve(JSON.parse(x.responseText) as T); } catch { reject(new ApiError(x.status, "The server sent an unreadable reply.")); }
+        return;
+      }
+      let msg = `${x.status} ${x.statusText}`;
+      try { const j = JSON.parse(x.responseText); msg = typeof j.detail === "string" ? j.detail : JSON.stringify(j.detail ?? j); } catch { /* not json */ }
+      reject(new ApiError(x.status, msg));
+    };
+    x.send(fd);
+  });
+}
+
 async function request<T>(method: string, path: string, body?: unknown): Promise<T> {
   await ensureMode();
   if (STATIC_SITE) return staticRequest<T>(method, path, body);
@@ -107,12 +128,13 @@ export const api = {
       return { ...NO_LIMITS, ...l };
     } catch { return { ...NO_LIMITS }; }
   },
-  createPackage: (files: File[], tags: string[], contractId: string, title: string) => {
+  createPackage: async (files: File[], tags: string[], contractId: string, title: string, onProgress?: (fraction: number) => void) => {
     const fd = new FormData();
     files.forEach((f) => fd.append("files[]", f));
     tags.forEach((t) => fd.append("tags[]", t));
     fd.append("contract_id", contractId);
     fd.append("title", title);
+    if (onProgress && (await ensureMode()) === "live" && !STATIC_SITE) return postWithProgress<Package>("/packages", fd, onProgress);
     return request<Package>("POST", "/packages", fd);
   },
   package: (id: string) => request<Package>("GET", `/packages/${enc(id)}`),

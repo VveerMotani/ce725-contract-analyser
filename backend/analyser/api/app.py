@@ -83,9 +83,10 @@ def _meta(run_id: str) -> RunMeta:
 
 
 def _meta_json(meta: RunMeta) -> dict:
-    """RunMeta plus 'frozen' (read-only demo copy) and 'replay' (answer-key replay) flags."""
+    """RunMeta plus 'frozen' (read-only demo copy) and 'replay' (answer-key replay) flags, and
+    'server_now' on the same clock as started_at, so the website can show the time taken."""
     return {**meta.model_dump(mode="json"), "frozen": store.is_frozen(meta.run_id),
-            "replay": pipeline.is_replay(meta)}
+            "replay": pipeline.is_replay(meta), "server_now": pipeline.now()}
 
 
 def _editable(run_id: str) -> RunMeta:

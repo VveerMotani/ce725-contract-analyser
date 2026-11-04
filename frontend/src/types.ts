@@ -389,6 +389,8 @@ export interface RunMeta {
   frozen?: boolean;
   /** Answer-key replay run: golden answers stand in for the AI (tests the pipeline, not the AI). */
   replay?: boolean;
+  /** The server's clock when this was sent (same clock as started_at), for the time taken so far. */
+  server_now?: string;
 }
 
 export interface Benchmark {
