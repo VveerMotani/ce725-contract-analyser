@@ -49,7 +49,7 @@
       "plant": 0.15
     },
     "perf_security_pct": 0.03,
-    "perf_security_validity_months_after_completion": 0.0,
+    "perf_security_validity_months_after_completion": 62.0,
     "index_lag_months": 0,
     "advance_interest_rate_encashed_pa": null,
     "part_payment_share": 0.9,
@@ -146,11 +146,11 @@
     },
     {
       "field": "retention_release",
-      "source": "default",
-      "question_id": "",
-      "quote": "",
+      "source": "extracted",
+      "question_id": "2.5",
+      "quote": "Within 15 (fifteen) days of the date of issue of the Completion Certificate, the Authority shall refund the balance of Retention Money remaining with the Authority",
       "confirmed": false,
-      "note": ""
+      "note": "Refunded within 15 days of the Completion Certificate = 0.5 months after completion"
     },
     {
       "field": "advance_instalments",
@@ -242,11 +242,11 @@
     },
     {
       "field": "perf_security_validity_months_after_completion",
-      "source": "default",
-      "question_id": "",
-      "quote": "",
+      "source": "extracted",
+      "question_id": "6.5",
+      "quote": "The Performance Security shall be valid until 60(sixty) days after the Defects Liability Period. The Additional Performance Security shall be valid until 28 (twenty eight) days after Project Completio",
       "confirmed": false,
-      "note": ""
+      "note": "60 days after the defects period of 60 months = 62 months after completion"
     },
     {
       "field": "cost_share",

@@ -163,6 +163,11 @@ export const api = {
 const apiBase = STATIC_SITE ? "/static-api" : "/api";
 export const exportCsvUrl = (runId: string) => `${apiBase}/runs/${enc(runId)}/export.csv`;
 export const reportPdfUrl = (runId: string) => `${apiBase}/runs/${enc(runId)}/report.pdf`;
+/** The contract PDF itself (null where there is no server, i.e. mock mode and the static copy); `page` opens it there. */
+export function contractPdfUrl(packageId: string, docId: string, page?: number): string | null {
+  if (mode === "mock" || STATIC_SITE) return null;
+  return `/api/packages/${enc(packageId)}/file/${enc(docId || "d1")}.pdf${page ? `#page=${page}` : ""}`;
+}
 
 /** URL of a rendered PDF page. In mock mode returns an SVG placeholder showing the quote. */
 export function pageImageUrl(packageId: string, docId: string, page: number, highlight?: string): string {

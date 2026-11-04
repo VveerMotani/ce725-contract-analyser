@@ -2,7 +2,7 @@
 // and (collapsed) how the tool checked it.
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, Minus, Plus, X } from "lucide-react";
-import { pageImageUrl } from "../api";
+import { contractPdfUrl, pageImageUrl } from "../api";
 import { useApp } from "../context";
 import { effective } from "../types";
 import { STATUS_LONG, TERM_NAME, checkPlain, reasonsPlain, topic } from "../lib/plain";
@@ -99,6 +99,9 @@ export function SourcePanel() {
                 <span className="tnum">Page {page}</span>
                 <button className="rounded p-1 hover:text-ink" onClick={() => go(page + 1)} aria-label="Next page"><ChevronRight className="h-4 w-4" /></button>
                 {page !== source.page && <button className="ml-1 text-accent-ink hover:underline" onClick={() => go(source.page)}>back to page {source.page}</button>}
+                {contractPdfUrl(source.packageId, source.docId, page) && (
+                  <a className="ml-2 text-accent-ink hover:underline" href={contractPdfUrl(source.packageId, source.docId, page)!} target="_blank" rel="noreferrer">Open the PDF</a>
+                )}
                 <span className="ml-auto flex items-center gap-1">
                   <button className="rounded p-1 hover:text-ink" onClick={() => setZoom((z) => Math.max(0.6, +(z - 0.2).toFixed(1)))} aria-label="Zoom out"><Minus className="h-4 w-4" /></button>
                   <span className="w-10 text-center tnum">{Math.round(zoom * 100)}%</span>

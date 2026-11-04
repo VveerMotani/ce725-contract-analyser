@@ -254,6 +254,16 @@ function ChipRow({ chips, empty }: { chips: Chip[]; empty: string }) {
 
 // ---------------------------------------------------------------------------
 
+const CASH_ONLY = new Set(["total", "fin", "bg"]);
+
+/** Link to the Cash section, where the missing figures are entered. */
+export function ToCash({ label = "Add your figures ↓" }: { label?: string }) {
+  return (
+    <a href="#cash" className="whitespace-nowrap text-accent-ink hover:underline"
+      onClick={(e) => { e.preventDefault(); document.getElementById("cash")?.scrollIntoView({ behavior: "smooth" }); }}>{label}</a>
+  );
+}
+
 export function KeyFacts({ answers, params, cash, flags, checks }: {
   answers: AnswerEnvelope[]; params: CashParams | undefined; cash: CashResult | undefined; flags: RiskFlag[]; checks: RuleCheck[] | undefined;
 }) {
@@ -263,6 +273,8 @@ export function KeyFacts({ answers, params, cash, flags, checks }: {
   const dates = useMemo(() => keyDates(ans, params), [ans, params]);
   const locked = useMemo(() => (cash ? moneyLocked(cash, params, dates) : null), [cash, params, dates]);
   const tiles = useMemo(() => numberTiles(ans, params, cash), [ans, params, cash]);
+  // Tiles that only the cash model can fill are left out until it can run (no empty boxes).
+  const shownTiles = cash ? tiles : tiles.filter((t) => !CASH_ONLY.has(t.key));
   const pay = useMemo(() => payConditions(ans, flags, params), [ans, flags, params]);
   const docs = useMemo(() => missingDocs(flags, checks, pkg.data ?? undefined), [flags, checks, pkg.data]);
 
@@ -281,12 +293,12 @@ export function KeyFacts({ answers, params, cash, flags, checks }: {
           {locked?.perfToCompletion ? " The performance guarantee's validity is not stated; it is shown up to completion." : ""}
           {" "}From the cash model with the saved delay.</>}>Money locked up</Head>
         <div className="mt-2">
-          {locked ? <LockedChart locked={locked} /> : <div className="text-[13px] text-muted">—</div>}
+          {locked ? <LockedChart locked={locked} /> : <div className="text-[13.5px] text-ink-2">Shown once the cash model has your figures. <ToCash /></div>}
         </div>
       </div>
 
       <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        {tiles.map((t) => (
+        {shownTiles.map((t) => (
           <li key={t.key} className="flex min-w-0 flex-col rounded-lg border border-line bg-surface p-3">
             <div className="flex items-center gap-0.5 text-[12.5px] text-muted">
               <span className="truncate">{TILE_TERM[t.key] ? <Term k={TILE_TERM[t.key]}>{t.label}</Term> : t.label}</span><Tip label={`About ${t.label}`}>{t.info}</Tip>
@@ -299,6 +311,7 @@ export function KeyFacts({ answers, params, cash, flags, checks }: {
           </li>
         ))}
       </ul>
+      {!cash && <p className="-mt-5 text-[13.5px] text-ink-2">Cost of these terms, financing cost and guarantee commission appear once the cash model has your figures. <ToCash /></p>}
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div className="min-w-0">

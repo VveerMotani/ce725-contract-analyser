@@ -283,6 +283,19 @@ def page_png(package_id: str, doc_id: str, page: int, highlight: Optional[str] =
     return Response(content=png, media_type="image/png", headers=headers)
 
 
+@api.get("/packages/{package_id}/file/{doc_id}.pdf")
+def package_pdf(package_id: str, doc_id: str):
+    """The contract PDF itself, to open in the browser (the same file the pages are read from)."""
+    pkg = _package(package_id)
+    doc = next((f for f in pkg.files if f.doc_id == doc_id), None)
+    path = Path(doc.path) if doc else None
+    if path is None or not path.is_file():
+        raise HTTPException(404, "No such document")
+    name = re.sub(r"[^A-Za-z0-9_.\- ]+", "_", doc.filename or f"{doc_id}.pdf")
+    return FileResponse(path, media_type="application/pdf",
+                        headers={"Content-Disposition": f'inline; filename="{name}"'})
+
+
 # ---------------------------------------------------------------------------
 # Runs
 # ---------------------------------------------------------------------------

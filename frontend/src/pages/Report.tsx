@@ -1,8 +1,8 @@
 // The contract report as a factsheet: key figures and flag tally, six term cards, red/green flags, cash.
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Lightbulb, X } from "lucide-react";
-import { api } from "../api";
+import { ArrowRight, FileText, Lightbulb, X } from "lucide-react";
+import { api, contractPdfUrl } from "../api";
 import { useApp, useAsync, useRun } from "../context";
 import { effective, type AnswerEnvelope, type CashParams } from "../types";
 import { money } from "../lib/format";
@@ -15,7 +15,7 @@ import { ErrorNote, Figure, InfoTip, Section, Spinner } from "../components/ui";
 import { CashEffect, CashLoading } from "./CashEffect";
 import { TermCards } from "./TermCards";
 import { FlagBoard } from "./Flags";
-import { KeyFacts } from "./KeyFacts";
+import { KeyFacts, ToCash } from "./KeyFacts";
 import { DocQuality } from "./DocQuality";
 import { overridesFor, stillMissing, useFiguresVersion, withFigures } from "../lib/figures";
 import { FiguresNeeded, FiguresUsed } from "../components/FiguresNeeded";
@@ -36,6 +36,24 @@ function FirstTip() {
       </p>
       <button onClick={close} className="rounded p-0.5 text-muted hover:text-ink" aria-label="Close the tip"><X className="h-4 w-4" /></button>
     </div>
+  );
+}
+
+/** "View the contract (PDF)": the file(s) that were read, opened in a new tab. */
+function ContractPdfs({ packageId }: { packageId: string }) {
+  const pkg = useAsync(() => api.package(packageId).catch(() => undefined), [packageId]);
+  const files = (pkg.data?.files ?? []).filter((f) => contractPdfUrl(packageId, f.doc_id));
+  if (!files.length) return null;
+  return (
+    <span className="flex flex-wrap gap-2">
+      {files.map((f) => (
+        <a key={f.doc_id} href={contractPdfUrl(packageId, f.doc_id)!} target="_blank" rel="noreferrer" title={f.filename}
+          className="inline-flex items-center gap-1.5 rounded-full border border-line-strong bg-surface px-3 py-1 text-[13.5px] text-ink hover:border-accent">
+          <FileText className="h-3.5 w-3.5 text-accent-ink" aria-hidden />
+          {files.length > 1 ? f.filename.replace(/\.pdf$/i, "") : "View the contract (PDF)"}
+        </a>
+      ))}
+    </span>
   );
 }
 
@@ -93,14 +111,17 @@ function Inner() {
     <article>
       <header className="pb-7">
         <h1 className="font-serif text-[28px] font-semibold leading-tight text-ink sm:text-[34px]">{title}</h1>
-        <div className="mt-1.5 text-[12.5px] text-muted">{sourceNote(meta!)}</div>
+        <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12.5px] text-muted">
+          <span>{sourceNote(meta!)}</span>
+          <ContractPdfs packageId={meta!.package_id} />
+        </div>
         <FirstTip />
         <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
           <Figure label="Contract value" value={k.value} note={k.valueNote} />
           <Figure label="Duration" value={k.dur} note={k.durNote} />
           <Figure label="Defects period" value={k.dlp} />
-          <Figure label="Peak funding" value={w ? money(w.peak_funding) : "—"}
-            note={w && w.peak_funding > 0 ? `month ${w.peak_month}` : w ? "none needed" : left.length ? "needs your figures (Cash, below)" : undefined} />
+          <Figure label="Peak funding" value={w ? money(w.peak_funding) : left.length ? <span className="text-[17px]"><ToCash /></span> : "—"}
+            note={w && w.peak_funding > 0 ? `month ${w.peak_month}` : w ? "none needed" : left.length ? "your own costs are never in a contract" : undefined} />
         </div>
         <DocQuality />
         {ready && <Tally t={sc.tally} hasChecks={sc.hasChecks} onClick={toFlags} className="mt-6" />}
@@ -118,7 +139,7 @@ function Inner() {
         {flags.error ? <ErrorNote error={flags.error} title="Could not load the flags" /> : !ready ? <Spinner /> : <FlagBoard sc={sc} />}
       </Section>
 
-      <Section className="mt-10" title="Cash" aside={
+      <Section id="cash" className="mt-10" title="Cash" aside={
         <InfoTip label="How to read the cash chart">
           Cash position each month: money received minus money spent on the work. Below zero, the work is funded from your own pocket.
           The dashed line is the same contract with fair reference terms.

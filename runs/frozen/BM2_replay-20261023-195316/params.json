@@ -39,7 +39,7 @@
     "pv_factor": 0.85,
     "pv_weights": {},
     "perf_security_pct": 0.05,
-    "perf_security_validity_months_after_completion": 0.0,
+    "perf_security_validity_months_after_completion": 2.0,
     "index_lag_months": 0,
     "advance_interest_rate_encashed_pa": null,
     "part_payment_share": null,
@@ -216,11 +216,11 @@
     },
     {
       "field": "perf_security_validity_months_after_completion",
-      "source": "default",
-      "question_id": "",
-      "quote": "",
+      "source": "extracted",
+      "question_id": "6.5",
+      "quote": "The Performance Guarantee shall be initially valid up to the stipulated date of completion plus minimum 60 days beyond that, if the same is submitted by the agency on scheduled format I as per GCC.",
       "confirmed": false,
-      "note": ""
+      "note": "Completion + 60 days (Format I; Format II says + 6 months) = 2 months after completion"
     },
     {
       "field": "cost_share",

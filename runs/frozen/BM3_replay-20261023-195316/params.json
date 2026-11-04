@@ -34,7 +34,7 @@
     "pv_factor": 0.85,
     "pv_weights": {},
     "perf_security_pct": 0.05,
-    "perf_security_validity_months_after_completion": 0.0,
+    "perf_security_validity_months_after_completion": 39.0,
     "index_lag_months": 0,
     "advance_interest_rate_encashed_pa": null,
     "part_payment_share": null,
@@ -211,11 +211,11 @@
     },
     {
       "field": "perf_security_validity_months_after_completion",
-      "source": "default",
-      "question_id": "",
-      "quote": "",
+      "source": "extracted",
+      "question_id": "6.5",
+      "quote": "16 Performance guarantee (Security) shall be valid up to Performance Guarantee (Security) should be valid up to three months beyond the completion of defect liability period (Maintence Guarantee perio",
       "confirmed": false,
-      "note": ""
+      "note": "3 months after the defects period of 36 months = 39 months after completion"
     },
     {
       "field": "cost_share",

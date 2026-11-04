@@ -32,7 +32,8 @@ FIELDS: dict[str, tuple[str, str, str]] = {
     "min_bill_value": ("minimum value of work before an interim bill is payable", "1.6", "money"),
     "retention_rate": ("retention or security deposit deducted from each bill", "2.2", "share"),
     "retention_cap": ("cap on total retention, of contract value", "2.3", "share"),
-    "retention_release": ("retention release steps (time after completion, share released)", "2.5", "release"),
+    "retention_release": ("retention release steps (time after completion, share released; "
+                          "'within 15 days of the completion certificate' = 15 days)", "2.5", "release"),
     "advance_instalments": ("mobilisation advance instalments, each as % of contract value", "3.2", "instalment"),
     "advance_recovery_rate": ("advance recovered from each bill, % of the gross bill", "3.4", "share"),
     "advance_recovery_deadline": ("advance fully recovered by this % of the contract period", "3.4", "share"),
@@ -45,7 +46,8 @@ FIELDS: dict[str, tuple[str, str, str]] = {
     "pv_weights": ("price variation weight of one component (give component)", "5.3", "weight"),
     "perf_security_pct": ("performance security, % of contract value", "6.2", "share"),
     "perf_security_validity_months_after_completion":
-        ("how long performance security stays valid after completion", "6.5", "months"),
+        ("how long performance security stays valid after completion (if stated as a time after the "
+         "defects liability period, add that period, e.g. 60 days after a 12-month DLP = 14 months)", "6.5", "months"),
 }
 PARAM_QUESTIONS = sorted({q for _, q, _ in FIELDS.values()} | {"3.1", "6.1"})
 USER_FIELDS = ["contract_value", "duration_months", "cost_share", "overdraft_rate_pa",

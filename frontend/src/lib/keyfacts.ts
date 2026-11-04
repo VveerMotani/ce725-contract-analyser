@@ -286,7 +286,7 @@ export function numberTiles(ans: Ans, params: CashParams | undefined, cash: Cash
     if (inp && usable(params, "ld_rate_per_day")) {
       if (inp.ld_rate_per_day <= 0) value = "None";
       else if (V) { value = money(inp.ld_rate_per_day * V); note = `${money(inp.ld_rate_per_day * V * 7)} a week`; }
-      else note = `${pct(inp.ld_rate_per_day)} of value a day`;
+      else { value = pct(inp.ld_rate_per_day, 3); note = "of contract value a day"; }
     } else if (a42?.a.status === "POINTS_ELSEWHERE") note = "in another document";
     else if (a42?.a.status === "NOT_STATED") note = "not stated";
     out.push({ key: "ld", label: "Delay penalty a day", value, note, env: a42?.env, info: "Daily delay penalty (liquidated damages) as a share of the contract value, in rupees. Deducted from what you are owed at completion." });
@@ -297,9 +297,11 @@ export function numberTiles(ans: Ans, params: CashParams | undefined, cash: Cash
     let value = "—", note: string | undefined;
     if (inp && usable(params, "ld_rate_per_day") && inp.ld_rate_per_day > 0 && usable(params, "ld_cap")) {
       if (inp.ld_cap == null) { value = "No cap"; }
-      else if (cash?.ld_days_to_cap != null) {
-        value = `${Math.round(cash.ld_days_to_cap)} days`;
-        note = V ? `cap ${pct(inp.ld_cap)} · ${money(inp.ld_cap * V)}` : `cap ${pct(inp.ld_cap)}`;
+      else {
+        // Contract arithmetic only: cap ÷ daily rate, plus any days before the penalty starts.
+        const days = cash?.ld_days_to_cap ?? inp.ld_cap / inp.ld_rate_per_day + (usable(params, "ld_grace_days") ? inp.ld_grace_days : 0);
+        value = `${Math.round(days)} days`;
+        note = V ? `cap ${pct(inp.ld_cap)} · ${money(inp.ld_cap * V)}` : `cap ${pct(inp.ld_cap)} of value`;
       }
     } else if (ans("4.3")?.a.status === "POINTS_ELSEWHERE") note = "in another document";
     const grace = inp && usable(params, "ld_grace_days") && inp.ld_grace_days > 0 ? ` Includes ${inp.ld_grace_days} days before the penalty starts.` : "";
@@ -311,9 +313,10 @@ export function numberTiles(ans: Ans, params: CashParams | undefined, cash: Cash
     let value = "—", note: string | undefined;
     if (inp && usable(params, "retention_rate")) {
       if (inp.retention_rate <= 0) value = "None";
-      else if (cash) {
-        const xs = cash.months.map((m) => m.retention).filter((x) => x > 1);
+      else {
+        const xs = cash ? cash.months.map((m) => m.retention).filter((x) => x > 1) : [];
         if (xs.length) { value = money(median(xs)); note = `${pct(inp.retention_rate)} of each bill`; }
+        else { value = pct(inp.retention_rate); note = "of each bill"; }   // rupees need the cash model
       }
     } else if (ans("2.2")?.a.status === "POINTS_ELSEWHERE") note = "in another document";
     out.push({ key: "ret", label: "Held back per bill", value, note, env: ans("2.2")?.env, info: "Typical retention (security deposit) taken from one running bill in the cash model, until the limit is reached." });
