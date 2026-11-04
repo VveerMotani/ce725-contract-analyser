@@ -33,7 +33,7 @@ function ContractCard({ b, run, fixed }: { b: Benchmark; run: RunMeta | undefine
   }, [run?.run_id, done]);
   const p = info.data?.params;
   const vSrc = usable(p, "contract_value");
-  const value = p && vSrc && p.inputs.contract_value > 0 ? `${money(p.inputs.contract_value)}${vSrc === "user" ? " (assumed)" : ""}` : "";
+  const value = p && vSrc && p.inputs.contract_value > 0 ? `${money(p.inputs.contract_value)}${vSrc === "user" ? " (your figure)" : ""}` : "";
   const status = !run ? "Not read yet"
     : run.stage === "error" ? "Reading stopped"
     : !done ? `Reading · ${Math.round(run.progress * 100)}%`

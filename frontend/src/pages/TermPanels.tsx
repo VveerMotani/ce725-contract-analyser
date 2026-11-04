@@ -7,6 +7,7 @@ import {
 } from "recharts";
 import { Lock } from "lucide-react";
 import { api } from "../api";
+import { overridesFor, stillMissing, useFiguresVersion } from "../lib/figures";
 import { RISE_GRID, STATIC_SITE } from "../staticSite";
 import { effective, type Answer, type AnswerEnvelope, type CashInputs, type CashParams, type CashResult } from "../types";
 import { money, moneyAxis, num, pct } from "../lib/format";
@@ -368,11 +369,13 @@ export function PricePanel({ d }: { d: D }) {
   const dr = useDebounced(rise, 350);
   const [res, setRes] = useState<CashResult>();
   const seq = useRef(0);
+  const figVer = useFiguresVersion();
   useEffect(() => {
     const my = ++seq.current;
     const x = dr / 100;
-    api.cashflow(d.runId, { index_rise_pa: { labour: x, cement: x, steel: x, fuel: x, bitumen: x, materials: x } }).then((r) => { if (my === seq.current) setRes(r.as_written); }, () => { if (my === seq.current) setRes(undefined); });
-  }, [dr, d.runId]);
+    if (stillMissing(d.runId, d.params).length) { setRes(undefined); return; }   // nothing made up
+    api.cashflow(d.runId, { ...overridesFor(d.runId, d.params), index_rise_pa: { labour: x, cement: x, steel: x, fuel: x, bitumen: x, materials: x } }).then((r) => { if (my === seq.current) setRes(r.as_written); }, () => { if (my === seq.current) setRes(undefined); });
+  }, [dr, d.runId, d.params, figVer]);
   const costRise = res ? (res.escalation_is_recovery ? (res.escalation_net_burden ?? 0) + res.escalation_amount : res.escalation_amount) : null;
   const recovered = res ? (res.escalation_is_recovery ? res.escalation_amount : 0) : null;
   const scale = Math.max(1, costRise ?? 0, recovered ?? 0);
@@ -522,7 +525,7 @@ export function GuaranteePanel({ d }: { d: D }) {
       </Block>
       <Block title="Figures">
         <Figs>
-          <Figure label={<Term k="bg">Bank commission</Term>} value={c ? money(c.guarantee_cost) : "—"} note={d.inp ? `at ${pct(d.inp.bg_commission_pa)} a year${usable(d.params, "bg_commission_pa") ? "" : " (assumed)"}` : undefined} />
+          <Figure label={<Term k="bg">Bank commission</Term>} value={c ? money(c.guarantee_cost) : "—"} note={c ? "at your guarantee commission" : "needs your figures (Cash, on the summary)"} />
           <Figure label="Performance" value={ps ? pct(ps) : "—"} note={ps && V ? money(ps * V) : undefined} />
         </Figs>
       </Block>

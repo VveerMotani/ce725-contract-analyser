@@ -110,6 +110,11 @@ def load(run_id: str, name: str, default: Any = None) -> Any:
     return read_json(run_dir(run_id) / f"{name}.json", default)
 
 
+def remove(run_id: str, name: str) -> None:
+    """Delete runs/<run_id>/<name>.json if it is there (a result that no longer holds)."""
+    (run_dir(run_id) / f"{name}.json").unlink(missing_ok=True)
+
+
 def load_meta(run_id: str) -> RunMeta:
     data = load(run_id, "meta")
     if data is None:

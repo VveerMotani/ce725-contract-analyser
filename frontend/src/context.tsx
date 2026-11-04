@@ -49,15 +49,8 @@ export interface Draft {
 export const DEFAULT_INPUTS: UserInputs = {
   contract_value: null,
   duration_months: null,
-  progress_curve: "s_curve",
+  progress_curve: null,
   progress: null,
-  cost_share: 0.85,
-  overdraft_rate_pa: 0.105,
-  bank_rate_pa: 0.0625,
-  bg_commission_pa: 0.015,
-  delay_days: 60,
-  index_rise_pa: { cement: 0.05, steel: 0.08, fuel: 0.07, labour: 0.06, bitumen: 0.06 },
-  supplier_credit_days: 0,
 };
 
 interface AppCtx {

@@ -1,6 +1,6 @@
 {
   "inputs": {
-    "contract_value": 1000000000.0,
+    "contract_value": 0.0,
     "duration_months": 24,
     "progress": null,
     "cost_share": 0.85,
@@ -58,17 +58,17 @@
   "provenance": [
     {
       "field": "contract_value",
-      "source": "user",
-      "question_id": "",
+      "source": "default",
+      "question_id": "0.3",
       "quote": "",
       "confirmed": false,
-      "note": ""
+      "note": "Contract price left blank in the agreement"
     },
     {
       "field": "duration_months",
-      "source": "user",
-      "question_id": "",
-      "quote": "",
+      "source": "extracted",
+      "question_id": "0.4",
+      "quote": "The 730th (seven hundred and thirtieth) day from the Appointed Date shall be the scheduled completion date (the",
       "confirmed": false,
       "note": ""
     },

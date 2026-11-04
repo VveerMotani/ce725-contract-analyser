@@ -9,6 +9,7 @@ import type { CashResult, CashflowResponse, ReferenceChange, RunMeta } from "../
 import { money, pct } from "../../lib/format";
 import { ErrorNote, Spinner, cx } from "../../components/ui";
 import { Head, Sub, cached, latestByContract, shortTitle } from "./shared";
+import { FIGURES, overridesFor, stillMissing, useFiguresVersion } from "../../lib/figures";
 
 type Key = "peak_funding" | "overdraft_interest" | "guarantee_cost" | "retention_locked_max" | "ld_amount" | "total_cost_of_terms";
 const ITEMS: [Key, string][] = [
@@ -44,7 +45,7 @@ function fmtValue(field: string, v: unknown): string {
   return String(v);
 }
 
-interface Col { meta: RunMeta; title: string; cash?: CashflowResponse; changes: ReferenceChange[] }
+interface Col { meta: RunMeta; title: string; cash?: CashflowResponse; changes: ReferenceChange[]; missing: string[] }
 
 function Pair({ a, b, max }: { a: number; b: number; max: number }) {
   const w = (x: number) => `${Math.max(0, (x / Math.max(max, 1)) * 100)}%`;
@@ -73,7 +74,15 @@ function Legend() {
 
 function ContractBlock({ c }: { c: Col }) {
   const w = c.cash?.as_written, r = c.cash?.reference;
-  if (!w || !r) return <p className="text-[14px] text-muted">No cash figures for this contract.</p>;
+  if (!w || !r) {
+    return (
+      <p className="text-[14px] text-muted">
+        No cash figures yet. {c.missing.length
+          ? <>Still needed (not in the contract): {c.missing.map((k) => FIGURES[k]?.label.toLowerCase() ?? k).join(", ")}. Enter them in the Cash section of its <Link className="text-accent-ink hover:underline" to={`/runs/${c.meta.run_id}`}>report</Link>; nothing is made up.</>
+          : "the cash model could not run."}
+      </p>
+    );
+  }
   return (
     <div>
       <div className="grid gap-x-8 gap-y-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
@@ -147,17 +156,23 @@ function Overall({ cols }: { cols: Col[] }) {
 export default function Fair() {
   const { runs, benchmarks } = useApp();
   const cids = useMemo(() => (benchmarks ?? []).map((b) => b.contract_id), [benchmarks]);
+  const figVer = useFiguresVersion();
   const data = useAsync(async () => {
     const latest = latestByContract(runs, cids);
     return Promise.all(cids.filter((c) => latest[c]).map(async (cid): Promise<Col> => {
       const m = latest[cid];
+      // Only the contract's terms and the figures typed on its report: nothing made up.
+      const params = await api.params(m.run_id).catch(() => undefined);
+      const missing = params ? stillMissing(m.run_id, params) : ["contract_value"];
+      const ov = overridesFor(m.run_id, params);
       const [cash, changes] = await Promise.all([
-        cached(`cash/${m.run_id}`, () => api.cashflow(m.run_id)).catch(() => undefined),
+        missing.length ? Promise.resolve(undefined)
+          : cached(`cash/${m.run_id}/${JSON.stringify(ov)}`, () => api.cashflow(m.run_id, ov)).catch(() => undefined),
         cached(`refchanges/${m.run_id}`, () => api.referenceChanges(m.run_id)).catch(() => [] as ReferenceChange[]),
       ]);
-      return { meta: m, title: shortTitle(benchmarks?.find((b) => b.contract_id === cid)?.title ?? cid), cash, changes };
+      return { meta: m, title: shortTitle(benchmarks?.find((b) => b.contract_id === cid)?.title ?? cid), cash, changes, missing };
     }));
-  }, [runs, cids]);
+  }, [runs, cids, figVer]);
 
   if (!runs || !benchmarks || data.loading) return <Spinner label="Running the cash model twice…" />;
   if (data.error || !data.data) return <ErrorNote error={data.error} title="Could not load the cash figures" />;
@@ -175,7 +190,7 @@ export default function Fair() {
           <ContractBlock c={c} />
         </Sub>
       ))}
-      <p className="mt-8 text-[12.5px] text-muted">Inputs are each run’s illustrative project figures (shown under Cash → assumptions on its report). Scenarios, not predictions.</p>
+      <p className="mt-8 text-[12.5px] text-muted">Each contract uses only its own terms and the figures entered in the Cash section of its report (kept in this browser); nothing is made up. Scenarios, not predictions.</p>
     </div>
   );
 }

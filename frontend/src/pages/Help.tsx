@@ -48,7 +48,7 @@ function Legend({ mark, label, children }: { mark: ReactNode; label: string; chi
 const FAQ: [string, ReactNode][] = [
   ["What does “—” mean?", "The contract does not give that figure, so nothing is filled in. Missing terms are often a risk in themselves."],
   ["What are “answers to confirm”?", "Answers where the automatic check found a doubt, for example a number that is not in the quoted sentence. Open “All 52 questions” and look at the page to confirm them."],
-  ["Where do the cash figures come from?", "From the contract’s terms plus a few assumptions about your project (value, duration, your costs). You can change these on the summary page; anything marked “assumed” is a default."],
+  ["Where do the cash figures come from?", "Only from the contract’s terms and figures you type. The tool never makes up a number: if the contract does not give something the cash model needs (its value, the days to pay a bill) or it is your own figure (your cost, your overdraft rate), the Cash section asks for it, and no cash figure is shown until you enter it. Your own figures are kept in your browser for every contract."],
   ["Can I rely on it for a bid?", "Use it to find and understand the terms quickly. It is decision support, not legal advice: check the terms that matter in the contract itself."],
 ];
 

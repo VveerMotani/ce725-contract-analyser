@@ -219,6 +219,8 @@ export interface ParamProvenance {
 export interface CashParams {
   inputs: CashInputs;
   provenance: ParamProvenance[];
+  /** Figures the cash model needs that are neither in the contract nor the user's (sent by the server). */
+  missing?: string[];
 }
 
 export interface MonthRow {
@@ -403,18 +405,12 @@ export interface Benchmark {
 }
 
 /** Body of POST /runs. user_inputs keys follow CashInputs field names where possible. */
+/** What the upload form sends: only figures the user typed or chose (nothing pre-filled). */
 export interface UserInputs {
   contract_value: number | null;
   duration_months: number | null;
-  progress_curve: "even" | "s_curve";
+  progress_curve: "even" | "s_curve" | null;
   progress: number[] | null;
-  cost_share: number;
-  overdraft_rate_pa: number;
-  bank_rate_pa: number;
-  bg_commission_pa: number;
-  delay_days: number;
-  index_rise_pa: Record<string, number>;
-  supplier_credit_days: number;
 }
 
 export interface ReviewPatch {

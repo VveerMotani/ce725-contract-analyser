@@ -274,3 +274,49 @@ def test_release_takes_first_period_tied_to_completion():
                    "After 12 months from certificate (final or otherwise) of completion; also only after "
                    "labour clearance (deemed if no complaint 3 months after completion)", None)
     assert got == [(12.0, "months")]
+
+
+# ---------------------------------------------------------------- figures the cash model needs
+
+from analyser.models import AdvanceInstalment, CashInputs, CashParams, ParamProvenance
+from analyser.params.needs import missing_figures, rebase_bank_rate
+
+
+def _params(inputs: dict, given: dict[str, str]) -> CashParams:
+    return CashParams(inputs=CashInputs(**{"contract_value": 0.0, "duration_months": 0, **inputs}),
+                      provenance=[ParamProvenance(field=f, source=s, note=n)
+                                  for f, (s, n) in {k: (v, "") if isinstance(v, str) else v
+                                                    for k, v in given.items()}.items()])
+
+
+def test_missing_lists_every_unknown_figure_and_nothing_else():
+    p = _params({}, {})
+    assert missing_figures(p) == ["contract_value", "duration_months", "pay_lag_days", "cost_share",
+                                  "overdraft_rate_pa", "supplier_credit_days", "progress"]
+    # retention, a guarantee and an advance each bring in the figures they depend on
+    p = _params({"retention_rate": 0.05, "perf_security_pct": 0.03,
+                 "advance_instalments": [AdvanceInstalment(share_of_value=0.1, month=0)]},
+                {"retention_rate": "extracted", "perf_security_pct": "extracted"})
+    assert {"retention_release", "dlp_months", "bg_commission_pa",
+            "perf_security_validity_months_after_completion"} <= set(missing_figures(p))
+
+
+def test_contract_and_user_figures_count_but_zero_value_does_not():
+    given = {f: "user" for f in ("contract_value", "duration_months", "cost_share", "overdraft_rate_pa",
+                                 "supplier_credit_days", "progress")}
+    given["pay_lag_days"] = "extracted"
+    p = _params({"contract_value": 5e7, "duration_months": 12}, given)
+    assert missing_figures(p) == []
+    p0 = _params({"contract_value": 0.0, "duration_months": 12}, given)
+    assert missing_figures(p0) == ["contract_value"]
+    # an override counts as the user's figure
+    assert missing_figures(_params({"duration_months": 12}, {**given, "contract_value": "default"}),
+                           {"contract_value": 5e7}) == []
+
+
+def test_bank_rate_needed_only_for_bank_rate_terms_and_rebased():
+    note = ("extracted", "Bank Rate + 3% = 9.25% a year")
+    p = _params({"late_interest_rate_pa": 0.0925, "bank_rate_pa": 0.0625}, {"late_interest_rate_pa": note})
+    assert "bank_rate_pa" in missing_figures(p)
+    assert "bank_rate_pa" not in missing_figures(_params({}, {}))
+    assert rebase_bank_rate(p, 0.055) == {"late_interest_rate_pa": pytest.approx(0.085)}

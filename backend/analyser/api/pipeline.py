@@ -28,6 +28,7 @@ from typing import Any, Callable
 
 from analyser import config
 from analyser.api import store
+from analyser.params import needs   # pure rules, never replaced by a test fake
 from analyser.models import (AnswerEnvelope, CashInputs, CashParams, Package,
                              ParamProvenance, RunMeta)
 
@@ -300,15 +301,33 @@ def build_params(envelopes: list[AnswerEnvelope], raw_user_inputs: dict | None, 
     if curve not in ("even", "s_curve"):
         log(f"Unknown progress_curve '{curve}'; using even progress")
     params: CashParams = module("params").map_to_cash_params(envelopes, clean, llm)
-    if curve == "s_curve" and params.inputs.progress is None:
-        months = params.inputs.duration_months
-        curve_values = module("cashflow").s_curve(months)
+    months = params.inputs.duration_months
+    chosen = (raw_user_inputs or {}).get("progress_curve") in ("even", "s_curve")
+    if chosen and params.inputs.progress is None and months > 0:
+        curve_values = module("cashflow").s_curve(months) if curve == "s_curve" else [1.0 / months] * months
+        label = "S-curve" if curve == "s_curve" else "Even progress"
         params = CashParams(
             inputs=params.inputs.model_copy(update={"progress": curve_values}),
             provenance=[p for p in params.provenance if p.field != "progress"]
             + [ParamProvenance(field="progress", source="user",
-                               quote=f"S-curve over {months} months chosen by the user")])
+                               quote=f"{label} over {months} months chosen by the user")])
     return params
+
+
+def missing_figures(params: CashParams | None, overrides: dict | None = None) -> list[str]:
+    """Cash inputs still needed: neither from the contract nor from the user. Empty = ready."""
+    if params is None:
+        return ["contract_value"]
+    return needs.missing_figures(params, overrides)
+
+
+def with_user_figures(params: CashParams, overrides: dict | None) -> dict:
+    """Overrides plus any "Bank Rate + x%" rates moved to the Bank Rate the user gave."""
+    overrides = dict(overrides or {})
+    if "bank_rate_pa" in overrides:
+        rebased = needs.rebase_bank_rate(params, float(overrides["bank_rate_pa"]))
+        overrides = {**rebased, **overrides}
+    return overrides
 
 
 def apply_overrides(inputs: CashInputs, overrides: dict | None) -> CashInputs:
@@ -348,16 +367,20 @@ def refresh_downstream(run_id: str, contract_id: str, envelopes: list[AnswerEnve
     stage = on_stage or (lambda *a: None)
 
     cash = None
-    if params is not None:
+    missing = missing_figures(params, overrides)
+    if params is not None and not missing:
         stage("cashflow", 0.86, "Running the cash-flow model (as written and at reference values)")
         cash = _soft(log, "cash flow", lambda: compute_cash(params.inputs, overrides))
         if cash is not None:
             store.save(run_id, "cashflow", {k: store.dump(v) for k, v in cash.items()})
+    else:
+        store.remove(run_id, "cashflow")
+        log(f"Cash model not run: these figures are not in the contract and not given yet: {', '.join(missing)}")
 
     stage("flags", 0.92, "Applying the risk rules")
     flags = _soft(log, "risk flags", lambda: module("risk").flag_risks(
         envelopes, package,
-        cash=params.inputs if params is not None else None,
+        cash=apply_overrides(params.inputs, overrides) if cash else None,
         cash_result=cash["as_written"] if cash else None))
     if flags is not None:
         store.save(run_id, "flags", flags)

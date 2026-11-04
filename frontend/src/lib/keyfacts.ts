@@ -325,7 +325,7 @@ export function numberTiles(ans: Ans, params: CashParams | undefined, cash: Cash
     out.push({
       key: "total", label: "Cost of these terms", value: t != null ? money(t) : "—",
       note: t != null && V ? `${pct(t / V, 1)} of contract value` : undefined,
-      info: "Overdraft interest + advance interest + guarantee commission + delay penalty + price-rise burden − late-payment interest earned. Uses the assumptions in the cash section.",
+      info: "Overdraft interest + advance interest + guarantee commission + delay penalty − late-payment interest earned, from the cash model. It uses only the contract's terms and the figures you entered; price rise is not included.",
     });
   }
 
@@ -335,7 +335,7 @@ export function numberTiles(ans: Ans, params: CashParams | undefined, cash: Cash
     const ai = cash?.advance_interest ?? 0;
     out.push({
       key: "fin", label: "Financing cost", value: od != null ? money(od) : "—",
-      note: ai > 0 ? `+ ${money(ai)} advance interest` : inp ? `overdraft at ${pct(inp.overdraft_rate_pa)}` : undefined,
+      note: od == null ? "needs your figures" : ai > 0 ? `+ ${money(ai)} advance interest` : inp ? `overdraft at ${pct(inp.overdraft_rate_pa)}` : undefined,
       info: "Interest on the money you put in before the bills are paid (overdraft), from the cash model.",
     });
   }
@@ -345,7 +345,7 @@ export function numberTiles(ans: Ans, params: CashParams | undefined, cash: Cash
     const g = cash?.guarantee_cost;
     out.push({
       key: "bg", label: "Guarantee commission", value: g != null ? money(g) : "—",
-      note: inp ? `at ${pct(inp.bg_commission_pa)} a year` : undefined,
+      note: g == null ? "needs your figures" : inp ? `at ${pct(inp.bg_commission_pa)} a year` : undefined,
       info: "Bank commission on the performance guarantee (and the advance guarantee, 110% of the advance still owed).",
     });
   }

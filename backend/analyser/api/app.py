@@ -23,7 +23,7 @@ from analyser import config
 from analyser.api import pipeline, store
 from analyser.cashflow.reference import reference_changes as _reference_changes
 from analyser.evaluate import project as evproject   # imported now: API tests replace analyser.evaluate later
-from analyser.models import (Answer, CashParams, CashResult, DocTag, Package, ReviewState, TestScore,
+from analyser.models import (Answer, CashInputs, CashParams, CashResult, DocTag, Package, ReviewState, TestScore,
                              RiskFlag, RunMeta, ScoreSummary)
 
 FRONTEND_DIST = config.PROJECT_DIR / "frontend" / "dist"
@@ -364,7 +364,8 @@ def get_params(run_id: str) -> dict:
     data = store.load(run_id, "params")
     if data is None:
         raise HTTPException(404, "No cash-model inputs for this run yet")
-    return data
+    # 'missing': figures the cash model needs that are neither in the contract nor the user's
+    return {**data, "missing": pipeline.missing_figures(CashParams.model_validate(data))}
 
 
 @api.put("/runs/{run_id}/params")
@@ -374,7 +375,7 @@ def put_params(run_id: str, body: CashParams) -> dict:
     stored = _load_model(run_id, "params", CashParams)
     params = pipeline.confirm_params(body, stored)
     store.save(run_id, "params", params)
-    return params.model_dump(mode="json")
+    return {**params.model_dump(mode="json"), "missing": pipeline.missing_figures(params)}
 
 
 @api.post("/runs/{run_id}/cashflow")
@@ -387,7 +388,12 @@ def run_cashflow(run_id: str, body: CashflowRequest | None = None) -> dict:
     params = _load_model(run_id, "params", CashParams)
     if params is None:
         raise HTTPException(404, "No cash-model inputs for this run yet")
-    overrides = (body.overrides if body else None) or {}
+    overrides = pipeline.with_user_figures(params, (body.overrides if body else None) or {})
+    missing = pipeline.missing_figures(params, overrides)
+    if missing:
+        raise HTTPException(422, {"missing": missing,
+                                  "message": "The cash model needs figures that are not in the contract: "
+                                             + ", ".join(missing)})
     try:
         cash = pipeline.compute_cash(params.inputs, overrides)
     except ValidationError as exc:
@@ -410,10 +416,37 @@ def run_cashflow(run_id: str, body: CashflowRequest | None = None) -> dict:
     return result
 
 
+def _trusted_cash(run_id: str) -> tuple[Optional[CashInputs], Optional[CashResult]]:
+    """The saved cash inputs and result, but only when no figure in them is made up
+    (every needed input is from the contract or the user). Otherwise (None, None)."""
+    raw = store.load(run_id, "params")
+    cash = store.load(run_id, "cashflow") or {}
+    if not raw or not cash.get("as_written"):
+        return None, None
+    params = CashParams.model_validate(raw)
+    overrides = cash.get("overrides") or {}
+    if pipeline.missing_figures(params, overrides):
+        return None, None
+    return (pipeline.apply_overrides(params.inputs, overrides),
+            CashResult.model_validate(cash["as_written"]))
+
+
+def _live_flags(run_id: str, meta: RunMeta):
+    """Risk flags worked out now from the answers, with cash figures only if none is made up."""
+    inputs, result = _trusted_cash(run_id)
+    return pipeline.module("risk").flag_risks_with_trace(
+        store.load_answers(run_id), pipeline.run_package(meta), cash=inputs, cash_result=result)
+
+
 @api.get("/runs/{run_id}/flags")
 def get_flags(run_id: str) -> list[dict]:
-    _meta(run_id)
-    return store.load(run_id, "flags", []) or []
+    meta = _meta(run_id)
+    if meta.stage != "done":
+        return store.load(run_id, "flags", []) or []
+    try:
+        return [f.model_dump(mode="json") for f in _live_flags(run_id, meta)[0]]
+    except Exception:  # noqa: BLE001 - fall back to the flags saved with the run
+        return store.load(run_id, "flags", []) or []
 
 
 _NOT_CHECKED = re.compile(r"(?<!no )POINTS_ELSEWHERE|NOT_STATED|NOT_APPLICABLE|MISSING|not in the package|"
@@ -427,12 +460,7 @@ def get_checks(run_id: str) -> list[dict]:
     the contract and fine) or "not_checked" (term missing, elsewhere or not applicable)."""
     meta = _meta(run_id)
     risk = pipeline.module("risk")
-    params = store.load(run_id, "params")
-    cash = store.load(run_id, "cashflow") or {}
-    inputs = CashParams.model_validate(params).inputs if params else None
-    result = CashResult.model_validate(cash["as_written"]) if cash.get("as_written") else None
-    flags, skipped = risk.flag_risks_with_trace(store.load_answers(run_id), pipeline.run_package(meta),
-                                                cash=inputs, cash_result=result)
+    flags, skipped = _live_flags(run_id, meta)
     why = dict(skipped)
     out = []
     for rule in risk.load_rules():
@@ -598,10 +626,11 @@ def export_pdf(run_id: str) -> Response:
         package = pipeline.run_package(meta)
     except Exception:  # noqa: BLE001 - the report still works without the package
         package = None
-    flags = [RiskFlag.model_validate(f) for f in store.load(run_id, "flags", []) or []]
+    flags = [RiskFlag.model_validate(f) for f in get_flags(run_id)]
     cash_raw = store.load(run_id, "cashflow") or {}
+    trusted = _trusted_cash(run_id)[1] is not None     # no cash figure from a made-up number
     cash = {k: CashResult.model_validate(v) for k, v in cash_raw.items()
-            if k in ("as_written", "reference") and v}
+            if trusted and k in ("as_written", "reference") and v}
     score = _load_model(run_id, "score", ScoreSummary)
     pdf = report_pdf(meta, package, store.load_answers(run_id), flags, cash or None, score)
     return Response(content=pdf, media_type="application/pdf",

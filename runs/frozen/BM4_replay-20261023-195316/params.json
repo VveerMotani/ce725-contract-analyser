@@ -43,19 +43,19 @@
   "provenance": [
     {
       "field": "contract_value",
-      "source": "user",
-      "question_id": "",
-      "quote": "",
+      "source": "extracted",
+      "question_id": "0.3",
+      "quote": "1.1 The work is estimated to cost for Rs. 7,25,065/-. This estimate, however, is given merely as a rough guide.",
       "confirmed": false,
-      "note": ""
+      "note": "Estimated cost / probable amount of contract (the accepted amount is blank)"
     },
     {
       "field": "duration_months",
-      "source": "user",
-      "question_id": "",
-      "quote": "",
+      "source": "extracted",
+      "question_id": "0.4",
+      "quote": "3. The time allowed for carrying out the work will be 40 Days from the date of start as defined in schedule 'F' or from the first date of handing over of the site, whichever is later",
       "confirmed": false,
-      "note": ""
+      "note": "40 days in the contract, counted as 2 whole months in the monthly cash model"
     },
     {
       "field": "dlp_months",

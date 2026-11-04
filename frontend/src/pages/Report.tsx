@@ -17,6 +17,8 @@ import { TermCards } from "./TermCards";
 import { FlagBoard } from "./Flags";
 import { KeyFacts } from "./KeyFacts";
 import { DocQuality } from "./DocQuality";
+import { overridesFor, stillMissing, useFiguresVersion, withFigures } from "../lib/figures";
+import { FiguresNeeded, FiguresUsed } from "../components/FiguresNeeded";
 
 const TIP_KEY = "cmt.reportTipSeen";
 
@@ -66,15 +68,23 @@ function keyFacts(answers: AnswerEnvelope[], params: CashParams | undefined) {
 function Inner() {
   const { runId, meta, answers, pending } = useRun();
   const title = useTitle();
-  const flags = useAsync(() => api.flags(runId), [runId]);
-  const checks = useAsync(() => api.checks(runId).catch(() => undefined), [runId]);
   const params = useAsync(() => api.params(runId), [runId]);
   const [ver, setVer] = useState(0);
-  const cash = useAsync(() => api.cashflow(runId), [runId, ver]);
+  // Cash figures only from the contract and what the visitor typed: none while a figure is missing.
+  const figVer = useFiguresVersion();
+  const [editing, setEditing] = useState(false);
+  const overrides = useMemo(() => overridesFor(runId, params.data), [runId, params.data, figVer]);
+  const left = useMemo(() => stillMissing(runId, params.data), [runId, params.data, figVer]);
+  const ready4cash = !!params.data && left.length === 0;
+  const cash = useAsync(() => (ready4cash ? api.cashflow(runId, overrides) : Promise.resolve(undefined)),
+    [runId, ver, ready4cash, JSON.stringify(overrides)]);
+  const flags = useAsync(() => api.flags(runId), [runId, !!cash.data]);
+  const checks = useAsync(() => api.checks(runId).catch(() => undefined), [runId, !!cash.data]);
   const envs = answers!;
 
   const sc = useMemo(() => scorecard(checks.data, flags.data ?? []), [checks.data, flags.data]);
-  const k = useMemo(() => keyFacts(envs, params.data), [envs, params.data]);
+  const shown = useMemo(() => withFigures(params.data, overrides), [params.data, overrides]);
+  const k = useMemo(() => keyFacts(envs, shown), [envs, shown]);
   const ready = !flags.loading && !checks.loading && !params.loading;
   const toFlags = () => document.getElementById("flags")?.scrollIntoView({ behavior: "smooth" });
   const w = cash.data?.as_written;
@@ -89,18 +99,19 @@ function Inner() {
           <Figure label="Contract value" value={k.value} note={k.valueNote} />
           <Figure label="Duration" value={k.dur} note={k.durNote} />
           <Figure label="Defects period" value={k.dlp} />
-          <Figure label="Peak funding" value={w ? money(w.peak_funding) : "—"} note={w && w.peak_funding > 0 ? `month ${w.peak_month}` : w ? "none needed" : undefined} />
+          <Figure label="Peak funding" value={w ? money(w.peak_funding) : "—"}
+            note={w && w.peak_funding > 0 ? `month ${w.peak_month}` : w ? "none needed" : left.length ? "needs your figures (Cash, below)" : undefined} />
         </div>
         <DocQuality />
         {ready && <Tally t={sc.tally} hasChecks={sc.hasChecks} onClick={toFlags} className="mt-6" />}
       </header>
 
       <Section title="Money terms">
-        {!ready ? <Spinner /> : <TermCards answers={envs} params={params.data} cash={w} sc={sc} />}
+        {!ready ? <Spinner /> : <TermCards answers={envs} params={shown} cash={w} sc={sc} />}
       </Section>
 
       <Section id="key-facts" className="mt-10" title="Key facts">
-        {!ready ? <Spinner /> : <KeyFacts answers={envs} params={params.data} cash={w} flags={flags.data ?? []} checks={checks.data} />}
+        {!ready ? <Spinner /> : <KeyFacts answers={envs} params={shown} cash={w} flags={flags.data ?? []} checks={checks.data} />}
       </Section>
 
       <Section id="flags" className="mt-10" title="Flags">
@@ -114,9 +125,14 @@ function Inner() {
         </InfoTip>
       }>
         {params.error ? <ErrorNote error={params.error} title="No cash figures yet" />
+          : !params.data ? <CashLoading />
+          : left.length || editing ? <FiguresNeeded key={String(editing)} runId={runId} params={params.data} onDone={() => setEditing(false)} />
           : cash.error ? <ErrorNote error={cash.error} title="Cash model failed" />
-          : !params.data || !cash.data ? <CashLoading />
-          : <CashEffect params={params.data} base={cash.data} onParams={(p) => { params.setData(p); setVer((v) => v + 1); }} />}
+          : !cash.data ? <CashLoading />
+          : <>
+              <CashEffect params={params.data} base={cash.data} extra={overrides} onParams={(p) => { params.setData(p); setVer((v) => v + 1); }} />
+              <FiguresUsed runId={runId} params={params.data} onChange={() => setEditing(true)} />
+            </>}
       </Section>
 
       <div className="mt-10">

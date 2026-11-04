@@ -136,12 +136,6 @@ function paramsOf(r: RunRec): CashParams {
     if (u) {
       if (u.contract_value) p.inputs.contract_value = u.contract_value;
       if (u.duration_months) p.inputs.duration_months = u.duration_months;
-      if (u.cost_share != null) p.inputs.cost_share = u.cost_share;
-      if (u.overdraft_rate_pa != null) p.inputs.overdraft_rate_pa = u.overdraft_rate_pa;
-      if (u.bank_rate_pa != null) p.inputs.bank_rate_pa = u.bank_rate_pa;
-      if (u.bg_commission_pa != null) p.inputs.bg_commission_pa = u.bg_commission_pa;
-      if (u.delay_days != null) p.inputs.delay_days = u.delay_days;
-      if (u.index_rise_pa) p.inputs.index_rise_pa = u.index_rise_pa;
       const T = p.inputs.duration_months;
       p.inputs.progress = u.progress && u.progress.length === T ? u.progress : u.progress_curve === "even" ? evenCurve(T) : sCurve(T);
     }

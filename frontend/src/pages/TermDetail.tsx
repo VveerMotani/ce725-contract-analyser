@@ -4,6 +4,7 @@ import { useEffect, useMemo } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { api } from "../api";
+import { overridesFor, stillMissing, useFiguresVersion, withFigures } from "../lib/figures";
 import { useAsync, useRun } from "../context";
 import { effective, type ClauseId } from "../types";
 import { TERM_NAME } from "../lib/plain";
@@ -55,14 +56,19 @@ function Inner({ clause }: { clause: Exclude<ClauseId, "C0"> }) {
   const flags = useAsync(() => api.flags(runId), [runId]);
   const checks = useAsync(() => api.checks(runId).catch(() => undefined), [runId]);
   const params = useAsync(() => api.params(runId).catch(() => undefined), [runId]);
-  const cash = useAsync(() => api.cashflow(runId).catch(() => undefined), [runId]);
+  // Cash figures only when nothing is made up: from the contract plus the figures the visitor typed.
+  const figVer = useFiguresVersion();
+  const overrides = useMemo(() => overridesFor(runId, params.data), [runId, params.data, figVer]);
+  const complete = !!params.data && stillMissing(runId, params.data).length === 0;
+  const cash = useAsync(() => (complete ? api.cashflow(runId, overrides).catch(() => undefined) : Promise.resolve(undefined)),
+    [runId, complete, JSON.stringify(overrides)]);
   useEffect(() => { window.scrollTo(0, 0); }, [clause]);
   const envs = answers!;
   const sc = useMemo(() => scorecard(checks.data, flags.data ?? []), [checks.data, flags.data]);
   const csc = useMemo(() => clauseScore(sc, clause), [sc, clause]);
   const ready = !flags.loading && !checks.loading && !params.loading && !cash.loading;
   const w = cash.data?.as_written;
-  const d = useMemo(() => makeD(runId, envs, params.data, w, checks.data), [runId, envs, params.data, w, checks.data]);
+  const d = useMemo(() => makeD(runId, envs, withFigures(params.data, overrides), w, checks.data), [runId, envs, params.data, overrides, w, checks.data]);
   const qs = envs.filter((e) => effective(e).clause_id === clause).sort((a, b) => parseFloat(a.answer.question_id.split(".")[1]) - parseFloat(b.answer.question_id.split(".")[1]));
   const main = d.ans(MAIN_Q[clause]);
   const summary = [

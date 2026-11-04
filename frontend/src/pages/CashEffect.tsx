@@ -35,7 +35,8 @@ function vsFair(a: number, b: number): string {
   return `${d > 0 ? "+" : "−"}${money(Math.abs(d)).replace(/^Rs /, "Rs ")} vs fair terms`;
 }
 
-export function CashEffect({ params, base, onParams }: { params: CashParams; base: CashflowResponse; onParams: (p: CashParams) => void }) {
+/** `extra`: the figures the visitor typed (not in the contract), sent with every recalculation. */
+export function CashEffect({ params, base, extra, onParams }: { params: CashParams; base: CashflowResponse; extra?: Partial<CashInputs>; onParams: (p: CashParams) => void }) {
   const { runId } = useRun();
   const inp = params.inputs;
   const [delay, setDelay] = useState(inp.delay_days);
@@ -53,11 +54,11 @@ export function CashEffect({ params, base, onParams }: { params: CashParams; bas
     if (dDelay === inp.delay_days) { setRes(base); setResDelay(inp.delay_days); setErr(null); return; }
     const my = ++seq.current;
     setLoading(true);
-    api.cashflow(runId, { delay_days: dDelay }).then(
+    api.cashflow(runId, { ...extra, delay_days: dDelay }).then(
       (r) => { if (my === seq.current) { setRes(r); setResDelay(dDelay); setErr(null); setLoading(false); } },
       (e) => { if (my === seq.current) { setErr(e); setLoading(false); } },
     );
-  }, [dDelay, runId, inp.delay_days, base]);
+  }, [dDelay, runId, inp.delay_days, base, extra]);
 
   const w = res.as_written;
   const r = res.reference;
@@ -113,7 +114,7 @@ export function CashEffect({ params, base, onParams }: { params: CashParams; bas
       {err ? <div className="mt-3"><ErrorNote error={err} title="Cash model failed" /></div> : null}
 
       <div className="mt-6 flex flex-col gap-2">
-        <Disclosure summary="Assumptions"><Assumptions params={params} onSaved={onParams} /></Disclosure>
+        <Disclosure summary="Figures used"><Assumptions params={params} extra={extra} onSaved={onParams} /></Disclosure>
         <Disclosure summary="Month by month"><MonthTable w={w} /></Disclosure>
       </div>
     </div>
@@ -176,14 +177,21 @@ function show(v: unknown, kind: Kind, none?: string): string {
   }
 }
 
-function Assumptions({ params, onSaved }: { params: CashParams; onSaved: (p: CashParams) => void }) {
+/** Zero, empty or none: what a term missing from the contract counts as. */
+function isNone(v: unknown): boolean {
+  return v === null || v === undefined || v === 0 || v === false || (Array.isArray(v) && !v.length)
+    || (typeof v === "object" && !Array.isArray(v) && !Object.keys(v as object).length);
+}
+
+function Assumptions({ params, extra, onSaved }: { params: CashParams; extra?: Partial<CashInputs>; onSaved: (p: CashParams) => void }) {
   const { runId, meta, answers, openAnswer } = useRun();
   const frozen = !!meta?.frozen;
   const [draft, setDraft] = useState<CashInputs>(params.inputs);
   const [edited, setEdited] = useState<Set<string>>(new Set());
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<unknown>(null);
-  useEffect(() => { setDraft(params.inputs); setEdited(new Set()); }, [params]);
+  useEffect(() => { setDraft({ ...params.inputs, ...extra }); setEdited(new Set()); }, [params, extra]);
+  const typed = new Set(Object.keys(extra ?? {}));
   const prov = (k: string) => params.provenance.find((p) => p.field === k);
   const confirmed = params.provenance.length > 0 && params.provenance.every((p) => p.confirmed);
 
@@ -200,8 +208,9 @@ function Assumptions({ params, onSaved }: { params: CashParams; onSaved: (p: Cas
     setBusy(true); setErr(null);
     try {
       const fields = new Set(params.provenance.map((p) => p.field));
-      const provenance: ParamProvenance[] = params.provenance.map((p) => edited.has(p.field) ? { ...p, source: "user", confirmed: true } : { ...p, confirmed: true });
-      edited.forEach((f) => { if (!fields.has(f)) provenance.push({ field: f, source: "user", question_id: "", quote: "", confirmed: true }); });
+      const mine = new Set([...edited, ...typed]);
+      const provenance: ParamProvenance[] = params.provenance.map((p) => mine.has(p.field) ? { ...p, source: "user", confirmed: true } : { ...p, confirmed: true });
+      mine.forEach((f) => { if (!fields.has(f)) provenance.push({ field: f, source: "user", question_id: "", quote: "", confirmed: true }); });
       onSaved(await api.saveParams(runId, { inputs: draft, provenance }));
     } catch (e) { setErr(e); } finally { setBusy(false); }
   };
@@ -210,15 +219,17 @@ function Assumptions({ params, onSaved }: { params: CashParams; onSaved: (p: Cas
     <div>
       <div className="flex flex-wrap gap-x-4 text-[12.5px] text-muted">
         <span>{confirmed ? "Confirmed" : frozen ? "Read-only demo" : "Not confirmed yet"}</span>
-        <span>“assumed” = not from the contract</span>
+        <span>Every figure is from the contract or yours; a term the contract does not have counts as none.</span>
       </div>
       <div className="mt-3 divide-y divide-line border-y border-line">
         {FIELDS.map((f) => {
           const p = prov(f.key);
           const v = draft[f.key];
-          const src = edited.has(f.key) ? "user" : p?.source ?? "default";
+          const src = edited.has(f.key) || typed.has(f.key) ? "user" : p?.source ?? "default";
+          // A default is never shown as a figure: a missing term counts as none, anything else is unused.
+          const unused = src === "default" && !isNone(v);
           const env = p?.question_id ? answers?.find((e) => e.answer.question_id === p.question_id) : undefined;
-          const editable = !frozen && f.kind !== "list";
+          const editable = !frozen && f.kind !== "list" && !typed.has(f.key) && !unused;
           return (
             <div key={f.key} className="flex flex-wrap items-center gap-x-4 gap-y-1 py-2 text-[14px]">
               <span className="w-full text-ink sm:w-[44%]">{f.term ? <TermIn text={f.label} k={f.term} word={f.word} /> : f.label}</span>
@@ -239,11 +250,11 @@ function Assumptions({ params, onSaved }: { params: CashParams; onSaved: (p: Cas
                       </span>
                     </span>
                   )
-                ) : <span className="text-ink">{show(v, f.kind, f.none)}</span>}
+                ) : <span className="text-ink">{unused ? "—" : show(v, f.kind, f.none)}</span>}
               </span>
               <span className="text-[13px] text-muted">
                 {src === "extracted" ? (env ? <button className="text-accent-ink hover:underline" onClick={() => openAnswer(env, "Assumption")}>from the contract{env.answer.pdf_page ? ` (p. ${env.answer.pdf_page})` : ""}</button> : "from the contract")
-                  : src === "user" ? "your figure" : "assumed"}
+                  : src === "user" ? "your figure" : unused ? "not in the contract · not used" : "not in the contract · counted as none"}
               </span>
             </div>
           );

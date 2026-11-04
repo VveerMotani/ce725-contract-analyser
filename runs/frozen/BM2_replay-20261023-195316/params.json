@@ -48,17 +48,17 @@
   "provenance": [
     {
       "field": "contract_value",
-      "source": "user",
-      "question_id": "",
-      "quote": "",
+      "source": "extracted",
+      "question_id": "0.3",
+      "quote": "Estimated cost of work: Rs. ₹ 2,12,27,336/-",
       "confirmed": false,
-      "note": ""
+      "note": "Estimated cost / probable amount of contract (the accepted amount is blank)"
     },
     {
       "field": "duration_months",
-      "source": "user",
-      "question_id": "",
-      "quote": "",
+      "source": "extracted",
+      "question_id": "0.4",
+      "quote": "TIME FOR ASSIGNMENT 09 (Nine) Months (From 0 to 9) – (in months)",
       "confirmed": false,
       "note": ""
     },

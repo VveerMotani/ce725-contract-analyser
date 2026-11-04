@@ -13,6 +13,7 @@ import { TERM_ORDER, TERM_SLUG } from "../../lib/termDetail";
 import { days, firstPct, rate, usable, type Tone } from "../../lib/terms";
 import { ErrorNote, Spinner, StatusDot, cx } from "../../components/ui";
 import { Head, cached, latestByContract, load, shortTitle } from "./shared";
+import { overridesFor, stillMissing, useFiguresVersion, withFigures } from "../../lib/figures";
 
 interface Col {
   meta: RunMeta;
@@ -112,14 +113,17 @@ function contractFacts(col: Col): { value: string; duration: string; dlp: string
 
 async function loadCol(meta: RunMeta, title: string): Promise<Col> {
   const rid = meta.run_id;
-  const [answers, params, flags, checks, cash] = await Promise.all([
+  const params = await cached(`params/${rid}`, () => api.params(rid)).catch(() => undefined);
+  // Cash only from the contract's terms and the figures typed on its report: nothing made up.
+  const ov = overridesFor(rid, params);
+  const complete = !!params && !stillMissing(rid, params).length;
+  const [answers, flags, checks, cash] = await Promise.all([
     load.answers(rid),
-    cached(`params/${rid}`, () => api.params(rid)).catch(() => undefined),
     cached(`flags/${rid}`, () => api.flags(rid)).catch(() => [] as RiskFlag[]),
     cached(`checks/${rid}`, () => api.checks(rid)).catch(() => undefined as RuleCheck[] | undefined),
-    cached(`cash/${rid}`, () => api.cashflow(rid)).catch(() => undefined),
+    complete ? cached(`cash/${rid}/${JSON.stringify(ov)}`, () => api.cashflow(rid, ov)).catch(() => undefined) : Promise.resolve(undefined),
   ]);
-  return { meta, title, answers, params, cash: cash?.as_written, sc: scorecard(checks, flags) };
+  return { meta, title, answers, params: withFigures(params, ov), cash: cash?.as_written, sc: scorecard(checks, flags) };
 }
 
 function TermCellView({ cell, onClick, label }: { cell: Cell; onClick: () => void; label: string }) {
@@ -163,11 +167,12 @@ export default function Compare() {
   const { runs, benchmarks } = useApp();
   const nav = useNavigate();
   const cids = (benchmarks ?? []).map((b) => b.contract_id);
+  const figVer = useFiguresVersion();
   const cols = useAsync(async () => {
     const latest = latestByContract(runs, cids);
     const list = cids.filter((c) => latest[c]);
     return Promise.all(list.map((c) => loadCol(latest[c], shortTitle(benchmarks?.find((b) => b.contract_id === c)?.title ?? c))));
-  }, [runs, benchmarks]);
+  }, [runs, benchmarks, figVer]);
 
   if (!runs || !benchmarks || cols.loading) return <Spinner label="Loading the four contracts…" />;
   if (cols.error || !cols.data) return <ErrorNote error={cols.error} title="Could not load the contracts" />;
@@ -226,7 +231,7 @@ export default function Compare() {
           </tbody>
         </table>
       </div>
-      <p className="mt-4 text-[12.5px] text-muted">Cash figures use the illustrative project inputs of each run (cost share, overdraft rate, no delay). Scenarios, not predictions.</p>
+      <p className="mt-4 text-[12.5px] text-muted">Cash figures use only each contract’s terms and the figures entered in the Cash section of its report; “—” means a figure is still missing. Nothing is made up. Scenarios, not predictions.</p>
     </div>
   );
 }

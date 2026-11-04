@@ -1,11 +1,12 @@
-// About: what the tool does, how, its assumptions and limits. Plain text, one column.
+// About: what the tool does, how, how the cash model works and its limits. Plain text, one column.
 import { PageTitle } from "../components/ui";
 
 const ASSUMPTIONS = [
-  "The cash figures are monthly: work follows your planned shape (S-curve or even), bills are monthly, and waiting times are rounded to whole months.",
-  "Your cost share, overdraft rate, Bank Rate, guarantee commission, expected delay and price rises are your figures, not contract terms. Anything marked “assumed” is a default you should check.",
+  "The cash figures are monthly: work follows the shape you choose (S-curve or even), bills are monthly, and a period shorter than a month in the contract (such as 40 days) is counted in whole months.",
+  "The tool never makes up a number. Your cost share, overdraft rate, Bank Rate, guarantee commission, supplier credit and work programme are your figures, not contract terms: the cash section asks for them, and for any contract figure the contract leaves out (such as its value or the days to pay a bill). Until they are entered, no cash figure is shown.",
   "The fair reference values behind the warnings come from the Manual for Procurement of Works 2022, Department of Expenditure orders of November 2020, CPWD GCC 2023 and the test contracts. They are starting points, not law.",
-  "Price variation uses the contract’s own factor and weights when it applies; for a fixed-price contract the figure shows what a price rise could cost you.",
+  "Price variation uses the contract’s own factor and weights when it applies; for a fixed-price contract the figure shows what the price rise you pick on the slider could cost you.",
+  "An advance is secured by a bank guarantee for 110% of the amount still owed, as in the CPWD conditions; its commission is your figure.",
   "Scanned or Hindi pages are read as images, marked as less certain and always sent for a human check.",
 ];
 const LIMITS = [
@@ -30,7 +31,7 @@ export default function About() {
         </ol>
         <h2 className="mt-8 font-serif text-[20px] font-semibold text-ink">Confidentiality</h2>
         <p className="mt-3">Use only public documents. The text and page images of uploaded PDFs are sent to the Anthropic API to be read. Results are saved as files on the machine that runs the server; there are no accounts or shared databases.</p>
-        <h2 className="mt-8 font-serif text-[20px] font-semibold text-ink">Assumptions</h2>
+        <h2 className="mt-8 font-serif text-[20px] font-semibold text-ink">How the cash model works</h2>
         <ul className="mt-3 flex list-disc flex-col gap-2 pl-5">{ASSUMPTIONS.map((a) => <li key={a}>{a}</li>)}</ul>
         <h2 className="mt-8 font-serif text-[20px] font-semibold text-ink">Limits</h2>
         <ul className="mt-3 flex list-disc flex-col gap-2 pl-5">{LIMITS.map((a) => <li key={a}>{a}</li>)}</ul>

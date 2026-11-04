@@ -20,8 +20,13 @@ def env(monkeypatch, tmp_path):
     return TestClient(app), calls
 
 
+# The contractor's own figures; the cash model never assumes them.
+OWN_FIGURES = {"cost_share": 0.85, "overdraft_rate_pa": 0.10, "supplier_credit_days": 0,
+               "bg_commission_pa": 0.015, "bank_rate_pa": 0.0625, "progress_curve": "even"}
+
+
 def start_and_wait(client, package_id="BM1", **user_inputs) -> dict:
-    user_inputs = user_inputs or {"contract_value": 1e7, "duration_months": 12}
+    user_inputs = user_inputs or {"contract_value": 1e7, "duration_months": 12, **OWN_FIGURES}
     r = client.post("/api/runs", json={"package_id": package_id, "user_inputs": user_inputs})
     assert r.status_code == 200, r.text
     run_id = r.json()["run_id"]
@@ -421,3 +426,23 @@ def test_hosted_limits(env, monkeypatch):
     r = client.post("/api/runs", json={"package_id": "UPLOADED_X", "user_inputs": {}})
     assert r.status_code == 429 and "Daily limit" in r.json()["detail"]
     assert client.get("/api/project/overrides").json()["read_only"] is True
+
+
+def test_no_cash_figures_from_made_up_numbers(env):
+    """Without the contractor's own figures the cash model does not run; it asks for them."""
+    client, _ = env
+    meta = start_and_wait(client, "BM1", contract_value=1e7, duration_months=12)
+    run_id = meta["run_id"]
+    assert meta["stage"] == "done"
+    missing = client.get(f"/api/runs/{run_id}/params").json()["missing"]
+    assert {"cost_share", "overdraft_rate_pa", "supplier_credit_days", "progress"} <= set(missing)
+    assert not (config.RUNS_DIR / run_id / "cashflow.json").exists()
+    r = client.post(f"/api/runs/{run_id}/cashflow", json={})
+    assert r.status_code == 422 and set(r.json()["detail"]["missing"]) == set(missing)
+    assert client.get(f"/api/runs/{run_id}/flags").status_code == 200
+
+    # The same figures given as what-if overrides (as the website does for read-only demos) run it
+    given = {"cost_share": 0.8, "overdraft_rate_pa": 0.11, "supplier_credit_days": 0,
+             "progress": [1 / 12] * 12, "bg_commission_pa": 0.01}
+    r = client.post(f"/api/runs/{run_id}/cashflow", json={"overrides": given})
+    assert r.status_code == 200 and "as_written" in r.json()

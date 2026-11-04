@@ -77,10 +77,17 @@ def fake_params(envelopes, user_inputs, llm):
     inputs = CashInputs(contract_value=float(user_inputs.get("contract_value", 1e7)),
                         duration_months=int(user_inputs.get("duration_months", 12)),
                         retention_rate=0.05, ld_rate_per_day=float(ld.answer_value) / 100)
+    given = {k: v for k, v in user_inputs.items() if k in CashInputs.model_fields and k not in
+             ("contract_value", "duration_months")}
+    inputs = inputs.model_copy(update=given)
     return CashParams(inputs=inputs, provenance=[
         ParamProvenance(field="contract_value", source="user"),
+        ParamProvenance(field="duration_months", source="user"),
         ParamProvenance(field="ld_rate_per_day", source="extracted", question_id="4.1",
-                        quote=ld.verbatim_quote)])
+                        quote=ld.verbatim_quote),
+        # the fake contract also states when bills are paid and when retention comes back
+        *[ParamProvenance(field=f, source="extracted") for f in ("pay_lag_days", "retention_release", "dlp_months")],
+        *[ParamProvenance(field=f, source="user") for f in given]])
 
 
 def fake_run_cashflow(inputs: CashInputs, sensitivities: bool = True) -> CashResult:

@@ -248,8 +248,10 @@ def _cash_section(cash, st) -> list:
     aw: CashResult | None = (cash or {}).get("as_written")
     ref: CashResult | None = (cash or {}).get("reference")
     if aw is None:
-        return out + [_p("The cash model has not been run for this run (confirm the cash "
-                         "inputs on the Cash flow screen first).", st["body"])]
+        return out + [_p("No cash figures are shown. The cash model needs some numbers that are not in "
+                         "the contract (for example the contract value, the days to pay a bill, or your own "
+                         "cost and overdraft rate), and the tool never fills them in by itself. Enter them "
+                         "in the Cash section of the website to see the cash effect.", st["body"])]
     measures = [
         ("Peak funding need", lambda r: rupees(r.peak_funding), lambda r: r.peak_funding),
         ("Month of peak", lambda r: str(r.peak_month), None),

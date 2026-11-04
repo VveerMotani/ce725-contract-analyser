@@ -51,7 +51,8 @@ PARAM_QUESTIONS = sorted({q for _, q, _ in FIELDS.values()} | {"3.1", "6.1"})
 USER_FIELDS = ["contract_value", "duration_months", "cost_share", "overdraft_rate_pa",
                "bg_commission_pa", "delay_days", "progress", "index_rise_pa", "bank_rate_pa",
                "supplier_credit_days"]
-FALLBACK_PROJECT = {"contract_value": 1_000_000_000.0, "duration_months": 24}   # spec 8.4 example
+# Unknown size and length stay 0 (never a made-up project); params.needs asks the user for them.
+UNKNOWN_PROJECT = {"contract_value": 0.0, "duration_months": 0}
 DAYS_PER_MONTH = 30.4375
 PER_DAYS = {"day": 1, "week": 7, "month": 30, "year": 365}   # "1% per month" -> /30 (CPWD convention)
 MONEY = {"rupees": 1.0, "lakh": 1e5, "crore": 1e7}
@@ -182,10 +183,11 @@ def map_to_cash_params(envelopes: list[AnswerEnvelope], user_inputs: dict, llm) 
         if name in CashInputs.model_fields and value is not None:
             values[name] = value
             prov[name] = ParamProvenance(field=name, source="user")
-    for name, value in FALLBACK_PROJECT.items():
+    for name, value in UNKNOWN_PROJECT.items():
         values.setdefault(name, value)
     if isinstance(values.get("duration_months"), float):
-        values["duration_months"] = max(1, round(values["duration_months"]))
+        d = values["duration_months"]
+        values["duration_months"] = max(1, round(d)) if d > 0 else 0
 
     inputs = CashInputs(**values)
     provenance = []

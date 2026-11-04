@@ -1,4 +1,4 @@
-// Read a contract: (1) which contract, (2) a few facts about the project, with sensible defaults. Advanced inputs are collapsed.
+// Read a contract: (1) which contract, (2) optional facts about the project. Nothing is pre-filled; the report asks for any figure the cash model still needs.
 import { useRef, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { FileUp, X } from "lucide-react";
@@ -7,7 +7,7 @@ import { useApp } from "../context";
 import type { DocTag, UserInputs } from "../types";
 import { money } from "../lib/format";
 import { evenCurve, sCurve } from "../lib/curves";
-import { Button, Choice, Disclosure, ErrorNote, Field, PageTitle, cx, inputCls } from "../components/ui";
+import { Button, Choice, ErrorNote, Field, PageTitle, cx, inputCls } from "../components/ui";
 import { LimitNote, limitReached, useLimits } from "../components/LimitNote";
 
 const TAGS: { value: DocTag; label: string }[] = [
@@ -29,16 +29,6 @@ function guessTag(name: string): DocTag {
   if (/boq|quantit|programme/.test(n)) return "boq";
   if (/nit|notice|rfp|tender/.test(n)) return "notice";
   return "other";
-}
-
-function PctInput({ value, onChange, label }: { value: number; onChange: (v: number) => void; label: string }) {
-  return (
-    <span className="relative block">
-      <input type="number" step="any" aria-label={label} className={cx(inputCls, "pr-8 tnum")} value={+(value * 100).toFixed(4)}
-        onChange={(e) => onChange((parseFloat(e.target.value) || 0) / 100)} />
-      <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[14px] text-muted">%</span>
-    </span>
-  );
 }
 
 /** Heading over the server's message: the limit (429), a refused contract (403), a rejected PDF (400). */
@@ -125,7 +115,7 @@ export default function NewAnalysis() {
       const ui: UserInputs = {
         ...inp,
         contract_value: valueNum && valueNum > 0 ? valueNum : null,
-        progress: T ? (inp.progress_curve === "even" ? evenCurve(T) : sCurve(T)) : null,
+        progress: T && inp.progress_curve ? (inp.progress_curve === "even" ? evenCurve(T) : sCurve(T)) : null,
       };
       const run = await api.startRun(pid, ui);
       refreshRuns();
@@ -189,7 +179,7 @@ export default function NewAnalysis() {
 
       <section className="mt-10 border-t border-line pt-6">
         <h2 className="font-serif text-[20px] font-semibold text-ink">2. About the project</h2>
-        <p className="mt-1 text-[13.5px] text-muted">For the cash figures · defaults suit most public works</p>
+        <p className="mt-1 text-[13.5px] text-muted">Optional. Leave blank to use what the contract says. The tool never fills in a figure by itself: anything the cash model still needs is asked for on the report.</p>
         <div className="mt-5 grid gap-5 sm:grid-cols-2">
           <Field label="Contract value" hint={valueNum ? `= ${money(valueNum)}` : "Leave blank to use the value in the contract."}>
             <span className="relative block">
@@ -205,44 +195,11 @@ export default function NewAnalysis() {
               <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[14px] text-muted">months</span>
             </span>
           </Field>
-          <Field label="Your cost as % of contract value" hint="What you spend for every Rs 100 you bill.">
-            <PctInput label="Your cost as % of contract value" value={inp.cost_share} onChange={(v) => setInp({ cost_share: v })} />
-          </Field>
-          <Field label="Delay to plan for" hint="Also adjustable on the report">
-            <span className="relative block">
-              <input type="number" min={0} className={cx(inputCls, "pr-14 tnum")} value={inp.delay_days} onChange={(e) => setInp({ delay_days: Math.max(0, parseInt(e.target.value) || 0) })} />
-              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[14px] text-muted">days</span>
-            </span>
+          <Field label="Shape of the work over time" className="sm:col-span-2" hint="Leave unset to choose later.">
+            <Choice label="Shape of the work over time" value={inp.progress_curve ?? ("" as "even")} onChange={(v) => setInp({ progress_curve: v })}
+              options={[{ value: "s_curve", label: "Slow start, busy middle (S-curve)" }, { value: "even", label: "Even every month" }]} />
           </Field>
         </div>
-
-        <Disclosure className="mt-6" summary="More settings">
-          <div className="grid gap-5 sm:grid-cols-2">
-            <Field label="Your overdraft interest rate (a year)"><PctInput label="Overdraft interest rate" value={inp.overdraft_rate_pa} onChange={(v) => setInp({ overdraft_rate_pa: v })} /></Field>
-            <Field label="RBI Bank Rate" hint="For terms like “Bank Rate + 3%”."><PctInput label="RBI Bank Rate" value={inp.bank_rate_pa} onChange={(v) => setInp({ bank_rate_pa: v })} /></Field>
-            <Field label="Bank guarantee commission (a year)"><PctInput label="Bank guarantee commission" value={inp.bg_commission_pa} onChange={(v) => setInp({ bg_commission_pa: v })} /></Field>
-            <Field label="Credit from your suppliers">
-              <span className="relative block">
-                <input type="number" min={0} className={cx(inputCls, "pr-14 tnum")} value={inp.supplier_credit_days} onChange={(e) => setInp({ supplier_credit_days: Math.max(0, parseInt(e.target.value) || 0) })} />
-                <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[14px] text-muted">days</span>
-              </span>
-            </Field>
-            <Field label="Shape of the work over time" className="sm:col-span-2">
-              <Choice label="Shape of the work over time" value={inp.progress_curve} onChange={(v) => setInp({ progress_curve: v })}
-                options={[{ value: "s_curve", label: "Slow start, busy middle (S-curve)" }, { value: "even", label: "Even every month" }]} />
-            </Field>
-            <div className="sm:col-span-2">
-              <div className="text-[14px] font-medium text-ink">Expected price rise a year</div>
-              <div className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-5">
-                {Object.entries(inp.index_rise_pa).map(([k, v]) => (
-                  <Field key={k} label={<span className="text-[13.5px] font-normal capitalize text-ink-2">{k}</span>}>
-                    <PctInput label={`Price rise for ${k}`} value={v} onChange={(nv) => setInp({ index_rise_pa: { ...inp.index_rise_pa, [k]: nv } })} />
-                  </Field>
-                ))}
-              </div>
-            </div>
-          </div>
-        </Disclosure>
       </section>
 
       {error ? <div className="mt-6"><ErrorNote error={error} title={errorTitle(error, errorAt)} /></div> : null}
