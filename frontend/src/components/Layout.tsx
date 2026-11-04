@@ -13,19 +13,19 @@ import { cx } from "./ui";
 import { SourcePanel } from "./SourcePanel";
 
 /** Contract name only; the answer-key test runs (team copies) and repeat readings get a short tag. */
-function runLabel(r: RunMeta, all: RunMeta[], titleOf: (c: string) => string): string {
+function runLabel(r: RunMeta, all: RunMeta[], titleOf: (r: RunMeta) => string): string {
   const replay = runSource(r) === "replay";
   const same = all.filter((x) => x.contract_id === r.contract_id && (runSource(x) === "replay") === replay);
   const when = same.length > 1 ? `, ${fmtDay(r.finished_at || r.started_at)}` : "";
   const state = r.stage === "done" ? "" : r.stage === "error" ? " (stopped)" : " (reading…)";
-  return `${titleOf(r.contract_id)}${replay ? " — answer-key test" : ""}${when}${state}`;
+  return `${titleOf(r)}${replay ? " — answer-key test" : ""}${when}${state}`;
 }
 
 function Switcher({ current }: { current: string | null }) {
   const { runs, benchmarks } = useApp();
   const nav = useNavigate();
   const loc = useLocation();
-  const titleOf = (c: string) => benchmarks?.find((b) => b.contract_id === c)?.title ?? c;
+  const titleOf = (r: RunMeta) => benchmarks?.find((b) => b.contract_id === r.contract_id)?.title || r.title || r.contract_id;
   const list = runs ?? [];
   const sorted = [...list].sort((a, b) => a.contract_id.localeCompare(b.contract_id) || (b.finished_at || b.started_at).localeCompare(a.finished_at || a.started_at));
   const onChange = (id: string) => {
@@ -114,7 +114,7 @@ function Footer() {
         {run && (
           <div className="flex flex-wrap gap-x-5 gap-y-1.5">
             <Link className={linkCls} to={`/runs/${run.runId}/technical`}>Technical details</Link>
-            {!mock && <a className={linkCls} href={reportPdfUrl(run.runId)} target="_blank" rel="noreferrer">Download the report (PDF)</a>}
+            {!mock && <a className={linkCls} href={reportPdfUrl(run.runId)} target="_blank" rel="noreferrer" title="Opens in a new tab; it takes about 10 seconds to make">Download the report (PDF) <span className="text-muted">· takes ~10 s</span></a>}
             {!mock && <a className={linkCls} href={exportCsvUrl(run.runId)} download>Answers as a spreadsheet (CSV)</a>}
           </div>
         )}

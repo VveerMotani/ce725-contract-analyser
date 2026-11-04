@@ -127,7 +127,7 @@ function Inner() {
 
   return (
     <div>
-      <PageTitle title="All answers" />
+      <PageTitle title="All 52 questions" />
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
         <Choice label="Which answers" value={filter} onChange={setFilter}
           options={[{ value: "all", label: `All ${envs.length}` }, { value: "check", label: `To confirm (${pending})` }]} />

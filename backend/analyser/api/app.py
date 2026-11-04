@@ -83,10 +83,12 @@ def _meta(run_id: str) -> RunMeta:
 
 
 def _meta_json(meta: RunMeta) -> dict:
-    """RunMeta plus 'frozen' (read-only demo copy) and 'replay' (answer-key replay) flags, and
-    'server_now' on the same clock as started_at, so the website can show the time taken."""
+    """RunMeta plus 'frozen' (read-only demo copy) and 'replay' (answer-key replay) flags, the
+    contract's name as typed ('title'), and 'server_now' on the same clock as started_at, so the
+    website can show the time taken."""
     return {**meta.model_dump(mode="json"), "frozen": store.is_frozen(meta.run_id),
-            "replay": pipeline.is_replay(meta), "server_now": pipeline.now()}
+            "replay": pipeline.is_replay(meta), "title": _package_title(meta.package_id),
+            "server_now": pipeline.now()}
 
 
 def _editable(run_id: str) -> RunMeta:
@@ -116,6 +118,14 @@ def _package_contract_id(package_id: str) -> str:
     if data and data.get("contract_id"):
         return data["contract_id"]
     return _package(package_id).contract_id
+
+
+def _package_title(package_id: str) -> str:
+    """The name typed on the upload page, from runs/packages/<id>/package.json ("" if not found)."""
+    if not store.safe_id(package_id):
+        return ""
+    data = store.read_json(store.runs_dir() / "packages" / package_id / "package.json")
+    return (data or {}).get("title") or ""
 
 
 def _all_metas() -> list[RunMeta]:

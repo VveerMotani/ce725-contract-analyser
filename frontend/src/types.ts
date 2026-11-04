@@ -389,6 +389,8 @@ export interface RunMeta {
   frozen?: boolean;
   /** Answer-key replay run: golden answers stand in for the AI (tests the pipeline, not the AI). */
   replay?: boolean;
+  /** The contract's name as typed on the upload page ("" if unknown). */
+  title?: string;
   /** The server's clock when this was sent (same clock as started_at), for the time taken so far. */
   server_now?: string;
 }

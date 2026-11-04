@@ -129,7 +129,7 @@ export default function Home() {
           <ul className="mt-3 divide-y divide-line border-y border-line">
             {others.map((r) => (
               <li key={r.run_id} className="flex flex-wrap items-baseline justify-between gap-x-4 py-3 text-[15px]">
-                <Link className="text-ink hover:underline" to={`/runs/${r.run_id}`}>{r.contract_id}</Link>
+                <Link className="text-ink hover:underline" to={`/runs/${r.run_id}`}>{r.title || r.contract_id}</Link>
                 <span className="text-[13.5px] text-muted">{r.stage === "done" ? "ready" : r.stage === "error" ? "stopped" : `being read · ${Math.round(r.progress * 100)}%`}</span>
               </li>
             ))}

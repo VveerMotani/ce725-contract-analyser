@@ -82,3 +82,11 @@ def test_number_words_up_to_ninety():
     qs = {q.raw: q for q in extract_quantities(
         "recovered by the time eighty percent of the work is done; seventy days; seven days")}
     assert qs["eighty"].value == 80 and qs["seventy"].value == 70 and qs["seven"].value == 7
+
+
+def test_ordinal_and_teen_words():
+    qs = {q.raw: q for q in extract_quantities(
+        "shall be paid by tenth working day; within fourteen days; first instalment")}
+    assert qs["tenth"].value == 10 and qs["fourteen"].value == 14 and qs["first"].value == 1
+    # Without a unit after it, an ordinal is just a word
+    assert not extract_quantities("the first bill and the second party")
