@@ -33,8 +33,41 @@ export const FIGURES: Record<string, FigureDef> = {
   bank_rate_pa: { label: "RBI Bank Rate today", kind: "pct", group: "own", help: "The contract pays interest as “Bank Rate + x%”.", example: "5.75" },
 };
 
-/** What the visitor typed: numbers as typed (crore, %, days, months) or "even" / "s_curve". */
+/** What the visitor typed: numbers as typed (crore, %, days, months) or "even" / "s_curve".
+ *  `<key>.example` = "1" marks a value filled by "Use example figures" rather than typed. */
 export type Typed = Record<string, string>;
+
+const EX = ".example";
+
+/** Example values for "Use example figures": a typical small Indian works contractor. Always shown
+ *  as examples, never as contract terms or the visitor's own figures. */
+export const EXAMPLES: Record<string, string> = {
+  contract_value: "25", duration_months: "12", pay_lag_days: "30", dlp_months: "12", retention_release: "12",
+  perf_security_validity_months_after_completion: "12", pv_factor: "85", progress: "s_curve",
+  cost_share: "85", overdraft_rate_pa: "10.5", supplier_credit_days: "0", bg_commission_pa: "1.5", bank_rate_pa: "6",
+};
+
+export const isExample = (typed: Typed, k: string) => typed[k + EX] === "1";
+
+/** Fill every empty field in `keys` with its example value, marked as an example. */
+export function withExamples(typed: Typed, keys: string[]): Typed {
+  const out = { ...typed };
+  for (const k of keys) if (!(out[k] ?? "").trim() && EXAMPLES[k]) { out[k] = EXAMPLES[k]; out[k + EX] = "1"; }
+  return out;
+}
+
+/** A field the visitor changes is no longer an example. */
+export function edit(typed: Typed, k: string, v: string): Typed {
+  const out = { ...typed, [k]: v };
+  delete out[k + EX];
+  return out;
+}
+
+/** Missing figures currently filled with example values. */
+export function examplesUsed(runId: string, params: CashParams | undefined): string[] {
+  const typed = typedFor(runId);
+  return (params?.missing ?? []).filter((k) => isExample(typed, k) && typed[k]);
+}
 
 const OWN_KEY = "cmt.myFigures";
 const runKey = (runId: string) => `cmt.figures.${runId}`;
@@ -61,8 +94,10 @@ export function typedFor(runId: string): Typed {
 export function saveTyped(runId: string, typed: Typed) {
   const own = { ...load(OWN_KEY) }, mine = { ...load(runKey(runId)) };
   for (const [k, v] of Object.entries(typed)) {
+    if (k.endsWith(EX)) continue;
     const target = FIGURES[k]?.group === "own" ? own : mine;
     if (v.trim() === "") delete target[k]; else target[k] = v.trim();
+    if (typed[k + EX] === "1" && v.trim()) target[k + EX] = "1"; else delete target[k + EX];
   }
   memory[OWN_KEY] = own; memory[runKey(runId)] = mine;
   write(OWN_KEY, own); write(runKey(runId), mine);

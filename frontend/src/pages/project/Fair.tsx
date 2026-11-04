@@ -9,7 +9,7 @@ import type { CashResult, CashflowResponse, ReferenceChange, RunMeta } from "../
 import { money, pct } from "../../lib/format";
 import { ErrorNote, Spinner, cx } from "../../components/ui";
 import { Head, Sub, cached, latestByContract, shortTitle } from "./shared";
-import { FIGURES, overridesFor, stillMissing, useFiguresVersion } from "../../lib/figures";
+import { FIGURES, examplesUsed, overridesFor, stillMissing, useFiguresVersion } from "../../lib/figures";
 
 type Key = "peak_funding" | "overdraft_interest" | "guarantee_cost" | "retention_locked_max" | "ld_amount" | "total_cost_of_terms";
 const ITEMS: [Key, string][] = [
@@ -45,7 +45,7 @@ function fmtValue(field: string, v: unknown): string {
   return String(v);
 }
 
-interface Col { meta: RunMeta; title: string; cash?: CashflowResponse; changes: ReferenceChange[]; missing: string[] }
+interface Col { meta: RunMeta; title: string; cash?: CashflowResponse; changes: ReferenceChange[]; missing: string[]; examples: string[] }
 
 function Pair({ a, b, max }: { a: number; b: number; max: number }) {
   const w = (x: number) => `${Math.max(0, (x / Math.max(max, 1)) * 100)}%`;
@@ -85,6 +85,7 @@ function ContractBlock({ c }: { c: Col }) {
   }
   return (
     <div>
+      {c.examples.length > 0 && <p className="mb-2 text-[13px] text-warn">Uses example figures for {c.examples.map((k) => FIGURES[k]?.label.toLowerCase() ?? k).join(", ")} (not from the contract).</p>}
       <div className="grid gap-x-8 gap-y-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
         <ul className="flex flex-col gap-3">
           {ITEMS.map(([k, label]) => {
@@ -170,7 +171,8 @@ export default function Fair() {
           : cached(`cash/${m.run_id}/${JSON.stringify(ov)}`, () => api.cashflow(m.run_id, ov)).catch(() => undefined),
         cached(`refchanges/${m.run_id}`, () => api.referenceChanges(m.run_id)).catch(() => [] as ReferenceChange[]),
       ]);
-      return { meta: m, title: shortTitle(benchmarks?.find((b) => b.contract_id === cid)?.title ?? cid), cash, changes, missing };
+      return { meta: m, title: shortTitle(benchmarks?.find((b) => b.contract_id === cid)?.title ?? cid), cash, changes, missing,
+        examples: examplesUsed(m.run_id, params) };
     }));
   }, [runs, cids, figVer]);
 

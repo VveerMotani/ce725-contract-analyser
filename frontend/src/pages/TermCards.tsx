@@ -255,6 +255,13 @@ export function payDaysText(a: Answer): number | null {
 // The grid
 // ---------------------------------------------------------------------------
 
+/** "15 days", "12 months", "3 years": a time after completion, in the contract's own scale. */
+function afterText(m: number): string {
+  if (m < 1) return `${Math.round(m * 30)} days`;
+  if (m >= 12 && m % 12 === 0) return `${m / 12} year${m === 12 ? "" : "s"}`;
+  return `${+m.toFixed(1)} months`;
+}
+
 export function TermCards({ answers, params, cash, sc, only, variant = "card" }: {
   answers: AnswerEnvelope[]; params: CashParams | undefined; cash: CashResult | undefined; sc: Scorecard; only?: ClauseId; variant?: "card" | "header";
 }) {
@@ -283,6 +290,9 @@ export function TermCards({ answers, params, cash, sc, only, variant = "card" }:
       else { const r = rate(li.answer_value); chip = <Chip>Late interest {r ? r.replace(/ a year$/, "") : "yes"}</Chip>; }
     } else if (li?.status === "NOT_STATED") chip = <Chip tone="bad">Late interest not stated</Chip>;
     else if (li?.status === "POINTS_ELSEWHERE") chip = <Chip>Late interest elsewhere</Chip>;
+    if (ok("part_payment_share") && ok("part_payment_days") && inp!.part_payment_share && inp!.part_payment_days) {
+      chip = <>{chip}<Chip tone="good">{pct(inp!.part_payment_share, 0)} paid in {Math.round(inp!.part_payment_days)} days</Chip></>;
+    }
     cards.push(
       <Card key="C1" clause="C1" label={TERM_SHORT.C1} tone={tone("C1", "1.3")} env={pick("1.3", "1.4")}
         big={d ?? "—"} unit={d ? "days to pay" : undefined}
@@ -304,7 +314,10 @@ export function TermCards({ answers, params, cash, sc, only, variant = "card" }:
     }
     const visual = none ? <Empty>Nothing held back</Empty>
       : r && inp && cash ? <RetentionBar months={inp.duration_months} capMonth={cash.retention_cap_month ?? null} releaseAfter={rel} />
-      : r ? <Empty>See contract</Empty> : notHere(a);
+      : r ? <Empty>{rel != null ? `Back ${afterText(rel)} after completion`
+        : relA?.status === "FOUND" && /defect/i.test(relA.answer_value) ? "Back at the end of the defects period"
+        : relA?.status === "POINTS_ELSEWHERE" ? "Return time in another document" : "Return time not stated"}</Empty>
+      : notHere(a);
     cards.push(
       <Card key="C2" clause="C2" label={TERM_SHORT.C2} tone={tone("C2", "2.2")} env={pick("2.2", "2.3", "2.5")}
         big={none ? "None" : r || "—"} unit={!none && r ? (c && c !== r ? `per bill · cap ${c}` : "per bill") : undefined}
@@ -323,11 +336,26 @@ export function TermCards({ answers, params, cash, sc, only, variant = "card" }:
     else if (tot > 0 && inp && cash) {
       visual = <AdvanceArea outstanding={cash.months.map((m) => m.advance_outstanding)} months={cash.months.map((m) => m.month)}
         inMonths={inst.map((i) => i.month)} repaid={cash.advance_repaid_month ?? null} />;
-    } else visual = a1?.status === "FOUND" ? <Empty>See contract</Empty> : notHere(a1);
+    } else if (a1?.status === "FOUND") {
+      const rec = ans("3.4");
+      // Only a rate the reader checked; a % in the text may be something else ("after the first 10% of work").
+      const by = ok("advance_recovery_rate") && inp!.advance_recovery_rate > 0 ? pct(inp!.advance_recovery_rate) : "";
+      visual = <Empty>{by ? `Repaid at ${by} of each bill` : rec?.status === "FOUND" ? brief(rec.answer_value, 70) : "Repayment not stated"}</Empty>;
+    } else visual = notHere(a1);
     let chip: ReactNode = null;
     if (!none && intr?.status === "FOUND") {
       if (/interest[- ]free|no interest|without interest/i.test(intr.answer_value)) chip = <Chip tone="good">Interest-free</Chip>;
       else { const r = rate(intr.answer_value); chip = <Chip>Interest {r ? r.replace(/ a year$/, "") : "charged"}</Chip>; }
+    }
+    // Other advances (3.6), each part read on its own: "secured advance on materials ... 75%", "equipment ... 5%".
+    const other = ans("3.6");
+    if (other?.status === "FOUND") {
+      for (const part of other.answer_value.split(/;\s*/)) {
+        const m = firstPct(part);
+        if (!m || /not stated|not applicable|^\s*no/i.test(part)) continue;
+        const kind = /equipment|machinery|plant/i.test(part) ? "Equipment" : /material/i.test(part) ? "Materials" : "";
+        if (kind) chip = <>{chip}<Chip tone="good">{kind} advance up to {m}</Chip></>;
+      }
     }
     const amt = !none && !tot ? firstPct(ans("3.2")?.status === "FOUND" ? ans("3.2")!.answer_value : "") : "";
     cards.push(

@@ -17,7 +17,7 @@ import { TermCards } from "./TermCards";
 import { FlagBoard } from "./Flags";
 import { KeyFacts, ToCash } from "./KeyFacts";
 import { DocQuality } from "./DocQuality";
-import { overridesFor, stillMissing, useFiguresVersion, withFigures } from "../lib/figures";
+import { examplesUsed, overridesFor, stillMissing, useFiguresVersion, withFigures } from "../lib/figures";
 import { FiguresNeeded, FiguresUsed } from "../components/FiguresNeeded";
 
 const TIP_KEY = "cmt.reportTipSeen";
@@ -93,6 +93,7 @@ function Inner() {
   const [editing, setEditing] = useState(false);
   const overrides = useMemo(() => overridesFor(runId, params.data), [runId, params.data, figVer]);
   const left = useMemo(() => stillMissing(runId, params.data), [runId, params.data, figVer]);
+  const examples = useMemo(() => examplesUsed(runId, params.data), [runId, params.data, figVer]);
   const ready4cash = !!params.data && left.length === 0;
   const cash = useAsync(() => (ready4cash ? api.cashflow(runId, overrides) : Promise.resolve(undefined)),
     [runId, ver, ready4cash, JSON.stringify(overrides)]);
@@ -121,8 +122,15 @@ function Inner() {
           <Figure label="Duration" value={k.dur} note={k.durNote} />
           <Figure label="Defects period" value={k.dlp} />
           <Figure label="Peak funding" value={w ? money(w.peak_funding) : left.length ? <span className="text-[17px]"><ToCash /></span> : "—"}
-            note={w && w.peak_funding > 0 ? `month ${w.peak_month}` : w ? "none needed" : left.length ? "your own costs are never in a contract" : undefined} />
+            note={w && examples.length ? <span className="text-warn">{w.peak_funding > 0 ? `month ${w.peak_month} · ` : ""}with example figures</span>
+              : w && w.peak_funding > 0 ? `month ${w.peak_month}` : w ? "none needed" : left.length ? "your own costs are never in a contract" : undefined} />
         </div>
+        {w && examples.length > 0 && (
+          <p className="mt-4 rounded-md border border-warn/40 bg-warn/10 px-3 py-2 text-[13.5px] text-ink">
+            The cash figures on this page use <b className="font-medium">example figures</b> for {examples.length === 1 ? "one input" : `${examples.length} inputs`} the
+            contract does not give. They show how the model works, not this contract. <ToCash label="See or change them ↓" />
+          </p>
+        )}
         <DocQuality />
         {ready && <Tally t={sc.tally} hasChecks={sc.hasChecks} onClick={toFlags} className="mt-6" />}
       </header>

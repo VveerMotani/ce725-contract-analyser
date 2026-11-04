@@ -206,6 +206,9 @@ export interface CashInputs {
   pv_weights: Record<string, number>;
   perf_security_pct: number;
   perf_security_validity_months_after_completion: number;
+  /** e.g. 0.9 of each bill paid early at part_payment_days, the rest at pay_lag_days */
+  part_payment_share?: number | null;
+  part_payment_days?: number | null;
 }
 
 export interface ParamProvenance {
